@@ -52,7 +52,7 @@ angular.module('miller')
 
       if(cover.metadata){
         if(_hifi){
-          url = _.get(cover, 'metadata.urls.Publishable') || cover.metadata.thumbnail_url || cover.metadata.preview || cover.metadata.url   || cover.attachment || cover.snapshot;
+          url = over.metadata.media_url || _.get(cover, 'metadata.urls.Publishable') || cover.metadata.thumbnail_url || cover.metadata.preview || cover.metadata.url   || cover.attachment || cover.snapshot;
         } else {
           url = cover.metadata.thumbnail_url || cover.metadata.preview || _.get(cover, 'metadata.urls.Preview')  || cover.snapshot || cover.attachment || cover.metadata.url;
         }
