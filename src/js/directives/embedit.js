@@ -25,6 +25,7 @@ angular.module('miller')
         }, 
         disable = ['image', 'heading'],
         stretching_timeout = 10000,
+        stretching_time = 0,
         stretching;
 
         scope.do_strech = function(){
