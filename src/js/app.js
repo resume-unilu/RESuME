@@ -169,7 +169,7 @@ angular
                 status: 'public'
               }),
               limit: 7,
-              ordering: '-date'
+              ordering: '-priority,-date'
             }).$promise;
           },
           news: function(StoryFactory){
