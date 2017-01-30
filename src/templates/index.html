@@ -4,31 +4,20 @@
   <div class="col-md-8">
 
     <!-- CONVER STORY -->
-    <div class="coverstory story lite">
-      <div class="tags" ng-if="coverstory.tags.length">
-        <span class="tag" ng-repeat='tag in coverstory.tags|filter:{ category: "writing" }' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
-      </div>
-
-      <h3>
-        <a ng-if='!story.is_collection' href ui-sref="story({postId: coverstory.slug})" embedit='coverstory.metadata.title' language='language'></a>
-        <a ng-if='story.is_collection' href ui-sref="collection({collectionId: coverstory.slug})" embedit='coverstory.metadata.title' language='language'></a>
-      </h3>
-      <div class='authors' ng-if="coverstory.authors.length">
-        by <span ng-repeat='author in coverstory.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
-      </div>
-      <blockquote>
-        <span embedit='coverstory.excerpt' language='language'></span>
-        <a ng-if='!coverstory.is_collection' href ui-sref="story({postId: coverstory.slug})"><span class='icon-arrow-right-circle'></span></a>
-        <a ng-if='coverstory.is_collection' href ui-sref="collection({collectionId: coverstory.slug})"><span class='icon-arrow-right-circle'></span></a>
-      </blockquote>
+    <div class="row">
       
-      <div ng-if='coverstory.covers.length' ng-repeat='document in coverstory.covers' class='cover-wrapper'>
-        <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' cover='document | coverage:"hifi"'></div>
-          <!-- <div class='cover' style='background-size: cover; height:300px; background-image:url({{coverstory.cover}})' ></div> -->
-      </div>
-      
+        <div class='slides-wrapper' slides autoscroll ng-mouseover='pause()' ng-mouseout='play()'>
+          <ul class='nav slides-nav'>
+            <li ng-repeat="n in numSlides" ng-click='jumpTo(n)' ng-class='{"active": currentIndex == n}'></li>
+          </ul>
+          <div class='slides-inner'>
+            <div class='slides-rail' style='transform: translateY(-{{currentOffset}}px)'>
+              <div class='slide' style='width: 100%' ng-repeat="coverstory in coverstories" ng-include='"templates/partials/coverstory.html"|prefixTemplate'></div>
+            </div>
+          </div>
+        </div>
+     
     </div>
-
     
     <div class="row">
     <!-- REMAINING STORIES -->
@@ -38,6 +27,7 @@
           <div class="tags" ng-if="story.tags.length">
             <span  class='tag' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
           </div>
+          <div class="issue" embedit='story.metadata.issue'></div>
           <h4>
             <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" embedit='story.metadata.title' language='language'></a>
             <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" embedit='story.metadata.title' language='language'></a>
@@ -56,7 +46,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <div class="col-md-4">
     <h5 class='lined'><span translate='latest news'></span></h5>

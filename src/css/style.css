@@ -767,33 +767,46 @@ ul.errorlist{
 .story.lite{
   background: #f0f0f0;
   /*padding: 17px 20px;*/
-  padding: 10px 0px 0px 0px;
+  padding: 0px;
   margin-bottom: 20px;
 }
 
-.story.lite .tags, .story.lite .authors{
-  padding: 0px 15px 0;
+.story.lite .cover-wrapper{
+  margin-top: 0;
+}
+
+
+.story.lite .tags, .story.lite .authors, .story.lite .issue{
+  padding: 0px 15px 0px 0px;
+}
+
+.story.lite .tags{
+  padding-top: 12px;
 }
 
 .story.lite h3{
   margin-top: 10px;
-  padding-left: 15px;
+  padding-left: 0px;
   padding-right: 15px;
 }
 
 .story.lite h3 a {
   font-size: 30px;
+  line-height: 45px;
   color: #333;
 }
 
 
 .story.lite blockquote{
   border-left: 0px;
-  padding: 0 15px;
+  padding: 5px 0 0 0;
   margin: 0;
-}
-.story.lite blockquote p{
   font-size: 15px;
+  line-height: 25px;
+}
+
+.story.lite blockquote p{
+  font-size: 14px;
   line-height: 25px;
   margin-top: 5px
 }
@@ -829,6 +842,62 @@ ul.errorlist{
 /*
   Index page
 */
+
+.slides-nav{
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  left: 0;
+  top: -15px;
+  text-align: center;
+}
+
+.slides-nav li{
+  width: 33.3%;
+  float: left;
+  background: #ccc;
+  height: 16px;
+  margin-bottom: 0px;
+  transition: background-color .36s ease-in-out;
+  border: 7px solid white;
+  cursor: pointer;
+  border-left-width: 5px;
+  border-right-width: 5px;
+}
+
+.slides-nav li:hover{
+  background-color: #f06b6b;
+
+}
+
+.slides-nav li.active{
+  background-color: #151515;
+
+}
+
+.slides-wrapper{
+  position: relative;
+  min-height: 300px;
+  height: 300px;
+  transition: height .36s ease-in-out;
+  transition-delay: .38s;
+  margin-top: 26px;
+}
+
+.slides-inner{
+  height: 100%;
+  overflow: hidden;
+}
+
+.slides-rail{
+  position: relative;
+  transition: transform .36s ease-in-out;
+}
+
+.slide{
+  position: relative;
+  top: 0;
+}
 .coverstory.story.lite{
   margin-bottom: 0px;
 }

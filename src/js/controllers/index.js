@@ -23,16 +23,16 @@ angular.module('miller')
 
     writings.results = writings.results.map(excerpt);
 
-    $scope.coverstory = writings.results.shift();
-    $scope.otherstories = writings.results;
-
+    $scope.coverstories = _.take(writings.results, 3);//.shift();
+    $scope.otherstories = _.takeRight(writings.results, writings.results.length - 3); //writings.results;
+    
     // check cover of coverstory
-    if($scope.coverstory && $scope.coverstory.covers.length){
-      var maincover = _.first($scope.coverstory.covers);
+    // if($scope.coverstory && $scope.coverstory.covers.length){
+    //   var maincover = _.first($scope.coverstory.covers);
 
-      $scope.coverstory.cover = _.get(maincover, 'metadata.thumbnail_url') || maincover.snapshot;
+    //   $scope.coverstory.cover = _.get(maincover, 'metadata.thumbnail_url') || maincover.snapshot;
 
-    }
+    // }
 
 
     $scope.news = news.results.map(excerpt);
