@@ -8,16 +8,13 @@
 
 
 <!-- Nav tabs -->
-<ul class='nav nav-tabs' style='margin-top: 20px'>
+<ul class='nav nav-tabs' style='margin-top: 20px;margin-bottom: 10px;border-bottom-width: 0'>
   <li role="presentation" ui-sref-active="active" >
     <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
   </li>
-  <li ng-repeat='link in urls' role="presentation" ui-sref-active="active">
+  <li ng-repeat='link in urls.writing' role="presentation" ui-sref-active="active">
     <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
     <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
-  </li>
-  <li ng-if='slug' role="presentation" ui-sref-active="active" >
-    <a href ui-sref='publications.tags({slug: slug})' aria-controls="home" role="tab" data-toggle="tab">/filter: <b>{{slug}}</b>/</a>
   </li>
 
   <!-- <li class='dropdown active secondary'>
@@ -33,7 +30,16 @@
   </li> -->
 </ul>
 
-
+<ul class='nav nav-tabs'>
+  
+  <li ng-repeat='link in urls.tags' role="presentation" ui-sref-active="active">
+    <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
+    <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
+  </li>
+  <li ng-if='slug' role="presentation" ui-sref-active="active" >
+    <a href ui-sref='publications.tags({slug: slug})' aria-controls="home" role="tab" data-toggle="tab">/filter: <b>{{slug}}</b>/</a>
+  </li>
+</ul>
 
 
 <div ui-view></div>

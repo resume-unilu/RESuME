@@ -281,7 +281,7 @@ angular
         abstract:true,
         reloadOnSearch : false,
         controller: function($scope){
-          $scope.urls = RUNTIME.stories.writing;
+          $scope.urls = RUNTIME.stories;
         },
         templateUrl: RUNTIME.static + 'templates/author.publications.html',
       })
@@ -357,7 +357,7 @@ angular
         }
       });
 
-      _.each(RUNTIME.stories.writing, function(d){
+      _.each(RUNTIME.stories.writing.concat(RUNTIME.stories.tags), function(d){
         $stateProvider
           .state('author.publications.' + d.slug, {
             url: d.url,
@@ -618,7 +618,7 @@ angular
         abstract: true,
         reloadOnSearch : false,
         controller: function($scope, $state){
-          $scope.urls = RUNTIME.stories.writing;
+          $scope.urls = RUNTIME.stories;
           
           if($state.params.slug)
             $scope.slug = $state.params.slug;
@@ -674,7 +674,7 @@ angular
           }
         });
 
-      _.each(RUNTIME.stories.writing, function(d){
+      _.each(RUNTIME.stories.writing.concat(RUNTIME.stories.tags), function(d){
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,

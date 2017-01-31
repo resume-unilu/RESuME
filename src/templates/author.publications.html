@@ -7,8 +7,11 @@
     <li role="presentation" ui-sref-active="active" >
       <a href ui-sref='author.publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
     </li>
-    <li ng-repeat='link in urls' role="presentation" ui-sref-active="active">
-      <a href ui-sref='author.publications.{{link.slug}}({username: author.profile.username})' aria-controls="home" role="tab" data-toggle="tab" translate="{{link.name}}"></a>
+    
+
+    <li ng-repeat='link in urls.writing' role="presentation" ui-sref-active="active">
+      <a ng-if='link.preventTranslation' href ui-sref='author.publications.{{link.slug}}({username: author.profile.username})' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
+      <a ng-if='!link.preventTranslation' href ui-sref='author.publications.{{link.slug}}({username: author.profile.username})' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
     </li>
     
     <li ng-if='isMe' ui-sref-active="active">
