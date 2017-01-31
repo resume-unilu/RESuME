@@ -668,6 +668,9 @@
         .coverstory .cover {
           height: 200px;
         }
+        .coverstory.news .cover {
+          height: 120px;
+        }
         .coverstory.story .cover{
           height: 100%;
         }
@@ -676,7 +679,11 @@
         }
       }
       
-
+      @media (min-width: 1400px) {
+        .container {
+            width: 1200px;
+        }
+      }
       /*.view{
         margin-top: 210px;
       }*/
@@ -688,7 +695,7 @@
     <!-- where highlights are -->
     <div id='showreel'>
       <div class='container'>
-        <div class="row" >
+        <div class="row" ><div class='col-sm-12'>
           <div id='showreel-inner'>
             {% verbatim %}
             <div class="breakingNews">
@@ -700,7 +707,7 @@
             {% endverbatim %}
           </div>
         </div>
-      </div>
+      </div></div>
     </div>
     
     

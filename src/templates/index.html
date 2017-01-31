@@ -1,7 +1,7 @@
 <div class="container">
 <div class="view">
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
 
     <!-- CONVER STORY -->
     <div class="row">
@@ -18,7 +18,8 @@
         </div>
      
     </div>
-    
+  </div>
+  <div class="col-md-8">
     <div class="row">
     <!-- REMAINING STORIES -->
       <div ng-repeat='story in otherstories' class="col-md-6" ng-class-odd="'clear-left'">
@@ -57,18 +58,22 @@
           <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" embedit='story.metadata.title' language='language'></a>
           <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" embedit='story.metadata.title' language='language'></a>
         </h4>
-        <div class='authors' ng-if="story.authors.length">
-          by <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+
+        <div class='contents'>
+          <div class='authors' ng-if="story.authors.length">
+            by <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+          </div>
+          <blockquote class="reduced">
+            <span embedit='story.excerpt' language='language'></span>
+            <a href ui-sref="story({postId: story.slug})"><span class='icon-arrow-right-circle'></span></a>
+          </blockquote>
         </div>
-        <blockquote class="reduced">
-          <span embedit='story.excerpt' language='language'></span>
-          <a href ui-sref="story({postId: story.slug})"><span class='icon-arrow-right-circle'></span></a>
-        </blockquote>
+        
         <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers' class='fluid-container relative'>
           <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
           <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
         </div>
-
+          <div style='clear:both'></div>
         
       </div>
     </div>

@@ -84,7 +84,8 @@ angular.module('miller')
           // if(scope.isVertical)
           scope.currentOffset = slide.offsetTop;
 
-          element.height(scope.currentHeight);
+          if(attrs.adapt)
+            element.height(scope.currentHeight);
 
           $rootScope.$emit('lazyImg:refresh');
           
