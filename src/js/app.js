@@ -168,7 +168,7 @@ angular
                 tags__slug: 'highlights',
                 status: 'public'
               }),
-              limit: 10,
+              limit: 9,
               ordering: '-priority,-date'
             }).$promise;
           },
