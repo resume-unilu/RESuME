@@ -1,48 +1,68 @@
 <div class='container'>
 <div class="view">
 
-<h1 translate="headline.publications.title"></h1>
+  <h1 translate="headline.publications.title"></h1>
 
-    <p translate="headline.publications.abstract"></p>
+      <p translate="headline.publications.abstract"></p>
 
+  <!-- Nav tabs -->
+  <ul class='nav nav-tabs' style='margin-top: 20px;'>
+    <li role="presentation" ui-sref-active="active" >
+      <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
+    </li>
+    
 
+    <!-- <li class='dropdown active secondary'>
+      <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
+        <span class='inner'>
+          <span translate='orderby.date'></span>
+          <span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span>
+        </span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
+      </ul>
+    </li> -->
+  </ul>
+  <table cellspacing="20">
+    <tr>
+      <td class='nav-filters'>
+        <ul class='nav nav-tabs '>
+          <li class="dropdown">
+            <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
+              
+              <a bs-dropdown placement='bottom-left' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
+                <span class='username'><span class='ellipsis' translate='order.by.{{ordering}}'></span><span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
+              </a>
 
-<!-- Nav tabs -->
-<ul class='nav nav-tabs' style='margin-top: 20px;margin-bottom: 10px;border-bottom-width: 0'>
-  <li role="presentation" ui-sref-active="active" >
-    <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
-  </li>
-  <li ng-repeat='link in urls.writing' role="presentation" ui-sref-active="active">
-    <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
-    <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
-  </li>
-
-  <!-- <li class='dropdown active secondary'>
-    <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
-      <span class='inner'>
-        <span translate='orderby.date'></span>
-        <span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span>
-      </span>
-    </a>
-    <ul class="dropdown-menu" role="menu">
-      <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
-    </ul>
-  </li> -->
-</ul>
-
-<ul class='nav nav-tabs'>
-  
-  <li ng-repeat='link in urls.tags' role="presentation" ui-sref-active="active">
-    <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
-    <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
-  </li>
-  <li ng-if='slug' role="presentation" ui-sref-active="active" >
-    <a href ui-sref='publications.tags({slug: slug})' aria-controls="home" role="tab" data-toggle="tab">/filter: <b>{{slug}}</b>/</a>
-  </li>
-</ul>
-
-
-<div ui-view></div>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat='orderby in availabileOrderby' ng-class='{"active":params.orderby==orderby.value}'><a ng-click='changeOrderby(orderby.value)' translate='order.by.{{orderby.label}}'></a></li>
+              </ul>
+            </li>
+        </ul>
+        <ul class='nav nav-tabs '>
+          <li ng-repeat='link in urls.writing' role="presentation" ui-sref-active="active">
+            <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
+            <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
+          </li>
+        </ul>
+        <ul class='nav nav-tabs '>
+          
+          <li ng-repeat='link in urls.tags' role="presentation" ui-sref-active="active">
+            <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
+            <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
+          </li>
+          <li ng-if='slug' role="presentation" ui-sref-active="active" >
+            <a href ui-sref='publications.tags({slug: slug})' aria-controls="home" role="tab" data-toggle="tab">/filter: <b>{{slug}}</b>/</a>
+          </li>
+        </ul>
+      </td>
+    
+      <td>
+        <div ui-view></div>
+      </td>
+    </tr>
+  </table>
 </div>
 </div>
 

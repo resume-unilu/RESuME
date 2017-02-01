@@ -35,6 +35,7 @@ angular
   })
   .constant('EVENTS', {
     'SAVE': 'save',
+    'PARAMS_CHANGED':'params_changed',
     'DOWNLOAD': 'download',
     'MESSAGE': 'message',
     'BAD_REQUEST':'bad_request',
@@ -169,7 +170,7 @@ angular
                 status: 'public'
               }),
               limit: 9,
-              ordering: '-priority,-date'
+              orderby: '-priority,-date'
             }).$promise;
           },
           news: function(StoryFactory){
@@ -178,7 +179,7 @@ angular
                 tags__category: 'blog',
                 status: 'public'
               }),
-              ordering: '-date'
+              orderby: '-date'
             }).$promise;
           } 
         }
@@ -297,7 +298,7 @@ angular
                 status: 'draft',
                 authors__slug: author.slug
               }),
-              ordering: '-date,-date_last_modified'
+              orderby: '-date,-date_last_modified'
             }).$promise;
           },
 
@@ -321,7 +322,7 @@ angular
                 status: 'deleted',
                 authors__slug: author.slug
               }),
-              ordering: '-date,-date_last_modified'
+              orderby: '-date,-date_last_modified'
             }).$promise;
           },
 
@@ -344,7 +345,7 @@ angular
               filters: JSON.stringify({
                 authors__slug: author.slug
               }),
-              ordering: '-date,-date_last_modified'
+              orderby: '-date,-date_last_modified'
             }).$promise;
           },
 
@@ -374,7 +375,7 @@ angular
                     tags__category__in: ['writing', 'blog'],
                     authors__slug: author.slug
                   }),
-                  ordering: '-date,-date_last_modified'
+                  orderby: '-date,-date_last_modified'
                 }).$promise;
               },
 
@@ -438,7 +439,7 @@ angular
                 filters: JSON.stringify({
                   authors__user__username: profile.username
                 }),
-                ordering: '-date,-date_last_modified'
+                orderby: '-date,-date_last_modified'
               }).$promise;
             },
             model: function() {
@@ -573,7 +574,7 @@ angular
                 tags__category: 'blog',
                 tags__slug: 'event'
               }),
-              ordering: '-date,-date_last_modified'
+              orderby: '-date,-date_last_modified'
             }).$promise;
           },
           model: function() {
@@ -596,7 +597,7 @@ angular
                 tags__category: 'blog',
                 tags__slug: 'news'
               }),
-              ordering: '-date,-date_last_modified'
+              orderby: '-date,-date_last_modified'
             }).$promise;
           },
           model: function() {
@@ -617,11 +618,40 @@ angular
         url: '/publications',
         abstract: true,
         reloadOnSearch : false,
-        controller: function($scope, $state){
+        controller: function($scope, $state, EVENTS){
           $scope.urls = RUNTIME.stories;
           
           if($state.params.slug)
             $scope.slug = $state.params.slug;
+
+          $scope.availabileOrderby = [
+            {
+              label:'newest',
+              value:'-date,-date_last_modified'
+            },
+            {
+              label:'oldest',
+              value:'date,-date_last_modified'
+            },
+            {
+              label:'titleaz',
+              value:'title'
+            },
+            {
+              label:'titleza',
+              value:'-title'
+            },
+          ];
+
+          $scope.setOrdering = function(){
+            $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.params.orderby}),'label') || 'newest';
+          }
+
+          $scope.setOrdering();
+          $scope.$on(EVENTS.PARAMS_CHANGED, $scope.setOrdering);
+
+          // translate-values='{{availabileOrderby|find:"value":params.orderby:"newest"}}
+
         },
         templateUrl: RUNTIME.static + 'templates/publications.html',
         
@@ -631,16 +661,16 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            items: function(StoryFactory) {
-              return StoryFactory.get({
+            items: function(StoryFactory, $location) {
+              return StoryFactory.get(angular.extend({
                 filters: JSON.stringify({
                   tags__category: 'writing'
                 }),
                 exclude:JSON.stringify({
                   tags__slug: 'chapter'
                 }),
-                ordering: '-date,-date_last_modified'
-              }).$promise;
+                orderby: '-date,-date_last_modified'
+              }, $location.search())).$promise;
             },
 
             model: function() {
@@ -661,7 +691,7 @@ angular
                 filters: JSON.stringify({
                   tags__slug: $stateParams.slug
                 }),
-                ordering: '-date,-date_last_modified'
+                orderby: '-date,-date_last_modified'
               }).$promise;
             },
 
@@ -689,7 +719,7 @@ angular
                   }): JSON.stringify({
                     tags__category: 'writing'
                   }),
-                  ordering: '-date,-date_last_modified'
+                  orderby: '-date,-date_last_modified'
                 }).$promise;
               },
 

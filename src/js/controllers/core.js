@@ -93,6 +93,15 @@ angular.module('miller')
       $scope.$broadcast(EVENTS.SAVE);
     };
 
+    // filters and other stories.
+    $scope.params = {};
+    $scope.changeOrderby = function(orderby){
+      $log.log('CoreCtrl > @changeOrderby ...'); 
+      $scope.params.orderby = orderby;
+      $location.search($scope.params);
+      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.params);
+    }
+
     $scope.download = function(){
       $log.log('CoreCtrl > @DOWNLOAD ...'); 
       $scope.$broadcast(EVENTS.DOWNLOAD);
@@ -179,6 +188,9 @@ angular.module('miller')
     $rootScope.$on('$stateChangeSuccess', function (e, state, stateParams, from, fromParams) {
       var h =  $location.hash();
 
+      // add params from location
+      $scope.params = $location.search();
+      
       // google
 
       // clean

@@ -169,8 +169,10 @@ tab.all,,all resources,toutes les ressources,alle Ressourcen,all resources
 tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
 tag.law,,Law,Droit,Recht,Law
-,,,,,
-,,,,,
+order.by.newest,,most recent first,,,most recent first
+order.by.oldest,,most recent last,,,most recent last
+order.by.titleaz,,by title (A-Z),,,by title (A-Z)
+order.by.titleza,,by title (Z-A),,,by title (Z-A)
 oembed.type.rich,à rajouter,Media,Media,Media,Media
 oembed.type.link,,Link,Lien,Link,Link
 oembed.type.photo,,Image,Image,Bild,Image
@@ -193,8 +195,8 @@ story.read.comments,,comments,commentaires,Kommentare,comments
 field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,write here ...
 field.label.review.score,,score:,points :,Punktzahl :,score:
 field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),(still completing the review)
-field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,Approval for publication.
-field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,Refused. Do not consider for publication.
+field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,
+field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,
 field.label.review.status.bounce,paper to be reviewed,Improvements needed before publication. To be submitted again.,Améliorations nécessaires avant la publication. Nouvelle soumission requise.,Erforderliche Verbesserungen vor Veröffentlichung. Muss erneut eingereicht werden.,
 field.label.review.final,,final consideration / further comments,examen final / autres commentaires,Schlussbemerkungen / weitere Kommentare,
 field.label.review.final.description,,,,,

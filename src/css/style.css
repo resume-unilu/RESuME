@@ -842,13 +842,13 @@ ul.errorlist{
   color: #151515;
 }
 
-.story.item .cover{
+.story.item .cover, .story.lite .cover{
   transition:opacity .36s ease-in-out;
   height: 190px;
   opacity: 0;
 }
 
-.story.item .cover.loaded{
+.story.item .cover.loaded, .story.lite .cover.loaded{
   opacity: 1;
 }
 /*
@@ -923,9 +923,11 @@ ul.errorlist{
 
 .coverstory.news h4 {
   margin: 0;
+  margin-bottom: 5px;
 }
 .coverstory.news h4 a{
   font-size: 15px;
+  line-height: 24px;
   font-style: italic;
 }
 .coverstory.news .authors{
@@ -959,9 +961,7 @@ ul.errorlist{
   border-left: 2px solid #c8c8c8;
 */}
 
-.story.lite .cover{
-  height: 100px;
-}
+
 
 .embedded-metadata{
   bottom: 0;
@@ -1278,6 +1278,12 @@ ul.errorlist{
   transition: color .25s ease-in-out, border-color .25s ease-in-out;
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+  border-color: transparent;
+  background-color: #e7e7e7;
+
+}
+
 .nav > li > a:hover, .nav > li > a:focus{
   color: #4ECDC4;
   border: 2px solid #4ECDC4;
@@ -1305,6 +1311,7 @@ ul.errorlist{
 .navbar-nav > li > .dropdown-menu, .nav-tabs .dropdown-menu{
   min-width: 50px;
   padding: 5px 0;
+  
 }
 
 .dropdown-menu{
@@ -1320,9 +1327,29 @@ ul.errorlist{
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
   background-color: #e7e7e7;
   color: #151515;
+  font-weight: bold;
 }
 
+.dropdown .ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:block;
+  width: 79px;
+  white-space: nowrap;
+}
 
+.nav-filters{
+  width: 150px;
+  vertical-align: top;
+  padding-right: 20px;
+  font-family: 'Lato';
+}
+
+.nav-filters .ellipsis{
+  font-style: italic;
+  font-family: 'Merriweather', georgia, sans-serif;
+  text-transform: lowercase;
+}
 /*
   a wrapper of .nav-tabs
 */
