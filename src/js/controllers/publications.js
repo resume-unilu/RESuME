@@ -61,7 +61,8 @@ angular.module('miller')
       
       AuthorFactory.hallOfFame({
         filters: JSON.stringify(filters),
-        exclude: JSON.stringify(exclude)
+        exclude: JSON.stringify(exclude),
+        limit: 10
       }, function(res){
         $scope.hallOfFame = {
           count: res.count,

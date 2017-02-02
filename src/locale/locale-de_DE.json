@@ -184,6 +184,7 @@
   "state.publications.cahiers.label": "RESuME-Beitr\u00e4ge", 
   "state.blog.news.label": "News", 
   "field.label.structure.description": "", 
+  "filterby.authors__slug": "von", 
   "field.label.firstname": "Vorname", 
   "state.publications.biography.label": "Biographie", 
   "field.label.thematic": "Bezieht sich der Beitrag auf die von dem Forschungsprojekt RESuME behandelten Themen?", 

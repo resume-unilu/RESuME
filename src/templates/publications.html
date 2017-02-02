@@ -11,7 +11,10 @@
       <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
     </li>
     
-    <!-- <li ng-repeat='(key, value) in filters'><span translate='filterby.{{key}}'></span> {{value}} <span class='icon icon-arrow-down-circle'></span></li> -->
+    <!-- <li ng-repeat='(key, value) in filters'>
+      <span class='filter'>
+        <span translate='filterby.{{key}}'></span> {{value}} 
+        <span ng-click='toggleFilter(key, value)' class='icon icon-close'></span></li> -->
     <!-- <li class='dropdown active secondary'>
       <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
         <span class='inner'>

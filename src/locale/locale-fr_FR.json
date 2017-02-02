@@ -184,6 +184,7 @@
   "state.publications.cahiers.label": "Cahiers RESuME", 
   "state.blog.news.label": "news", 
   "field.label.structure.description": "", 
+  "filterby.authors__slug": "par", 
   "field.label.firstname": "pr\u00e9nom", 
   "state.publications.biography.label": "biographie", 
   "field.label.thematic": "Le tapuscrit se rattache-t-il aux th\u00e8mes abord\u00e9s par le projet de recherche RESuME?", 

@@ -184,6 +184,7 @@
   "state.publications.cahiers.label": "RESuME Papers", 
   "state.blog.news.label": "news", 
   "field.label.structure.description": "", 
+  "filterby.authors__slug": "by", 
   "field.label.firstname": "first name", 
   "state.publications.biography.label": "biography", 
   "field.label.thematic": "Is the contribution related to the topics covered by the RESuME research project?", 

@@ -83,6 +83,7 @@ field.label.references,,"Are the references cited in the footnotes appropriate, 
 field.label.references.description,,,,,
 field.label.pertinence,,Do the selected resources make a useful contribution to the argument?,Les ressources documentaires sélectionnées contribuent-elles utilement à l’argumentation?,,Do the selected resources make a useful contribution to the argument?
 field.label.pertinence.description,,,,,
+filterby.authors__slug,written by,by,par,von,by
 footer.home,footer link content,home,accueil,Startseite,home
 footer.termsofservice,,terms of use,notice légale,Nutzungsbedingungen,terms of use
 footer.guideforauthors,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
@@ -194,7 +195,7 @@ story.read.reviews,,reviews,évaluations,Begutachtungen,reviews
 story.read.comments,,comments,commentaires,Kommentare,comments
 field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,write here ...
 field.label.review.score,,score:,points :,Punktzahl :,score:
-field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),(still completing the review)
+field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),
 field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,
 field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,
 field.label.review.status.bounce,paper to be reviewed,Improvements needed before publication. To be submitted again.,Améliorations nécessaires avant la publication. Nouvelle soumission requise.,Erforderliche Verbesserungen vor Veröffentlichung. Muss erneut eingereicht werden.,
