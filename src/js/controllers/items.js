@@ -6,8 +6,8 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, items, model, factory, QueryParamsService, EVENTS) {
-    $log.log('ItemsCtrl ready, n.:', items.count, '- items:',items);
+  .controller('ItemsCtrl', function ($scope, $log, $filter, initials, items, model, factory, QueryParamsService, EVENTS) {
+    $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'inititals:', initials);
 
     // model is used to get the correct item template
     $scope.model = model;
@@ -48,7 +48,7 @@ angular.module('miller')
       $scope.isLoadingNextItems = false;
       // update next
       $scope.nextParams = QueryParamsService(res.next || '');
-      console.log('ItemsCtrl > sync() next:', $scope.nextParams);
+      $log.log('🌻 ItemsCtrl > sync() next:', $scope.nextParams);
       // update count
       $scope.count = res.count;
       // push items
@@ -59,29 +59,43 @@ angular.module('miller')
 
     $scope.more = function(){
       if($scope.isLoadingNextItems){
-        $log.warn('is still loading');
+        $log.warn('🌻 is still loading');
         return;
       }
       $scope.isLoadingNextItems = true;
-      factory(next, $scope.sync);
+      factory($scope.nextParams, $scope.sync);
     }
 
     $scope.sync(items);
     
     // watch for ordering
-    $scope.$on(EVENTS.PARAMS_CHANGED, function($params){
+    $scope.$on(EVENTS.PARAMS_CHANGED, function(e, newParams){
       if($scope.isLoadingNextItems){
-        $log.warn('ItemsCtrl @EVENTS.PARAMS_CHANGED wait, is still loading');
+        $log.warn('🌻 ItemsCtrl @EVENTS.PARAMS_CHANGED wait, is still loading');
         return;
       }
+      $log.log('🌻 ItemsCtrl @EVENTS.PARAMS_CHANGED - params:', newParams);
       $scope.isLoadingNextItems = true;
+
       // clean items
       $scope.items = [];
 
-      // override offset; override with params
-      factory(angular.extend({}, $scope.nextParams, $scope.params, {
-        offset:0
-      }), $scope.sync);
+      // reset params to initial params, then add filters recursively
+      var params = angular.copy(initials);
+      
+      for(var key in newParams){
+        if(key == 'filters'){
+          try {
+            params.filters = JSON.stringify(angular.merge(JSON.parse(params.filters), JSON.parse(newParams.filters)));
+          } catch(e){
+            $log.warn('🌻 ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
+            params.filters = initials.filters;
+          }
+        } else {
+          params[key] = newParams[key]
+        }
+      }
+      factory(params, $scope.sync);
     })
     // $scope.$watch('language', function(v){
     //   if(v){

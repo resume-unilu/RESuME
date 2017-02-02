@@ -7,7 +7,7 @@
  */
 angular.module('miller')
   .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, RUNTIME, EVENTS) {    
-    $log.log('CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
+    $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
     $scope.user.is_reviewer = _.map(RUNTIME.user.profile.groups, 'name').indexOf('reviewers') != -1;
@@ -29,12 +29,12 @@ angular.module('miller')
 
     // toggle stopStateChangeStart variable thus affecting the StateChangeStart event
     $scope.toggleStopStateChangeStart = function(value) {
-      $log.debug('CoreCtrl > toggleStopStateChangeStart value:', value, '- current:',$scope.stopStateChangeStart);
+      $log.debug('🍔 CoreCtrl > toggleStopStateChangeStart value:', value, '- current:',$scope.stopStateChangeStart);
       $scope.stopStateChangeStart = typeof value == 'boolean'? value: !$scope.stopStateChangeStart;
     };
 
     $scope.setToC = function(ToC) {
-      $log.log('CoreCtrl > setToC data:', ToC);
+      $log.log('🍔 CoreCtrl > setToC data:', ToC);
       $scope.ToC = ToC;
       // $scope.ToCEnabled = false;
     };
@@ -46,7 +46,7 @@ angular.module('miller')
     // search
 
     $scope.search = function(searchquery){
-      $log.log('CoreCtrl > search() searchquery:', searchquery);
+      $log.log('🍔 CoreCtrl > search() searchquery:', searchquery);
 
       $state.go('search', {
         q: searchquery
@@ -55,7 +55,7 @@ angular.module('miller')
 
     // add document items to the table-of)documents
     $scope.setDocuments = function(documents) {
-      $log.log('CoreCtrl > setDocuments items n.:', documents.length, documents);
+      $log.log('🍔 CoreCtrl > setDocuments items n.:', documents.length, documents);
       $scope.documents = _.uniq(documents, 'id');
       if($scope.qs.view) {
         // check if it's somewhere in the scope, otherwise callit
@@ -72,43 +72,59 @@ angular.module('miller')
     // look for document by slug (internal, cached docs or ask for new one)
     $rootScope.resolve = function(slug, type, callback){
       if(type == 'voc'){
-        $log.log('CoreCtrl > $scope.resolve [requesting] voc slug:', slug);
+        $log.log('🍔 CoreCtrl > $scope.resolve [requesting] voc slug:', slug);
         StoryFactory.get({id: slug}, callback);
       } else {
         var matching = $scope.documents.filter(function(d){
           return d.slug == slug;
         });
         if(matching.length){
-          $log.log('CoreCtrl > $scope.resolve [cached] doc slug:', slug);
+          $log.log('🍔 CoreCtrl > $scope.resolve [cached] doc slug:', slug);
           callback(matching[0]);
         } else {
-          $log.log('CoreCtrl > $scope.resolve [requesting] doc slug:', slug);
+          $log.log('🍔 CoreCtrl > $scope.resolve [requesting] doc slug:', slug);
           DocumentFactory.get({id: slug}, callback);
         }
       }
     };
 
     $scope.save = function(){
-      $log.log('CoreCtrl > @SAVE ...'); 
+      $log.log('🍔 CoreCtrl > @SAVE ...'); 
       $scope.$broadcast(EVENTS.SAVE);
     };
 
     // filters and other stories.
     $scope.params = {};
+    $scope.filters = {};
+
     $scope.changeOrderby = function(orderby){
-      $log.log('CoreCtrl > @changeOrderby ...'); 
-      $scope.params.orderby = orderby;
-      $location.search($scope.params);
-      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.params);
+      $log.log('🍔 CoreCtrl > @changeOrderby ...'); 
+      $location.search('orderby', orderby);
+      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.qs);
     }
 
+    $scope.toggleFilter = function(key, value){
+      $log.log('🍔 CoreCtrl > @setFilters ...'); 
+      // only if it is the same as the current value
+      if($scope.filters[key] == value){
+        delete $scope.filters[key];
+      } else {
+        $scope.filters[key] = value;
+      }
+      // empty filters?
+      $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.qs);
+    }
+
+
+
     $scope.download = function(){
-      $log.log('CoreCtrl > @DOWNLOAD ...'); 
+      $log.log('🍔 CoreCtrl > @DOWNLOAD ...'); 
       $scope.$broadcast(EVENTS.DOWNLOAD);
     };
 
     $scope.update = function(key, value){
-      $log.log('CoreCtrl > @UPDATE ',key,':',value,' ...'); 
+      $log.log('🍔 CoreCtrl > @UPDATE ',key,':',value,' ...'); 
       var _d = {};
       _d[key] = value;
       $scope.$broadcast(EVENTS.UPDATE, _d);
@@ -116,12 +132,12 @@ angular.module('miller')
 
 
     $scope.lock = function(){
-      $log.log('CoreCtrl > lock .............'); 
+      $log.log('🍔 CoreCtrl > lock .............'); 
       
     };
 
     $scope.unlock = function(){
-      $log.log('CoreCtrl > unlock .............'); 
+      $log.log('🍔 CoreCtrl > unlock .............'); 
       
     };
 
@@ -129,7 +145,7 @@ angular.module('miller')
       Suggest tags for writing purposes
     */
     $scope.suggestTags = function(query, options) {
-      $log.log('CoreCtrl -> suggestTags', query, options);
+      $log.log('🍔 CoreCtrl -> suggestTags', query, options);
       var filters = options || {};
       filters.name__icontains = query;
       return TagFactory.get({
@@ -161,7 +177,7 @@ angular.module('miller')
     };
 
     $rootScope.$on('$stateChangeStart', function (e, state) {
-      $log.log('CoreCtrl @stateChangeStart new:', state.name, '- previous:', $scope.state);
+      $log.log('🍔 CoreCtrl @stateChangeStart new:', state.name, '- previous:', $scope.state);
       // login page
       if(state.name == 'login' && $scope.user.short_url){
         $log.warn('... cannot swithc to login, user already logged in:', $scope.user.username);
@@ -187,11 +203,6 @@ angular.module('miller')
 
     $rootScope.$on('$stateChangeSuccess', function (e, state, stateParams, from, fromParams) {
       var h =  $location.hash();
-
-      // add params from location
-      $scope.params = $location.search();
-      
-      // google
 
       // clean
       $scope.ToC = [];
@@ -220,7 +231,7 @@ angular.module('miller')
         absolute: true
       });
 
-      $log.debug('CoreCtrl @stateChangeSuccess - name:', state.name, '- page:', $rootScope.page);
+      $log.debug('🍔 CoreCtrl @stateChangeSuccess - name:', state.name, '- page:', $rootScope.page);
 
       if(h && h.length)
         $timeout($anchorScroll, 0); // wait for the next digest cycle (cfr marked directive)
@@ -242,7 +253,7 @@ angular.module('miller')
       $scope.language = key;
       $rootScope.language = key;
       localStorageService.set('lang', $scope.language);
-      $log.log('CoreCtrl -> changeLanguage language:', $scope.language)
+      $log.log('🍔 CoreCtrl -> changeLanguage language:', $scope.language)
       $translate.use(key);
     };
 
@@ -278,7 +289,7 @@ angular.module('miller')
 
     // 
     $rootScope.fullsize = function(slug, type) {
-      $log.log('CoreCtrl -> fullsize, doc slug:', slug, type);
+      $log.log('🍔 CoreCtrl -> fullsize, doc slug:', slug, type);
       
       if(type=='voc'){
         $state.go('story', {
@@ -344,8 +355,18 @@ angular.module('miller')
       Since this is called BEFORE statehangeSuccess, the scrolling cannot be made at this level.
     */
     $scope.$on('$locationChangeSuccess', function (e, path) {
-      $log.debug('CoreCtrl @locationChangeSuccess', path, $location);
+      $log.debug('🍔 CoreCtrl @locationChangeSuccess', path, $location);
       $scope.qs = $location.search();
+      // addd filters
+      try{
+        $scope.filters = $scope.qs.filters? JSON.parse($scope.qs.filters): {};
+        $log.log("🍔 CoreCtrl load filters: ", $scope.filters);
+        
+      } catch(ex){
+        $log.warn("🍔 CoreCtrl couldn't load filters", ex);
+        $scope.filters = {};
+      }
+
       $scope.locationPath = path;
       $scope.path = $location.path();
       $scope.searchquery = $scope.qs.q;
@@ -402,7 +423,7 @@ angular.module('miller')
     var timer_event_message;
     // watch for saving or MESSAGE events
     $scope.$on(EVENTS.MESSAGE, function (e, message) {
-      $log.log('CoreCtrl @MESSAGE', message);
+      $log.log('🍔 CoreCtrl @MESSAGE', message);
       $scope.message = message;
       if(timer_event_message)
         $timeout.cancel(timer_event_message);
@@ -441,7 +462,7 @@ angular.module('miller')
         status: 'public'
       })
     }, function(data){
-      $log.info('CoreCtrl breaking news loaded', data);
+      $log.log('🍔 CoreCtrl breaking news loaded', data);
       $scope.setBreakingNews(data.results);
     }); 
 

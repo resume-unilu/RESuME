@@ -198,14 +198,17 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/authors.html',
         resolve: {
-          items: function(ProfileFactory, $stateParams) {
-            return ProfileFactory.get({
+          initials: function(){
+            return {}
+          },
+          items: function(ProfileFactory, initials) {
+            return ProfileFactory.get(initials
               // filters: JSON.stringify({
               //   status: 'draft',
               //   owner__username: RUNTIME.user.username,
               //   // authors__username__in: [RUNTIME.user.username]
               // })
-            }).$promise;
+            ).$promise;
           },
           model: function() {
             return 'profile';
@@ -292,16 +295,18 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
-          items: function(StoryFactory, author) {
-            return StoryFactory.get({
+          initials: function(author) {
+            return {
               filters: JSON.stringify({
                 status: 'draft',
                 authors__slug: author.slug
               }),
               orderby: '-date,-date_last_modified'
-            }).$promise;
+            }
           },
-
+          items: function(StoryFactory, initials) {
+            return StoryFactory.get(initials).$promise;
+          },
           model: function() {
             return 'story';
           },
@@ -316,16 +321,18 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
-          items: function(StoryFactory, author) {
-            return StoryFactory.get({
+          initials: function(author) {
+            return {
               filters: JSON.stringify({
                 status: 'deleted',
                 authors__slug: author.slug
               }),
               orderby: '-date,-date_last_modified'
-            }).$promise;
+            }
           },
-
+          items: function(StoryFactory, initials) {
+            return StoryFactory.get(initials).$promise;
+          },
           model: function() {
             return 'story';
           },
@@ -340,13 +347,16 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
-          items: function(StoryFactory, author) {
-            return StoryFactory.get({
+          initials: function(author) {
+            return {
               filters: JSON.stringify({
                 authors__slug: author.slug
               }),
               orderby: '-date,-date_last_modified'
-            }).$promise;
+            }
+          },
+          items: function(StoryFactory, initials) {
+            return StoryFactory.get(initials).$promise;
           },
 
           model: function() {
@@ -364,9 +374,9 @@ angular
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
-              resolve: {
-              items: function(StoryFactory, $stateParams, author) {
-                return StoryFactory.get({
+            resolve: {
+              initials: function(author) {
+                return {
                   filters: d.slug? JSON.stringify({
                     tags__category__in: ['writing', 'blog'],
                     tags__slug: d.slug,
@@ -376,9 +386,11 @@ angular
                     authors__slug: author.slug
                   }),
                   orderby: '-date,-date_last_modified'
-                }).$promise;
+                }
               },
-
+              items: function(StoryFactory, initials) {
+                return StoryFactory.get(initials).$promise;
+              },
               model: function() {
                 return 'story';
               },
@@ -432,15 +444,16 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            items: function(StoryFactory, profile, $location) {
-              var qs = $location.search()
-              
-              return StoryFactory.get({
+            initials: function(profile){
+              return {
                 filters: JSON.stringify({
                   authors__user__username: profile.username
                 }),
                 orderby: '-date,-date_last_modified'
-              }).$promise;
+              }
+            },
+            items: function(StoryFactory, initials) {
+              return StoryFactory.get(initials).$promise;
             },
             model: function() {
               return 'story';
@@ -463,9 +476,12 @@ angular
         url: '',
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
-          resolve: {
-          items: function(ReviewFactory, $stateParams) {
-            return ReviewFactory.get().$promise;
+        resolve: {
+          initials: function(){
+            return {}
+          },
+          items: function(ReviewFactory, initials) {
+            return ReviewFactory.get(initials).$promise;
           },
           model: function() {
             return 'review';
@@ -479,13 +495,16 @@ angular
           url: '/pending',
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
-            resolve: {
-            items: function(ReviewFactory, $stateParams) {
-              return ReviewFactory.get({
+          resolve: {
+            initials: function(){
+              return {
                 filters: JSON.stringify({
                   status__in: ['initial', 'draft']
                 })
-              }).$promise;
+              }
+            },
+            items: function(ReviewFactory, initials) {
+              return ReviewFactory.get(initials).$promise;
             },
 
             model: function() {
@@ -500,9 +519,12 @@ angular
         url: '/reports',
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
-          resolve: {
-          items: function(ReviewFactory, $stateParams) {
-            return ReviewFactory.reports().$promise;
+        resolve: {
+          initials: function() {
+            return {}
+          },
+          items: function(ReviewFactory) {
+            return ReviewFactory.reports(initials).$promise;
           },
           model: function() {
             return 'report';
@@ -568,14 +590,17 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
-          items: function(StoryFactory, $stateParams) {
-            return StoryFactory.get({
+          initials: function(){
+            return {
               filters: JSON.stringify({
                 tags__category: 'blog',
                 tags__slug: 'event'
               }),
               orderby: '-date,-date_last_modified'
-            }).$promise;
+            }
+          },
+          items: function(StoryFactory, initials) {
+            return StoryFactory.get(initials).$promise;
           },
           model: function() {
             return 'story';
@@ -591,14 +616,17 @@ angular
         controller: 'ItemsCtrl',
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
-          items: function(StoryFactory, $stateParams) {
-            return StoryFactory.get({
+          initials: function(){
+            return {
               filters: JSON.stringify({
                 tags__category: 'blog',
                 tags__slug: 'news'
               }),
               orderby: '-date,-date_last_modified'
-            }).$promise;
+            }
+          },
+          items: function(StoryFactory, initials) {
+            return StoryFactory.get(initials).$promise;
           },
           model: function() {
             return 'story';
@@ -618,41 +646,7 @@ angular
         url: '/publications',
         abstract: true,
         reloadOnSearch : false,
-        controller: function($scope, $state, EVENTS){
-          $scope.urls = RUNTIME.stories;
-          
-          if($state.params.slug)
-            $scope.slug = $state.params.slug;
-
-          $scope.availabileOrderby = [
-            {
-              label:'newest',
-              value:'-date,-date_last_modified'
-            },
-            {
-              label:'oldest',
-              value:'date,-date_last_modified'
-            },
-            {
-              label:'titleaz',
-              value:'title'
-            },
-            {
-              label:'titleza',
-              value:'-title'
-            },
-          ];
-
-          $scope.setOrdering = function(){
-            $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.params.orderby}),'label') || 'newest';
-          }
-
-          $scope.setOrdering();
-          $scope.$on(EVENTS.PARAMS_CHANGED, $scope.setOrdering);
-
-          // translate-values='{{availabileOrderby|find:"value":params.orderby:"newest"}}
-
-        },
+        controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/publications.html',
         
       })
@@ -661,8 +655,8 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            items: function(StoryFactory, $location) {
-              return StoryFactory.get(angular.extend({
+            initials: function($location) {
+              return {
                 filters: JSON.stringify({
                   tags__category: 'writing'
                 }),
@@ -670,7 +664,10 @@ angular
                   tags__slug: 'chapter'
                 }),
                 orderby: '-date,-date_last_modified'
-              }, $location.search())).$promise;
+              }
+            },
+            items: function(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
 
             model: function() {
@@ -686,13 +683,16 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            items: function(StoryFactory, $stateParams) {
-              return StoryFactory.get({
+            initials: function(){
+              return {
                 filters: JSON.stringify({
                   tags__slug: $stateParams.slug
                 }),
                 orderby: '-date,-date_last_modified'
-              }).$promise;
+              }
+            },
+            items: function(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
 
             model: function() {
@@ -710,9 +710,9 @@ angular
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
-              resolve: {
-              items: function(StoryFactory, $stateParams) {
-                return StoryFactory.get({
+            resolve: {
+              initials: function(){
+                return {
                   filters: d.slug? JSON.stringify({
                     tags__category: 'writing',
                     tags__slug: d.slug
@@ -720,7 +720,10 @@ angular
                     tags__category: 'writing'
                   }),
                   orderby: '-date,-date_last_modified'
-                }).$promise;
+                };
+              },
+              items: function(StoryFactory, djangoFiltersService, initials) {
+                return StoryFactory.get(djangoFiltersService(initials)).$promise;
               },
 
               model: function() {
@@ -800,10 +803,12 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            items: function(PulseFactory) {
-              return PulseFactory.activities().$promise;
+            initials: function() {
+              return {}
             },
-
+            items: function(PulseFactory, initials) {
+              return PulseFactory.activities(initials).$promise;
+            },
             model: function() {
               return 'action';
             },
@@ -830,7 +835,7 @@ angular
       });
   })
   .run(function($window, $log, RUNTIME){
-    $log.log('☕ app run, version: Happy Crocodile; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
+    $log.log('☕ app run, version: Happy Turtle; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
     if(RUNTIME.settings.analytics)
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })

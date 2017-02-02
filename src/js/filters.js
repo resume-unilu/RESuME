@@ -24,14 +24,6 @@ angular.module('miller')
       return obj[$rootScope.language]
     }
   })
-
-  .filter('find', function($rootScope) {
-    return function(obj, key, val, defaultVal) {
-      var q = {}
-      q[key]=val;
-      return _.find(obj,q)
-    }
-  })
   .filter('tokenize', function(){
     return function(text, maxwords) {
       if(!text)

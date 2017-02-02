@@ -109,12 +109,18 @@ angular.module('miller')
   })
 
   .factory('AuthorFactory', function ($resource) {
-    return $resource('/api/author/:slug/', {},{
+    return $resource('/api/author/:slug/:fn/', {},{
       update: {
         method:'PUT'
       },
       patch: {
         method:'PATCH'
+      },
+      hallOfFame: {
+        method: 'GET',
+        params:{
+          fn: 'hallOfFame'
+        }
       }
     });
   })
@@ -196,6 +202,26 @@ angular.module('miller')
       });
       return params;
     };
+  })
+  /*
+    Update seectively dictionary for django API
+  */
+  .service('djangoFiltersService', function($location) {
+    return function(params) {
+      var _params = angular.copy(params),
+          qs = $location.search();
+      
+      if(qs.filters){
+        try {
+          _params.filters = JSON.stringify(angular.merge(JSON.parse(_params.filters), JSON.parse(qs.filters)));
+        } catch(e){
+          $log.warn('ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
+        }
+      }
+      if(qs.orderby)
+        _params.orderby = qs.orderby
+      return _params;
+    }
   })
   .service('bibtexService', function($filter) {
     return function(json){

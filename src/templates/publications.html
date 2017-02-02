@@ -11,7 +11,7 @@
       <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
     </li>
     
-
+    <!-- <li ng-repeat='(key, value) in filters'><span translate='filterby.{{key}}'></span> {{value}} <span class='icon icon-arrow-down-circle'></span></li> -->
     <!-- <li class='dropdown active secondary'>
       <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
         <span class='inner'>
@@ -54,6 +54,15 @@
           </li>
           <li ng-if='slug' role="presentation" ui-sref-active="active" >
             <a href ui-sref='publications.tags({slug: slug})' aria-controls="home" role="tab" data-toggle="tab">/filter: <b>{{slug}}</b>/</a>
+          </li>
+        </ul>
+        <h4 class='section' translate='top authors'></h4>
+        <ul class='nav nav-tabs' ng-if='hallOfFame.count'>
+          <li ng-class='{"active":filters.authors__slug == author.slug}' ng-repeat='author in hallOfFame.results'>
+            <a class='author with-number' ng-click='toggleFilter("authors__slug", author.slug)'>{{author.fullname}}
+            <span class='number'>{{author.stories}}</span>
+            </a>
+            
           </li>
         </ul>
       </td>
