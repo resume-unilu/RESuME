@@ -46,32 +46,23 @@ angular.module('miller')
 
       if(initials.filters){
         try{
-          var intialFilters = JSON.parse(initials.filters);
-          for(var k in intialFilters){
-            if(k == 'authors__slug'){
-              filters.slug = intialFilters[k];
-            } else {
-              filters['stories__' + k] = intialFilters[k];
-            }
-          }
+          filters = angular.extend(JSON.parse(initials.filters), $scope.filters);
         } catch(e){
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }
-        params.filters = JSON.stringify(filters);
       }
       if(initials.exclude){
         try{
-          var intialExclude = JSON.parse(initials.exclude);
-          for(var k in intialExclude){
-            exclude['stories__' + k] = intialExclude[k];
-          }
+          exclude = JSON.parse(initials.exclude);
         } catch(e){
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }
-        params.exclude = JSON.stringify(exclude);
       }
       
-      AuthorFactory.hallOfFame(params, function(res){
+      AuthorFactory.hallOfFame({
+        filters: JSON.stringify(filters),
+        exclude: JSON.stringify(exclude)
+      }, function(res){
         $scope.hallOfFame = {
           count: res.count,
           results: res.results
