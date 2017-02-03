@@ -3,8 +3,8 @@
     <div class='toggler' ng-if='oembed.type == "video"' ><span class='icon icon-control-play'></span></div>
   </div>
   <div class='rich-oembed-iframe-viewport' ng-class='{"active":iframeEnabled}'>
-    <div ng-if="cover" style='height: 100%; width: 100%' >
-      <div class='image-wrapper cover'  src='{{"images/spinner.gif"|prefixTemplate}}' lazy-img='{{ cover }}'></div>
+    <div ng-if="cover" style='height: 100%; width: 100%; ' >
+      <div class='image-wrapper cover' style='background-position-y:{{oembed.thumbnail_offset_y||"center"}}' src='{{"images/spinner.gif"|prefixTemplate}}' lazy-img='{{ cover }}'></div>
     </div>
     <div ng-if='iframeEnabled' style='height: 100%; position: absolute; top:0; left:0;width: 100%' stretch='true' autoplay='{{autoplay}}' embedit='oembed.html' language='language'></div>
   </div>
