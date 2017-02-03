@@ -1,12 +1,12 @@
 <div class="coverstory story lite">
   
-    <div class='col-sm-4'>
+    <div class='col-xs-4'>
       <div ng-if='coverstory.covers.length' ng-repeat='document in coverstory.covers' class='cover-wrapper row'>
       <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' cover='document | coverage:"hifi"'></div>
         <!-- <div class='cover' style='background-size: cover; height:300px; background-image:url({{coverstory.cover}})' ></div> -->
       </div>
     </div>
-    <div class='col-sm-8'>
+    <div class='col-xs-8'>
       <div class="tags" ng-if="coverstory.tags.length">
         <span class="tag" ng-repeat='tag in coverstory.tags|filter:{ category: "writing" }' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
       </div>

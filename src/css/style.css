@@ -769,7 +769,8 @@ ul.errorlist{
 
 
 .date{
-  color: #FF6B6B;
+  /*color: #FF6B6B;*/
+  color:#6b6b6b;
   font-weight: bold;
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
@@ -859,6 +860,18 @@ ul.errorlist{
 .story.item .cover.loaded, .story.lite .cover.loaded{
   opacity: 1;
 }
+
+.story.item .tags{
+  display: inline-block;
+}
+
+.story.item .date{
+  display: inline-block;
+  border-left: 2px solid #b6b6b6;
+  padding-left: 8px;
+  margin-left: 5px;
+}
+
 /*
   Index page
 */
