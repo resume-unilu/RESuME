@@ -6,7 +6,7 @@
  * Handle the publication page.
  */
 angular.module('miller')
-  .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, AuthorFactory, RUNTIME, EVENTS) {
+  .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
     $log.log('🔭 PublicationsCtrl welcome');
     // the list of links, both main writings and other secondary writings.
     $scope.urls = RUNTIME.stories;
@@ -32,6 +32,12 @@ angular.module('miller')
         value:'-title'
       },
     ];
+
+    // list of service premises to build the hallof fames
+    var HallOfFames = [];
+
+
+    $scope.hallOfFame = {};
 
     $scope.sync = function(){
       $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'newest';
@@ -59,16 +65,48 @@ angular.module('miller')
         }
       }
       
-      AuthorFactory.hallOfFame({
+      $log.log('🔭 PublicationsCtrl sync()', $scope.state);
+      
+      // if its one of the "monographies", we get the publishable items associated. Optioanlly we can even deliver something
+      if(RUNTIME.monographies.indexOf($scope.state) !== -1) {
+        HallOfFames.push(TagFactory.hallOfFame({
+          tag__filters: JSON.stringify({
+            category: 'publishing'
+          }),
+          filters: JSON.stringify(filters),
+          exclude: JSON.stringify(exclude),
+          limit: 10
+        }, function(res){
+          $scope.hallOfFame.publishings= {
+            count: res.count,
+            results: res.results
+          }
+        }, function(){
+          debugger
+        }).$spromise);
+      } else{
+        delete $scope.hallOfFame.publishings
+      }
+
+      // add the hall of fame top authors promise to the queue
+      HallOfFames.push(AuthorFactory.hallOfFame({
         filters: JSON.stringify(filters),
         exclude: JSON.stringify(exclude),
         limit: 10
       }, function(res){
-        $scope.hallOfFame = {
+        $scope.hallOfFame.topAuthors = {
           count: res.count,
           results: res.results
         }
-      })
+      }).promise);
+
+
+
+      $q.all(HallOfFames, function(){
+        $log.log('🔭 PublicationsCtrl sync() $q.all() finished', $scope.state);
+      });
+      // chain of eventssyn
+      
     }
 
     $scope.sync();

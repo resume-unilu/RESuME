@@ -100,7 +100,7 @@ angular.module('miller')
     $scope.changeOrderby = function(orderby){
       $log.log('🍔 CoreCtrl > @changeOrderby ...'); 
       $location.search('orderby', orderby);
-      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.qs);
+      
     }
 
     $scope.toggleFilter = function(key, value){
@@ -111,9 +111,9 @@ angular.module('miller')
       } else {
         $scope.filters[key] = value;
       }
+      debugger
       // empty filters?
       $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
-      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.qs);
     }
 
 
@@ -384,6 +384,11 @@ angular.module('miller')
       } else if(!$scope.qs.view && $scope.fullsized){
          fullsizeModal.hide();
       }
+
+      /*
+        Now emit stuff
+      */
+      $scope.$broadcast(EVENTS.PARAMS_CHANGED, $scope.qs);
     });
 
     $scope.setLocationFilter = function(field, value) {

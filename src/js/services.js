@@ -178,9 +178,15 @@ angular.module('miller')
     list tags
   */
   .factory('TagFactory', function ($resource) {
-    return $resource('/api/tag/:id/', {},{
+    return $resource('/api/tag/:id/:fn/', {},{
       update: {
         method:'PUT'
+      },
+      hallOfFame: {
+        method: 'GET',
+        params:{
+          fn: 'hallOfFame'
+        }
       }
     });
   })
