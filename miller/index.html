@@ -140,10 +140,10 @@
         font-family: 'Lato', sans-serif;
         height: 70px;
         padding: 0 50px 0 25px;
-        transform: translateY(70px);
+        /*transform: translateY(70px);
         -webkit-transform: translateY(70px);
         -moz-transform: translateY(70px);
-        -ms-transform: translateY(70px);
+        -ms-transform: translateY(70px);*/
         transition: height .3s ease-in-out;
       }
 
@@ -547,9 +547,25 @@
         margin: 0 20px;
       }
 
+      #navbar{
+        position: absolute;
+        top: 140px;
+        left: 0;
+        right: 0;
+        border-right-width: 0px;
+        border-radius: 0;
+        
+      }
+
       
 
       @media only screen and (min-width : 768px) {
+        #navbar.below-floating{
+          position: fixed;
+          top: 0;
+          z-index: 1000;
+        }
+
         #navbar.show-menu .menu-wrapper, #navbar .menu-wrapper{
           display: none;
         }
@@ -571,10 +587,10 @@
         }
 
         .navbar{
-          transform: translateY(140px);
+          /*transform: translateY(140px);
           -webkit-transform: translateY(140px);
           -moz-transform: translateY(140px);
-          -ms-transform: translateY(140px);
+          -ms-transform: translateY(140px);*/
         }
 
         .chapter {
@@ -718,7 +734,7 @@
     </div>
     
     
-    <nav id="navbar" class='navbar navbar-default navbar-fixed-top' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
+    <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
       
       <div class='container' > 
         <div class="navbar-header">
@@ -1108,12 +1124,13 @@
 
         if(navbar_offset != _navbar_offset)
           for(var i in _offsetables)
-            _offsetables[i].css({
-              transform: 'translateY('+navbar_offset+'px)',
-              '-webkit-transform': 'translateY('+navbar_offset+'px)',
-              '-moz-transform': 'translateY('+navbar_offset+'px)',
-              '-ms-transform': 'translateY('+navbar_offset+'px)',
-            });
+            if(i != 'navbar')
+              _offsetables[i].css({
+                transform: 'translateY('+navbar_offset+'px)',
+                '-webkit-transform': 'translateY('+navbar_offset+'px)',
+                '-moz-transform': 'translateY('+navbar_offset+'px)',
+                '-ms-transform': 'translateY('+navbar_offset+'px)',
+              });
 
         if(st > floatinglimit) {
           if(!isBelowFloating){
