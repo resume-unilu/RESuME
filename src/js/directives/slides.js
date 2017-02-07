@@ -32,7 +32,7 @@ angular.module('miller')
 
 
           var index = scope.currentIndex + scope.direction;
-          $log.log('slides loop(), next idnex:', index)
+          // $log.log('slides loop(), next idnex:', index)
           scope.jumpTo(index)
         }
 
@@ -61,13 +61,13 @@ angular.module('miller')
         }
 
         scope.pause = function() {
-          console.log('paused.')
+          // console.log('paused.')
           if(timer)
             $timeout.cancel(timer);
         }
 
         scope.play = function() {
-          console.log('play!')
+          // console.log('play!')
           if(timer)
             $timeout.cancel(timer);
           if(typeof attrs.autoscroll != 'undefined')
@@ -76,7 +76,7 @@ angular.module('miller')
 
         // do resize in height
         scope.slide = function(){
-          console.log('resize for', scope.currentIndex)
+          // console.log('resize for', scope.currentIndex)
           var slide = element.find('.slide').get(scope.currentIndex);
           
           scope.currentHeight = slide.clientHeight;
