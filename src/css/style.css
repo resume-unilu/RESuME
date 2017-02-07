@@ -397,6 +397,7 @@ ul.errorlist{
 }
 .collection h1.collection-title{
   margin: 0;
+  margin-top:10px;
 }
 .collection.story h1.collection-title{
   font-size: 18px;

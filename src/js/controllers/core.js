@@ -111,7 +111,6 @@ angular.module('miller')
       } else {
         $scope.filters[key] = value;
       }
-      debugger
       // empty filters?
       $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
     }
