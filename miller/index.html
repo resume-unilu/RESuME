@@ -96,7 +96,7 @@
 
       .navbar-default{
         background: white;
-        border-bottom : 2px solid #4ecdc4;
+        border-bottom : 2px solid #ccc;
       }
 
       .navbar-default .scrolling{
@@ -172,8 +172,8 @@
       }
 
       .container{
-        padding-right: 30px;
-        padding-right: 30px;
+        /*padding-right: 30px;
+        padding-right: 30px;*/
       }
 
       #footer ul.navbar-nav{
@@ -415,14 +415,9 @@
         margin-right: 0;
       }
 
-      #showreel{
-        position: absolute;
-        top: 0px;
-        background: #101010;
-        left:0;
-        width: 100%;
-        z-index: 3;
-      }
+     
+
+      
 
       #unilu-logo-wrapper{
         position: relative;
@@ -445,18 +440,32 @@
         background-position: left bottom;
       }
 
+      #showreel{
+        position: absolute;
+        top: 0px;
+        background: #101010;
+        left:0;
+        width: 100%;
+        z-index: 3;
+      }
+
       #showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{
         height: 70px;
       }
 
 
 
+
       .breakingNews{
         float:left;
-        width:33.3%;
+        width:40%;
         color: white;
         height: 100%;
         background: #111;
+      }
+
+      .breakingNews.branding {
+        width: 20%;
       }
 
       .breakingNews .wrapper{
@@ -472,17 +481,17 @@
         
         left: 0;
         right: 0;
-        padding: 11px 15px 0 15px;
+        padding: 11px 8px 0 8px;
       }
 
       .breakingNews h3{
         color: #F0F0F0;
-        font-size: 16px;
-        line-height: 25px;
+        font-size: 10px;
+        line-height: 15px;
         border-bottom: 2px solid #FF6B6B;
-        margin: 0 0 15px 0;
+        margin: 0 0 5px 0;
         padding: 0px 0 10px 0;
-        max-height: 58px;
+        max-height: 34px;
         overflow: hidden;
       }
       .breakingNews .type, .breakingNews span.tag {
@@ -549,7 +558,7 @@
 
       #navbar{
         position: absolute;
-        top: 140px;
+        top: 70px;
         left: 0;
         right: 0;
         border-right-width: 0px;
@@ -558,9 +567,17 @@
         z-index: 2;
       }
 
+      #navbar .container{
+        padding-right: 0;
+      }
       
 
-      @media only screen and (min-width : 768px) {
+      @media (min-width: 768px){
+        #navbar{
+          position: absolute;
+          top: 100px;
+        }
+
         #navbar.below-floating{
           position: fixed;
           top: 0;
@@ -576,15 +593,15 @@
         }
 
         #showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{
-          height: 140px;
+          height: 100px;
         }
 
         .view{
-          margin-top: 220px;
+          margin-top: 200px;
         }
 
         .index .view{
-          margin-top: 210px;
+          margin-top: 165px;
         }
 
         .navbar{
@@ -614,9 +631,15 @@
         .chapter .image-wrapper{
           height: 100%;
         }
-      }
+      
 
-      @media (min-width: 768px){
+
+        .breakingNews .overlay{
+          padding: 11px 15px 0 15px;
+        }
+        .breakingNews h3{
+          margin: 0 0 10px 0;
+        }
         .coverstory .cover {
           height: 300px;
         }
@@ -654,14 +677,36 @@
         }
       }
 
-      .dropdown .username{
-        width: 56px;
+      .dropdown .dropdown-label{
         display: inline-block;
         text-overflow: ellipsis;
         overflow: hidden;
       }
 
+      .dropdown .username{
+        width: 56px;
+      }
+
       @media (min-width: 992px){
+
+        .story.lite h3 a{
+          font-size: 30px;
+          line-height: 45px;
+        }
+        .story.lite blockquote{
+          font-size: 15px;
+          line-height: 25px;
+        }
+        .breakingNews, .breakingNews.branding{
+          width: 25%;
+        }
+
+        .breakingNews h3{
+          font-size: 12px;
+          line-height: 19px;
+          max-height: 62px;
+          margin: 0 0 10px 0;
+        }
         .nav-filters{
           width: 200px;
         }
@@ -671,7 +716,7 @@
         .coverstory.story .cover{
           height: 100%;
         }
-        .dropdown .username{
+        .dropdown .dropdown-label{
           width: auto;
           display: inline;
           overflow: visible;
@@ -720,15 +765,17 @@
     <div id='showreel'>
       <div class='container'>
         <div class="row" ><div class='col-sm-12'>
+          <div class="row">
           <div id='showreel-inner'>
             {% verbatim %}
-            <div class="breakingNews">
+            <div class="breakingNews branding">
               <div id='unilu-logo-wrapper'>
                 <div id='unilu-logo'></div>
               </div>
             </div>
             <div class="breakingNews" ng-repeat='news in breakingNews' ng-include='"templates/partials/breakingNews.html"|prefixTemplate'></div>
             {% endverbatim %}
+          </div>
           </div>
         </div>
       </div></div>
@@ -795,7 +842,7 @@
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
               
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
-                <span class='username'>{{user.username}}<span style='position:absolute; right:5px; top:0' class='icon icon-plus'></span></span>
+                <span class='dropdown-label username'>{{user.username}}<span style='position:absolute; right:5px; top:0' class='icon icon-plus'></span></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
@@ -827,7 +874,7 @@
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
               
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
-                <span class='username'>{% verbatim %}<span>{{language|substr:0:2}}</span>{% endverbatim %}<span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
+                <span class='dropdown-label'>{% verbatim %}<span>{{language|substr:0:2}}</span>{% endverbatim %}<span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
@@ -1108,14 +1155,14 @@
             // 'writing-tools': $('#writing-tools')
           },
           _is_mobile = _windox.width() < 768,
-          _navbar_offset = _is_mobile? 70: 140,
+          _navbar_offset = _is_mobile? 70: 100,
           st,
-          floatinglimit = _is_mobile? 70:140,
+          floatinglimit = _is_mobile? 70:100,
           isBelowFloating = false;
 
       _windox.on('resize', function(){
         _is_mobile = _windox.width() < 768;
-        floatinglimit = _is_mobile? 70:140,
+        floatinglimit = _is_mobile? 70:100,
         evaluateFloating();
       })
 

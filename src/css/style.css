@@ -114,7 +114,7 @@ h2, .h2 {
 
 h3, .h3, h4, .h4 {
   font-size: 19px;
-  line-height: 30px;
+  line-height: 25px;
   margin-top: 20px;
   margin-bottom: 10px;
   /*color: #454545;*/
@@ -813,8 +813,8 @@ ul.errorlist{
 }
 
 .story.lite h3 a {
-  font-size: 30px;
-  line-height: 45px;
+  font-size: 15px;
+  line-height: 21px;
   color: #333;
 }
 
@@ -823,9 +823,10 @@ ul.errorlist{
   border-left: 0px;
   padding: 5px 0 0 0;
   margin: 0;
-  font-size: 15px;
-  line-height: 25px;
+  font-size: 11px;
+  line-height: 18px;
 }
+
 
 .story.lite blockquote p{
   font-size: 14px;
@@ -882,8 +883,10 @@ ul.errorlist{
   width: 100%;
   z-index: 1;
   left: 0;
-  top: -15px;
+  bottom: -15px;
   text-align: center;
+  background-color: #e7e7e7; 
+  right: 0;
 }
 
 .slides-nav li{
@@ -893,7 +896,7 @@ ul.errorlist{
   height: 16px;
   margin-bottom: 0px;
   transition: background-color .36s ease-in-out;
-  border: 7px solid white;
+  border: 7px solid #e7e7e7;
   cursor: pointer;
       border-left-width: 8px;
     border-right-width: 7px;
@@ -915,7 +918,7 @@ ul.errorlist{
   height: 300px;
   /*transition: height .36s ease-in-out;*/
   /*transition-delay: .38s;*/
-  margin-top: 26px;
+  margin-bottom: 26px;
 }
 
 .slides-inner{
