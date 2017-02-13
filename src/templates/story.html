@@ -54,19 +54,24 @@
         <div class='col-md-12'>
           <h1 embedit='story.metadata.title' language='language'></h1>
           
-          <!-- story reference and cite as buttons -->
-          <div embedit='story.metadata.issue' ng-if='story.metadata.issue' markdown='true' language='language'></div>
-          <div embedit='story.metadata.reference' ng-if='story.metadata.reference' markdown='true' language='language'></div>
           
           <!-- social share buttons: -->
           <div ng-if='story.status == "public"' ng-include='"templates/partials/story.socialshare.html"|prefixTemplate'></div>
 
-          <!-- DOI -->
-          <div class='doi' ng-if='story.metadata.doi'>
-            <span translate='doi'></span>
-            <a ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a>
+          <!-- DOI / reference -->
+          <div class='ref' ng-if='story.metadata.doi || story.metadata.reference'>
+            <span translate='ref' class='label'></span>
+            <a target='_blank' embedit='story.metadata.reference' markdown='true' language='language'></a>
+            <span ng-if='story.metadata.doi && story.metadata.reference'>&mdash;</span>
+            <span class='label' ng-if='story.metadata.doi' translate='doi'></span>
+            <a ng-if='story.metadata.doi' ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a>
+            
           </div>
-
+          
+          <!-- story reference and cite as buttons -->
+          <!-- <div embedit='story.metadata.issue' ng-if='story.metadata.issue' markdown='true' language='language'></div>
+          -->
+          
           <blockquote embedit='story.metadata.abstract' language='language'></blockquote>
         </div>
       </div>

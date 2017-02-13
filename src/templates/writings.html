@@ -15,7 +15,14 @@
       <span translate="field.label.abstract"></span>
     </label>
     <textarea id='draft-abstract' class='elastic-textarea' rows="1" msd-elastic ng-model='abstract' type='text' placeholder='abstract'></textarea>
-  
+    
+    <label translate="drafts.keywords.placeholder"></label>
+    <tags-input class='tags-input' on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="true">
+      <auto-complete source="suggestTags($query, {category:'keyword'})"></auto-complete>
+    </tags-input>
+
+
+
   </div>
   <div class='col-md-4'>
     
@@ -43,6 +50,27 @@
         </div>
       </div>
     </div>
+    
+    <div ng-if='user.is_staff'>
+      <!-- doi -->
+      <label>
+        <span translate="field.label.doi"></span>
+      </label>
+      <textarea class='elastic-textarea' rows="1" msd-elastic ng-model='story.metadata.doi' type='text' placeholder='doi'></textarea>
+
+      <!-- citation -->
+      <label>
+        <span translate="field.label.reference"></span>
+      </label>
+      <textarea class='elastic-textarea' rows="1" msd-elastic ng-model='story.metadata.reference' type='text' placeholder='doi'></textarea>
+
+
+      <!-- tags placeholder  -->
+      <label translate="staff.drafts.tags.placeholder"></label>
+      <tags-input class='tags-input'  on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="displayedTags" add-from-autocomplete-only="true">
+          <auto-complete source="suggestTags($query, {category__in:['blog','writing', 'highlights', 'publishing']})" ></auto-complete>
+      </tags-input>
+    </div>
   </div>
 </div>
 
@@ -64,26 +92,7 @@
   
 </div>
 
-<div class='section' style='margin-bottom:20px'>
-  <div class="row">
-    <div ng-class='{"col-md-8": !isDraft}' ng-if='!isDraft'>
-      <label translate="drafts.keywords.placeholder"></label>
-  <tags-input class='tags-input' placeholder='{{"drafts.keywords.placeholder"| translate}}' on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="true">
-    <auto-complete source="suggestTags($query, {category:'keyword'})"></auto-complete>
 
-  </tags-input>
-    </div>
-
-    <div class="col-md-4" ng-if='!isDraft && user.is_staff'>
-      <label translate="staff.drafts.tags.placeholder"></label>
-      <tags-input class='tags-input'  on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="displayedTags" add-from-autocomplete-only="true">
-        <auto-complete source="suggestTags($query, {category__in:['blog','writing', 'highlights', 'publishing']})" ></auto-complete>
-
-      </tags-input>
-    </div>
-  </div>
-
-</div>
 
 <!-- <div class='authors' ng-if='!isDraft'>
 by <a href>{{metadata.owner.username}}</a>
@@ -114,6 +123,10 @@ by <a href>{{metadata.owner.username}}</a>
       <div mde='contents' language='language' setdocs='setDocuments(documents)' settoc='setToC(items)'></div>
       
   </div>
+</div>
+
+
+
 </div>
 </div>
 </div>

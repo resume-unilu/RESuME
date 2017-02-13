@@ -769,19 +769,24 @@ ul.errorlist{
 }
 
 
-.date, .doi{
-  color:#6b6b6b;
+.date, .ref .label, .ref > span{
+  color:#9c9696;
   font-weight: bold;
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
   font-size: 12px;
 }
 
-.doi > a{
-  color: #9c9696;
-
+.date{
+  color: #6b6b6b;
 }
-.doi > a:hover{
+
+.ref > a{
+  color: #6b6b6b;
+  display: inline-block;
+}
+
+.ref > a:hover{
   color: #151515;
 }
 
@@ -2122,13 +2127,18 @@ h4.modal-title{
 }
 
 .story .share > span,
-.story .doi > span{
+.story .ref .label{
   color: #9c9696;
-  width: 40px;
   display: inline-block;
+  text-align: left;
   font-size: 10px;
+  padding: 0;
 }
 
+.story .share > span,
+.story .ref .label:first-child{
+  width: 40px;
+}
 /*
   dribbble like documents
 */
