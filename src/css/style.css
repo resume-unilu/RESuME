@@ -769,13 +769,20 @@ ul.errorlist{
 }
 
 
-.date{
-  /*color: #FF6B6B;*/
+.date, .doi{
   color:#6b6b6b;
   font-weight: bold;
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
   font-size: 12px;
+}
+
+.doi > a{
+  color: #9c9696;
+
+}
+.doi > a:hover{
+  color: #151515;
 }
 
 .divider {
@@ -1263,7 +1270,27 @@ ul.errorlist{
   margin-top: 3px;
 }
 
+/*
+  btn line share
+*/
+.btn-line.btn-share{
+  width: 25px;
+  padding: 0;
+  color: #9c9696;
+  background-color: transparent;
+  border: 0px solid transparent;
+  
+}
 
+.btn-line.btn-share .icon{
+  float: none;
+  margin: 0;
+  font-size: 18px;
+}
+.btn-line.btn-share:hover{
+  background: transparent;
+  color: #151515;
+}
 /*
   bootstrap tabs
   / dropdown menu
@@ -2087,11 +2114,19 @@ h4.modal-title{
 .story .share{
   font-size: 10px;
   line-height: inherit;
-  color: #9c9696;
+  
   font-family: Lato;
   text-transform: uppercase;
   font-weight: bold;
   line-height: 20px;
+}
+
+.story .share > span,
+.story .doi > span{
+  color: #9c9696;
+  width: 40px;
+  display: inline-block;
+  font-size: 10px;
 }
 
 /*

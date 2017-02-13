@@ -61,6 +61,12 @@
           <!-- social share buttons: -->
           <div ng-if='story.status == "public"' ng-include='"templates/partials/story.socialshare.html"|prefixTemplate'></div>
 
+          <!-- DOI -->
+          <div class='doi' ng-if='story.metadata.doi'>
+            <span translate='doi'></span>
+            <a ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a>
+          </div>
+
           <blockquote embedit='story.metadata.abstract' language='language'></blockquote>
         </div>
       </div>
