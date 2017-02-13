@@ -91,8 +91,22 @@ footer.latest_rss,,latest news,dernières nouvelles,aktuelle Nachrichten,latest 
 headline.project,main menu,project,projet,Projekt,project
 headline.people,main menu(auteurs/personnes),team,équipe,Team,team
 headline.publications,main menu,publications,publications,Publikationen,publications
-headline.publications.title,main menu,Publications,Publications,Publikationen,Publications
-headline.publications.abstract,main menu. DUPLICATE?,"The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course.","Le projet RESuME comprend des activités de recherche et d’enseignement menant à la publication de plusieurs produits, dont des monographies (ou ePublications), deux revues scientifiques multidisciplinaires, l’une sur le modèle social européen (Cahiers RESuME), l’autre sur l’Union économique et monétaire (Revue de l’Euro), ainsi que des contributions présentées par des institutions ou d'auteurs partenaires, des interviews audiovisuelles, des modules d’enseignement et un apparat scientifique (glossaire, biographie, commentaires juridiques).","Das Projekt beinhaltet Forschungs- und Lehraktivitäten, die zur Herstellung verschiedener Produkte führt, darunter ePublications, Oral-History-Interviews, e-Lehrmodule und ein Schulungskurs.","The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course."
+headline.publications.all.title,main menu,Publications,Publications,Publikationen,Publications
+headline.publications.all.abstract,main menu. DUPLICATE?,"The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course.","Le projet RESuME comprend des activités de recherche et d’enseignement menant à la publication de plusieurs produits, dont des monographies (ou ePublications), deux revues scientifiques multidisciplinaires, l’une sur le modèle social européen (Cahiers RESuME), l’autre sur l’Union économique et monétaire (Revue de l’Euro), ainsi que des contributions présentées par des institutions ou d'auteurs partenaires, des interviews audiovisuelles, des modules d’enseignement et un apparat scientifique (glossaire, biographie, commentaires juridiques).","Das Projekt beinhaltet Forschungs- und Lehraktivitäten, die zur Herstellung verschiedener Produkte führt, darunter ePublications, Oral-History-Interviews, e-Lehrmodule und ein Schulungskurs.","The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course."
+headline.publications.collection.title,,EPublications,,,EPublications
+headline.publications.collection.abstract,,,,,
+headline.publications.cahiers.title,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
+headline.publications.cahiers.abstract,,,,,
+headline.publications.revue-ecu-euro.title,,Revue de l'Euro,,,Revue de l'Euro
+headline.publications.revue-ecu-euro.abstract,,,,,
+headline.publications.paper.title,,EPapers,EPapers,EPapers,EPapers
+headline.publications.paper.abstract,,,,,
+headline.publications.glossary.title,,Glossary,Glossaire,Glossar,Glossary
+headline.publications.glossary.abstract,,,,,
+headline.publications.biographies.title,,Biographies,Biographies,Biographien,Biographies
+headline.publications.biographies.abstract,,,,,
+headline.publications.law.title,,Legislation,Législation,Recht/Rechtsvorschriften,Legislation
+headline.publications.law.abstract,,,,,
 headline.authors,main menu,authors,auteurs,Autoren/innen,authors
 headline.blogs,main menu,blogs,blogs,Blogs,blogs
 headline.events,main menu,events,événements,Veranstaltungen,events
@@ -181,20 +195,20 @@ oembed.type.image,,Image,Image,Bild,Image
 oembed.type.picture,,Image,Image,Bild,Image
 tab.library,,your library,votre bibliothèque,Ihre Bibliothek,your library
 tab.glossary,,other publications,autres publications,andere Publikationen,other publications
-tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,from CVCE.eu
-tab.url,,from url,depuis l'URL,aus der URL,from url
-tab.upload,,upload,télécharger,hochladen,upload
-upload.title,,Upload your contribution,Téléchargez votre contribution,Ihren Beitrag hochladen,Upload your contribution
-upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,Four easy steps
-upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading
-upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,Congratulations! Your content has been submitted
-upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,You can find your submitted content here
-written.by,author(s) label of the article,by,par,von,by
-story.read.documents,,documents,documents,Dokumente,documents
-story.read.reviews,,reviews,évaluations,Begutachtungen,reviews
-story.read.comments,,comments,commentaires,Kommentare,comments
-field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,write here ...
-field.label.review.score,,score:,points :,Punktzahl :,score:
+tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,
+tab.url,,from url,depuis l'URL,aus der URL,
+tab.upload,,upload,télécharger,hochladen,
+upload.title,,Upload your contribution,Téléchargez votre contribution,Ihren Beitrag hochladen,
+upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,
+upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,
+upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,
+upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,
+written.by,author(s) label of the article,by,par,von,
+story.read.documents,,documents,documents,Dokumente,
+story.read.reviews,,reviews,évaluations,Begutachtungen,
+story.read.comments,,comments,commentaires,Kommentare,
+field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,
+field.label.review.score,,score:,points :,Punktzahl :,
 field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),
 field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,
 field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,

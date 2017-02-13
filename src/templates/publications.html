@@ -1,9 +1,12 @@
 <div class='container'>
 <div class="view">
+  
 
-  <h1 translate="headline.publications.title"></h1>
-
-      <p translate="headline.publications.abstract"></p>
+  <h1>
+    <a ng-if='state != "publications.all"' href ui-sref='publications.all'>../</a>
+    <span translate="headline.{{state}}.title"></span>
+  </h1>
+  <p translate="headline.{{state}}.abstract"></p>
 
   <!-- Nav tabs -->
   <ul class='nav nav-tabs' style='margin-top: 20px;'>
