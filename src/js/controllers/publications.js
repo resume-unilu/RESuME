@@ -73,7 +73,7 @@ angular.module('miller')
           tag__filters: JSON.stringify({
             category: 'publishing'
           }),
-          ordering: 'slug',
+          orderby: 'slug',
           filters: JSON.stringify(filters),
           exclude: JSON.stringify(exclude),
           limit: 10
