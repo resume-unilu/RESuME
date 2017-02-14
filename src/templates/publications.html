@@ -51,7 +51,7 @@
             <a ng-if='link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{link.name}}</a>
             <a ng-if='!link.preventTranslation' href ui-sref='publications.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.{{link.name}}.label"></a>
 
-            <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+link.slug && hallOfFame.publishings.count'>
+            <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+link.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
               <li ng-class='{"active":filters._tags__slug == tag.slug}' ng-repeat='tag in hallOfFame.publishings.results'>
                 <a class='tag with-number' ng-click='toggleFilter("_tags__slug", tag.slug)'>{{tag.name}}
                 <span class='number'>{{tag.stories}}</span>

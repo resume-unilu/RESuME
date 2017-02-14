@@ -23,11 +23,18 @@ h1, .h1 {
   color: #151515;
 }
 
+.no-gutter{
+  margin:0;
+  list-style-type: none;
+  padding:0;
+}
+
 ul.list{
   padding: 10px 0 0 12px;
   list-style-type: none;
   font-size: 10px;
 }
+
 
 
 
@@ -1276,8 +1283,109 @@ ul.errorlist{
 }
 
 /*
-  btn line share
+  btn line, btn line share
 */
+.btn-transparent{
+  background: transparent;
+  border: 0px solid;
+  height: 30px;
+  width: 30px;
+  background: #FF6B6B;
+  line-height: 30px;
+  color: white;
+  border-radius: 30px;
+}
+
+.btn-line{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  background-color: #e7e7e7;
+  border: 2px solid transparent;
+  color: #837c7c;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0px 10px;
+  line-height: 20px;
+  border-radius: 0;
+  display: inline-block;
+  word-break: break-word;
+}
+
+a.btn-line{
+  display: inline-block;
+}
+
+a.btn-line:hover{
+  text-decoration: none;
+}
+
+.btn-line.warning{
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.btn-line:hover{
+  background-color: #151515;
+  color: white;
+}
+.btn-line:focus{
+  outline: none;
+
+}
+.btn-line.active{
+  background: #B7B2B2;
+  color: white;
+}
+.btn-line.active.warning{
+  background-color: #ff9305;
+}
+
+.btn-line-group{
+  border: 2px solid #B7B2B2;
+  padding: 2px;
+  display: inline-block;
+  line-height: 20px;
+  /*height: 32px;*/
+  height: auto;
+}
+
+.btn-line-group.primary{
+  border: 2px solid #151515;
+}
+
+.btn-line-group.transparent{
+  border-color: transparent;
+  border-width: 0px;
+}
+
+.btn-line-group.primary .btn-line{
+  color: #151515;
+}
+
+.btn-line-group.primary .btn-line:hover{
+  color: white;
+}
+
+
+.btn-line-group.dual > button{
+  width: 48%;
+  
+}
+
+.btn-line-group.dual > button > span{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+}
+
+
+.btn-line .icon{
+  float: right;
+  margin-left: 5px;
+  margin-right: 0;
+}
+
 .btn-line.btn-share{
   width: 25px;
   padding: 0;
@@ -1306,15 +1414,17 @@ ul.errorlist{
 }
 
 .navbar-nav > li > .dropdown-menu,
-.nav-tabs .dropdown-menu{
+.nav-tabs .dropdown-menu, .dropdown-menu{
   margin-top: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   /*border: 2px solid ;*/
   z-index: 1;
   border: 0px solid transparent;
   background: #e7e7e7;
-  padding: 2px;
+  padding: 0px;
 }
 
 .nav-tabs > li{
@@ -1391,6 +1501,7 @@ ul.errorlist{
 .dropdown-menu{
   -webkit-box-shadow: none;
   box-shadow: none;
+  font-family: 'Lato', sans-serif;
 }
 
 .dropdown-menu > li > a{
