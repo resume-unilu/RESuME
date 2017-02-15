@@ -425,7 +425,7 @@ angular.module('miller')
                 $log.debug('::mde -> addDocument() document saved:', res.slug, res.id, res.short_url);
                 if(res.slug){
                   referenceModal.hide();
-                  if(type =='crossref') {debugger
+                  if(type =='crossref') {
                     simplemde.codemirror.replaceSelection(
                       simplemde.codemirror.getSelection()
                       + '\n\n'

@@ -196,6 +196,7 @@ oembed.type.picture,,Image,Image,Bild,Image
 tab.library,,your library,votre bibliothèque,Ihre Bibliothek,your library
 tab.glossary,,other publications,autres publications,andere Publikationen,other publications
 tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,
+tab.crossref,,from Crossref,depuis Crossref,aus Crossref,
 tab.url,,from url,depuis l'URL,aus der URL,
 tab.upload,,upload,télécharger,hochladen,
 upload.title,,Upload your contribution,Téléchargez votre contribution,Ihren Beitrag hochladen,
@@ -207,6 +208,8 @@ written.by,author(s) label of the article,by,par,von,
 story.read.documents,,documents,documents,Dokumente,
 story.read.reviews,,reviews,évaluations,Begutachtungen,
 story.read.comments,,comments,commentaires,Kommentare,
+field.label.doi,,doi link,,,
+field.label.reference,,reference (markdown),,,
 field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,
 field.label.review.score,,score:,points :,Punktzahl :,
 field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),
