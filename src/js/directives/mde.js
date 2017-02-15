@@ -382,7 +382,6 @@ angular.module('miller')
             }
 
             
-
             if(type=='glossary'){
               referenceModal.hide();
               SimpleMDE.drawLink(simplemde,{
@@ -391,8 +390,17 @@ angular.module('miller')
               });
               return;
             }
+
+            if(type == 'crossref'){
+              embed = angular.extend({
+                type: type
+              }, scope.selectedDocument || {});
+              url = embed.doi;
+              $log.debug('::mde -> addDocument() embed:', embed);
+
+            }
             // case it is an url
-            if(type=='url'){
+            if(type=='url' || type == 'crossref'){
               if(!embed.title){ // should try again or wait a little
                 referenceModal.hide();
                 SimpleMDE.drawLink(simplemde,{
@@ -417,22 +425,45 @@ angular.module('miller')
                 $log.debug('::mde -> addDocument() document saved:', res.slug, res.id, res.short_url);
                 if(res.slug){
                   referenceModal.hide();
-                  SimpleMDE.drawLink(simplemde,{
-                    url: 'doc/' + res.slug
-                  });
+                  if(type =='crossref') {debugger
+                    simplemde.codemirror.replaceSelection(
+                      simplemde.codemirror.getSelection()
+                      + '\n\n'
+                      + embed.fullCitation
+                      + ' [doi](doc/' + res.slug + ')'
+                      + '\n\n'
+                    );
+                  } else {
+                    SimpleMDE.drawLink(simplemde,{
+                      url: 'doc/' + res.slug
+                    });
+                  }
                 }
               }, function(err){
                 // ignore duplicates (slug field) and put it directly.
                 if(err.data.slug && _.keys(err.data).join('') == 'slug'){
-                  SimpleMDE.drawLink(simplemde,{
-                    url: 'doc/' + slug
-                  });
+                  if(type =='crossref') {
+                    simplemde.codemirror.replaceSelection(
+                      simplemde.codemirror.getSelection()
+                      + '\n\n'
+                      + embed.fullCitation
+                      + ' [doi](doc/' + slug + ')'
+                      + '\n\n'
+                    );
+                  } else {
+                    SimpleMDE.drawLink(simplemde,{
+                      url: 'doc/' + slug
+                    });
+                  }
                 } else {
                   $log.error('::mde -> addDocument() cannot save document', err);
                 }
               });
               return;
             }
+
+            
+
 
             if(!scope.selectedDocument) {
               $log.warn('::mde -> addDocument() no document selected');

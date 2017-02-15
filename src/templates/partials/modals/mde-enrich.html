@@ -44,6 +44,20 @@
             </div>
           </div>
 
+          <div ng-show="tab.name == 'crossref'" class="tab-content">
+            <div class='section padded' ng-class='{"last": !lookups.length}'>
+              <label>
+                <span translate='search'></span>
+                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
+              </label>
+              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 450 }" ng-change='suggest(query)'>
+            </div>
+            <div class='section last'>
+              <ul class='list-of-documents'><li ng-repeat='item in tab.items' ng-include='"templates/partials/crossref.html"|prefixTemplate'></li>
+              </ul>
+              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>
+            </div>
+          </div>
           <div ng-show="tab.name == 'glossary'" class="tab-content">
             <div class='section padded' ng-class='{"last": !glossary.length}'>
               <label>
@@ -55,18 +69,7 @@
             <div class='section last'>
               <ul class='list-of-documents'><li ng-repeat='term in tab.items' ng-include='"templates/partials/term.html"|prefixTemplate'></li>
               </ul>
-              <div class='more-wrapper'>
-                <div ng-if='tab.items.length > 0 && tab.items.length < tab.count' class="btn-line-group primary">
-                  <button class='btn-line' ng-click='more()'>
-                    <span ng-if='!tab.isLoadingNextItems'>
-                      <span translate='button.more'></span>
-                      <span translate='missing' translate-values="{count: tab.missing}"></span>
-                    </span>
-                    <span ng-if='tab.isLoadingNextItems' translate='button.loading'></span>
-                  </button>
-                </div>
-                <!-- when count equals item length, we are at the end -->
-              </div>
+              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>
             </div>
           </div>
 

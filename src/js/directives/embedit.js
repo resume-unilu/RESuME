@@ -22,6 +22,7 @@ angular.module('miller')
         var options = {
           breaks:       true,
           linkify:      true,
+          html: true
         }, 
         disable = ['image', 'heading'],
         stretching_timeout = 10000,
@@ -55,12 +56,10 @@ angular.module('miller')
             var altlanguage = scope.language.replace(/_[A-Z][A-Z]$/, ''),
                 contents = scope.embedit[language]||scope.embedit[altlanguage]||'';
 
-
             if(attrs.markdown){
               var md = new window.markdownit(options)
                 .disable(disable);
-
-              contents = md.render(contents)
+              contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
             }
             
             if(scope.firstline)
@@ -70,7 +69,7 @@ angular.module('miller')
           } else if(attrs.markdown){
             var md = new window.markdownit(options)
               .disable(disable);
-            contents = md.render(scope.embedit)
+            contents = attrs.markdown=='inline'? md.renderInline(scope.embedit): md.render(scope.embedit)
             element.html(contents);
           } else {
             element.html(scope.embedit)

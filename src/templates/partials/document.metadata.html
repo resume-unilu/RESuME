@@ -3,7 +3,11 @@
     <button class='btn btn-line' ng-if='document._type == "doc"||document._type == "voc"' ng-click='alignTo(document._index, $event)'>
       <span class='icon icon-type-{{document.type||document._type}}'></span><span class='type {{document.type}}'></span>
     </button>
-    <span ng-if='document.type!="link"' class='title' embedit='document.metadata.title' language='language'></span>
+    <span ng-if='document.type!="link" && document.type!="crossref"' class='title' embedit='document.metadata.title' language='language'></span>
+
+    <span ng-if='document.type=="crossref"'>
+      <span embedit='document.metadata.fullCitation' markdown='inline'></span> &mdash; <a ng-href='{{document.metadata.doi}}'>{{document.metadata.doi|smartUrl}}</a>
+    </span>
 
     <a ng-if='document.type=="link"' target='_blank' ng-href='{{document.metadata.url}}'><span class='title' embedit='document.metadata.title' language='language'></span></a>
     

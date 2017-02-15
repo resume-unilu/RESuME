@@ -31,6 +31,21 @@ angular.module('miller')
     });
   })
 
+  .factory('CrossRefFactory', function($http){
+    return {
+      search: function(query, page, rows){
+        return $http.get('http://search.crossref.org/dois',{
+          params:{
+            q: query,
+            header:'true',
+            page: page || 1,
+            rows: rows || 8
+          }
+        });
+      }
+    }
+  })
+
   /*
     Get a list of stories
   */
@@ -286,7 +301,10 @@ angular.module('miller')
           sections, // document sections.
           md = new window.markdownit({
             // breaks:       true
-          }),
+            html: true,
+
+          })
+          ,
           linkIndex = 0;
 
       // set initial value for results

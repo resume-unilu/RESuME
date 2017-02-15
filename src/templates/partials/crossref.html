@@ -1,0 +1,12 @@
+<div ng-class='{"active": selectedDocument.doi == item.doi}' class='doc crossref oembedded' ng-click='selectDocument(item)'>
+  <div class='wrapper'>
+    <div class='lazy-box'></div>
+    <div class='tile'>
+      <div class='title' embedit='item.fullCitation'></div>
+      <div class='copyright'>
+        <a ng-href='{{item.doi}}' target='_blank'>{{item.doi}}</a>
+      </div>
+    </div>
+  </div>
+  <div class='excerpt'><span ng-if='item.year'><span class='type'>{{item.year}}</span> &mdash; </span> <span embedit='item.title'></span></div>
+</div>
