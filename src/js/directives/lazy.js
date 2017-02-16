@@ -49,9 +49,9 @@ angular.module('miller')
               scope.src = scope.media.metadata? (scope.media.metadata.thumbnail_url || scope.media.metadata.preview || _.get(scope.media, 'metadata.urls.Preview')  || scope.media.snapshot || scope.media.attachment || scope.media.metadata.url): (scope.media.snapshot || scope.media.attachment);
               break;
           }
+          $log.log('lazy-cover ready - src:', scope.src, 'quality:', scope.quality)
         }
 
-        $log.log('lazy-cover ready - src:', scope.src, 'quality:', scope.quality)
         // scope.render();
         $timeout(scope.render, 0)
       }
