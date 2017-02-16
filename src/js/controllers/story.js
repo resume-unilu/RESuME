@@ -139,5 +139,8 @@ angular.module('miller')
       // $rootScope.emit(documents = documents;
       $scope.$parent.setDocuments(documents);
     };
+
+    
+    
   });
   

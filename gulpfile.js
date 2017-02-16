@@ -95,6 +95,22 @@ gulp.task('scripts', function() {
     .pipe($.size({title: 'js'}))
 });
 
+
+gulp.task('scripts.rangy', function() {
+  return gulp.src([
+      './src/js/rangy/rangy-core.js',
+      './src/js/rangy/rangy-classapplier.js',
+      './src/js/rangy/rangy-highlighter.js'
+    ])
+    .pipe($.concat('scripts.rangy.min.js'))
+    .pipe($.uglify({}))
+    
+    // Output files
+    .pipe(gulp.dest('./src/js'))
+    .pipe($.size({title: 'scripts.rangy'}))
+});
+
+
 gulp.task('styles', function() {
   return gulp.src([
       './src/css/bootstrap.css',

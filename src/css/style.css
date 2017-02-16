@@ -79,6 +79,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   line-height: 40px;
 }
 
+.contents .highlight{
+  background-color:rgba(199, 244, 100, 0.52);
+}
+
 .contents .table{
 font-size: 12px;
 } 
@@ -877,7 +881,7 @@ ul.errorlist{
 .story.item .cover, .story.lite .cover{
   transition:opacity .36s ease-in-out;
   height: 190px;
-  opacity: 0;
+  /*opacity: 0;*/
 }
 
 .story.item .cover.loaded, .story.lite .cover.loaded{
