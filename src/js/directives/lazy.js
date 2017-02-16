@@ -50,7 +50,6 @@ angular.module('miller')
               break;
           }
           $log.log('lazy-cover ready - src:', scope.src, 'quality:', scope.quality);
-          debugger
         }
 
         // scope.render();
