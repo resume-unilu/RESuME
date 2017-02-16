@@ -2,7 +2,7 @@
   
     <div class='col-xs-6 col-sm-4'>
       <div ng-if='coverstory.covers.length' ng-repeat='document in coverstory.covers' class='cover-wrapper row'>
-      <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' cover='document | coverage:"hifi"'></div>
+      <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' media='document' coverquality="hifi"></div>
         <!-- <div class='cover' style='background-size: cover; height:300px; background-image:url({{coverstory.cover}})' ></div> -->
       </div>
     </div>

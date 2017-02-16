@@ -136,9 +136,7 @@ angular.module('miller')
         }).value();
 
       $log.log('StoryCtrl > setDocuments items n.:', items.length, '- documents n:', documents.length, '- sideDocuments:', $scope.sidedocuments );
-        
       // $rootScope.emit(documents = documents;
-
       $scope.$parent.setDocuments(documents);
     };
   });

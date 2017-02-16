@@ -7,13 +7,12 @@
  * Cfr footnote template.
  */
 angular.module('miller')
-  .directive('footnote', function($compile, RUNTIME){
+  .directive('footnote', function($compile, $rootScope, RUNTIME){
     return {
       restrict : 'A',
       scope:{
         caption: '=',
         footnote: '='
-        
       },
       templateUrl: RUNTIME.static + 'templates/partials/directives/footnote.html',
       // require: "^?markdownit",
@@ -25,7 +24,7 @@ angular.module('miller')
 
         wrapper.html(contents);
         $compile(wrapper.contents())(scope);
-       
+
         scope.isOpened = !!attrs.isOpened;
 
         scope.toggleFootnote = function(){
@@ -44,7 +43,6 @@ angular.module('miller')
             $log.error(":: footnote > fullsize is without hanlders.");
           }
         }
-
       }
     }
   });

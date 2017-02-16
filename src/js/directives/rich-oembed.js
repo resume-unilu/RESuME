@@ -12,7 +12,7 @@ angular.module('miller')
       scope:{
         enabled: '=',
         oembed: '=',
-        cover: '=',
+        media: '=',
         autoplay: '=',
         fullscreen: '&'
       },
@@ -21,10 +21,11 @@ angular.module('miller')
       link: function(scope, element, attrs) {
         // scope.enabled = false;
         var timer;
-
-        scope.iframeEnabled = false;
         
-        $log.log('🍩 rich-oembed ready, cover:', scope.cover, '- autoplay:', scope.autoplay, '- type:', scope.oembed.type);
+        scope.iframeEnabled = false;
+        scope.quality = attrs.quality;
+
+        $log.log('🍩 rich-oembed ready, media:', scope.media, '- autoplay:', scope.autoplay, '- type:', scope.oembed.type, '- quality:', scope.quality);
         scope.$watch('enabled', function(v){
           $log.debug('🍩 rich-oembed @enabled:', v);
           scope.toggleEnable(!!v);

@@ -389,6 +389,8 @@ ul.errorlist{
   height: 100%;
 }
 
+
+
 .elastic-textarea:focus{
   border-color: #4ECDC4 ;
   background: #ffffff;
@@ -2115,12 +2117,13 @@ h4.modal-title{
   line-height:  30px;
   padding-top: 2px;
   transition: background-color .16s ease-in-out;
+  text-decoration: none;
 }
 
 .rich-oembed-iframe-wrapper > .actions > .action:hover{
   background-color: #151515;
   color: white;
-  text-decoration: none;
+
 }
 
 .rich-oembed-iframe-wrapper:hover > .actions {
@@ -2190,12 +2193,25 @@ h4.modal-title{
     line-height: 18px;
 }
 
-.cover{
+.cover, .lazy-cover{
   background-color: #f0f0f0;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.lazy-cover{
+  height: 100%;
+  opacity:0;
+  transition: opacity .36s ease-in-out;
+
+}
+
+.lazy-cover.loaded{
+  opacity: 1;
+}
+
+
 .story .cover.main {
   background-color: transparent;
 }
@@ -2794,9 +2810,7 @@ div.profile-others .profile-thumb{
 }
 
 
-.sliding-steps .step:hover .thumbnail > .thumbnail-image{
-  transform: scale(1.05);
-}
+
 
 .sliding-steps .step:hover .thumbnail > .fullscreen{
   background-color:  #151515;
@@ -2863,9 +2877,9 @@ div.profile-others .profile-thumb{
 
 .thumbnail > .thumbnail-image{
   height: 100%;
-  background-size: cover;
+  /*background-size: cover;
   transition: transform .36s ease-in-out;
-  z-index: 1;
+  z-index: 1;*/
 }
 
 .thumbnail > .fullscreen{
@@ -2888,7 +2902,6 @@ div.profile-others .profile-thumb{
 
 .thumbnail > .fullscreen:hover{
   background-color: #4ECDC4;
-
 }
 
 

@@ -1,15 +1,5 @@
-
 <div class='doc doc-{{document.type}} {{document.isSelected?"active":""}}' ng-click='selectDocument(document)'>
-  <!-- <div class='divider'>&nbsp;</div> -->
-  
-  <div class='switch' ng-if='document.type=="image"' ng-include='"templates/partials/document.image.html"|prefixTemplate'></div>
-
-  <div class='switch' ng-if='document.type=="photo"' ng-include='"templates/partials/document.photo.html"|prefixTemplate'></div>
-
-
-  <div class='switch' ng-if='document.type=="rich" || document.type=="video"' rich-oembed fullscreen='fullsize(document.slug)' oembed='document.metadata' cover='document.metadata.details.urls.Preview || document.snapshot ||  document.metadata.urls.Preview || document.metadata.thumbnail_url;'></div>
-
-  
+  <div class='switch' ng-if='document.type=="image" || document.type=="rich" || document.type=="video" || document.type=="photo"' rich-oembed fullscreen='fullsize(document.slug)' oembed='document.metadata' media='document' quality='{{quality}}'></div>
 
   <div class='switch' ng-if='document.type=="picture"' style='height: 400px; width:100%; background-position: center; background-color: #151515; background-size:contain; background-repeat: no-repeat;' lazy-img='{{document.src}}'></div>
 
@@ -17,26 +7,18 @@
 
       <!-- this element has fixed height. -->
       <div ng-if='document.type=="video-cover"'>
-        
         <div class='caption reference' markdown='document.metadata.reference.fr'></div>
         <div class='copyright'>{{document.copyrights}}</div>
-        
       </div>
 
-      
-
       <div ng-if='document.type=="pdf"' lazy-image src='document.snapshot'></div>
-      
-
+    
       <blockquote ng-if='document.citation' markdown='document.citation'></blockquote>
-
-
       
       <div ng-if='!document.metadata'>
         <div ng-if='document.title' class='title'>{{document.title}}</div>
         <div ng-if='document.caption' class='caption'>{{document.caption}}</div>
         <div ng-if='document.copyrights' class='copyright'>{{document.copyrights}}</div>
-        
       </div>
 
       <div ng-if='document.type=="bibtex"'>

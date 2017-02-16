@@ -49,7 +49,7 @@ angular.module('miller')
 
       if(typeof cover != 'object')
         return ''
-
+      
       if(cover.metadata){
         if(_hifi){
           url = cover.metadata.media_url || _.get(cover, 'metadata.urls.Publishable') || cover.metadata.thumbnail_url || cover.metadata.preview || cover.metadata.url   || cover.attachment || cover.snapshot;
