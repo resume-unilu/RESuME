@@ -879,14 +879,9 @@ ul.errorlist{
 }
 
 .story.item .cover, .story.lite .cover{
-  transition:opacity .36s ease-in-out;
   height: 190px;
-  /*opacity: 0;*/
 }
 
-.story.item .cover.loaded, .story.lite .cover.loaded{
-  opacity: 1;
-}
 
 .story.item .tags{
   display: inline-block;
