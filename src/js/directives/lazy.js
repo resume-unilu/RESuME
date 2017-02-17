@@ -27,6 +27,10 @@ angular.module('miller')
             scope.quality = attrs.quality || LAZY.QUALITY_HIFI;
           }
 
+          if(attrs.immediate){
+            scope.immediate = true
+          }
+
           if(_.values(LAZY).indexOf(scope.quality) == -1){
             $log.error('lazy-cover: quality attribute should be one of these:', _.keys(LAZY), '- received:', attrs.quality);
             return

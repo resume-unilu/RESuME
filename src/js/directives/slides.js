@@ -94,10 +94,12 @@ angular.module('miller')
           if(typeof attrs.autoscroll != 'undefined')
             timer = $timeout(scope.loop, 6000);
         }
-
         
         $timeout(function(){
           scope.isDOMready = true;
+          $rootScope.$emit('lazyImg:refresh');
+          $log.log('slides ready!');
+
           scope.slide();
         },0)
       }
