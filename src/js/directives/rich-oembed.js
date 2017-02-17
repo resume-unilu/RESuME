@@ -24,6 +24,7 @@ angular.module('miller')
         
         scope.iframeEnabled = false;
         scope.quality = attrs.quality;
+        scope.immediate = typeof attrs.immediate != undefined;
 
         $log.log('🍩 rich-oembed ready, media:', scope.media, '- autoplay:', scope.autoplay, '- type:', scope.oembed.type, '- quality:', scope.quality);
         scope.$watch('enabled', function(v){

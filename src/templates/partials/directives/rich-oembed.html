@@ -4,7 +4,7 @@
   </div>
   <div class='rich-oembed-iframe-viewport' ng-class='{"active":iframeEnabled}'>
     <div  style='height: 100%; width: 100%; ' >
-      <div class='image-wrapper cover' lazy-cover media='media' quality='{{quality}}'></div>
+      <div class='image-wrapper cover' lazy-cover media='media' immediate='{{immediate}}' quality='{{quality}}'></div>
     </div>
     <div ng-if='iframeEnabled' style='height: 100%; position: absolute; top:0; left:0;width: 100%' stretch='true' autoplay='{{autoplay}}' embedit='oembed.html' language='language'></div>
   </div>

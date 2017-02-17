@@ -1,2 +1,3 @@
-<div class="lazy-cover" style="background-position-y:{{offsety}};background-position-x:{{offsetx}};" lazy-img="{{src}}"></div>
+<div ng-if="!immediate" class="lazy-cover" style="background-position-y:{{offsety}};background-position-x:{{offsetx}};" lazy-img="{{src}}"></div>
+<div ng-if="immediate" class="lazy-cover loaded" style="background-position-y:{{offsety}};background-position-x:{{offsetx}};background-image: url({{src}})"></div>
       
