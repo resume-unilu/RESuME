@@ -211,7 +211,7 @@
 
         /*----------------------------------------------------------------------------------------------------------------*/
 
-        function Highlight(doc, characterRange, classApplier, converter, id, containerElementId) {
+        function Highlight(doc, characterRange, classApplier, converter, id, containerElementId, attrs) {
             if (id) {
                 this.id = id;
                 nextHighlightId = Math.max(nextHighlightId, id + 1);
@@ -224,6 +224,10 @@
             this.converter = converter;
             this.containerElementId = containerElementId || null;
             this.applied = false;
+
+            this.attrs = JSON.parse(attrs || '{}');
+            
+            this.classApplier.elementAttributes = this.attrs;
         }
 
         Highlight.prototype = {
@@ -549,7 +553,8 @@
                         characterRange.end,
                         highlight.id,
                         highlight.classApplier.className,
-                        highlight.containerElementId
+                        highlight.containerElementId,
+                        JSON.stringify(highlight.attrs)
                     ];
 
                     if (options.serializeHighlightText) {
@@ -559,6 +564,21 @@
                 });
 
                 return serializedHighlights.join("|");
+            },
+
+            serializeHighlight(highlight) {
+              var h = this;
+              var characterRange = highlight.characterRange;
+              var containerElement;
+
+              return 'type:' + h.converter.type + '|' + [
+                  characterRange.start,
+                  characterRange.end,
+                  highlight.id,
+                  highlight.classApplier.className,
+                  highlight.containerElementId,
+                  JSON.stringify(highlight.attrs)
+              ].join("$");
             },
 
             deserialize: function(serialized) {
@@ -601,7 +621,7 @@
                         throw new Error("No class applier found for class '" + parts[3] + "'");
                     }
 
-                    highlight = new Highlight(this.doc, characterRange, classApplier, this.converter, parseInt(parts[2]), containerElementId);
+                    highlight = new Highlight(this.doc, characterRange, classApplier, this.converter, parseInt(parts[2]), containerElementId, parts[5]);
                     highlight.apply();
                     highlights.push(highlight);
                 }

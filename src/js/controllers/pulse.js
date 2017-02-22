@@ -7,7 +7,7 @@
  * Used directly below CoreCtrl
  */
 angular.module('miller')
-  .controller('PulseCtrl', function ($scope, $log, RUNTIME) {
+  .controller('PulseCtrl', function ($scope, $rootScope, $log, RUNTIME, EVENTS) {
     $log.log('⚡ PulseCtrl ready');
     
     if(!RUNTIME.settings.wshost){
@@ -19,6 +19,16 @@ angular.module('miller')
 
     socket.onmessage = function(e) {
       $log.log('⚡ -> ',e.data, e)
+      try{
+        var d = JSON.parse(e.data);
+
+        if(d.verb == 'commented'){
+          $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
+        }
+      } catch(err){
+        $log.log('⚡ PulseCtrl onmessage: unable to json parse data: ', err)
+      }
+      
     }
 
     socket.onopen = function() {

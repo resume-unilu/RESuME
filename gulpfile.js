@@ -103,7 +103,7 @@ gulp.task('scripts.rangy', function() {
       './src/js/rangy/rangy-highlighter.js'
     ])
     .pipe($.concat('scripts.rangy.min.js'))
-    .pipe($.uglify({}))
+    // .pipe($.uglify({}))
     
     // Output files
     .pipe(gulp.dest('./src/js'))

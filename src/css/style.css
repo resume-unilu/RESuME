@@ -42,6 +42,10 @@ ul.list{
   clear: left;
 }
 
+.float-right{
+  float: right;
+}
+
 .relative{
   position: relative;
 }
@@ -79,7 +83,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   line-height: 40px;
 }
 
-.contents .highlight{
+.contents span[hl], .commenter .quote span{
   background-color:rgba(199, 244, 100, 0.52);
 }
 
@@ -3075,4 +3079,81 @@ content: "\e07a";
 .star-rating li.filled{
   background: #4ECDC4;
   color: white;
+}
+
+
+
+
+
+
+.rangy{
+  box-shadow: #d0d0d0 1px 0px 4px;
+  padding-bottom: 10px;
+  background-color: #fff;
+  min-width: 300px;
+}
+
+.commenter h4{
+  font: 10px/20px 'Lato', sans-serif;
+  text-transform: uppercase;
+  padding: 5px 10px 0;
+}
+.commenter .section{
+  padding: 0 10px;
+}
+.commenter label{
+      margin-top: 0px;
+}
+
+.commenter .elastic-textarea{
+  background: transparent;
+}
+
+.commenter .actions{
+  position: relative;
+  padding: 10px 8px 0;
+}
+
+
+.sliding-steps .step.comment{
+    box-shadow: #eaeaea 0px 1px 4px;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+.responses{
+  border-top: 2px solid #ddd;
+  padding-top: 18px;
+  background: #f0f0f0;
+  margin-top: 10px;
+}
+
+.comment .date{
+  font-weight: normal;
+}
+.comment .actions{
+  position: relative;
+  margin-top: 10px;
+  margin-left: -2px;
+}
+
+.comment .username{
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.comment .status{
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+
+.comment .contents{
+  font-size: 13px;
+  line-height: 21px;
+      padding-top: 10px;
 }

@@ -61,6 +61,10 @@ angular.module('miller')
       patch: {
         method:'PATCH'
       },
+      getComments: {
+        params:{fn:'comments/'},
+        method: 'GET',
+      },
       download: {
         params:{fn:'download'},
         method: 'GET',

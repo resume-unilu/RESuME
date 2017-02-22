@@ -1034,8 +1034,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/controllers/modals/enrich.js" %}'></script>
     <script src='{% static "js/controllers/modals/covers.js" %}'></script>
 
+    <script src='{% static "js/directives/commenter.js" %}'></script>
     <script src='{% static "js/directives/embedit.js" %}'></script>
     <script src='{% static "js/directives/footnote.js" %}'></script>  
+    <script src='{% static "js/directives/marginalia.js" %}'></script>
     <script src='{% static "js/directives/marked.js" %}'></script>
     <script src='{% static "js/directives/mde.js" %}'></script>
     <script src='{% static "js/directives/lazy.js" %}'></script>  
@@ -1074,23 +1076,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
       settings.session_key = "{{ request.session.session_key }}";
 
-      var _windox  = $(window),
+      var _windox  = angular.element(window),
           _offsetables = {
             navbar: $('#navbar'),
-            'table-of-contents-toggler': $('#table-of-contents-toggler'),
-            'inner-table-of-contents': $('#inner-table-of-contents'),
+            'table-of-contents-toggler': angular.element('#table-of-contents-toggler'),
+            'inner-table-of-contents': angular.element('#inner-table-of-contents'),
             // 'inner-table-of-documents': $('#inner-table-of-documents'),
             // 'writing-tools': $('#writing-tools')
           },
           _is_mobile = _windox.width() < 768,
           _navbar_offset = _is_mobile? 70: 100,
           st,
+          windowHeight,
+          windowWidth,
           floatinglimit = _is_mobile? 70:100,
           isBelowFloating = false;
 
       _windox.on('resize', function(){
-        _is_mobile = _windox.width() < 768;
-        floatinglimit = _is_mobile? 70:100,
+        windowHeight = _windox.height();
+        windowWidth = _windox.width();
+        _is_mobile =  windowWidth < 768;
+        floatinglimit = _is_mobile? 70:100;
+
         evaluateFloating();
       })
 

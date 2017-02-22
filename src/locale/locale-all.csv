@@ -7,6 +7,10 @@ button.back,,back,retour,zurück,back
 button.backtoreviews,,back to review list,retour à la liste d'évaluation,zurück zur Begutachtungsliste,back to review list
 button.completereview,,create or modify review,faire ou modifier une évaluation,Begutachtung erstellen oder ändern,create or modify review
 button.create,,create,créer,erstellen,create
+button.comment.remove,,remove,,,remove
+button.comment.reply,,reply,,,reply
+button.comment.undo,,discard,,,discard
+button.comment.leave,,leave comment,,,leave comment
 button.viewmode,,back to reading mode,retour au mode de lecture,zurück zum Lesemodus,back to reading mode
 button.save,,save,enregistrer,speichern,save
 button.savedraft,,{{is_saving?'saving...':'save draft'}},{{is_saving?'enregistrement en cours...':'enregistrer comme brouillon'}},{{is_saving?'speichert...':'Entwurf sichern'}},{{is_saving?'saving...':'save draft'}}
@@ -166,6 +170,8 @@ state.publications.biography.abstract,,biography ...,biographie...,Biographie ..
 state.publications.how-tos.title,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 state.publications.how-tos.label,,how-tos,modes d'emploi,Anleitungen,how-tos
 state.publications.how-tos.abstract,,how-tos ...,modes d'emploi...,Anleitungen,how-tos ...
+comment.status.pending,,only you can view this,,,only you can view this
+comment.status.public,,everyone can view this,,,everyone can view this
 headline.reviews,,reviews assigned to you,évaluations qui vous ont été/sont assigné(e)s,Ihnen zugewiesene Begutachtungen,reviews assigned to you
 headline.reviews.abstract,,,,,
 state.reviews.all,,view all,voir tout,alles anzeigen/sehen,view all
@@ -189,12 +195,12 @@ order.by.oldest,,most recent last,,,most recent last
 order.by.titleaz,,by title (A-Z),,,by title (A-Z)
 order.by.titleza,,by title (Z-A),,,by title (Z-A)
 oembed.type.rich,à rajouter,Media,Media,Media,Media
-oembed.type.link,,Link,Lien,Link,Link
-oembed.type.photo,,Image,Image,Bild,Image
-oembed.type.image,,Image,Image,Bild,Image
-oembed.type.picture,,Image,Image,Bild,Image
-tab.library,,your library,votre bibliothèque,Ihre Bibliothek,your library
-tab.glossary,,other publications,autres publications,andere Publikationen,other publications
+oembed.type.link,,Link,Lien,Link,
+oembed.type.photo,,Image,Image,Bild,
+oembed.type.image,,Image,Image,Bild,
+oembed.type.picture,,Image,Image,Bild,
+tab.library,,your library,votre bibliothèque,Ihre Bibliothek,
+tab.glossary,,other publications,autres publications,andere Publikationen,
 tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,
 tab.crossref,,from Crossref,depuis Crossref,aus Crossref,
 tab.url,,from url,depuis l'URL,aus der URL,

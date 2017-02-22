@@ -52,14 +52,34 @@ angular.module('miller')
         $scope.$emit(EVENTS.MESSAGE, 'saved');
         $scope.unlock();
       });
+    };
+
+    $scope.comments = [];
+    $scope.totalComments = 0;
+    $scope.loadComments = function(){
+      StoryFactory.getComments({
+        id: story.id,
+        orderby: '-date_created'
+      }, function(res){
+        $scope.comments = res.results;
+        $scope.totalComments = res.count;
+      }, function(e){
+        $log.error(e)
+      })
     }
 
+    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
+      if(data.target.id == story.id){
+        $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
+        $scope.loadComments()
+      }
+      
+    })
 
     $scope.download = function() {
       StoryFactory.download({
         id: $scope.story.id
       }).$promise.then(function(result) {
-        debugger
         var url = URL.createObjectURL(new Blob([result.data]));
         var a = document.createElement('a');
         a.href = url;

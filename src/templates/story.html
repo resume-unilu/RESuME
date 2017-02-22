@@ -93,38 +93,53 @@
           <!-- </div> -->
           
           <!-- <div class='col-md-4'> -->
-          <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate''></div>
+          <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate'></div>
           <!-- </div> -->
         <!-- </div> -->
       </div>
 
-      <div class='row' style='margin-bottom: 50px'>
+      <div class='row' style='margin-bottom: 10px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
-          <div id='contents' class="contents">
+          <div id='contents' style='position:relative' class="contents">
+            
+            <!-- contents of the story -->
             <div markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
+
+            <!-- DOI / reference -->
+            <div class='ref' ng-if='story.metadata.doi || story.metadata.reference'>
+              <span translate='ref' class='label'></span>
+              <a target='_blank' embedit='story.metadata.reference' markdown='true' language='language'></a>
+              <span ng-if='story.metadata.doi && story.metadata.reference'>&mdash;</span>
+              <span class='label' ng-if='story.metadata.doi' translate='doi'></span>
+              <a ng-if='story.metadata.doi' ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a> 
+            </div>
+
+            
+            <!-- it contains the comments done on the page, if any -->
+            <div marginalia whenvisible='loadComments()'></div>
+            
+            <!-- contains the commenter -->
+            <div ng-if='user.is_staff' rangy container='contents' highlights='story.metadata.highlights' target='story' actor='user'></div>
+            
           </div>
         </div>
-        <div class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">
+        <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">
           <div  sliding-steps data-language='language' data-focus='focusedIdx' style='height:100%' items='documents'></div>
         </div>
       </div>
-
-      <div class='row'>
+    </div>
+  </div>
+  <div class='responses' ng-if='comments.length'>
+    <div class='container' >
+      <div class='row' style='margin-bottom: 50px'>
         <div class='col-md-12'>
-        
-          <!-- DOI / reference -->
-          <div class='ref' ng-if='story.metadata.doi || story.metadata.reference'>
-            <span translate='ref' class='label'></span>
-            <a target='_blank' embedit='story.metadata.reference' markdown='true' language='language'></a>
-            <span ng-if='story.metadata.doi && story.metadata.reference'>&mdash;</span>
-            <span class='label' ng-if='story.metadata.doi' translate='doi'></span>
-            <a ng-if='story.metadata.doi' ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a>
-            
-          </div>
-        <!-- <div style='margin-top: 50px' disqus="story.slug"></div> -->
+          <!-- comment list babe -->
+            <div  class='sliding-steps'>
+              <div ng-repeat='comment in comments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
+            </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div rangy container='contents'></div>
+

@@ -45,6 +45,8 @@ angular
     'MARKDOWNIT_FULLSIZE': 'markdownit_fullsize',
     'MARKDOWNIT_RESOLVE': 'markdownit_resolve',
     'MARKDOWNIT_FOCUS': 'markdownit_focus',
+
+    'SOCKET_USER_COMMENTED_STORY': 'socket_user_commented_story'
   })
   /*
     disqus configuration
@@ -764,7 +766,7 @@ angular
             return StoryFactory.get({id: $stateParams.postId}).$promise;
           },
         }
-      });
+      })
 
     $stateProvider
       .state('collection', {
