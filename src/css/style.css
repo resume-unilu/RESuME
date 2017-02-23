@@ -83,7 +83,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   line-height: 40px;
 }
 
-.contents span[hl], .commenter .quote span{
+.contents span[hl], .contents .highlight, .commenter .quote span, .comment .quote span{
   background-color:rgba(199, 244, 100, 0.52);
 }
 

@@ -119,7 +119,7 @@
             <div marginalia whenvisible='loadComments()'></div>
             
             <!-- contains the commenter -->
-            <div ng-if='user.is_staff' rangy container='contents' highlights='story.metadata.highlights' target='story' actor='user'></div>
+            <div ng-if='user.is_staff' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user'></div>
             
           </div>
         </div>
