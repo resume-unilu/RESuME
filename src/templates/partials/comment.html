@@ -1,0 +1,15 @@
+<div class='step comment' ng-class='{"owned": user.username == comment.owner.username}'>
+  <div class='status float-right'><span translate='comment.status.{{comment.status}}'></span><div><a ng-href='/admin/miller/comment/{{comment.pk}}/change/' target='_blank'>edit (admin)</a></div>
+  </div>
+  <div class='username'>{{comment.owner.username}}</div>
+  <div class='date'>{{comment.date_created|date:"yyyy'.'MM'.'dd hh:mm"}}</div>
+  <div class='quote'>
+    <span>{{comment.contents.quote}}</span>
+  </div>
+  <div class='contents' embedit='comment.contents.content' markdown='inline'></div>
+  <div ng-if='user.username == comment.owner.username' class='actions'>
+    <div class='btn-line-group primary transparent'>
+      <button  class='btn-line' ng-click='removeComment()' ng-disabled='isLoading'><span translate='button.comment.remove' translate-values='isLoading'></span> <span class='icon icon-bin'></span></button>
+    </div>
+  </div>
+</div>    
