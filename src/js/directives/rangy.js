@@ -7,7 +7,8 @@ angular.module('miller')
       scope: {
         actor: '=',
         target: '=',
-        highlights: '='
+        highlights: '=',
+        forwardCommented: '&commented'
       },
       link: function(scope, element, attrs) {
         if(!attrs.container){
@@ -15,19 +16,29 @@ angular.module('miller')
           return;
         }
 
-        var  idnum  = 0;
+        var idnum  = 0,
+            serializedHighlights = [];
         
         
 
         scope.commented = function(err, comment){
-          debugger
           if(err){
             $log.log('💾 rangy > commented() received an error:', err);
             return
           }
-          debugger
+          $log.log('💾 rangy > commented() success:', comment);
+          scope.discarded();
+          scope.forwardCommented({error: err, comment: comment});
         }
 
+        scope.discarded = function(){
+          $log.log('💾 rangy > discarded()');
+          if(scope.highlight)
+            scope.highlight = null;
+          $rootScope.rangy.highlighters.highlight.removeAllHighlights();
+          element.css({position: 'relative', top:'auto', left:'auto'});
+            
+        }
 
         $log.log('💾 rangy lazy loading rangy lib ... on: #'+ attrs.container)
         angularLoad.loadScript(RUNTIME.static + 'js/scripts.rangy.min.js').then(function() {
@@ -49,18 +60,35 @@ angular.module('miller')
           // $rootScope.rangy.highlighter.deserialize('type:textContent|5782$5919$1$highlight crazy${"data-id":"123456"}$')
           // prepare class applier, one for each comment ... no comment
           scope.prepareSelectedText = function(event) {
-            $log.log('💾 rangy prepareSelectedText')
-            if(rangy.getSelection().isCollapsed)
+            
+            if(rangy.getSelection().isCollapsed){
+              $log.log('💾 rangy > prepareSelectedText() nothing selected...')
+              if(scope.highlight){
+                scope.discarded();
+              }
+
               return;
+            }
+
+            // if scope.highlight, discard previous selection
+            if(scope.highlight){
+              debugger
+              $rootScope.rangy.highlighters.highlight.removeAllHighlights();
+            }
+            
             // get top
             var offset = angular.element('#' + attrs.container).offset();
 
             element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
             var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight");
+            rangy.getSelection().removeAllRanges();
+            h[0].attrs = {'hl':''}
             scope.highlight = {
               h: h[0],
               s: $rootScope.rangy.highlighters.highlight.serializeHighlight(h[0])
             }
+
+            $log.log('💾 rangy > prepareSelectedText() serialized:', scope.highlight.s);
           };
           
           function createHighlighter(classname){
@@ -84,14 +112,14 @@ angular.module('miller')
               // var comments = ['type:textContent|4063$4150$1$s.120.c.1$${"hl":""}','type:textContent|4063$4159$5$s.120.c.2$${"hl":""}','type:textContent|6145$6291$2$highlight$${"data-id":"123456","data-highlight-id":"123456"}', 'type:textContent|5782$5919$1$highlight$${"data-highlight-id":"123456"}', ]
               var id = d.split('$')[3], // e.g: 'type:textContent|4063$4150$1$s.120.c.1$${"hl":""}' -> s.120.c.1
                   h;
-
-              if(scope.serializedHighlights.indexOf(id) == -1) {
+              
+              if(serializedHighlights.indexOf(id) === -1) {
                 h = createHighlighter(id);
-                h.deserialize(d.contents.highlight);
-                scope.serializedHighlights.push(id);
+                h.deserialize(d);
+                serializedHighlights.push(id);
               }
             });
-            $log.log('💾 rangy -> renderHighlights() serializedHighlights:', scope.serializedHighlights);
+            $log.log('💾 rangy -> renderHighlights() serializedHighlights:', serializedHighlights);
           };
 
         

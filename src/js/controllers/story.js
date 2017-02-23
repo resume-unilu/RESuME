@@ -160,6 +160,11 @@ angular.module('miller')
       $scope.$parent.setDocuments(documents);
     };
 
+    $scope.commented = function(error, comment){
+      if(comment && $scope.story.highlights.indexOf(comment.highlights) == -1){
+        $scope.story.highlights.push(comment.highlights)
+      }
+    }
     
     
   });
