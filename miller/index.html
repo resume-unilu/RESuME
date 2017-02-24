@@ -615,7 +615,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       }
 
       @media (min-width: 992px){
-
+        .rangy{
+          width: 500px;
+        }
+        .commenter .section{
+          padding: 0 20px;
+        }
+        .commenter .section.comments{
+          padding: 0 20px 0 0;
+        }
+        .commenter .actions{
+          padding: 10px 18px 0;
+        }
         .story.lite h3 a{
           font-size: 30px;
           line-height: 45px;
@@ -966,7 +977,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     {% endverbatim %}
     {% endblock %}
     {% if debug %}
-    <script src='{% static "js/lib/jquery-2.2.1.min.js" %}'></script>
+    <!-- <script src='{% static "js/lib/jquery-2.2.1.min.js" %}'></script> -->
+    <script src='{% static "js/lib/jquery-3.1.1.min.js" %}'></script>
     <script src='{% static "js/lib/md5.js" %}'></script>
     
 

@@ -85,6 +85,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .contents span[hl], .contents .highlight, .commenter .quote span, .comment .quote span{
   background-color:rgba(199, 244, 100, 0.52);
+  padding: 2px 0px;
 }
 
 .contents .table{
@@ -794,9 +795,7 @@ ul.errorlist{
   font-size: 12px;
 }
 
-.date{
-  color: #6b6b6b;
-}
+
 
 .ref > a{
   color: #6b6b6b;
@@ -3088,19 +3087,68 @@ content: "\e07a";
 
 .rangy{
   box-shadow: #d0d0d0 1px 0px 4px;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   background-color: #fff;
   min-width: 300px;
+  display: none;
 }
+
+.rangy.enabled{
+  display: block;
+}
+
+
 
 .commenter h4{
   font: 10px/20px 'Lato', sans-serif;
   text-transform: uppercase;
   padding: 5px 10px 0;
+
 }
+
+.rangy .commenter h4{
+  margin: 0;
+  padding: 13px 20px 5px;
+}
+
+.rangy .commenter .leave{
+  background: #e7e7e7;
+  padding-bottom: 10px;
+}
+
+.rangy .commenter .leave label{
+  display: none;
+}
+
+.rangy .commenter .leave .elastic-textarea{
+  border-bottom: 2px solid #cdcbcb;
+}
+
+.rangy .commenter .leave .section.quote{
+  margin-bottom: 10px;
+  
+}
+
+.rangy .commenter .leave .section.quote span{
+  background-color: white;
+  padding: 3px 5px;
+}
+
 .commenter .section{
   padding: 0 10px;
 }
+.commenter .section.comments{
+  margin-top: 0px;
+  padding-top: 10px;
+  padding-left: 0;
+}
+
+.commenter .section.comments .comment{
+  border-left: 2px solid;
+  padding: 10px 0 15px 20px;
+  margin-bottom: 4px;
+}
+
 .commenter label{
       margin-top: 0px;
 }
@@ -3142,7 +3190,8 @@ content: "\e07a";
 .comment .username{
   font-family: 'Lato', sans-serif;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: normal;
+  color: #9c9696;
 }
 
 .comment .status{

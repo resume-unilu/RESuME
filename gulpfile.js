@@ -31,7 +31,7 @@ gulp.task('templates', function () {
 
 gulp.task('libs', function() {
   return gulp.src([
-    './src/js/lib/jquery-2.2.1.min.js',
+    './src/js/lib/jquery-3.1.1.min.js',
     './src/js/lib/md5.js',
     './src/js/lib/lodash.custom.min.js',
     // './src/js/lib/marked.min.js',

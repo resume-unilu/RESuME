@@ -119,8 +119,9 @@
             <div marginalia whenvisible='loadComments()'></div>
             
             <!-- contains the commenter -->
-            <div ng-if='user.is_staff' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user'></div>
+            <div ng-if='user.is_staff' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
             
+            <div ng-if='user.is_staff' commenter target="story" actor="user" commented="commented(error, comment)"></div>
           </div>
         </div>
         <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">

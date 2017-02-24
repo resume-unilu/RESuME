@@ -164,8 +164,15 @@ angular.module('miller')
       if(comment && $scope.story.highlights.indexOf(comment.highlights) == -1){
         $scope.story.highlights.push(comment.highlights)
       }
-    }
-    
+    };
+
+    // given the shortUrl, preload the comment item
+    // params uids: list of shortUrls to preload.
+    $scope.commentsSelected = function(uids) {
+      // debugger
+      debugger
+      $log.log('StoryCtrl > commentsSelected uids:', uids);
+    }    
     
   });
   

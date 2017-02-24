@@ -8,7 +8,8 @@ angular.module('miller')
         actor: '=',
         target: '=',
         highlights: '=',
-        forwardCommented: '&commented'
+        forwardCommented: '&commented',
+        // forwardCommentsSelected: '&onCommentsSelected'
       },
       link: function(scope, element, attrs) {
         if(!attrs.container){
@@ -17,8 +18,10 @@ angular.module('miller')
         }
 
         var idnum  = 0,
-            serializedHighlights = [];
+            serializedHighlights = [],
+            container = angular.element('#' + attrs.container);
         
+        scope.isEnabled = false;
         
 
         scope.commented = function(err, comment){
@@ -27,7 +30,7 @@ angular.module('miller')
             return
           }
           $log.log('💾 rangy > commented() success:', comment);
-          scope.discarded();
+          // scope.discarded();
           scope.forwardCommented({error: err, comment: comment});
         }
 
@@ -36,9 +39,19 @@ angular.module('miller')
           if(scope.highlight)
             scope.highlight = null;
           $rootScope.rangy.highlighters.highlight.removeAllHighlights();
-          element.css({position: 'relative', top:'auto', left:'auto'});
-            
+          scope.hide();
         }
+
+        scope.show = function(event) {
+          var offset = container.offset();
+          element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
+          scope.isEnabled = true;
+        }
+        scope.hide = function() {
+          scope.isEnabled = false;
+          // element.css({position: 'relative', top:'auto', left:'auto'});
+        }
+
 
         $log.log('💾 rangy lazy loading rangy lib ... on: #'+ attrs.container)
         angularLoad.loadScript(RUNTIME.static + 'js/scripts.rangy.min.js').then(function() {
@@ -66,7 +79,7 @@ angular.module('miller')
               if(scope.highlight){
                 scope.discarded();
               }
-
+              scope.hide();
               return;
             }
 
@@ -77,9 +90,7 @@ angular.module('miller')
             }
             
             // get top
-            var offset = angular.element('#' + attrs.container).offset();
-
-            element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
+            scope.show(event);
             var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight");
             rangy.getSelection().removeAllRanges();
             h[0].attrs = {'hl':''}
@@ -123,7 +134,28 @@ angular.module('miller')
           };
 
         
+          // on click on rendered highlights, we use the related comment shorturl as classnames 
+          // the classApplier adds a hl html attributes on the html tag used as highlighter.
+          $('#' + attrs.container).on('click', '[hl]', function(event) {
+            
 
+            // if there is no selection; we want to view the comment.
+            if(rangy.getSelection().isCollapsed) {
+              $log.log('💾 rangy span[hl]@click, no selection, view comment:', event.currentTarget.className)
+              event.stopImmediatePropagation(); // we do not stop, we want to see the commenter as well.
+              // save the uids in the current scope
+              scope.commentsSelected = event.currentTarget.className.split(' ');
+              scope.show(event);
+            } else {
+              // let the event pass by
+              $log.log('💾 rangy span[hl]@click with selection')
+
+            }
+            var offset = angular.element('#' + attrs.container).offset();
+            element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
+            
+            scope.$apply()
+          }); // scope.prepareSelectedText)
 
           angular.element('#' + attrs.container).on('click', scope.prepareSelectedText);
           
@@ -147,6 +179,8 @@ angular.module('miller')
         // There was some error loading the script. Meh
           $log.warn('💾 rangy lib error', 'ooooo');
         });
+
+        
       }
     }
   })

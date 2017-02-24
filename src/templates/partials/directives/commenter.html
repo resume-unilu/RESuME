@@ -1,19 +1,25 @@
 <div class="commenter" ng-click='$event.stopImmediatePropagation()'>
-  <h4 class="sans-serif"><span>leave comment</span><span>(visible by you)</span></h4>
-  <div class='section quote' ng-if='quote'>
-    <span>{{quote}}</span>
-  </div>
-  
-  <div class='section'>
-    <label>{{actor.username}}</label>
-    <textarea rows="3" placeholder='... write here' class='elastic-textarea' msd-elastic ng-model='content' ng-model-options="{ debounce: 200 }"></textarea>
-  </div>
-  <div class="actions">
-    <div class='btn-line-group primary transparent'>
-      <button  class='btn-line' ng-click='leaveComment()' ng-disabled='isLoading'><span translate='button.comment.leave' translate-values='isLoading'></span> <span class='icon icon-pencil'></span></button>
+  <div class='leave'>
+    <h4 class="sans-serif"><span>leave comment</span><span>(visible by you)</span></h4>
+    <div class='section quote' ng-if='quote'>
+      <span commenter-quote="quote"></span>
     </div>
-    <div class='btn-line-group transparent' style='float: right'>
-      <button  class='btn-line' ng-click='discard($event)'><span translate='button.comment.undo'></span></button>
+    
+    <div class='section'>
+      <label>{{actor.username}}</label>
+      <textarea rows="3" placeholder='... write here' class='elastic-textarea' msd-elastic ng-model='content' ng-model-options="{ debounce: 200 }"></textarea>
     </div>
+    <div class="actions">
+      <div class='btn-line-group primary transparent'>
+        <button  class='btn-line' ng-click='leaveComment()' ng-disabled='isLoading'><span translate='button.comment.leave' translate-values='isLoading'></span> <span class='icon icon-pencil'></span></button>
+      </div>
+      <div ng-if='allowDiscard' class='btn-line-group transparent' style='float: right'>
+        <button  class='btn-line' ng-click='discard($event)'><span translate='button.comment.undo'></span></button>
+      </div>
+    </div>
+  </div>
+  <!-- view comment -->
+  <div class='section comments'>
+    <div ng-repeat='comment in comments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
   </div>
 </div>
