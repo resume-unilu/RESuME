@@ -18,7 +18,7 @@ angular.module('miller')
     var socket = window.socket = new ReconnectingWebSocket(RUNTIME.settings.wshost + '?session_key=' +  RUNTIME.settings.session_key);
 
     socket.onmessage = function(e) {
-      $log.log('⚡ -> ',e.data, e)
+      $log.log('⚡ PulseCtrl @onmessage raw data:',e.data)
       try{
         var d = JSON.parse(e.data);
 
@@ -26,21 +26,21 @@ angular.module('miller')
           $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
         }
       } catch(err){
-        $log.log('⚡ PulseCtrl onmessage: unable to json parse data: ', err)
+        $log.log('⚡ PulseCtrl @onmessage: unable to json parse data: ', e.data, '- error received:',err)
       }
       
     }
 
     socket.onopen = function() {
-      $log.log('⚡ online');
+      $log.log('⚡ PulseCtrl online');
     }
 
     socket.onclose = function(e) {
-      $log.warn("socket closed.", e);
+      $log.warn("⚡ PulseCtrl socket closed.", e);
     }
 
     socket.onerror = function(e) {
-      $log.error("socket error", e);
+      $log.error("⚡ PulseCtrl socket error", e);
     }
 
     // Call onopen directly if socket is already open
