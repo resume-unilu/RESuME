@@ -84,8 +84,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .contents span[hl], .contents .highlight, .commenter .quote span, .comment .quote span{
-  background-color:rgba(199, 244, 100, 0.52);
-  padding: 2px 0px;
+  /*background-color:rgba(199, 244, 100, 0.52);*/
+  /*padding: 2px 0px;*/
+  padding: 2px 0px 0 0;
+  border-bottom: 2px solid #4ecdc4;
+}
+
+.contents span[hl]:hover{
+  background-color: #b8ebe7;
+}
+.contents span[hl].active{
+  background-color: #95e1dc;
 }
 
 .contents .table{
@@ -787,8 +796,8 @@ ul.errorlist{
 }
 
 
-.date, .ref .label, .ref > span{
-  color:#9c9696;
+.date, .status, .ref .label, .ref > span{
+  color: #9c9696;
   font-weight: bold;
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
@@ -3132,6 +3141,7 @@ content: "\e07a";
 .rangy .commenter .leave .section.quote span{
   background-color: white;
   padding: 3px 5px;
+  border-bottom-width: 0;
 }
 
 .commenter .section{
@@ -3144,7 +3154,7 @@ content: "\e07a";
 }
 
 .commenter .section.comments .comment{
-  border-left: 2px solid;
+  border-left: 2px solid #151515;
   padding: 10px 0 15px 20px;
   margin-bottom: 4px;
 }
@@ -3195,9 +3205,8 @@ content: "\e07a";
 }
 
 .comment .status{
-  font-family: 'Lato', sans-serif;
   font-size: 10px;
-  text-transform: uppercase;
+  font-weight: normal;
 }
 
 

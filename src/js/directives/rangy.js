@@ -43,8 +43,11 @@ angular.module('miller')
         }
 
         scope.show = function(event) {
-          var offset = container.offset();
-          element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
+          var offset = container.offset(),
+              left   = window.innerWidth  - element.width() - offset.left - 10;//Math.max(Math.min(event.pageX , window.innerWidth - 500) - offset.left, 0);
+
+          element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:left});
+          
           scope.isEnabled = true;
         }
         scope.hide = function() {
@@ -133,11 +136,15 @@ angular.module('miller')
             $log.log('💾 rangy -> renderHighlights() serializedHighlights:', serializedHighlights);
           };
 
-        
+          var previousSelectedHighlight;
           // on click on rendered highlights, we use the related comment shorturl as classnames 
           // the classApplier adds a hl html attributes on the html tag used as highlighter.
           $('#' + attrs.container).on('click', '[hl]', function(event) {
-            
+            if(previousSelectedHighlight)
+              previousSelectedHighlight.removeClass('active')
+
+            previousSelectedHighlight = $(event.currentTarget);
+            previousSelectedHighlight.addClass('active');
 
             // if there is no selection; we want to view the comment.
             if(rangy.getSelection().isCollapsed) {
@@ -145,14 +152,15 @@ angular.module('miller')
               event.stopImmediatePropagation(); // we do not stop, we want to see the commenter as well.
               // save the uids in the current scope
               scope.commentsSelected = event.currentTarget.className.split(' ');
-              scope.show(event);
+             
             } else {
               // let the event pass by
               $log.log('💾 rangy span[hl]@click with selection')
 
             }
-            var offset = angular.element('#' + attrs.container).offset();
-            element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
+            scope.show(event);
+            // var offset = angular.element('#' + attrs.container).offset();
+            // element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
             
             scope.$apply()
           }); // scope.prepareSelectedText)
