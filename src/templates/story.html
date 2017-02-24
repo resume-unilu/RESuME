@@ -98,7 +98,7 @@
         <!-- </div> -->
       </div>
 
-      <div class='row' style='margin-bottom: 10px'>
+      <div class='row' style='margin-bottom: 50px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
           <div id='contents' style='position:relative' class="contents">
             
@@ -121,7 +121,7 @@
             <!-- contains the commenter -->
             <div ng-if='user.is_staff' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
             
-            <div ng-if='user.is_staff' commenter target="story" actor="user" commented="commented(error, comment)"></div>
+            <div ng-if='user.is_staff' commenter target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
           </div>
         </div>
         <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">

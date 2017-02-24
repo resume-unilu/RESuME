@@ -52,9 +52,11 @@ angular.module('miller')
         }
         scope.hide = function() {
           scope.isEnabled = false;
+          if(previousSelectedHighlight)
+            previousSelectedHighlight.removeClass('active')
           // element.css({position: 'relative', top:'auto', left:'auto'});
         }
-
+        var previousSelectedHighlight;
 
         $log.log('💾 rangy lazy loading rangy lib ... on: #'+ attrs.container)
         angularLoad.loadScript(RUNTIME.static + 'js/scripts.rangy.min.js').then(function() {
@@ -139,7 +141,7 @@ angular.module('miller')
             $log.log('💾 rangy -> renderHighlights() serializedHighlights:', serializedHighlights);
           };
 
-          var previousSelectedHighlight;
+          
           // on click on rendered highlights, we use the related comment shorturl as classnames 
           // the classApplier adds a hl html attributes on the html tag used as highlighter.
           $('#' + attrs.container).on('click', '[hl]', function(event) {

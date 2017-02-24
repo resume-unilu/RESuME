@@ -20,7 +20,7 @@ angular.module('miller')
         scope.cachedCommentsUid = [];
         scope.cachedComments = [];
 
-        scope.comments = []
+        scope.attachedComments = []
 
         scope.allowDiscard = !!scope.discarded
         // scope.content = 'A nice way to fit this space here. I love it!\n This is foching awesome'
@@ -39,7 +39,7 @@ angular.module('miller')
           // this is a confused workaround, sorry for that.
           // the goal of all this is: when you slect an already existing range on the page, you will automatically leacve your comment as "REPLY"
           // without directly reply to the comment.
-          if(!scope.highlight && scope.comments.length && scope.commentSelectedHighlights){
+          if(!scope.highlight && scope.attachedComments.length && scope.commentSelectedHighlights){
             var highlightsParts = scope.commentSelectedHighlights.split('$'); 
             highlightsParts[3] = 'highlight';// as default rangy
             highlights = highlightsParts.join('$');
@@ -61,7 +61,9 @@ angular.module('miller')
             // res.contents = JSON.parse(res.contents);
             $log.log(':: commenter > leaveComment() success', res);
             scope.commented({error: null, comment: res});
-            scope.comments.unshift(res);
+            if(!attrs.disableViewer){
+              scope.attachedComments.unshift(res);
+            }
           }, function(err){
             if(err.data) {
               scope.errors = err.data
@@ -90,38 +92,40 @@ angular.module('miller')
           scope.content = ''
         });
 
-        scope.$watchCollection('commentsSelected', function(uids) {
-          if(uids && uids.length){
-            // var uids_to_be_loaded = _.difference(uids, scope.cachedCommentsUid);
-            CommentFactory.get({
-              filters:JSON.stringify({
-                short_url__in: uids
+        if(!attrs.disableViewer){
+          scope.$watchCollection('commentsSelected', function(uids) {
+            if(uids && uids.length){
+              // var uids_to_be_loaded = _.difference(uids, scope.cachedCommentsUid);
+              CommentFactory.get({
+                filters:JSON.stringify({
+                  short_url__in: uids
+                })
+              }, function(res){ 
+                // console.log(res)
+                scope.attachedTotalComments = res.count;
+                scope.attachedComments = res.results;
+
+                // firt comment quotes
+                var com = _(scope.attachedComments, 'contents.quote').map().first();
+                
+                if(com){
+                  scope.quote = com.contents.quote;
+                  scope.commentSelectedHighlights = com.highlights;
+                }
+                // highlight
+
               })
-            }, function(res){ 
-              // console.log(res)
-              scope.totalComments = res.count;
-              scope.comments = res.results;
+            } else {
+              scope.attachedTotalComments = 0;
+              scope.attachedComments = [];
+            }
+            
+          });
 
-              // firt comment quotes
-              var com = _(scope.comments, 'contents.quote').map().first();
-              
-              if(com){
-                scope.quote = com.contents.quote;
-                scope.commentSelectedHighlights = com.highlights;
-              }
-              // highlight
+          $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
 
-            })
-          } else {
-            scope.totalComments = 0;
-            scope.comments = [];
-          }
-          
-        });
-
-        $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
-
-        })
+          })
+        }
 
         $log.log(':: commenter ready');
       }

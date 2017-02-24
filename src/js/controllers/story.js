@@ -57,12 +57,15 @@ angular.module('miller')
     $scope.comments = [];
     $scope.totalComments = 0;
     $scope.loadComments = function(){
+      $log.log('StoryCtrl > loadComments() loading...')
+        
       StoryFactory.getComments({
         id: story.id,
         orderby: '-date_created'
       }, function(res){
         $scope.comments = res.results;
         $scope.totalComments = res.count;
+        $log.log('StoryCtrl > loadComments() loaded.')
       }, function(e){
         $log.error(e)
       })
