@@ -2,7 +2,7 @@
   It allows to leave comments on a specific target by a specific actor ...
 */
 angular.module('miller')
-  .directive('commenter', function($log, $rootScope, angularLoad, CommentFactory, RUNTIME) {
+  .directive('commenter', function($log, $rootScope, angularLoad, CommentFactory, EVENTS, RUNTIME) {
     return {
       restrict: 'AE',
       templateUrl: RUNTIME.static + 'templates/partials/directives/commenter.html',// ',// template: '<div style="background:gold;height:150px; width:300px;"><div ng-click="highlightSelectedText($event)">add comment</div></div>',
@@ -56,12 +56,12 @@ angular.module('miller')
             story: scope.target.id
           }, function(res){
             scope.content = ''
-            scope.quote = ''
+            // scope.quote = null
             scope.isLoading = false
+            // res.contents = JSON.parse(res.contents);
             $log.log(':: commenter > leaveComment() success', res);
             scope.commented({error: null, comment: res});
-            scope.cachedComments.push(res);
-            scope.cachedCommentsUid.push(res);
+            scope.comments.unshift(res);
           }, function(err){
             if(err.data) {
               scope.errors = err.data
@@ -104,6 +104,7 @@ angular.module('miller')
 
               // firt comment quotes
               var com = _(scope.comments, 'contents.quote').map().first();
+              
               if(com){
                 scope.quote = com.contents.quote;
                 scope.commentSelectedHighlights = com.highlights;
@@ -115,11 +116,14 @@ angular.module('miller')
             scope.totalComments = 0;
             scope.comments = [];
           }
-          scope.quote = null
-          scope.content = ''
+          
         });
 
-        $log.error(':: commenter ready');
+        $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
+
+        })
+
+        $log.log(':: commenter ready');
       }
     }
   })
@@ -131,10 +135,14 @@ angular.module('miller')
       },
       link: function(scope, element, attrs){
         // shorten scope.quote
-        var text = scope.quote,
-            words = text.trim().split(/\s+/);
-        
-        element.html(words.length > 6? _.take(words, 3).concat(['[...]'], _.takeRight(words, 3)).join(' '):text);          
+        scope.$watch('quote', function(text){
+          if(text){
+            var words = text.trim().split(/\s+/);
+            
+            element.html(words.length > 6? _.take(words, 3).concat(['[...]'], _.takeRight(words, 3)).join(' '):text);  
+          }
+        })        
+      
       }
     }
   })

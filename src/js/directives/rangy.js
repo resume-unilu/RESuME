@@ -44,7 +44,7 @@ angular.module('miller')
 
         scope.show = function(event) {
           var offset = container.offset(),
-              left   = window.innerWidth  - element.width() - offset.left - 10;//Math.max(Math.min(event.pageX , window.innerWidth - 500) - offset.left, 0);
+              left   = window.innerWidth  - 510 - offset.left;//Math.max(Math.min(event.pageX , window.innerWidth - 500) - offset.left, 0);
 
           element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:left});
           
@@ -88,10 +88,13 @@ angular.module('miller')
 
             // if scope.highlight, discard previous selection
             if(scope.highlight){
-              debugger
               $rootScope.rangy.highlighters.highlight.removeAllHighlights();
+              debugger
             }
             
+            // clean previous selection
+            scope.commentsSelected = [];
+
             // get top
             scope.show(event);
             var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight");
