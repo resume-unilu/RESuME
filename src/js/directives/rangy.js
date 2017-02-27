@@ -178,11 +178,11 @@ angular.module('miller')
           
           
 
-          $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
-            if(data.target.id == scope.target.id){
+          // $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
+          //   if(data.target.id == scope.target.id){
               
-            }
-          })
+          //   }
+          // })
           
 
           scope.$watchCollection('highlights', function(highlights) {
