@@ -91,7 +91,7 @@ angular.module('miller')
             // if scope.highlight, discard previous selection
             if(scope.highlight){
               $rootScope.rangy.highlighters.highlight.removeAllHighlights();
-              debugger
+              
             }
             
             // clean previous selection
@@ -102,7 +102,7 @@ angular.module('miller')
             var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight", {
               containerElementId: attrs.container
             });
-            debugger
+            
             rangy.getSelection().removeAllRanges();
             h[0].attrs = {'hl':''}
             scope.highlight = {
@@ -134,8 +134,7 @@ angular.module('miller')
               // var comments = ['type:textContent|4063$4150$1$s.120.c.1$${"hl":""}','type:textContent|4063$4159$5$s.120.c.2$${"hl":""}','type:textContent|6145$6291$2$highlight$${"data-id":"123456","data-highlight-id":"123456"}', 'type:textContent|5782$5919$1$highlight$${"data-highlight-id":"123456"}', ]
               var id = d.split('$')[3], // e.g: 'type:textContent|4063$4150$1$s.120.c.1$${"hl":""}' -> s.120.c.1
                   h;
-              
-              if(serializedHighlights.indexOf(id) === -1) {
+              if(id.length && serializedHighlights.indexOf(id) === -1) {
                 $log.log('rangy create highlighter');
                 h = createHighlighter(id);
                 h.deserialize(d);
@@ -180,7 +179,7 @@ angular.module('miller')
 
           // $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
           //   if(data.target.id == scope.target.id){
-              
+
           //   }
           // })
           

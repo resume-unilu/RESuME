@@ -103,7 +103,8 @@ gulp.task('scripts.rangy', function() {
       './src/js/rangy/rangy-highlighter.js'
     ])
     .pipe($.concat('scripts.rangy.min.js'))
-    // .pipe($.uglify({}))
+    // .pipe(amdoptimize())
+    // .pipe($.uglify().on('error', $.util.log))
     
     // Output files
     .pipe(gulp.dest('./src/js'))
@@ -140,6 +141,17 @@ gulp.task('jshint', function() {
     .pipe($.jshint.reporter('jshint-stylish'))
 });
 
+// Lint rangy Javascript
+gulp.task('jshint.rangy', function() {
+  return gulp.src([
+      './src/js/rangy/rangy-core.js',
+      './src/js/rangy/rangy-classapplier.js',
+      './src/js/rangy/rangy-highlighter.js'
+    ])
+    // .pipe($.uglify({mangle: false}))
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
+});
 // // copy and optimize stylesheet
 // gulp.task('styles', function() {
 //   return gulp.src('./client/src/css/*')

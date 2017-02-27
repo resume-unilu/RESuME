@@ -43,17 +43,6 @@ angular.module('miller')
           wh = w.height();
         }
 
-        var delayEvaluate = function(){
-          if(t_eva)
-            $timeout.cancel(t_eva);
-          t_eva = $timeout(evaluate, t_delay);
-        }
-
-        var delayResize = function(){
-          if(t_res)
-            $timeout.cancel(t_res);
-          t_res = $timeout(delayResize, t_delay);
-        }
 
         // add listener for internal is_visible
 
@@ -63,10 +52,10 @@ angular.module('miller')
           evaluate();
 
           // once the marginalia is visible, it loads the comments, NOT BEFORE!
-          w.scroll(delayEvaluate);
-          w.on('resize', delayResize);
-        }, 2000);
-        
+          w.scroll(_.debounce(evaluate, t_delay));
+          w.on('resize', _.debounce(resize, t_delay));
+        }, 200);
+        $log.log('::marginalia ready.')
       }
     }
   })

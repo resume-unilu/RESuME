@@ -3123,6 +3123,8 @@ content: "\e07a";
 .rangy .commenter .leave{
   background: #e7e7e7;
   padding-bottom: 10px;
+  border-top: 1px solid #b3b3b3;
+  border-left: 1px solid #b3b3b3;
 }
 
 .rangy .commenter .leave label{
