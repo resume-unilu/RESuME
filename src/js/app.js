@@ -256,7 +256,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/writings.html',
         resolve: {
           story: function(StoryFactory, $stateParams) {
-            return StoryFactory.get({id: $stateParams.storyId}).$promise;
+            return StoryFactory.get({id: $stateParams.storyId, nocache: true}).$promise;
           },
         }
       });
