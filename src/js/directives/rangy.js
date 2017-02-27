@@ -99,7 +99,10 @@ angular.module('miller')
 
             // get top
             scope.show(event);
-            var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight");
+            var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight", {
+              containerElementId: attrs.container
+            });
+            debugger
             rangy.getSelection().removeAllRanges();
             h[0].attrs = {'hl':''}
             scope.highlight = {
@@ -133,6 +136,7 @@ angular.module('miller')
                   h;
               
               if(serializedHighlights.indexOf(id) === -1) {
+                $log.log('rangy create highlighter');
                 h = createHighlighter(id);
                 h.deserialize(d);
                 serializedHighlights.push(id);

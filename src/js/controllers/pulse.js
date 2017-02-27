@@ -22,7 +22,7 @@ angular.module('miller')
       try{
         var d = JSON.parse(e.data);
 
-        if(d.verb == 'commented'){
+        if(d.verb == 'commented'){ // and of course target_type is story.
           $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
         }
       } catch(err){

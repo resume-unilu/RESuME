@@ -100,10 +100,10 @@
 
       <div class='row' style='margin-bottom: 50px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
-          <div id='contents' style='position:relative' class="contents">
+          <div style='position:relative' class="contents">
             
             <!-- contents of the story -->
-            <div markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
+            <div id='contents' markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
 
             <!-- DOI / reference -->
             <div class='ref' ng-if='story.metadata.doi || story.metadata.reference'>
@@ -119,9 +119,9 @@
             <div marginalia whenvisible='loadComments()'></div>
             
             <!-- contains the commenter -->
-            <div ng-if='user.is_staff' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
+            <div ng-if='user.is_staff || story.isWritable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
             
-            <div ng-if='user.is_staff' commenter target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
+            
           </div>
         </div>
         <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">
@@ -130,12 +130,14 @@
       </div>
     </div>
   </div>
-  <div class='responses' ng-if='comments.length'>
+  <div class='responses' ng-if='story.isWritable'>
     <div class='container' >
       <div class='row' style='margin-bottom: 50px'>
         <div class='col-md-12'>
           <!-- comment list babe -->
             <div  class='sliding-steps'>
+              <div class='step comment commenter-wrapper' commenter target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
+
               <div ng-repeat='comment in comments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
             </div>
         </div>

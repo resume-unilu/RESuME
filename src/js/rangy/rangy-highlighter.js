@@ -604,11 +604,13 @@
                 for (var i = serializedHighlights.length, parts; i-- > 0; ) {
                     parts = serializedHighlights[i].split("$");
                     characterRange = new CharacterRange(+parts[0], +parts[1]);
+                    debugger
                     containerElementId = parts[4] || null;
 
                     // Convert to the current Highlighter's type, if different from the serialization type
                     if (convertType) {
                         containerElement = getContainerElement(this.doc, containerElementId);
+                        debugger
                         characterRange = this.converter.rangeToCharacterRange(
                             serializationConverter.characterRangeToRange(this.doc, characterRange, containerElement),
                             containerElement
