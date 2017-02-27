@@ -99,7 +99,8 @@ angular.module('miller')
               CommentFactory.get({
                 filters:JSON.stringify({
                   short_url__in: uids
-                })
+                }),
+                orderby: '-date'
               }, function(res){ 
                 // console.log(res)
                 scope.attachedTotalComments = res.count;
@@ -122,9 +123,7 @@ angular.module('miller')
             
           });
 
-          $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
-
-          })
+          
         }
 
         $log.log(':: commenter ready');
