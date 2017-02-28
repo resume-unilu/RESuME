@@ -154,11 +154,42 @@ angular.module('miller')
               previousSelectedHighlight.removeClass('active')
             previousSelectedHighlight = el;
             previousSelectedHighlight.addClass('active');
-          }
+          };
           
-          // on click on rendered highlights, we use the related comment shorturl as classnames 
-          // the classApplier adds a hl html attributes on the html tag used as highlighter.
-          $('#' + attrs.container).on('click', '[hl]', function(event) {
+          function onEscapeKey(e) {
+            if(e.keyCode === 27){
+              if(scope.highlight){
+                scope.discarded();
+              }
+              scope.hide();
+              scope.$apply();
+            }
+          };
+
+          function onQuoteClick(event) {
+            var focus = event.currentTarget.getAttribute('rangy-highlight'),
+                // span focusable
+                el    = container.find('.' + focus),
+                // its offset().top
+                top   = el.offset().top;
+
+            $log.log('💾 rangy div[rangy-highlight]@click, focus:', focus);
+
+            // scroll the window to reach the highlighted quote
+            $('body').stop().animate({scrollTop:top - window.innerHeight/3}, '360', 'swing', function() { 
+              
+            })
+            // highlight
+            toggleFocus(el);
+            scope.commentsSelected = [focus];
+            scope.show({
+              pageY: top
+            });
+            scope.$apply();
+          };
+
+
+          function onHighlightClick(event) {
             toggleFocus($(event.currentTarget));
 
             // if there is no selection; we want to view the comment.
@@ -175,63 +206,40 @@ angular.module('miller')
             // element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:event.pageX - offset.left});
             
             scope.$apply()
-          }); // scope.prepareSelectedText)
+          }
 
-          $(document).on('click', 'div[rangy-highlight]', function(event) {
-            var focus = event.currentTarget.getAttribute('rangy-highlight'),
-                // span focusable
-                el    = container.find('.' + focus),
-                // its offset().top
-                top   = el.offset().top;
+          // on click on rendered highlights, we use the related comment shorturl as classnames 
+          // the classApplier adds a hl html attributes on the html tag used as highlighter.
+          container.on('click', '[hl]', onHighlightClick);
 
-            $log.log('💾 rangy div[rangy-highlight]@click, focus:', focus);
-
-            // scroll the window to reach the highlighted quote
-            $(window).scrollTop(top - window.innerHeight/3);
-
-            // highlight
-            toggleFocus(el);
-            scope.commentsSelected = [focus];
-            scope.show({
-              pageY: top
-            });
-            scope.$apply();
-          });
-
-          // listen to ESC press
-          $(document).keyup(function(e) {
-            if(e.keyCode === 27){
-              if(scope.highlight){
-                scope.discarded();
-              }
-              scope.hide();
-              scope.$apply();
-            }
-          });
-
-
+          // otherwise, a click on everything just toggle the window.
           container.on('click', scope.prepareSelectedText);
+
+          // click on a DOM element having a rangy-highlight attribute makes the window scroll to the desired position in the text.
+          $(document).on('click', 'div[rangy-highlight]', onQuoteClick);
+
+          // listen to ESC press: discard the rangy modal.
+          $(document).keyup(onEscapeKey);
           
-          
-          /*
-            Listen to comment socket. This way, we can have a pseudo realtime chat...
-          */
+          //Listen to comment socket. This way, we can have a pseudo realtime chat...
           $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
             // check if we are selecting the same overlapping stuff.
-            // note that highlights have not been updated yet.
-            if(data.target.id == scope.target.id && scope.commentsSelected && scope.commentsSelected.length && data.info.comment.highlights){
+            // note that highlights have not been updatescope.commentsSelectedd yet.
+            // moreover, if there are no scope.commentsSelected, we should tak into account
+            // scope.highlight (the current highlight withot any comments yet)
+            if(data.target.id == scope.target.id && data.info.comment.highlights && (scope.commentsSelected.length || scope.highlight)){
               $log.log('💾 rangy @EVENTS.SOCKET_USER_COMMENTED_STORY')  
+              // highights via socket should match the rangy format.
               var commentRange = data.info.comment.highlights.match(/\|(\d+)\$(\d+)\$/),
-                  sample = scope.serializedHighlights[scope.commentsSelected[0]];
+                  sample = scope.commentsSelected.length? scope.serializedHighlights[scope.commentsSelected[0]]: scope.highlight.h.characterRange;
+              
               if(commentRange[1] >= sample.start && commentRange[2] <= sample.end){
-                scope.commentsSelected.push(data.info.comment.short_url)
+                scope.commentsSelected.push(data.info.comment.short_url);
               }
             }
           });
 
-
-          
-          // listen to target.highlights normally.
+          // listen to target.highlights. Call renderHighlights() if necessary.
           scope.$watchCollection('highlights', function(highlights) {
             if(highlights && highlights.length)
               scope.renderHighlights(highlights)
@@ -239,18 +247,14 @@ angular.module('miller')
               $log.log('💾 rangy @highlights no highlights found.');
           });
 
-          // listen to a specific commentSelected
-
-          // from story hidden comments serialized.
-
-          // $rootScope.rangy.highlighter.deserialize('type:textContent|6145$6291$2$highlight$${"data-id":"123456"}|5139$5525$3$highlight$${"data-id":"ciao cazzo"}|4865$5545$5$highlight crazy$${"data-id":"ciao beddo"}')
-
+          // destroy jquery listeners
+          scope.$on('$destroy', function() {
+            $log.log('💾 rangy @$destroy...');
+          });
         }).catch(function() {
-        // There was some error loading the script. Meh
+          // There was some error loading the script. Meh
           $log.warn('💾 rangy lib error', 'ooooo');
         });
-
-        
       }
     }
   })
