@@ -149,15 +149,17 @@ angular.module('miller')
             $log.log('💾 rangy -> renderHighlights() serializedHighlights:', scope.serializedHighlights);
           };
 
+          function toggleFocus(el) {
+            if(previousSelectedHighlight)
+              previousSelectedHighlight.removeClass('active')
+            previousSelectedHighlight = el;
+            previousSelectedHighlight.addClass('active');
+          }
           
           // on click on rendered highlights, we use the related comment shorturl as classnames 
           // the classApplier adds a hl html attributes on the html tag used as highlighter.
           $('#' + attrs.container).on('click', '[hl]', function(event) {
-            if(previousSelectedHighlight)
-              previousSelectedHighlight.removeClass('active')
-
-            previousSelectedHighlight = $(event.currentTarget);
-            previousSelectedHighlight.addClass('active');
+            toggleFocus($(event.currentTarget));
 
             // if there is no selection; we want to view the comment.
             if(rangy.getSelection().isCollapsed) {
@@ -165,11 +167,8 @@ angular.module('miller')
               event.stopImmediatePropagation(); // we do not stop, we want to see the commenter as well.
               // save the uids in the current scope
               scope.commentsSelected = event.currentTarget.className.split(' ');
-             
-            } else {
-              // let the event pass by
+            } else { // let the event pass by
               $log.log('💾 rangy span[hl]@click with selection')
-
             }
             scope.show(event);
             // var offset = angular.element('#' + attrs.container).offset();
@@ -178,7 +177,40 @@ angular.module('miller')
             scope.$apply()
           }); // scope.prepareSelectedText)
 
-          angular.element('#' + attrs.container).on('click', scope.prepareSelectedText);
+          $(document).on('click', 'div[rangy-highlight]', function(event) {
+            var focus = event.currentTarget.getAttribute('rangy-highlight'),
+                // span focusable
+                el    = container.find('.' + focus),
+                // its offset().top
+                top   = el.offset().top;
+
+            $log.log('💾 rangy div[rangy-highlight]@click, focus:', focus);
+
+            // scroll the window to reach the highlighted quote
+            $(window).scrollTop(top - window.innerHeight/3);
+
+            // highlight
+            toggleFocus(el);
+            scope.commentsSelected = [focus];
+            scope.show({
+              pageY: top
+            });
+            scope.$apply();
+          });
+
+          // listen to ESC press
+          $(document).keyup(function(e) {
+            if(e.keyCode === 27){
+              if(scope.highlight){
+                scope.discarded();
+              }
+              scope.hide();
+              scope.$apply();
+            }
+          });
+
+
+          container.on('click', scope.prepareSelectedText);
           
           
           /*
