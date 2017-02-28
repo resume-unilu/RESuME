@@ -1,5 +1,5 @@
 angular.module('miller')
-  .directive('rangy', function($log, $rootScope, angularLoad, RUNTIME) {
+  .directive('rangy', function($log, $rootScope, angularLoad, RUNTIME, EVENTS) {
     return {
       restrict: 'AE',
       templateUrl: RUNTIME.static + 'templates/partials/directives/rangy.html',// ',// template: '<div style="background:gold;height:150px; width:300px;"><div ng-click="highlightSelectedText($event)">add comment</div></div>',
@@ -18,11 +18,11 @@ angular.module('miller')
         }
 
         var idnum  = 0,
-            serializedHighlights = [],
             container = angular.element('#' + attrs.container);
         
         scope.isEnabled = false;
-        
+        // keys are comment identifier. Values are related rangy CharacterRange dict.
+        scope.serializedHighlights = {};
 
         scope.commented = function(err, comment){
           if(err){
@@ -113,6 +113,8 @@ angular.module('miller')
             $log.log('💾 rangy > prepareSelectedText() serialized:', scope.highlight.s);
           };
           
+          // create one class applier per comment id 
+          // (rangy lib does not handle overlappings very well.)
           function createHighlighter(classname){
             if($rootScope.rangy.highlighters[classname])
               return $rootScope.rangy.highlighters[classname];
@@ -127,21 +129,24 @@ angular.module('miller')
             return h;
           }
 
-          /* render highlights */
+          // deserialize rangy highlights according to the
+          // class applier
           scope.renderHighlights = function(serializeds) {  
             serializeds.forEach(function(d) {
               // get clannema
               // var comments = ['type:textContent|4063$4150$1$s.120.c.1$${"hl":""}','type:textContent|4063$4159$5$s.120.c.2$${"hl":""}','type:textContent|6145$6291$2$highlight$${"data-id":"123456","data-highlight-id":"123456"}', 'type:textContent|5782$5919$1$highlight$${"data-highlight-id":"123456"}', ]
               var id = d.split('$')[3], // e.g: 'type:textContent|4063$4150$1$s.120.c.1$${"hl":""}' -> s.120.c.1
                   h;
-              if(id.length && serializedHighlights.indexOf(id) === -1) {
+              // scope.serializedHighlights
+              // handle removed highlights...
+              if(id.length && !scope.serializedHighlights[id]) {
                 $log.log('rangy create highlighter');
                 h = createHighlighter(id);
                 h.deserialize(d);
-                serializedHighlights.push(id);
+                scope.serializedHighlights[id] = h.highlights[0].characterRange;
               }
             });
-            $log.log('💾 rangy -> renderHighlights() serializedHighlights:', serializedHighlights);
+            $log.log('💾 rangy -> renderHighlights() serializedHighlights:', scope.serializedHighlights);
           };
 
           
@@ -176,20 +181,33 @@ angular.module('miller')
           angular.element('#' + attrs.container).on('click', scope.prepareSelectedText);
           
           
+          /*
+            Listen to comment socket. This way, we can have a pseudo realtime chat...
+          */
+          $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
+            // check if we are selecting the same overlapping stuff.
+            // note that highlights have not been updated yet.
+            if(data.target.id == scope.target.id && scope.commentsSelected && scope.commentsSelected.length && data.info.comment.highlights){
+              $log.log('💾 rangy @EVENTS.SOCKET_USER_COMMENTED_STORY')  
+              var commentRange = data.info.comment.highlights.match(/\|(\d+)\$(\d+)\$/),
+                  sample = scope.serializedHighlights[scope.commentsSelected[0]];
+              if(commentRange[1] >= sample.start && commentRange[2] <= sample.end){
+                scope.commentsSelected.push(data.info.comment.short_url)
+              }
+            }
+          });
 
-          // $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
-          //   if(data.target.id == scope.target.id){
 
-          //   }
-          // })
           
-
+          // listen to target.highlights normally.
           scope.$watchCollection('highlights', function(highlights) {
             if(highlights && highlights.length)
               scope.renderHighlights(highlights)
             else
               $log.log('💾 rangy @highlights no highlights found.');
           });
+
+          // listen to a specific commentSelected
 
           // from story hidden comments serialized.
 

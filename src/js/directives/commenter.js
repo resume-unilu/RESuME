@@ -61,9 +61,9 @@ angular.module('miller')
             // res.contents = JSON.parse(res.contents);
             $log.log(':: commenter > leaveComment() success', res);
             scope.commented({error: null, comment: res});
-            if(!attrs.disableViewer){
-              scope.attachedComments.unshift(res);
-            }
+            // if(!attrs.disableViewer){
+            //   scope.attachedComments.unshift(res);
+            // }
           }, function(err){
             if(err.data) {
               scope.errors = err.data

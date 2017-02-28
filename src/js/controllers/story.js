@@ -164,9 +164,10 @@ angular.module('miller')
     };
 
     $scope.commented = function(error, comment){
-      if(comment && $scope.story.highlights.indexOf(comment.highlights) == -1){
-        $scope.story.highlights.push(comment.highlights)
-      }
+      
+      // if(comment && $scope.story.highlights.indexOf(comment.highlights) == -1){
+      //   $scope.story.highlights.push(comment.highlights)
+      // }
     };
 
     // given the shortUrl, preload the comment item
@@ -177,5 +178,18 @@ angular.module('miller')
       $log.log('StoryCtrl > commentsSelected uids:', uids);
     }    
     
+    // listener for SOCKET_USER_COMMENTED_STORY event, cfr. PulseCtrl.
+    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data) {
+      // ignore commenting on other stories. This should be handled at PulseCtrl level
+      if(data.target.id != $scope.story.id) {
+        return
+      }
+
+      $log.log('StoryCtrl @EVENTS.SOCKET_USER_COMMENTED_STORY story commented, short_url:',data.info.comment.short_url,' with optional highlights:', data.info.comment.highlights);
+      // add, if any, the highlights as we're reloading the story.
+      if(data.info.comment.highlights) {
+        $scope.story.highlights.push(data.info.comment.highlights);
+      }
+    })
   });
   

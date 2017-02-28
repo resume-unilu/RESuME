@@ -3,8 +3,8 @@
   </div>
   <div class='username'>{{comment.owner.username}}</div>
   <div class='date'>{{comment.date_created|date:"yyyy'.'MM'.'dd hh:mm"}}</div>
-  <div class='quote'>
-    <span ng-if='!quote' commenter-quote='comment.contents.quote'></span>
+  <div ng-if='!quote' class='quote' focus-hl='{{comment.short_url}}'>
+    <span  commenter-quote='comment.contents.quote'></span>
   </div>
   <div class='contents' embedit='comment.contents.content' markdown='inline'></div>
   <div ng-if='user.username == comment.owner.username' class='actions'>
