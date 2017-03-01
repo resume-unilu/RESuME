@@ -115,8 +115,6 @@
             </div>
 
             
-            <!-- it contains the comments done on the page, if any -->
-            <div marginalia whenvisible='loadComments()'></div>
             
             <!-- contains the commenter -->
             <div ng-if='user.is_staff || story.isWritable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
@@ -129,6 +127,9 @@
         </div>
       </div>
     </div>
+    
+    <div marginalia whenvisible='loadComments()'></div>
+            
   </div>
   <div class='responses' ng-if='story.isWritable'>
     <div class='container' >
@@ -139,6 +140,19 @@
               <div class='step comment commenter-wrapper' commenter target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
 
               <div ng-repeat='comment in comments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
+
+              <div class='more-wrapper'>
+                <div ng-if='comments.length > 0 && comments.length < commentsCount' class="btn-line-group primary">
+                  <button class='btn-line' ng-click='moreComments()'>
+                    <span ng-if='!isLoadingComments'>
+                      <span translate='button.more'></span>
+                      <span translate='missing' translate-values="{count: (commentsCount-comments.length)}"></span>
+                    </span>
+                    <span ng-if='isLoadingComments' translate='button.loading'></span>
+                  </button>
+                </div>
+                <!-- when count equals item length, we are at the end -->
+              </div>
             </div>
         </div>
       </div>

@@ -100,6 +100,7 @@ angular.module('miller')
                 filters:JSON.stringify({
                   short_url__in: uids
                 }),
+                limit: Math.max(uids.length, 20),
                 orderby: '-date'
               }, function(res){ 
                 // console.log(res)

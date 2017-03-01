@@ -2574,9 +2574,56 @@ div.profile-others .profile-thumb{
   }
 }
 
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+
+
 .bounceIn {
   -webkit-animation-name: bounceIn;
   animation-name: bounceIn;
+}
+
+
+.animated {
+  -webkit-animation-duration: .75s;
+  animation-duration: .75s;
 }
 
 /*
@@ -3123,8 +3170,6 @@ content: "\e07a";
 .rangy .commenter .leave{
   background: #e7e7e7;
   padding-bottom: 10px;
-  border-top: 1px solid #b3b3b3;
-  border-left: 1px solid #b3b3b3;
 }
 
 .rangy .commenter .leave label{
@@ -3153,10 +3198,12 @@ content: "\e07a";
   margin-top: 0px;
   padding-top: 10px;
   padding-left: 0;
+  max-height: 400px;
+  overflow: scroll;
 }
 
 .commenter .section.comments .comment{
-  border-left: 2px solid #151515;
+  border-left: 2px solid #ffffff;
   padding: 10px 0 15px 20px;
   margin-bottom: 4px;
 }
@@ -3177,10 +3224,19 @@ content: "\e07a";
 
 .sliding-steps .step.comment{
     box-shadow: #eaeaea 0px 1px 4px;
-    padding: 20px;
-    border: 1px solid #eaeaea;
+    padding: 15px;
     margin-bottom: 15px;
     background-color: #fff;
+    border-left: 3px solid #fff;
+    transition: border-left-color .36s ease-in-out;
+}
+
+.sliding-steps .step.comment.owned.unread{
+  border-left-color: #fff;
+}
+
+.sliding-steps .step.comment.unread{
+  border-left-color: #151515;
 }
 
 .sliding-steps .step.comment .leave h4, .sliding-steps .step.comment .leave .section{

@@ -19,16 +19,18 @@ angular.module('miller')
 
     socket.onmessage = function(e) {
       $log.log('⚡ PulseCtrl @onmessage raw data:',e.data)
-      try{
-        var d = JSON.parse(e.data);
-
-        if(d.verb == 'commented'){ // and of course target_type is story.
-          $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
-        }
-      } catch(err){
-        $log.log('⚡ PulseCtrl @onmessage: unable to json parse data: ', e.data, '- error received:',err)
-      }
       
+      var d = e.data;
+      if(typeof e.data != 'object'){
+        try{
+          d = JSON.parse(e.data);
+        } catch(err){
+          $log.log('⚡ PulseCtrl @onmessage: unable to json parse data: ', e.data, '- error received:',err)
+        }
+      }
+
+        $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
+      }
     }
 
     socket.onopen = function() {
@@ -46,5 +48,13 @@ angular.module('miller')
     // Call onopen directly if socket is already open
     if (socket.readyState == WebSocket.OPEN)
       socket.onopen();
+
+    $rootScope.realtime = function(message, group) {
+      // enrich message with broadcast group
+      // if(group)
+      //   message._broadcast_group = group;
+      //   message._prefilter
+      // socket.send(message);
+    }
   });
   

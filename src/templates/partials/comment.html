@@ -1,4 +1,4 @@
-<div class='step comment' ng-class='{"owned": user.username == comment.owner.username}'>
+<div class='step comment' ng-click='comment.unread = false' ng-class='{"owned": user.username == comment.owner.username, "unread animated pulse": comment.unread}'>
   <div class='status float-right'><span translate='comment.status.{{comment.status}}'></span><div><a ng-href='/admin/miller/comment/{{comment.pk}}/change/' target='_blank'>edit (admin)</a></div>
   </div>
   <div class='username'>{{comment.owner.username}}</div>
@@ -9,7 +9,7 @@
   <div class='contents' embedit='comment.contents.content' markdown='inline'></div>
   <div ng-if='user.username == comment.owner.username' class='actions'>
     <div class='btn-line-group primary transparent'>
-      <button  class='btn-line' ng-click='removeComment()' ng-disabled='isLoading'><span translate='button.comment.remove' translate-values='isLoading'></span> <span class='icon icon-bin'></span></button>
+      <button  class='btn-line' ng-click='removeComment(comment)' ng-disabled='isLoading'><span translate='button.comment.remove' translate-values='isLoading'></span> <span class='icon icon-bin'></span></button>
     </div>
   </div>
 </div>    

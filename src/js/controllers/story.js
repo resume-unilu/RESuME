@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, story, StoryFactory, EVENTS) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, story, StoryFactory, QueryParamsService, EVENTS) {
     $scope.story = story;
 
     // is the story editable by the current user?
@@ -55,28 +55,59 @@ angular.module('miller')
     };
 
     $scope.comments = [];
-    $scope.totalComments = 0;
+    $scope.commentsCount = 0;
+    $scope.isLoadingComments = false;
+    $scope.commentsNextParams = {};
+
     $scope.loadComments = function(){
+      if($scope.isLoadingComments) {
+        $log.warn('StoryCtrl > loadComments() is busy loading...!')
+        return;
+      }
+      $scope.isLoadingComments = true;
       $log.log('StoryCtrl > loadComments() loading...')
         
-      StoryFactory.getComments({
+      StoryFactory.getComments(angular.extend({
         id: story.id,
         orderby: '-date_created'
-      }, function(res){
-        $scope.comments = res.results;
-        $scope.totalComments = res.count;
-        $log.log('StoryCtrl > loadComments() loaded.')
+      }, $scope.commentsNextParams), function(res){
+        $scope.comments = ($scope.comments || []).concat(res.results);
+        $scope.commentsCount = res.count;
+        $scope.commentsNextParams = QueryParamsService(res.next || '');
+        
+        $scope.isLoadingComments = false;
+        $log.log('StoryCtrl > loadComments() loaded. Next:', $scope.commentsNextParams)
       }, function(e){
+        $scope.isLoadingComments = false;
         $log.error(e)
       })
     }
 
+    $scope.moreComments = function() {
+      $scope.loadComments();
+    }
+
+    // if commented, reset comments list before reloading.
+    $scope.commented = function(error, comment){
+      $log.log('StoryCtrl > commented() deprecaed');
+    };
+
+    $scope.removeComment = function(comment) {
+
+    }
+
+
     $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
       if(data.target.id == story.id){
         $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
-        $scope.loadComments()
+        
+        data.info.comment.unread = true;
+        $scope.comments.unshift(data.info.comment);
+        $scope.commentsCount++;
+        $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
+
+        $scope.$apply();
       }
-      
     })
 
     $scope.download = function() {
@@ -161,13 +192,6 @@ angular.module('miller')
       $log.log('StoryCtrl > setDocuments items n.:', items.length, '- documents n:', documents.length, '- sideDocuments:', $scope.sidedocuments );
       // $rootScope.emit(documents = documents;
       $scope.$parent.setDocuments(documents);
-    };
-
-    $scope.commented = function(error, comment){
-      
-      // if(comment && $scope.story.highlights.indexOf(comment.highlights) == -1){
-      //   $scope.story.highlights.push(comment.highlights)
-      // }
     };
 
     // given the shortUrl, preload the comment item

@@ -180,8 +180,9 @@ angular.module('miller')
               
             })
             // highlight
+            debugger;
             toggleFocus(el);
-            scope.commentsSelected = [focus];
+            scope.commentsSelected = _.uniq(el[0].className.split(' ').concat([focus]));
             scope.show({
               pageY: top
             });
