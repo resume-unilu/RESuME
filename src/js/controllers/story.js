@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, story, StoryFactory, QueryParamsService, EVENTS) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS) {
     $scope.story = story;
 
     // is the story editable by the current user?
@@ -93,22 +93,27 @@ angular.module('miller')
     };
 
     $scope.removeComment = function(comment) {
+      comment.disappear = true;
+      if($scope.isLoadingComments) {
+        $log.warn('StoryCtrl > removeComment() is busy loading...!')
+        return;
+      }
 
+      $log.log('StoryCtrl > removeComment() comment:', comment.short_url);
+      $scope.isLoadingComments = true;
+
+      CommentFactory.delete({
+        id: comment.short_url
+      }, function(res){
+        $scope.isLoadingComments = false;
+        $log.log('StoryCtrl > removeComment() success!', comment.short_url);
+      }, function(){
+        $scope.isLoadingComments = false;
+      });
     }
 
 
-    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
-      if(data.target.id == story.id){
-        $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
-        
-        data.info.comment.unread = true;
-        $scope.comments.unshift(data.info.comment);
-        $scope.commentsCount++;
-        $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
 
-        $scope.$apply();
-      }
-    })
 
     $scope.download = function() {
       StoryFactory.download({
@@ -203,17 +208,44 @@ angular.module('miller')
     }    
     
     // listener for SOCKET_USER_COMMENTED_STORY event, cfr. PulseCtrl.
-    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data) {
-      // ignore commenting on other stories. This should be handled at PulseCtrl level
-      if(data.target.id != $scope.story.id) {
-        return
-      }
+    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
+      if(data.target.id == story.id){
+        $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
+        if(data.info.comment.highlights) {
+          $scope.story.highlights.push(data.info.comment.highlights);
+        }
+        data.info.comment.unread = true;
+        $scope.comments.unshift(data.info.comment);
+        $scope.commentsCount++;
+        $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
 
-      $log.log('StoryCtrl @EVENTS.SOCKET_USER_COMMENTED_STORY story commented, short_url:',data.info.comment.short_url,' with optional highlights:', data.info.comment.highlights);
-      // add, if any, the highlights as we're reloading the story.
-      if(data.info.comment.highlights) {
-        $scope.story.highlights.push(data.info.comment.highlights);
+        $scope.$apply();
       }
     })
+
+    // listener for SOCKET_USER_UNCOMMENTED_STORY event, cfr. PulseCtrl.
+    $rootScope.$on(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, function(event, data) {
+      if(data.target.id == story.id){
+        $log.log('StoryCtrl @SOCKET_USER_UNCOMMENTED_STORY, update the comment list!', $scope.comments);
+        // present i scope comments?
+        
+        $scope.commentsCount--;
+        var commentIndex = _.findIndex($scope.comments, {short_url: data.info.comment.short_url});
+        if(commentIndex !== -1){
+          $scope.comments.splice(commentIndex, 1);
+          $scope.commentsNextParams.offset = Math.max(+!!$scope.commentsNextParams.offset - 1, 0);
+        }
+
+        if(data.info.comment.highlights) {
+          //indexOf()
+          var highlightIndex = $scope.story.highlights.indexOf(data.info.comment.highlights);
+          if(highlightIndex !== -1){
+            $scope.story.highlights.splice(highlightIndex, 1);
+          }
+          //$scope.story.highlights.push(data.info.comment.highlights);
+        }
+        // look for the data id 
+      }
+    });
   });
   

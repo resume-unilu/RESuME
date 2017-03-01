@@ -46,7 +46,8 @@ angular
     'MARKDOWNIT_RESOLVE': 'markdownit_resolve',
     'MARKDOWNIT_FOCUS': 'markdownit_focus',
 
-    'SOCKET_USER_COMMENTED_STORY': 'socket_user_commented_story'
+    'SOCKET_USER_COMMENTED_STORY': 'socket_user_commented_story',
+    'SOCKET_USER_UNCOMMENTED_STORY': 'socket_user_uncommented_story'
   })
   /*
     disqus configuration

@@ -29,7 +29,13 @@ angular.module('miller')
         }
       }
 
-        $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
+      switch(d.verb){
+        case 'commented': // and of course target_type is story.
+          $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
+          break;
+        case 'uncommented':
+          $rootScope.$emit(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, d)
+          break;
       }
     }
 
