@@ -775,8 +775,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
           <ul style='margin-left: 10px' class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-
+            
             <li class="dropdown">
+            {% verbatim %}
+            <div class='ng-cloak pulsations animated' ng-if='pulsationsCount > 0' ng-class='{"bounceIn": pulsationsCount > 0}' data-placement="bottom" title="heads up" data-content="this is focking content" data-auto-close="1"  data-template-url='{{"templates/partials/pulsations.html"|prefixTemplate}}' ng-click='loadPulsations()' bs-popover>{{pulsationsCount}}</div>
+            {% endverbatim %}
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
               
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>

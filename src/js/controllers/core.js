@@ -267,7 +267,7 @@ angular.module('miller')
     $scope.hasWritingPermission = function(user, story) {
       return  !!user.username && 
               user.username.length > 0 && 
-              (user.is_staff || story.owner.username == user.username);
+              (user.is_staff || story.owner.username == user.username || _.map(story.authors, 'profile.user.username').indexOf(user.username) !== -1);
     };
 
     /*

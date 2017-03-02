@@ -1,0 +1,13 @@
+<div class="popover" tabindex="-1">
+  <div class="arrow"></div>
+  <h3 class="popover-title">
+    <span  ng-bind="title" ng-show="title"></span>
+    <div class='btn-line-group primary transparent float-right'>
+      <button class='btn-line ' translate='button.clearlist' ng-click='resetPulsations()'></button>
+    </div>
+  </h3>
+  <div ng-include='"templates/partials/loader.html"|prefixTemplate'></div>
+  <div class='stream-items'>
+    <div ng-repeat='action in pulsations' ng-include='"templates/partials/action.html"|prefixTemplate'></div>
+  </div>
+</div>

@@ -114,6 +114,18 @@ angular.module('miller')
       activities: {
         method: 'GET',
       },
+      unread:{
+        method: 'GET',
+        params:{
+          fn: 'unread'
+        }
+      },
+      noise:{
+        method: 'GET',
+        params:{
+          fn: 'noise'
+        }
+      },
       reset: {
         method: 'POST',
         params:{

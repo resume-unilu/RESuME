@@ -141,9 +141,9 @@ angular.module('miller')
         // shorten scope.quote
         scope.$watch('quote', function(text){
           if(text){
-            var words = text.trim().split(/\s+/);
-            
-            element.html(words.length > 6? _.take(words, 3).concat(['[...]'], _.takeRight(words, 3)).join(' '):text);  
+            var words = text.trim().split(/\s+/),
+                max_words = attrs.maxWords || 3;
+            element.html(words.length > max_words*2? _.take(words, max_words).concat(['[...]'], _.takeRight(words, max_words)).join(' '):text);  
           }
         })        
       

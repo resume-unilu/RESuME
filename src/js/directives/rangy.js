@@ -23,6 +23,7 @@ angular.module('miller')
         scope.isEnabled = false;
         // keys are comment identifier. Values are related rangy CharacterRange dict.
         scope.serializedHighlights = {};
+        scope.commentsSelected = [];
 
         scope.commented = function(err, comment){
           if(err){
@@ -180,7 +181,6 @@ angular.module('miller')
               
             })
             // highlight
-            debugger;
             toggleFocus(el);
             scope.commentsSelected = _.uniq(el[0].className.split(' ').concat([focus]));
             scope.show({

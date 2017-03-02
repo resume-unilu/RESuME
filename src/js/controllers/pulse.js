@@ -7,9 +7,12 @@
  * Used directly below CoreCtrl
  */
 angular.module('miller')
-  .controller('PulseCtrl', function ($scope, $rootScope, $log, RUNTIME, EVENTS) {
+  .controller('PulseCtrl', function ($scope, $rootScope, $log, PulseFactory, RUNTIME, EVENTS) {
     $log.log('⚡ PulseCtrl ready');
     
+    $scope.pulsationsCount = 0; // number of unread events.
+    $scope.pulsations = []
+
     if(!RUNTIME.settings.wshost){
       $log.warn('⚡ PulseCtrl disabled, no wshost received; please check your miller settings.');
       return;
@@ -26,21 +29,31 @@ angular.module('miller')
           d = JSON.parse(e.data);
         } catch(err){
           $log.log('⚡ PulseCtrl @onmessage: unable to json parse data: ', e.data, '- error received:',err)
+          return
         }
       }
-
+      // alert only
+      if($scope.user && d.actor && d.actor.username != $scope.user.username)
+        $scope.pulsationsCount++;
+      
       switch(d.verb){
         case 'commented': // and of course target_type is story.
-          $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d)
+          $rootScope.$emit(EVENTS.SOCKET_USER_COMMENTED_STORY, d);
+          $scope.pulsations.unshift(d);
           break;
         case 'uncommented':
           $rootScope.$emit(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, d)
           break;
       }
+      $scope.$apply();
     }
 
     socket.onopen = function() {
       $log.log('⚡ PulseCtrl online');
+      
+      PulseFactory.unread({}, function(res){
+        $scope.pulsationsCount = res.count;
+      });
     }
 
     socket.onclose = function(e) {
@@ -52,15 +65,46 @@ angular.module('miller')
     }
 
     // Call onopen directly if socket is already open
-    if (socket.readyState == WebSocket.OPEN)
+    if (socket.readyState == WebSocket.OPEN) {
       socket.onopen();
-
-    $rootScope.realtime = function(message, group) {
-      // enrich message with broadcast group
-      // if(group)
-      //   message._broadcast_group = group;
-      //   message._prefilter
-      // socket.send(message);
     }
+
+    $scope.resetPulsations = function(){
+      if($scope.isLoading){
+        $log.warn('⚡ PulseCtrl > resetPulsations() still loading...');
+        return;
+      }
+      $log.log('⚡ PulseCtrl > resetPulsations()');
+      $scope.isLoading = true;
+      PulseFactory.reset({}, function(res){
+        $scope.pulsationsCount = 0;
+        $scope.isLoading = false;
+        $scope.pulsations = [];
+      }, function(err){
+        $log.warn('⚡ PulseCtrl > loadPulsations() failed!', err);
+        $scope.isLoading = false;
+
+      });
+    }
+
+    $scope.loadPulsations = function(){
+      if($scope.isLoading){
+        $log.warn('⚡ PulseCtrl > loadPulsations() still loading...');
+        return;
+      }
+      $log.log('⚡ PulseCtrl > loadPulsations()');
+      
+      $scope.isLoading = true;
+
+      PulseFactory.noise({}, function(res){
+        $scope.pulsations = res.results;
+        $scope.isLoading = false;
+        $log.log('⚡ PulseCtrl > loadPulsations() success!');
+        
+      }, function(err){
+        $log.warn('⚡ PulseCtrl > loadPulsations() failed!', err);
+      });
+    }
+
   });
   

@@ -1,8 +1,11 @@
 <div class="stream-item">
-  {{action.ctor.username}} 
+  <span class='date'>{{action.timesince}}</span>
+  <span class='username'>{{action.actor.username}}</span>
   <span translate='verb.{{action.verb}}'></span>
-  <span translate='model.{{action.target_content_type}}'></span>
-  {{action.timestamp|date:'Ymd'}}
-  <div ng-if="action.target_content_type == 'document'" ng-init='document=action.target' ng-include='"templates/partials/document.html"|prefixTemplate'>
+  <a ng-if="action.target_content_type == 'story'" ui-sref='story({postId: action.target.slug})'>{{action.target.title}}</a>
+  <div class='comment serif' ng-if='action.verb=="commented"' rangy-highlight='{{action.info.comment.short_url}}'>
+    <span class='quote' ng-if='action.info.comment.contents.quote' max-words='4' commenter-quote='action.info.comment.contents.quote'></span>
+    <div max-words='5' commenter-quote='action.info.comment.contents.content'></div>
   </div>
+
 </div>
