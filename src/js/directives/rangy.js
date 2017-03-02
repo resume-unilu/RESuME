@@ -241,12 +241,11 @@ angular.module('miller')
           });
 
           $rootScope.$on(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, function(event, data) {
-            debugger
+            
           })
 
           // listen to target.highlights. Call renderHighlights() if necessary.
           scope.$watchCollection('highlights', function(highlights) {
-            debugger
             if(highlights && highlights.length)
               scope.renderHighlights(highlights)
             else

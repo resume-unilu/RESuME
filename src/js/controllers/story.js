@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS) {
     $scope.story = story;
 
     // is the story editable by the current user?
@@ -230,21 +230,17 @@ angular.module('miller')
         // present i scope comments?
         
         $scope.commentsCount--;
-        var commentIndex = _.findIndex($scope.comments, {short_url: data.info.comment.short_url});
-        if(commentIndex !== -1){
-          $scope.comments.splice(commentIndex, 1);
-          $scope.commentsNextParams.offset = Math.max(+!!$scope.commentsNextParams.offset - 1, 0);
+        
+        $scope.comments = _.filter($scope.comments, function(d) {
+          return d.short_url != data.info.comment.short_url
+        });
+        
+        if(data.info.comment.highlights && data.info.comment.highlights.length) {
+          $scope.story.highlights = _.filter($scope.story.highlights, function(d) {
+            return d != data.info.comment.highlights
+          });
         }
-
-        if(data.info.comment.highlights) {
-          //indexOf()
-          var highlightIndex = $scope.story.highlights.indexOf(data.info.comment.highlights);
-          if(highlightIndex !== -1){
-            $scope.story.highlights.splice(highlightIndex, 1);
-          }
-          //$scope.story.highlights.push(data.info.comment.highlights);
-        }
-        // look for the data id 
+        $scope.$apply();
       }
     });
   });
