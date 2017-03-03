@@ -3330,6 +3330,8 @@ content: "\e07a";
 
 .popover-title{
   background-color: transparent;
+  padding: 5px 5px 9px 9px;
+  font-weight: normal;
 }
 
 .popover .stream-items{

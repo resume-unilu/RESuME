@@ -1,8 +1,11 @@
 <div class="commenter" ng-click='$event.stopImmediatePropagation()'>
   <div class='leave'>
-    <h4 class="sans-serif"><span>leave comment</span><span>(visible by you)</span></h4>
+    <div class='actions float-right' ng-if='!disableClose'>
+      <div ng-click='discard($event)'><span class='icon icon-close'></span></div>
+    </div>
+    <h4 class="sans-serif"><span translate='comment.leave'></span></h4>
     <div class='section quote' ng-if='quote'>
-      <span commenter-quote="quote"></span>
+      <span max-words='5' commenter-quote="quote"></span>
     </div>
     
     <div class='section'>
@@ -13,13 +16,15 @@
       <div class='btn-line-group primary transparent'>
         <button  class='btn-line' ng-click='leaveComment()' ng-disabled='isLoading'><span translate='button.comment.leave' translate-values='isLoading'></span> <span class='icon icon-pencil'></span></button>
       </div>
-      <div ng-if='allowDiscard' class='btn-line-group transparent' style='float: right'>
-        <button  class='btn-line' ng-click='discard($event)'><span translate='button.comment.undo'></span></button>
+      <div class='btn-line-group  transparent float-right'>
+        <button  class='btn-line'>
+          <span translate='comment.status.private'></span><span class='icon icon-eye'></span>
+        </button>
       </div>
     </div>
   </div>
   <!-- view comment -->
-  <div class='section comments'>
+  <div class='section comments' ng-if='!disableViewer'>
     <div ng-repeat='comment in attachedComments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
   </div>
 </div>

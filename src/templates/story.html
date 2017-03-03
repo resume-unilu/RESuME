@@ -117,7 +117,7 @@
             
             
             <!-- contains the commenter -->
-            <div ng-if='user.is_staff || story.isWritable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
+            <div ng-if='story.isWritable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
             
             
           </div>
@@ -137,7 +137,7 @@
         <div class='col-md-12'>
           <!-- comment list babe -->
             <div  class='sliding-steps'>
-              <div class='step comment commenter-wrapper' commenter target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
+              <div class='step comment commenter-wrapper' commenter disable-close="true" target="story" disable-viewer="true" actor="user" commented="commented(error, comment)"></div>
 
               <div ng-repeat='comment in comments' ng-include='"templates/partials/comment.html"|prefixTemplate'></div>
 

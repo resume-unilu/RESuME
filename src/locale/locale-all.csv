@@ -1,11 +1,12 @@
 KEY,comment,en_US,fr_FR,de_DE,en_GB
-bibtex.howto,help text: insert bibtex reference for uploaded resource,"Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference.","Collez une référence BibTeXdepuis votre <a href=""https://www.zotero.org/support/"">bibliothèque Zotero</a>. Vous pouvez utiliser <a href='http://truben.no/latex/bibtex/' target='_blank'>cette application Web</a> pour créer une référence BibTeX .","Fügen Sie eine BibTeX-Referenz aus Ihrer <a href=""https://www.zotero.org/support/"">Zotero-Bibliothek</a> ein. Sie können <a href='http://truben.no/latex/bibtex/' target='_blank'>diese Web-App</a> verwenden um eine BibTeX-Referenz zu erstellen.","Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference."
+bibtex.howto,help text: this is a test insert bibtex reference for uploaded resource,"Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference.","Collez une référence BibTeXdepuis votre <a href=""https://www.zotero.org/support/"">bibliothèque Zotero</a>. Vous pouvez utiliser <a href='http://truben.no/latex/bibtex/' target='_blank'>cette application Web</a> pour créer une référence BibTeX .","Fügen Sie eine BibTeX-Referenz aus Ihrer <a href=""https://www.zotero.org/support/"">Zotero-Bibliothek</a> ein. Sie können <a href='http://truben.no/latex/bibtex/' target='_blank'>diese Web-App</a> verwenden um eine BibTeX-Referenz zu erstellen.","Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference."
 button.add,generic button,add,ajouter,hinzufügen,add
 button.annotate,,tag,balise,Tag,tag
 button.agree,,agree,accepter,akzeptieren,agree
 button.back,,back,retour,zurück,back
 button.backtoreviews,,back to review list,retour à la liste d'évaluation,zurück zur Begutachtungsliste,back to review list
 button.completereview,,create or modify review,faire ou modifier une évaluation,Begutachtung erstellen oder ändern,create or modify review
+button.clearlist,,clear list,,,clear list
 button.create,,create,créer,erstellen,create
 button.comment.remove,,remove,,,remove
 button.comment.reply,,reply,,,reply
@@ -170,8 +171,10 @@ state.publications.biography.abstract,,biography ...,biographie...,Biographie ..
 state.publications.how-tos.title,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 state.publications.how-tos.label,,how-tos,modes d'emploi,Anleitungen,how-tos
 state.publications.how-tos.abstract,,how-tos ...,modes d'emploi...,Anleitungen,how-tos ...
-comment.status.pending,,only you can view this,,,only you can view this
+comment.status.pending,,pending acceptation,,,pending acceptation
+comment.status.private,,visible for you and for the authors,,,visible for you and for the authors
 comment.status.public,,everyone can view this,,,everyone can view this
+comment.leave,,leave comment,,,leave comment
 headline.reviews,,reviews assigned to you,évaluations qui vous ont été/sont assigné(e)s,Ihnen zugewiesene Begutachtungen,reviews assigned to you
 headline.reviews.abstract,,,,,
 state.reviews.all,,view all,voir tout,alles anzeigen/sehen,view all
@@ -192,9 +195,9 @@ tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
 tag.law,,Law,Droit,Recht,Law
 order.by.newest,,most recent first,,,most recent first
 order.by.oldest,,most recent last,,,most recent last
-order.by.titleaz,,by title (A-Z),,,by title (A-Z)
-order.by.titleza,,by title (Z-A),,,by title (Z-A)
-oembed.type.rich,à rajouter,Media,Media,Media,Media
+order.by.titleaz,,by title (A-Z),,,
+order.by.titleza,,by title (Z-A),,,
+oembed.type.rich,à rajouter,Media,Media,Media,
 oembed.type.link,,Link,Lien,Link,
 oembed.type.photo,,Image,Image,Bild,
 oembed.type.image,,Image,Image,Bild,
@@ -210,6 +213,10 @@ upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritt
 upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,
 upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,
 upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,
+verb.commented,,commented on,,,
+verb.created,,created,,,
+verb.started following,,subscribed to,,,
+verb.uncommented,,delete a comment on,,,
 written.by,author(s) label of the article,by,par,von,
 story.read.documents,,documents,documents,Dokumente,
 story.read.reviews,,reviews,évaluations,Begutachtungen,

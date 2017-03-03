@@ -22,7 +22,8 @@ angular.module('miller')
 
         scope.attachedComments = []
 
-        scope.allowDiscard = !!scope.discarded
+        scope.disableClose  = attrs.disableClose
+        scope.disableViewer = attrs.disableViewer
         // scope.content = 'A nice way to fit this space here. I love it!\n This is foching awesome'
         // scope.quote = 'this is the quoted part'
         scope.leaveComment = function(comment) {

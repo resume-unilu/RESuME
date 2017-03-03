@@ -79,7 +79,6 @@ angular.module('miller')
           // $rootScope.rangy.highlighter.deserialize('type:textContent|5782$5919$1$highlight crazy${"data-id":"123456"}$')
           // prepare class applier, one for each comment ... no comment
           scope.prepareSelectedText = function(event) {
-            
             if(rangy.getSelection().isCollapsed){
               $log.log('💾 rangy > prepareSelectedText() nothing selected...')
               if(scope.highlight){
@@ -100,6 +99,7 @@ angular.module('miller')
 
             // get top
             scope.show(event);
+
             var h = $rootScope.rangy.highlighters.highlight.highlightSelection("highlight", {
               containerElementId: attrs.container
             });
@@ -159,13 +159,19 @@ angular.module('miller')
           
           function onEscapeKey(e) {
             if(e.keyCode === 27){
-              if(scope.highlight){
-                scope.discarded();
-              }
-              scope.hide();
-              scope.$apply();
+              onBodyClick();
+              
             }
           };
+
+          function onBodyClick(){
+            $log.log('💾 rangy @onBodyClick');
+            if(scope.highlight){
+              scope.discarded();
+            }
+            scope.hide();
+            scope.$apply();
+          }
 
           function onQuoteClick(event) {
             var focus = event.currentTarget.getAttribute('rangy-highlight'),
@@ -222,6 +228,9 @@ angular.module('miller')
           // listen to ESC press: discard the rangy modal.
           $(document).keyup(onEscapeKey);
           
+          // listen to external clicks
+          // $(document).on('click', onBodyClick);
+
           //Listen to comment socket. This way, we can have a pseudo realtime chat...
           $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(event, data){
             // check if we are selecting the same overlapping stuff.
