@@ -176,7 +176,7 @@ angular.module('miller')
           function onQuoteClick(event) {
             var focus = event.currentTarget.getAttribute('rangy-highlight'),
                 // span focusable
-                el    = container.find('.' + focus),
+                el    = angular.element('#' + attrs.container).find('.' + focus),
                 // its offset().top
                 top   = el.offset().top;
 
