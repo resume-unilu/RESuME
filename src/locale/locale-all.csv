@@ -19,6 +19,7 @@ button.issaving,,saving ...,enregistrer...,Speichern...,saving ...
 button.more,,load more,télécharger davantage,mehr laden,load more
 button.more.events,,all events,tous les événements,alla Ereignisse,all events
 button.more.news,,all news,toutes les news,alle News,all news
+button.more.notification,,see all activities,,,see all activities
 button.next,,next,prochain,nächste/nächsten,next
 button.previous,,previous,précédent,vorherige/vorherigen,previous
 button.loading,,loading ...,téléchargement...,Laden...,loading ...
@@ -171,6 +172,7 @@ state.publications.biography.abstract,,biography ...,biographie...,Biographie ..
 state.publications.how-tos.title,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 state.publications.how-tos.label,,how-tos,modes d'emploi,Anleitungen,how-tos
 state.publications.how-tos.abstract,,how-tos ...,modes d'emploi...,Anleitungen,how-tos ...
+state.notifications.activities.label,,see all activities,,,see all activities
 comment.status.pending,,pending acceptation,,,pending acceptation
 comment.status.private,,visible for you and for the authors,,,visible for you and for the authors
 comment.status.public,,everyone can view this,,,everyone can view this
@@ -193,8 +195,8 @@ tab.all,,all resources,toutes les ressources,alle Ressourcen,all resources
 tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
 tag.law,,Law,Droit,Recht,Law
-order.by.newest,,most recent first,,,most recent first
-order.by.oldest,,most recent last,,,most recent last
+order.by.newest,,most recent first,,,
+order.by.oldest,,most recent last,,,
 order.by.titleaz,,by title (A-Z),,,
 order.by.titleza,,by title (Z-A),,,
 oembed.type.rich,à rajouter,Media,Media,Media,

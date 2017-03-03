@@ -51,9 +51,11 @@ angular.module('miller')
     socket.onopen = function() {
       $log.log('⚡ PulseCtrl online');
       
-      PulseFactory.unread({}, function(res){
-        $scope.pulsationsCount = res.count;
-      });
+      if($scope.user.username){
+        PulseFactory.unread({}, function(res){
+          $scope.pulsationsCount = res.count;
+        });
+      }
     }
 
     socket.onclose = function(e) {

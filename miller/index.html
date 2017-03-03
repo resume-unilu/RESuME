@@ -779,7 +779,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             
             <li class="dropdown">
             {% verbatim %}
-            <div class='ng-cloak pulsations animated' ng-if='pulsationsCount > 0' ng-class='{"bounceIn": pulsationsCount > 0}' data-placement="bottom" title="heads up" data-content="this is focking content" data-auto-close="1"  data-template-url='{{"templates/partials/pulsations.html"|prefixTemplate}}' ng-click='loadPulsations()' bs-popover>{{pulsationsCount}}</div>
+            <div class='ng-cloak pulsations animated' ng-if='pulsationsCount > 0' ng-class='{"bounceIn": pulsationsCount > 0}' data-placement="bottom" title="heads up" data-auto-close="1"  data-template-url='{{"templates/partials/pulsations.html"|prefixTemplate}}' ng-click='loadPulsations()' bs-popover>{{pulsationsCount}}</div>
             {% endverbatim %}
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
               
@@ -792,13 +792,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
                 <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
 
-                <li ui-sref-active="active" ng-repeat='author in user.profile.authors'>
+                <li ui-sref-active="active" ng-repeat='author in user.profile.authors' style='border-top: 2px solid #d0d0d0;'>
                   <a ui-sref='author.publications.all({slug:author.slug})' translate='headline.your.writings'></a>
                 </li>
-                <li ui-sref-active="active" ng-if='user.is_reviewer'><a ui-sref='reviews.all'><b translate='headline.your.reviews'></b></a></li>
+                <li ui-sref-active="active" ng-if='user.is_reviewer' style='border-bottom: 2px solid #d0d0d0'>
+                  <a ui-sref='reviews.all'><span translate='headline.your.reviews'></span></a>
+                </li>
                 
                 
-                <!-- <li ui-sref-active="active"><a ui-sref="notifications.activities" translate='notifications'></a></li> -->
+                <li ui-sref-active="active">
+                  <a ui-sref="notifications.activities" translate='button.more.notification'></a>
+                </li>
                 <!-- <li ui-sref-active="active"><a ui-sref="profile({username:user.username})" translate='headline.edit.your.information'></a></li> -->
                 <li><a href='{% url "logout_view" %}'>log out</a></li> 
                 {% if user.is_staff %}

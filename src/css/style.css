@@ -3011,6 +3011,7 @@ content: "\e07a";
 */
 .stream-item{
   clear: both;
+  margin-bottom: 10px;
 }
 .stream-item .doc .switch{
   height: 150px;
@@ -3337,6 +3338,7 @@ content: "\e07a";
 .popover .stream-items{
   width: 250px;
   padding-top: 10px;
+  margin: 0;
 }
 .popover .stream-items .stream-item{
   
