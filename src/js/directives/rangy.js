@@ -196,6 +196,7 @@ angular.module('miller')
           };
 
 
+
           function onHighlightClick(event) {
             toggleFocus($(event.currentTarget));
 
@@ -247,6 +248,30 @@ angular.module('miller')
                 scope.commentsSelected.push(data.info.comment.short_url);
               }
             }
+          });
+
+          $rootScope.$on(EVENTS.RANGY_FOCUS, function(event, focus) {
+            var el    = angular.element('#' + attrs.container).find('.' + focus);
+
+            if(!el.length){
+              return;
+            }
+                // its offset().top
+            var top   = el.offset().top;
+
+            $log.log('💾 rangy @EVENTS.RANGY_FOCUS focus:', focus, '- scrollTop:', (top - window.innerHeight/3));
+
+            // scroll the window to reach the highlighted quote
+            $('body,html').stop(true,true).animate({scrollTop:top - window.innerHeight/3}, '360', 'swing', function() { 
+              
+            })
+            // highlight
+            toggleFocus(el);
+            scope.commentsSelected = _.uniq(el[0].className.split(' ').concat([focus]));
+            scope.show({
+              pageY: top
+            });
+            
           });
 
           $rootScope.$on(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, function(event, data) {

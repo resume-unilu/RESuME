@@ -108,5 +108,9 @@ angular.module('miller')
       });
     }
 
+    $scope.rangyHighlight = function(highlight){
+      $log.log('⚡ PulseCtrl > rangyHighlight()');
+      $rootScope.$emit(EVENTS.RANGY_FOCUS, highlight)
+    }
   });
   

@@ -3,7 +3,7 @@
   <span class='username'>{{action.actor.username}}</span>
   <span translate='verb.{{action.verb}}'></span>
   <a ng-if="action.target_content_type == 'story'" ui-sref='story({postId: action.target.slug})'>{{action.target.title}}</a>
-  <div class='comment serif' ng-if='action.verb=="commented"' rangy-highlight='{{action.info.comment.short_url}}'>
+  <div class='comment serif' ng-if='action.verb=="commented"' ng-click='rangyHighlight(action.info.comment.short_url)' rangy-highlight='{{action.info.comment.short_url}}'>
     <span class='quote' ng-if='action.info.comment.contents.quote' max-words='4' commenter-quote='action.info.comment.contents.quote'></span>
     <div max-words='5' commenter-quote='action.info.comment.contents.content'></div>
   </div>
