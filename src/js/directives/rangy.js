@@ -174,10 +174,10 @@ angular.module('miller')
                 // its offset().top
                 top   = el.offset().top;
 
-            $log.log('💾 rangy div[rangy-highlight]@click, focus:', focus);
+            $log.log('💾 rangy div[rangy-highlight]@click, focus:', focus, '- scrollTop:', (top - window.innerHeight/3));
 
             // scroll the window to reach the highlighted quote
-            $('body').stop().animate({scrollTop:top - window.innerHeight/3}, '360', 'swing', function() { 
+            $('body,html').stop(true,true).animate({scrollTop:top - window.innerHeight/3}, '360', 'swing', function() { 
               
             })
             // highlight
