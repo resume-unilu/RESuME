@@ -50,19 +50,23 @@ angular.module('miller')
     Get a list of stories
   */
   .factory('StoryFactory', function ($resource, parseHeaderFilename) {
-    return $resource('/api/story/:id/:fn', {},{
+    return $resource('/api/story/:id/:fn/', {},{
       update: {
         method:'PUT'
       },
+      publish: {
+        method: 'POST',
+        params:{fn:'publish'},
+      },
       search: {
         method: 'GET',
-        params:{fn:'search/'},
+        params:{fn:'search'},
       },
       patch: {
         method:'PATCH'
       },
       getComments: {
-        params:{fn:'comments/'},
+        params:{fn:'comments'},
         method: 'GET',
       },
       download: {

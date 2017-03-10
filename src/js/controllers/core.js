@@ -131,13 +131,13 @@ angular.module('miller')
 
 
     $scope.lock = function(){
+      $scope.locked = true;
       $log.log('🍔 CoreCtrl > lock .............'); 
-      
     };
 
-    $scope.unlock = function(){
-      $log.log('🍔 CoreCtrl > unlock .............'); 
-      
+    $scope.unlock = function(msg) {
+      $scope.locked = false;
+      $log.log('🍔 CoreCtrl > unlock ............. message:', msg); 
     };
 
     /*

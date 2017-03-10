@@ -1383,6 +1383,14 @@ a.btn-line:hover{
   color: white;
 }
 
+.btn-line-group.primary .btn-line[disabled]{
+  background-color: #fff;
+  color: #ddd;
+}
+.btn-line-group.primary .btn-line[disabled]:hover{
+  background-color: #fff;
+  color: #ddd;
+}
 
 .btn-line-group.dual > button{
   width: 48%;
@@ -2022,6 +2030,17 @@ h4.modal-title{
 .modal.fullsize .oversize .wrapper .footer .inner .text{
   padding:5px 15px 10px 15px;
   
+}
+
+.modal.confirm .modal-body{
+  max-height: 200px;
+  overflow:scroll;
+  padding: 10px 15px 0 15px;
+}
+
+.modal.confirm .modal-dialog{
+  top: 50%;
+  margin-top: -200px;
 }
 
 /*

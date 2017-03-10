@@ -12,6 +12,8 @@ button.comment.remove,,remove,,,remove
 button.comment.reply,,reply,,,reply
 button.comment.undo,,discard,,,discard
 button.comment.leave,,leave comment,,,leave comment
+button.confirm,"in a confirm popup, OK. cfr confirm.publish.title too",OK,,,OK
+button.dismiss,"in a confirm popup, just ignore it?",cancel,,,cancel
 button.viewmode,,back to reading mode,retour au mode de lecture,zurück zum Lesemodus,back to reading mode
 button.save,,save,enregistrer,speichern,save
 button.savedraft,,{{is_saving?'saving...':'save draft'}},{{is_saving?'enregistrement en cours...':'enregistrer comme brouillon'}},{{is_saving?'speichert...':'Entwurf sichern'}},{{is_saving?'saving...':'save draft'}}
@@ -32,6 +34,8 @@ button.upload.story,when uploading docx to create a proper content (e.g; article
 button.viewforreview,,view publication,voir la publication,Publikation sehen,view publication
 button.viewreport,,read review,lire l'évaluation,Begutachtung lesen,read review
 button.edit.author,modify author,"change biography, affiliation, etc.","modifier la biographie, l'affiliation, etc.","Biografie, Zugehörigkeit, etc.ändern","change biography, affiliation, etc."
+confirm.publish.title,,Submit for review,,,Submit for review
+confirm.publish.question,,You will not be able to make any modifications before the review process has been completed.,,,You will not be able to make any modifications before the review process has been completed.
 language.en,,English,Anglais,Englisch,English
 language.en_US,,English,Anglais,Englisch,English
 language.en_GB,,English,Anglais,Englisch,English
@@ -186,15 +190,16 @@ story.read.reviews,,reviews,évaluations,Begutachtungen,reviews
 story.read.comments,,comments,commentaires,Kommentare,comments
 story.status.draft,the status of a story,draft,brouillon,Entwürfe,draft
 story.status.public,,published,publié,veröffentlicht,published
+story.status.pending,pending publications,waiting for review,,,waiting for review
 story.status.review.pending,,pending review,évaluationen suspens,ausstehende Begutachtung,pending review
 story.status.review.done,,reviewed,évalué,begutachtet,reviewed
 collection.status.draft,,draft,brouillon,Entwürfe,draft
 collection.status.public,,public,public,Öffentlich,public
-tab.favourite,dialog tab title,your library,votre bibliothèque,Ihre Bibliothek,your library
-tab.all,,all resources,toutes les ressources,alle Ressourcen,all resources
-tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
-tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
-tag.law,,Law,Droit,Recht,Law
+tab.favourite,dialog tab title,your library,votre bibliothèque,Ihre Bibliothek,
+tab.all,,all resources,toutes les ressources,alle Ressourcen,
+tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
+tag.paper,,Papers,Articles,Beiträge/Artikel,
+tag.law,,Law,Droit,Recht,
 order.by.newest,,most recent first,,,
 order.by.oldest,,most recent last,,,
 order.by.titleaz,,by title (A-Z),,,

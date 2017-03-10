@@ -1,0 +1,27 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+        <span aria-hidden="true" class='icon-close'></span>
+        </button>
+        <h4 class="modal-title" translate="{{title}}"></h4>
+      </div>
+
+      <div class="modal-body">
+        <p translate="{{question}}"></p>
+      </div>
+
+      <!-- eof body -->
+      <div class="modal-footer">
+        <span class='btn-line-group primary'><button type="submit" class="btn-line " ng-class="{'active':isSomethingSelected}" ng-click="confirm()" translate='button.confirm'></button>
+        </span>
+        <span class='btn-line-group transparent'>
+        <button type="button" class="btn-line" ng-click="dismiss()" translate='button.dismiss'></button>
+        </span>
+      </div>
+      <!-- eof footer -->
+    </div>
+
+  </div>
+</div>

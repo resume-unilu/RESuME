@@ -40,6 +40,12 @@
         </div>
         
         
+        <div ng-if='!user.is_staff && !story.isUnderReview && story.isWritable' class='btn-line-group secondary'>
+          <button class='btn-line' ng-click='publish()'><span translate='button.ask_for_publication'></span><span class='icon icon-pencil'></span></button>
+        </div>
+        <div ng-if='story.status == "pending"' class='btn-line-group primary transparent'>
+          <button class='btn-line' ng-disabled='true'><span translate='story.status.pending'></span></button>
+        </div>
 
         <div ng-if='user.is_staff && !story.isUnderReview' class='btn-line-group'>
           <button class='btn-line' ng-click='setStatus("draft")' ng-class='{"active warning": story.status=="draft"}' translate="story.status.draft"></button>

@@ -6,17 +6,19 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
     $scope.story = story;
 
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
 
-    $scope.story.isUnderReview = story.status == 'review' || story.status == 'editing';
+    $scope.story.isUnderReview = ['review', 'editing', 'pending'].indexOf(story.status) !== -1;
     
     // is the layout table or other?
     $scope.layout = 'inline';
 
+    // to know that something is busy
+    $scope.isLoading = false;
 
 
     // openGRaph metadata coming from the story
@@ -34,11 +36,14 @@ angular.module('miller')
 
     // set status DRAFT or PUBLIC to the document.
     $scope.setStatus = function(status){
+      
+      if(!$scope.user.is_staff && status == 'public'){
+        $log.warn('StoryCtrl -> setStatus failed:', status);
+      
+        return;
+      }
       $log.debug('StoryCtrl -> setStatus - status:', status);
       
-      if(!$scope.user.is_staff)
-        return;
-        
       $scope.$emit(EVENTS.MESSAGE, 'saving');
 
       StoryFactory.update({
@@ -52,6 +57,39 @@ angular.module('miller')
         $scope.$emit(EVENTS.MESSAGE, 'saved');
         $scope.unlock();
       });
+    };
+
+    // scope send for review, if(!$scope.user.is_staff)
+    // ask for confirmation
+    $scope.publish = function(){
+      if($scope.isLoading){
+        $log.warn('StoryCtrl > publish() is busy...');
+        return
+      }
+      var coversModal = $modal({
+        controller: function($scope){
+          $scope.language = $scope.$parent.language;
+          $scope.title = 'confirm.publish.title'
+          $scope.question = 'confirm.publish.question'
+          $scope.confirm = function(){
+            $scope.isLoading = true;
+            StoryFactory.publish({
+              id: $scope.story.id
+            }, {},function(res) {
+              $scope.story.status = res.status;
+              $scope.story.isUnderReview = ['review', 'editing', 'pending'].indexOf(res.status) !== -1;
+              $scope.$hide();
+            }, $scope.unlock);
+          }
+          $scope.dismiss = function(){
+            $scope.setStatus('draft')
+          }
+        },
+        placement: 'confirm',
+        templateUrl: RUNTIME.static + 'templates/partials/modals/confirm.html',
+        show: true,
+        scope: $scope
+      })
     };
 
     $scope.comments = [];
