@@ -460,12 +460,7 @@ angular.module('miller')
     $scope.language = localStorageService.get('lang') || 'en_US';
     $scope.changeLanguage($scope.language);
     // load "huighlights"
-    StoryFactory.get({
-      filters: JSON.stringify({
-        tags__slug: 'top',
-        status: 'public'
-      })
-    }, function(data){
+    StoryFactory.featured({}, function(data){
       $log.log('🍔 CoreCtrl breaking news loaded', data);
       $scope.setBreakingNews(data.results);
     }); 

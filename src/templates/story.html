@@ -46,7 +46,9 @@
         <div ng-if='story.status == "pending"' class='btn-line-group primary transparent'>
           <button class='btn-line' ng-disabled='true'><span translate='story.status.pending'></span></button>
         </div>
-
+        <div ng-if='story.status == "editing"' class='btn-line-group primary transparent'>
+          <button class='btn-line' ng-disabled='true'><span translate='story.status.editing'></span></button>
+        </div>
         <div ng-if='user.is_staff && !story.isUnderReview' class='btn-line-group'>
           <button class='btn-line' ng-click='setStatus("draft")' ng-class='{"active warning": story.status=="draft"}' translate="story.status.draft"></button>
           <button class='btn-line' ng-click='setStatus("public")' ng-class='{"active": story.status=="public"}' translate="story.status.public"></button>

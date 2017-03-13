@@ -191,10 +191,11 @@ story.read.comments,,comments,commentaires,Kommentare,comments
 story.status.draft,the status of a story,draft,brouillon,Entwürfe,draft
 story.status.public,,published,publié,veröffentlicht,published
 story.status.pending,pending publications,waiting for review,,,waiting for review
+story.status.editing,"first step of review, with staff helping editing the paper (preliminary review)",locked for review,,,locked for review
 story.status.review.pending,,pending review,évaluationen suspens,ausstehende Begutachtung,pending review
 story.status.review.done,,reviewed,évalué,begutachtet,reviewed
 collection.status.draft,,draft,brouillon,Entwürfe,draft
-collection.status.public,,public,public,Öffentlich,public
+collection.status.public,,public,public,Öffentlich,
 tab.favourite,dialog tab title,your library,votre bibliothèque,Ihre Bibliothek,
 tab.all,,all resources,toutes les ressources,alle Ressourcen,
 tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
@@ -220,6 +221,7 @@ upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritt
 upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,
 upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,
 upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,
+verb.ask_for_editing,"chenge the status to ""editing""",prepared for review,,,
 verb.commented,,commented on,,,
 verb.created,,created,,,
 verb.got_published,,published,,,

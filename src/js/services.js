@@ -69,6 +69,10 @@ angular.module('miller')
         params:{fn:'comments'},
         method: 'GET',
       },
+      featured: {
+        params:{fn:'featured'},
+        method: 'GET'
+      },
       download: {
         params:{fn:'download'},
         method: 'GET',
