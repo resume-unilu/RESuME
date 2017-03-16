@@ -320,7 +320,7 @@ angular.module('miller')
     }
   })
   .service('markdownItService', function($filter) {
-    return function(value, language){
+    return function(value, language, disableLazyPlaceholders){
       var results,
           sections, // document sections.
           md = new window.markdownit({
@@ -379,9 +379,9 @@ angular.module('miller')
               citation: tokens[idx + 1].content,
               slug: doc
             });
-          // }
-          if(!tokens[idx + 1].content.length){
-            return '<span id="item-'+linkIndex+'" class="lazy-placeholder '+klass+'" type="doc" lazy-placeholder="'+ doc + '"></span>';
+          
+          if(!disableLazyPlaceholders && !tokens[idx + 1].content.length){
+            return '<span id="item-'+linkIndex+'" class="lazy-placeholder '+klass+'" type="doc" lazy-placeholder="'+ doc + '"></span><a>';
           }
 
           return '<a id="item-'+linkIndex+'" class="special-link" name="'+ doc +'" ng-click="focus(\''+ linkIndex +'\',\'' +url+'\', \'doc\')"><span hold slug="'+doc +'" type="doc"  class="anchor-wrapper"></span><span class="icon icon-eye"></span>';
@@ -398,7 +398,7 @@ angular.module('miller')
               type: 'glossary'
             });
           }
-          if(!tokens[idx + 1].content.length){
+          if(!disableLazyPlaceholders && !tokens[idx + 1].content.length){
             return '<span type="voc" lazy-placeholder="'+ terms[0] + '">' + terms[0];
           }
           tokens[idx].attrSet('class', 'glossary');
@@ -413,13 +413,12 @@ angular.module('miller')
         return '<table class="table">';
       }
 
-      md.renderer.rules.link_close = function(tokens, idx){
-        
-        if(tokens[idx-1].attrGet('href')){ // emtpy content, previous tocken was just href
-          return '</span>';
-        }
-        return '</a>';
-      };
+      // md.renderer.rules.link_close = function(tokens, idx){
+      //   // if(tokens[idx-1].attrGet('href')){ // emtpy content, previous tocken was just href
+      //   //   return '</span>';
+      //   // }
+      //   return '</a>';
+      // };
 
       
       md.renderer.rules.heading_open = function(tokens, idx){

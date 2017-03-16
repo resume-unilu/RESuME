@@ -80,11 +80,12 @@ angular.module('miller')
         }
         
         function parse() {
-          if(!scope.markdownit || !scope.markdownit.length){
+          if(!scope.markdownit || (typeof scope.markdownit != 'object' && !scope.markdownit.length)){
             $log.warn(':: markdownit parse() without any markdown text! Check the value for `markdownit`');
             return;
           }
-          var results  = markdownItService(scope.markdownit, scope.language);
+          
+          var results  = typeof scope.markdownit == 'object'? scope.markdownit : markdownItService(scope.markdownit, scope.language);
 
 
           scope.resources = results.docs
@@ -93,19 +94,25 @@ angular.module('miller')
           $compile(element.contents())(scope);
           if(scope.settoc)
             scope.settoc({ToC:results.ToC});
-          if(scope.setdocs)
+          if(scope.setdocs){
             scope.setdocs({items:results.docs});
+          }
           
         };
 
         // watch language and reparse everything when needed.
-        if(scope.watchlanguage && scope.language)
+        if(!attrs.watchmarkdownit && scope.watchlanguage && scope.language) {
           scope.$watch('language', function(language){
             if(language)
               parse();
           });
-        else
+        } else if(attrs.watchmarkdownit){
+          scope.$watch('markdownit', function(){
+            parse();
+          }, true);
+        } else {
           parse();
+        }
       }
     }
   })

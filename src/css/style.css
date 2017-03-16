@@ -1236,6 +1236,10 @@ ul.errorlist{
   display: none;
 }
 
+.contents a.special-link{
+    min-width: 20px;
+    display: inline-block;
+}
 /*
   draft
 */
@@ -1264,6 +1268,7 @@ ul.errorlist{
   border-bottom: 2px solid #E6E5E5;
   border-left-width: 0;
   border-right-width: 0;
+  font-family: monospace;
 }
 .cover-preview {
   overflow: auto;

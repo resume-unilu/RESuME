@@ -170,6 +170,12 @@ angular.module('miller')
       }
     };
 
+    // handle markdown preview of its contents....
+    $scope.setMarked = function(marked) {
+      $log.log('WritingCtrl > setMarked()', marked);
+      $scope.marked = marked;
+    };
+
     $scope.setCover = function(doc) {
       $log.debug('WritingCtrl -> setCover() doc:', doc.id);
       $scope.isSaving = true;

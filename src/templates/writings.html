@@ -115,18 +115,25 @@ by <a href>{{metadata.owner.username}}</a>
   </form>
 </div> -->
 
-<div id="draft-contents">
-  
-  <div style='min-height: 50px; position:relative'>
-      <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
+</div>
+</div>
+
+<div class='fluid-container' style='padding: 0 50px 50px 100px; background: #eaeaea'>
+  <div class='row'>
+    <div class='col-xs-6' id="draft-contents">
       
-      <div mde='contents' language='language' setdocs='setDocuments(documents)' settoc='setToC(items)'></div>
-      
+      <div style='min-height: 50px; position:relative'>
+          <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
+          
+          <div mde='contents' language='language' setdocs='setDocuments(documents)' setmarked='setMarked(marked)' settoc='setToC(items)'></div>
+          
+      </div>
+    </div>
+    <div class='col-xs-6'>
+      <div class='contents' id='contents' markdownit='marked' watchmarkdownit='true' watchlanguage='true' language='language' listener='listener(event, data, callback)'></div>
+    </div>
   </div>
 </div>
 
 
 
-</div>
-</div>
-</div>

@@ -13,6 +13,7 @@ angular.module('miller')
         mde: '=',
         settoc: '&',
         setdocs: '&',
+        setmarked: '&',
         language: '='
       },
       templateUrl: RUNTIME.static + 'templates/partials/directives/mde.html',
@@ -160,7 +161,7 @@ angular.module('miller')
 
             function recompile(){
               // $log.debug('::mde -> recompile() ...');
-              var marked   = markdownItService(simplemde.value()),
+              var marked   = markdownItService(simplemde.value(), false, true),
                   ToCHash = md5(JSON.stringify(marked.ToC)),
                   docsHash = md5(_.map(marked.docs,'slug').join('--'));
               
@@ -171,7 +172,9 @@ angular.module('miller')
               if(_docsHash != docsHash){
                 $log.log('::mde -> recompile() items docs:', _docsHash);
                 scope.setdocs({documents: marked.docs});
+                
               }
+              scope.setmarked({marked: marked});
               // scope.$apply();
               // apply toc hash not to reload twice
               _ToCHash = ToCHash;
