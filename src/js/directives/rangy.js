@@ -104,7 +104,7 @@ angular.module('miller')
               containerElementId: attrs.container
             });
             
-            rangy.getSelection().removeAllRanges();
+            // rangy.getSelection().removeAllRanges();
             h[0].attrs = {'hl':''}
             scope.highlight = {
               h: h[0],

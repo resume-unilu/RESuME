@@ -36,6 +36,13 @@ ul.list{
 }
 
 
+::-moz-selection{
+  background:#b8ebe7;
+}
+
+::selection{
+  background:#b8ebe7;
+};
 
 
 .clear-left{
