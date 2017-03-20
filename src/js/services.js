@@ -384,7 +384,7 @@ angular.module('miller')
             return '<span id="item-'+linkIndex+'" class="lazy-placeholder '+klass+'" type="doc" lazy-placeholder="'+ doc + '"></span><a>';
           }
 
-          return '<a id="item-'+linkIndex+'" class="special-link" name="'+ doc +'" ng-click="focus(\''+ linkIndex +'\',\'' +url+'\', \'doc\')"><span hold slug="'+doc +'" type="doc"  class="anchor-wrapper"></span><span class="icon icon-eye"></span>';
+          return '<a id="item-'+linkIndex+'" class="special-link'+ (tokens[idx + 1].content.length? '':' block')+'" name="'+ doc +'" ng-click="focus(\''+ linkIndex +'\',\'' +url+'\', \'doc\')"><span hold slug="'+doc +'" type="doc"  class="anchor-wrapper"></span><span class="icon icon-eye"></span>';
           // return '<a name="' + documents[0] +'" ng-click="hash(\''+url+'\')"><span class="anchor-wrapper"></span>'+text+'</a>';
         } else if(url.trim().indexOf('voc/') === 0){
           var terms = url.trim().replace('voc/','').split(',');

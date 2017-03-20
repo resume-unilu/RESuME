@@ -113,6 +113,8 @@ font-size: 12px;
 } 
 
 
+
+
 .page .contents h1, .page .contents .h1 {
   margin-top:40px;
   margin-bottom:30px;
@@ -1239,6 +1241,24 @@ ul.errorlist{
 .contents a.special-link{
     min-width: 20px;
     display: inline-block;
+}
+
+#wrapper.writing #contents {
+  transition: transform .36s ease-in-out;
+  color: #999;
+}
+#wrapper.writing #contents .active{
+  color: #151515;
+  transition: color .36s ease-in-out;
+}
+#wrapper.writing #contents a.special-link.block{
+  display: block;
+  width: 100%;
+  clear: both;
+  height: 50px;
+  margin: 10px 0;
+  /*background: transparent;*/
+  border: 2px solid #bbb;
 }
 /*
   draft

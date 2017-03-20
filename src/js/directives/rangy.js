@@ -140,6 +140,7 @@ angular.module('miller')
                   h;
               // scope.serializedHighlights
               // handle removed highlights...
+              
               if(id.length && !scope.serializedHighlights[id]) {
                 $log.log('rangy create highlighter');
                 h = createHighlighter(id);

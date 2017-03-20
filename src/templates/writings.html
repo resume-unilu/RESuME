@@ -131,6 +131,7 @@ by <a href>{{metadata.owner.username}}</a>
     </div>
     <div class='col-xs-6'>
       <div class='contents' id='contents' markdownit='marked' watchmarkdownit='true' watchlanguage='true' language='language' listener='listener(event, data, callback)'></div>
+      <div rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
     </div>
   </div>
 </div>

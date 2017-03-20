@@ -41,6 +41,7 @@ angular.module('miller')
               wand = el.find('.wand').hide(),
               textarea = el.find('textarea').hide(),
               toolbox =  el.find('.toolbox').hide(),
+              contents = $('#contents'),
               lookups=[],
               referenceModal = $modal({
                 scope: scope,
@@ -104,6 +105,58 @@ angular.module('miller')
                 pcursor;// = simplemde.codemirror.display.find('.Codemirror-cursor');
 
 
+            // given a position, calculate the corresponding paragraph.
+            // 
+            var currentBlockIndex = -1,
+                currentBlock;
+
+            function moveCurrentBlock(pos) {
+              // get paragraph / item number counting lines
+              var blockIndex = 0,
+                  
+                  NONE       = -1,
+                  EMPTY_LINE = 0,
+                  BLOCK      = 1,
+                  HEADER     = 2,
+
+                  prevToken = NONE,
+                  c =0;
+              
+              simplemde.codemirror.doc.eachLine(0, pos.line + 1, function(line){
+                var t = line.text.trim();
+                    token = t.length == 0? EMPTY_LINE: t[0] == '#'? HEADER: BLOCK;
+                
+                if((token === EMPTY_LINE && (prevToken === BLOCK  || prevToken === HEADER)) || (token === BLOCK && prevToken === HEADER))
+                  blockIndex++;
+                // console.log(c, t.substring(0, 20), token, '- before: ', prevToken, blockIndex);
+                c++;
+                prevToken = token;
+                
+              });
+
+              if(blockIndex == currentBlockIndex){
+                // do nothing, it's the same as before.
+                return
+              }
+              // currentBlockIndex = blockIndex;
+              if(currentBlock)
+                currentBlock.removeClass('active');
+
+              // toggle class 'active' to block (paragraph, headings etc..) in contents window..
+              currentBlock = contents.children().eq(blockIndex);
+              if(!currentBlock.length)
+                return;
+              currentBlock.addClass('active');
+
+              // calculate offsets.
+              var ot = currentBlock[0].offsetTop,
+                  lt = simplemde.codemirror.charCoords({line: pos.line, ch: 0}, "local").top;
+              // $log.log('     l:', pos, '- p:', blockIndex, '- ot:', ot, '- tline:', lt);
+
+              contents.css('transform', 'translateY('+(lt - ot + 30)+'px)');
+              // debugger
+            }
+
             // listener codemirror@cursorActivity
             function move(){
               if(timer)
@@ -113,13 +166,12 @@ angular.module('miller')
 
                 if(simplemde.codemirror.display.cursorDiv.firstChild){
                   // console.log('moving cruising', simplemde.codemirror.getSelection(), 'crui')
-                  
                   cursor = {
                     top: simplemde.codemirror.display.cursorDiv.firstChild.offsetTop,
                     left: simplemde.codemirror.display.cursorDiv.firstChild.offsetLeft,
                     height: simplemde.codemirror.display.cursorDiv.firstChild.offsetHeight
                   };
-                  wand.css('transform', 'translateY('+(cursor.top+cursor.height-20)+'px)');
+                  wand.css('transform', 'translateY('+(cursor.top+cursor.height)+'px)');
                   
                   if(followCursor)
                     toolbox.css('transform', 'translate('+(cursor.left)+'px,'+(cursor.top)+'px)');
@@ -127,7 +179,9 @@ angular.module('miller')
                   // check cursor position: is it inside a BOLD or ITALIC?
                   pos = simplemde.codemirror.getCursor("start");
                   stat = simplemde.codemirror.getTokenAt(pos);
-                  // $log.log('     ', stat)
+                  
+                  moveCurrentBlock(pos);
+
                   scope.activeStates = (stat.type || '').split(' ');
                   scope.$apply();
                 }
@@ -135,6 +189,8 @@ angular.module('miller')
               
 
             }
+
+
 
             // // listener for the selection object.
             var _isSelection;
@@ -179,6 +235,8 @@ angular.module('miller')
               // apply toc hash not to reload twice
               _ToCHash = ToCHash;
               _docsHash = docsHash;
+
+              move();
             }
 
             // listener codemirror@update

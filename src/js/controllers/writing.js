@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($scope, $log, $q, $modal, $filter, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.isDraft = false;
@@ -317,6 +317,22 @@ angular.module('miller')
     // listener for save event.
     $scope.$on(EVENTS.SAVE, $scope.save);
 
+    // listener for SOCKET_USER_COMMENTED_STORY event, cfr. PulseCtrl.
+    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
+      if(data.target.id == story.id){
+        $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
+        if(data.info.comment.highlights) {
+          $scope.story.highlights.push(data.info.comment.highlights);
+        }
+        data.info.comment.unread = true;
+        // $scope.comments.unshift(data.info.comment);
+        // $scope.commentsCount++;
+        // $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
+
+        $scope.$apply();
+      }
+    })
+    
     // listener for contents
     $scope.$watch('contents', function(v, p){
       if(!v || v == p)
