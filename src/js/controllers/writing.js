@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.isDraft = false;
@@ -171,9 +171,13 @@ angular.module('miller')
     };
 
     // handle markdown preview of its contents....
+    var refresh;
     $scope.setMarked = function(marked) {
-      $log.log('WritingCtrl > setMarked()', marked);
+      $log.log('WritingCtrl > setMarked()');
       $scope.marked = marked;
+      if(refresh)
+        $timeout.cancel(refresh);
+      refresh = $timeout(function(){$rootScope.$emit(EVENTS.RANGY_REFRESH)}, 1000);
     };
 
     $scope.setCover = function(doc) {

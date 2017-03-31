@@ -1247,9 +1247,16 @@ ul.errorlist{
   transition: transform .36s ease-in-out;
   color: #999;
 }
-#wrapper.writing #contents .active{
+
+#wrapper.writing #contents > *{
+  padding-left: 15px;
+  border-left: 2px solid transparent;
+  color: #999;
+  transition: color .36s ease-in-out, border-left-color .36s ease-in-out;
+}
+#wrapper.writing #contents *.active{
   color: #151515;
-  transition: color .36s ease-in-out;
+  border-left: 2px solid #151515;
 }
 #wrapper.writing #contents a.special-link.block{
   display: block;

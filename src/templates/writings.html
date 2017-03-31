@@ -118,7 +118,7 @@ by <a href>{{metadata.owner.username}}</a>
 </div>
 </div>
 
-<div class='fluid-container' style='padding: 0 50px 50px 100px; background: #eaeaea'>
+<div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden;'>
   <div class='row'>
     <div class='col-xs-6' id="draft-contents">
       
@@ -129,7 +129,7 @@ by <a href>{{metadata.owner.username}}</a>
           
       </div>
     </div>
-    <div class='col-xs-6'>
+    <div class='col-xs-6' style='padding-left:0'>
       <div class='contents' id='contents' markdownit='marked' watchmarkdownit='true' watchlanguage='true' language='language' listener='listener(event, data, callback)'></div>
       <div rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
     </div>

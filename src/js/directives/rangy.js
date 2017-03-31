@@ -279,6 +279,12 @@ angular.module('miller')
             
           })
 
+          $rootScope.$on(EVENTS.RANGY_REFRESH, function(event) {
+            $log.log('💾 rangy @RANGY_REFRESH');
+            if(scope.highlights && scope.highlights.length)
+              scope.renderHighlights(scope.highlights);
+          })
+
           // listen to target.highlights. Call renderHighlights() if necessary.
           scope.$watchCollection('highlights', function(highlights) {
             if(highlights && highlights.length)

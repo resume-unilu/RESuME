@@ -49,7 +49,8 @@ angular
     'SOCKET_USER_COMMENTED_STORY': 'socket_user_commented_story',
     'SOCKET_USER_UNCOMMENTED_STORY': 'socket_user_uncommented_story',
 
-    'RANGY_FOCUS': 'rangy_focus'
+    'RANGY_FOCUS': 'rangy_focus',
+    'RANGY_REFRESH': 'rangy_refresh'
   })
   /*
     disqus configuration
