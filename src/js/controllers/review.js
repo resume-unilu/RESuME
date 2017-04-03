@@ -73,11 +73,20 @@ angular.module('miller')
       }
       $scope.isSaving = true;
 
+      var answers = {}
+      // remap: we patch object only for some fields.
+      for(s in $scope.fields){
+        var field = $scope.fields[s];
+        answers[field] = $scope.review[field]
+        answers[field + '_score'] = $scope.review[field + '_score'] || 0
+      }
+
+      answers.contents = JSON.stringify($scope.review.contents);
+      answers.status   = status;
+
       ReviewFactory.patch({
         id: review.id
-      }, {
-        status: status // the final status!!!
-      }, function(res){
+      }, answers, function(res){
         $log.debug('⏱ ReviewCtrl -> finalize(): success', res);
         
         $scope.unlock();
@@ -94,13 +103,15 @@ angular.module('miller')
     // calculate final score based on fields.
     $scope.$watch('review', function(r, p){
       if(r){
-        $scope.points = _.filter(r, function(d, k){
-          return k.indexOf('_score') != -1
-        }).reduce(function(a,b){
+        var filledIn = _.filter(r, function(d, k){
+          return k.indexOf('_score') != -1;
+        })
+        $scope.points = filledIn.reduce(function(a,b){
           return a + b;
         });
-        $scope.is_valid = $scope.points >= $scope.fields.length;
-        $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid);
+        
+        $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && r.contents.text.trim().length > 0;
+        $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
         // autosave draft
       }
     }, true)

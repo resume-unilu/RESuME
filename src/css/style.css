@@ -1422,13 +1422,17 @@ a.btn-line:hover{
   color: white;
 }
 
-.btn-line-group.primary .btn-line[disabled]{
+.btn-line-group .btn-line[disabled]{
   background-color: #fff;
   color: #ddd;
 }
-.btn-line-group.primary .btn-line[disabled]:hover{
+.btn-line-group .btn-line[disabled]:hover{
   background-color: #fff;
   color: #ddd;
+}
+
+.btn-line-group.disabled{
+  border-color: transparent;
 }
 
 .btn-line-group.dual > button{
