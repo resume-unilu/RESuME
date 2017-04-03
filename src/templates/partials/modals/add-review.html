@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+        <span aria-hidden="true" class='icon-close'></span>
+        </button>
+        <h4 class="modal-title" translate="modals.addreview.title"></h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class='row'>
+            <div  class='col-md-12'>
+              <label translate="modals.addreview.field.reviewers.label"></label>
+              <tags-input class='tags-input' key-property='username' template='{{"templates/partials/user.input.html"|prefixTemplate}}' display-property='username' placeholder="{{modals.addreview.field.reviewers.placeholder|translate}}" ng-model="reviewers" add-from-autocomplete-only="true">
+                <auto-complete source="suggestUser($query, {groups__name:'reviewers'})"></auto-complete>
+              </tags-input>
+            </div>
+
+            <div  class='col-md-12'>
+            <p>{{reviewers}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- eof body -->
+      <div class="modal-footer">
+        <span class='btn-line-group' ng-class='{"primary": reviewers.length}'><button type="submit" class="btn-line " ng-class="{'active':reviewers.length}" ng-disabled='!reviewers.length' ng-click="confirm()" translate='button.assignforreview'></button>
+        </span>
+        <span class='btn-line-group transparent'>
+        <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+        </span>
+      </div>
+      <!-- eof footer -->
+    </div>
+
+  </div>
+</div>
+
+

@@ -73,6 +73,10 @@ angular.module('miller')
         params:{fn:'featured'},
         method: 'GET'
       },
+      pending: {
+        params:{fn:'pending'},
+        method: 'GET'
+      },
       download: {
         params:{fn:'download'},
         method: 'GET',
@@ -116,7 +120,9 @@ angular.module('miller')
       }
     });
   })
-
+  .factory('UserFactory', function ($resource) {
+    return $resource('/api/user/', {}, {});
+  })
   .factory('PulseFactory', function ($resource) {
     return $resource('/api/pulse/:fn/', {}, {
       activities: {

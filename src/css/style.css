@@ -3131,19 +3131,19 @@ content: "\e07a";
   background: #F0F0F0;
 }
 
-.stream.review.refusal table .status{
+.review.refusal .status{
   background: #FF6B6B;
   color: white;
 
 }
 
-.stream.review.complete table .status{
+.review.complete .status{
   background: #c7f464;
   color: #151515;
 
 }
 
-.stream.review.draft table .status{
+.review.draft .status{
   background: gold;
 
 }

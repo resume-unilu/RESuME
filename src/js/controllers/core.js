@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, RUNTIME, EVENTS) {    
+  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, RUNTIME, EVENTS) {    
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -301,6 +301,40 @@ angular.module('miller')
       // $location.search('view', doc.short_url);
     };
 
+    /*
+      Select an user, staff only feature.
+    */
+    $scope.suggestUser = function(query, options) {
+      if(!$scope.user.is_staff){
+        $log.warn('🍔 CoreCtrl -> suggestUser is avaialble to staff only, you should not be here.'); 
+      }
+      $log.log('🍔 CoreCtrl -> suggestUser', query, options);
+      var filters = options || {};
+      return UserFactory.get({
+        filters: JSON.stringify(filters)
+      }).$promise.then(function(response) {
+        return response.results;
+      });
+    };
+
+    /*
+      Add a review modal
+      Cfr also locationChangeSuccess listener 
+    */
+    $rootScope.addReview = function(story) {
+      var addReviewModal = $modal({
+        scope: $scope, 
+        controller: 'AddReviewModalCtrl',
+        resolve:{
+          story: function() {
+            return story
+          }
+        },
+        template: RUNTIME.static + 'templates/partials/modals/add-review.html',
+        id: 'addReview',
+      });
+      addReviewModal.$promise.then(addReviewModal.show);
+    }
 
     /*
       Prevent from closing

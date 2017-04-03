@@ -795,8 +795,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 <li ui-sref-active="active" ng-repeat='author in user.profile.authors' style='border-top: 2px solid #d0d0d0;'>
                   <a ui-sref='author.publications.all({slug:author.slug})' translate='headline.your.writings'></a>
                 </li>
-                <li ui-sref-active="active" ng-if='user.is_reviewer' style='border-bottom: 2px solid #d0d0d0'>
+                <li ui-sref-active="active" ng-if='user.is_reviewer'>
                   <a ui-sref='reviews.all'><span translate='headline.your.reviews'></span></a>
+                </li>
+                <li ui-sref-active="active" ng-if='user.is_reviewer' style='border-bottom: 2px solid #d0d0d0'>
+                  <a ui-sref='publications.todo'><span translate='headline.reviews.todo'></span></a>
                 </li>
                 
                 
@@ -1053,6 +1056,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
     <script src='{% static "js/controllers/modals/enrich.js" %}'></script>
     <script src='{% static "js/controllers/modals/covers.js" %}'></script>
+    <script src='{% static "js/controllers/modals/add-review.js" %}'></script>
 
     <script src='{% static "js/directives/commenter.js" %}'></script>
     <script src='{% static "js/directives/embedit.js" %}'></script>

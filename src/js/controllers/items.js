@@ -10,8 +10,10 @@ angular.module('miller')
     $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'inititals:', initials);
 
     // model is used to get the correct item template
-    $scope.model = model;
+    $scope.model = model.split('.').shift();
+    $scope.itemTemplate = model;
     
+
     $scope.nextParams = {};
     /*
       Get the firs n sentence until the number of words are covered.

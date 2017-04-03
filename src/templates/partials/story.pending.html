@@ -1,0 +1,70 @@
+<div class="story item">
+  <div class="row">
+    <div class="col-md-3" ng-if='story.covers.length'>
+      <div  ng-repeat='document in story.covers' class='fluid-container relative'>
+        <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
+        <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
+      </div>
+    </div>
+    <div ng-class='{"col-md-8":!story.covers.length, "col-md-5":story.covers.length}'>
+      <div ng-if='!$first' class="divider"></div>
+      <div class="tags">
+        <span class='tag'>to be assigned</span>
+      </div>
+      
+
+      <div class="date">{{story.date|date:"yyyy'.'MM'.'dd"}}</div>
+
+      
+
+
+      <h3 class="title"><a ui-sref="story({postId: story.slug})"><span embedit='story.metadata.title' language='language'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>  
+      <div class='authors' ng-if="story.authors.length">
+        <span translate="written.by"></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+      </div>
+      <blockquote ng-if='story.excerpt' class="reduced">{{story.excerpt}}.
+        <a href ui-sref="story({postId: story.id})">
+          <span class='icon-arrow-right-circle'></span>
+        </a>
+      </blockquote>
+      
+      <blockquote ng-if='!story.excerpt && !story.matches' class="reduced" embedit='story.metadata.abstract' language='language'></blockquote>
+
+      <blockquote class="reduced matches" ng-if="story.matches.highlights">
+        <div embedit='story.matches.highlights'></div>  
+      </blockquote>
+
+      <p>
+        
+        <!-- <span class='creator' ng-if="!story.authors.length">
+          created by <span ng-init='author=story.owner;$last=true' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+        </span> -->
+        
+        <a ng-if='user.is_staff' target='_blank' ng-href='/admin/miller/story/{{story.id}}/change/'>modify (admin)</a>
+      
+      </p>
+    </div>
+
+    
+  </div>
+
+  <div class="row">
+    <div  class='col-xs-12'>
+      <table class='table'>
+        <tr>
+          <td colspan="4">
+            <div class='btn-line-group primary transparent float-right'>
+              <button class='btn-line ' ng-click='addReview(story)'><span class='icon icon-plus'></span> add</button>
+            </div>
+          </td>
+        </tr>
+        <tr ng-repeat='review in story.reviews' class='stream review' ng-class='review.status'>
+          <td><span class='status'>{{review.status}}</span></td>
+          <td><span class='score'>{{review.score}}/55</span></td>
+          <td><span class='username'>{{review.assignee.username}}</span> </td>
+          <td><a ui-sref='review({id: review.id})' translate='review.category.{{review.category}}'></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

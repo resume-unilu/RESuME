@@ -1,8 +1,9 @@
 <div ng-if='count == 0' translate='items.empty'></div>
-<div ng-if='model == "story"' ng-repeat='story in items' ng-include='"templates/partials/story.html"|prefixTemplate'></div>
-<div ng-if='model == "action"' ng-repeat='action in items' ng-include='"templates/partials/action.html"|prefixTemplate'></div>
-<div ng-if='model == "review"' ng-repeat='review in items' ng-include='"templates/partials/review.html"|prefixTemplate'></div>
-<div ng-if='model == "report"' ng-repeat='review in items' ng-include='"templates/partials/report.html"|prefixTemplate'></div>
+<div ng-if='itemTemplate == "story"' ng-repeat='story in items' ng-include='"templates/partials/story.html"|prefixTemplate'></div>
+<div ng-if='itemTemplate == "action"' ng-repeat='action in items' ng-include='"templates/partials/action.html"|prefixTemplate'></div>
+<div ng-if='itemTemplate == "review"' ng-repeat='review in items' ng-include='"templates/partials/review.html"|prefixTemplate'></div>
+<div ng-if='itemTemplate == "report"' ng-repeat='review in items' ng-include='"templates/partials/report.html"|prefixTemplate'></div>
+<div ng-if='itemTemplate == "story.pending"' ng-repeat='story in items' ng-include='"templates/partials/story.pending.html"|prefixTemplate'></div>
 
 <div style='text-align: center'>
   <div ng-if='items.length > 0 && items.length < count' class="btn-line-group primary">

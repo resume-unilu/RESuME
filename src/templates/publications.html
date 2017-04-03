@@ -14,6 +14,9 @@
       <a href ui-sref='publications.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.all.label"></a>
     </li>
     
+    <li ng-if='user.is_staff' role="presentation" ui-sref-active="active" >
+      <a href ui-sref='publications.todo' aria-controls="home" role="tab" data-toggle="tab" translate="state.publications.todo.label"></a>
+    </li>
     <!-- <li ng-repeat='(key, value) in filters'>
       <span class='filter'>
         <span translate='filterby.{{key}}'></span> {{value}} 

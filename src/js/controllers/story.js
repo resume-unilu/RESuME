@@ -150,7 +150,11 @@ angular.module('miller')
       });
     }
 
-
+    $scope.createReview = function(){
+      
+      $scope.setStatus("review");
+      debugger;
+    }
 
 
     $scope.download = function() {

@@ -497,6 +497,7 @@ angular
           }
         }
       })
+      
       .state('reviews.pending', {
           url: '/pending',
           controller: 'ItemsCtrl',
@@ -684,6 +685,27 @@ angular
             }
           }
         })
+        .state('publications.todo', {
+          url: '/todo',
+          controller: 'ItemsCtrl',
+          templateUrl: RUNTIME.static + 'templates/items.html',
+          resolve: {
+            initials: function(){
+              return {
+                limit: 20
+              }
+            },
+            items: function(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.pending(djangoFiltersService(initials)).$promise;
+            },
+            model: function() {
+              return 'story.pending';
+            },
+            factory: function(StoryFactory) {
+              return StoryFactory.pending;
+            }
+          }
+        })
         .state('publications.tags', {
           url: '/tags/:slug',
           controller: 'ItemsCtrl',
@@ -702,7 +724,7 @@ angular
             },
 
             model: function() {
-              return 'story';
+              return 'story.pending';
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
