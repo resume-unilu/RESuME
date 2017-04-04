@@ -12,7 +12,7 @@ angular.module('miller')
 
       $log.info('AddReviewModalCtrl -> confirm()');
 
-      $q.all(_.map($scope.reviewers, function(assignee){
+      $q.all(_($scope.reviewers).map(function(assignee){
         // create a review for this poor man.
         var p = ReviewFactory.save({},{
           assignee: assignee.id,
@@ -22,7 +22,7 @@ angular.module('miller')
         });
         return p.$promise;
         // the poor man becomes a reviewer.
-      })).then(function(results){
+      }).value()).then(function(results){
         
         story.reviews = story.reviews.concat(results.map(function(a, i){
           a.assignee = $scope.reviewers[i];

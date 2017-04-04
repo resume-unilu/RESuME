@@ -471,6 +471,36 @@ angular
         });
 
     $stateProvider
+      .state('assign', {
+        abstract: true,
+        url: '/assign',
+        controller: function(){},
+        templateUrl: RUNTIME.static + 'templates/assign.html',
+        reloadOnSearch : false,
+      })
+        .state('assign.all', {
+          url: '',
+          controller: 'ItemsCtrl',
+          templateUrl: RUNTIME.static + 'templates/items.html',
+          resolve: {
+            initials: function(){
+              return {
+                limit: 20
+              }
+            },
+            items: function(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.pending(djangoFiltersService(initials)).$promise;
+            },
+            model: function() {
+              return 'story.pending';
+            },
+            factory: function(StoryFactory) {
+              return StoryFactory.pending;
+            }
+          }
+        });
+        
+    $stateProvider
       .state('reviews', {
         abstract: true,
         url: '/reviews',
@@ -478,6 +508,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/reviews.html',
         reloadOnSearch : false,
       })
+      
       .state('reviews.all', {
         url: '',
         controller: 'ItemsCtrl',
@@ -685,27 +716,7 @@ angular
             }
           }
         })
-        .state('publications.todo', {
-          url: '/todo',
-          controller: 'ItemsCtrl',
-          templateUrl: RUNTIME.static + 'templates/items.html',
-          resolve: {
-            initials: function(){
-              return {
-                limit: 20
-              }
-            },
-            items: function(StoryFactory, djangoFiltersService, initials) {
-              return StoryFactory.pending(djangoFiltersService(initials)).$promise;
-            },
-            model: function() {
-              return 'story.pending';
-            },
-            factory: function(StoryFactory) {
-              return StoryFactory.pending;
-            }
-          }
-        })
+        
         .state('publications.tags', {
           url: '/tags/:slug',
           controller: 'ItemsCtrl',

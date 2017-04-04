@@ -1,0 +1,17 @@
+<div class='container'>
+  <div class='view'>
+    <h1>
+      <a ng-if='state != "assign.all"' href ui-sref='assign.all'>../</a>
+      <span translate="headline.{{state}}.title"></span>
+    </h1>
+    <p translate="headline.{{state}}.abstract"></p>
+
+    <!-- Nav tabs -->
+    <ul class='nav nav-tabs'>
+      <li ng-if='user.is_reviewer' role="presentation" ui-sref-active="active" >
+        <a href ui-sref='assign.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.assign.all"></a>
+      </li>
+    </ul>
+    <div ui-view></div>
+  </div>
+</div>

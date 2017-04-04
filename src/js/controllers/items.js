@@ -12,7 +12,7 @@ angular.module('miller')
     // model is used to get the correct item template
     $scope.model = model.split('.').shift();
     $scope.itemTemplate = model;
-    
+
 
     $scope.nextParams = {};
     /*

@@ -10,7 +10,9 @@ angular.module('miller')
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
-    $scope.user.is_reviewer = _.map(RUNTIME.user.profile.groups, 'name').indexOf('reviewers') != -1;
+    $scope.userGroups = _.map(RUNTIME.user.profile.groups, 'name');
+    $scope.user.is_reviewer = $scope.userGroups.indexOf('reviewers') != -1;
+    $scope.user.is_chief_reviewer = $scope.userGroups.indexOf('chief-reviewers') != -1;
 
     $scope.settings = RUNTIME.settings;
 

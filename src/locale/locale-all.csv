@@ -2,8 +2,10 @@ KEY,comment,en_US,fr_FR,de_DE,en_GB
 bibtex.howto,help text: this is a test insert bibtex reference for uploaded resource,"Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference.","Collez une référence BibTeXdepuis votre <a href=""https://www.zotero.org/support/"">bibliothèque Zotero</a>. Vous pouvez utiliser <a href='http://truben.no/latex/bibtex/' target='_blank'>cette application Web</a> pour créer une référence BibTeX .","Fügen Sie eine BibTeX-Referenz aus Ihrer <a href=""https://www.zotero.org/support/"">Zotero-Bibliothek</a> ein. Sie können <a href='http://truben.no/latex/bibtex/' target='_blank'>diese Web-App</a> verwenden um eine BibTeX-Referenz zu erstellen.","Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference."
 button.add,generic button,add,ajouter,hinzufügen,add
 button.addreview,,add review,,,
+button.askforpublication,,send for publication,,,
 button.annotate,,tag,balise,Tag,tag
 button.agree,,agree,accepter,akzeptieren,agree
+button.assignforreview,,assign publication,,,
 button.back,,back,retour,zurück,back
 button.backtoreviews,,back to review list,retour à la liste d'évaluation,zurück zur Begutachtungsliste,back to review list
 button.completereview,,create or modify review,faire ou modifier une évaluation,Begutachtung erstellen oder ändern,create or modify review
@@ -99,6 +101,11 @@ footer.home,footer link content,home,accueil,Startseite,home
 footer.termsofservice,,terms of use,notice légale,Nutzungsbedingungen,terms of use
 footer.guideforauthors,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 footer.latest_rss,,latest news,dernières nouvelles,aktuelle Nachrichten,latest news
+headline.assign.all,,assign reviews,,,
+headline.assign.all.title,,assign reviews,,,
+headline.assign.all.abstract,,Here you can assign reviews. Please note that you can't assign reviewers to your own publication.,,,
+,,,,,
+,,,,,
 headline.project,main menu,project,projet,Projekt,project
 headline.people,main menu(auteurs/personnes),team,équipe,Team,team
 headline.publications,main menu,publications,publications,Publikationen,publications
@@ -124,7 +131,11 @@ headline.authors,main menu,authors,auteurs,Autoren/innen,authors
 headline.blogs,main menu,blogs,blogs,Blogs,blogs
 headline.events,main menu,events,événements,Veranstaltungen,events
 headline.review.of,,review of:,révision de:,Begutachtung von :,review of:
-headline.your.reviews,vos commentaires/vos analyses/,your reviews,vos évaluations,Ihre Begutachtungen,your reviews
+headline.your.reviews,vos commentaires/vos analyses/,reviews assigned to you,vos évaluations,Ihre Begutachtungen,reviews assigned to you
+headline.reviews.all.title,,reviews assigned to you,,,
+headline.reviews.all.abstract,,,,,
+headline.reviews.pending.title,,reviews assigned to you (todo),,,
+headline.reviews.pending.abstract,,,,,
 headline.news,main menu,news,news,News,news
 headline.blog,main menu,Events & News,Événements & news,Veranstaltungen & News,Events & News
 headline.blog.title,main menu,Events,Événements,Veranstaltungen,Events
@@ -148,7 +159,12 @@ drafts.keywords.placeholder,,add keywords ...,ajouter des mots clés...,Schlüss
 profile.type.author,,author,auteur,Autor,author
 remote.url,,url,URL,URL,url
 remote.url.placeholder,,source,source,Quelle,source
+review.category.editing,,editing,,,
+review.category.pending,,not yet assigned,,,
+review.category.review,,peer review requested,,,
+review.category.double,,under review (double blind),,,
 staff.drafts.tags.placeholder,,website placement (staff only),positionnement sur le site Web (uniquement pour l'équipe),Platzierung auf der Website (nur für Mitarbeiter),website placement (staff only)
+state.assign.all,,all pending publications,,,
 state.blog.events.label,,events,événements,Veranstaltungen,events
 state.blog.all.title,,News & Events,News & Événements,News & Veranstaltungen,News & Events
 state.blog.all.label,,News & Events,News & Événements,News & Veranstaltungen,News & Events
@@ -200,6 +216,7 @@ story.status.draft,the status of a story,draft,brouillon,Entwürfe,draft
 story.status.public,,published,publié,veröffentlicht,published
 story.status.pending,pending publications,waiting for review,,,waiting for review
 story.status.editing,"first step of review, with staff helping editing the paper (preliminary review)",locked for review,,,locked for review
+story.status.review,,under review,,,
 story.status.review.pending,,pending review,évaluationen suspens,ausstehende Begutachtung,pending review
 story.status.review.done,,reviewed,évalué,begutachtet,
 collection.status.draft,,draft,brouillon,Entwürfe,
