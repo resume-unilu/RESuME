@@ -14,7 +14,7 @@
             <div  class='col-md-12'>
               <label translate="modals.addreview.field.reviewers.label"></label>
               <tags-input class='tags-input' key-property='username' template='{{"templates/partials/user.input.html"|prefixTemplate}}' display-property='username' placeholder="{{modals.addreview.field.reviewers.placeholder|translate}}" ng-model="reviewers" add-from-autocomplete-only="true">
-                <auto-complete source="suggestUser($query, {groups__name:'reviewers'})"></auto-complete>
+                <auto-complete source="suggestReviewer($query, {groups__name:'reviewers'})"></auto-complete>
               </tags-input>
             </div>
 

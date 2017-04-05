@@ -121,7 +121,14 @@ angular.module('miller')
     });
   })
   .factory('UserFactory', function ($resource) {
-    return $resource('/api/user/', {}, {});
+    return $resource('/api/user/:fn', {}, {
+      getReviewers: {
+        method: 'GET',
+        params:{
+          fn: 'reviewers'
+        }
+      }
+    });
   })
   .factory('PulseFactory', function ($resource) {
     return $resource('/api/pulse/:fn/', {}, {
