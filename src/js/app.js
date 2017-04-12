@@ -489,7 +489,7 @@ angular
             initials: function(){
               return {
                 filters: JSON.stringify({
-                  status__in: d.slug? [d.slug]: ['pending', 'review', 'editing', 'reviewdone']
+                  status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
                 }),
                 orderby: '-date_last_modified'
               };
