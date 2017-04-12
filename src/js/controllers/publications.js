@@ -9,8 +9,18 @@ angular.module('miller')
   .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
     $log.log('🔭 PublicationsCtrl welcome');
     // the list of links, both main writings and other secondary writings.
-    $scope.urls = RUNTIME.stories;
-    
+    $scope.mainStatename = 'publications.all';
+    $scope.availableRoutes = [
+      {
+        state: 'publications',
+        urls: RUNTIME.routes.publications.writing
+      },
+      {
+        state: 'publications',
+        urls: RUNTIME.routes.publications.tags
+      }
+    ];
+
     if($state.params.slug)
       $scope.slug = $state.params.slug;
 

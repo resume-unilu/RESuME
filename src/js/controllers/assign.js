@@ -101,7 +101,7 @@ angular.module('miller')
 
     $scope.sync();
     $scope.$on(EVENTS.PARAMS_CHANGED, function(){
-      $log.log('🔭 PublicationsCtrl @EVENTS.PARAMS_CHANGED');
+      $log.log('⏱ AssignCtrl @EVENTS.PARAMS_CHANGED');
       $scope.sync();
     });
   })

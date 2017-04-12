@@ -1229,60 +1229,55 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 url: '/done'
               }
             ],
-          },
-          stories: {
-            // for chief reviewers
-            
-            writing: [
+            blog: [
               {
-                name: 'collection',
-                slug: 'collection',
-                url: '/collection'
+                slug: 'all',
+                url: ''
               },
               {
-                name: 'cahiers',
-                slug: 'cahiers',
-                url: '/cahiers'
+                slug: 'event',
+                url: '/events'
               },
               {
-                name: 'Revue de l’Euro',
-                slug: 'revue-ecu-euro',
-                url: '/revue-ecu-euro',
-                preventTranslation: true 
+                slug: 'news',
+                url: '/news'
               },
             ],
-            tags:[
-              {
-                name: 'papers',
-                slug: 'paper',
-                url: '/papers'
-              },
-              {
-                name: 'glossary',
-                slug: 'glossary',
-                url: '/glossary'
-              },
-              {
-                name: 'law',
-                slug: 'law',
-                url: '/laws'
-              },
-              // {
-              //   name: 'interviews',
-              //   slug: 'interview',
-              //   url: '/interviews'
-              // },
-              {
-                name: 'biography',
-                slug: 'biography',
-                url: '/biographies'
-              },
-              // {
-              //   name: 'how-tos',
-              //   slug: 'how-tos',
-              //   url: '/how-tos'
-              // },
-            ]
+            publications: {
+              writing: [
+                {
+                  slug: 'collection',
+                  url: '/collection'
+                },
+                {
+                  slug: 'cahiers',
+                  url: '/cahiers'
+                },
+                {
+                  name: 'Revue de l’Euro',
+                  slug: 'revue-ecu-euro',
+                  url: '/revue-ecu-euro'
+                },
+              ],
+              tags:[
+                {
+                  slug: 'paper',
+                  url: '/papers'
+                },
+                {
+                  slug: 'glossary',
+                  url: '/glossary'
+                },
+                {
+                  slug: 'law',
+                  url: '/laws'
+                },
+                {
+                  slug: 'biography',
+                  url: '/biographies'
+                },
+              ]
+            }
           },
           monographies: ['publications.cahiers', 'publications.revue-ecu-euro']
         });

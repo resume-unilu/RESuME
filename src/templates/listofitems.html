@@ -1,11 +1,16 @@
 <div class='container listofitems'>
   <div class='view'>
-    <h2>
+    <h1>
       <a ng-if='state != mainStatename' href ui-sref='{{mainStatename}}'>../</a>
       <span translate="state.{{state}}.title"></span>
-    </h2>
+    </h1>
     <p translate="state.{{state}}.abstract"></p>
-
+    <!-- Nav tabs -->
+    <ul class='nav nav-tabs nav-top'>
+      <li role="presentation" ui-sref-active="active" >
+        <a href ui-sref='{{mainStatename}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{mainStatename}}.label"></a>
+      </li>
+    </ul>
     <!-- Nav tabs -->
     <table cellspacing="20">
       <tr>
@@ -23,12 +28,29 @@
 
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
           
-            <li ng-repeat='url in route.urls' role="presentation" ui-sref-active="active">
+            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ui-sref-active="active">
               <a ng-if='url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
               <a ng-if='!url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label"></a>
+
+              <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
+                <li ng-class='{"active":filters._tags__slug == tag.slug}' ng-repeat='tag in hallOfFame.publishings.results'>
+                  <a class='tag with-number' ng-click='toggleFilter("_tags__slug", tag.slug)'>{{tag.name}}
+                  <span class='number'>{{tag.stories}}</span>
+                  </a>
+                </li>
+              </ul>
+
             </li>
           </ul>
 
+          <h4 class='section' ng-if='hallOfFame.topAuthors.count' translate='top authors'></h4>
+          <ul class='nav nav-tabs' ng-if='hallOfFame.topAuthors.count'>
+            <li ng-class='{"active":filters.authors__slug == author.slug}' ng-repeat='author in hallOfFame.topAuthors.results'>
+              <a class='author with-number' ng-click='toggleFilter("authors__slug", author.slug)'>{{author.fullname}}
+              <span class='number'>{{author.stories}}</span>
+              </a>
+            </li>
+          </ul>
         </td>
         <td><div ui-view></div></td>
       </tr>

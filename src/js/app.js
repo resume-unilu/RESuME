@@ -374,7 +374,7 @@ angular
         }
       });
 
-      _.each(RUNTIME.stories.writing.concat(RUNTIME.stories.tags), function(d){
+      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags), function(d){
         $stateProvider
           .state('author.publications.' + d.slug, {
             url: d.url,
@@ -621,82 +621,60 @@ angular
       })
 
     $stateProvider
-     .state('blog', {
+      .state('blog', {
         url: '/blog',
         reloadOnSearch : false,
         abstract:true,
         controller: 'BlogCtrl',
-        templateUrl: RUNTIME.static + 'templates/blog.html',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
         
       })
-
-      
-      .state('blog.event', {
-        url: '/events',
-        reloadOnSearch : false,
-        controller: 'ItemsCtrl',
-        templateUrl: RUNTIME.static + 'templates/items.html',
-        resolve: {
-          initials: function(){
-            return {
-              filters: JSON.stringify({
-                tags__category: 'blog',
-                tags__slug: 'event'
-              }),
-              orderby: '-date,-date_last_modified'
-            }
-          },
-          items: function(StoryFactory, initials) {
+     _.each(RUNTIME.routes.blog, function(d){
+      $stateProvider
+        .state('blog.' + d.slug, {
+          url: d.url,
+          controller: 'ItemsCtrl',
+          templateUrl: RUNTIME.static + 'templates/items.html',
+          resolve: {
+            initials: function(){
+              return {
+                filters: JSON.stringify(d.slug != 'all'? {
+                  tags__slug: d.slug
+                }:{
+                  tags__category: 'blog'
+                }),
+                orderby: '-date,-date_last_modified'
+              }
+            },
+            items: function(StoryFactory, initials) {
             return StoryFactory.get(initials).$promise;
-          },
-          model: function() {
-            return 'story';
-          },
-          factory: function(StoryFactory) {
-            return StoryFactory.get;
-          }
-        }
-      })
-      .state('blog.news', {
-        url: '/news',
-        reloadOnSearch : false,
-        controller: 'ItemsCtrl',
-        templateUrl: RUNTIME.static + 'templates/items.html',
-        resolve: {
-          initials: function(){
-            return {
-              filters: JSON.stringify({
-                tags__category: 'blog',
-                tags__slug: 'news'
-              }),
-              orderby: '-date,-date_last_modified'
+            },
+            model: function() {
+              return 'story';
+            },
+            factory: function(StoryFactory) {
+              return StoryFactory.get;
             }
-          },
-          items: function(StoryFactory, initials) {
-            return StoryFactory.get(initials).$promise;
-          },
-          model: function() {
-            return 'story';
-          },
-          factory: function(StoryFactory) {
-            return StoryFactory.get;
           }
-        }
-      })
+        });
+    });
       
     
 
       /*
         Kind of story:writings publications
       */
+    $stateProvider
       .state('publications', {
         url: '/publications',
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
-        templateUrl: RUNTIME.static + 'templates/publications.html',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
         
       })
+
+
         .state('publications.all', {
           url: '',
           controller: 'ItemsCtrl',
@@ -752,7 +730,7 @@ angular
           }
         });
 
-      _.each(RUNTIME.stories.writing.concat(RUNTIME.stories.tags), function(d){
+      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags), function(d){
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,

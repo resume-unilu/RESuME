@@ -303,14 +303,14 @@ ul.errorlist{
     -moz-osx-font-smoothing: grayscale;
 }
 
-.listofitems table{
-  border-top: 2px solid #ddd;
+.listofitems .nav-top{
   margin-top: 20px;
 }
 
-.listofitems table tr:first-child td{
-  padding-top: 15px;
+.listofitems table{
+  margin-top: 5px;
 }
+
 
 /*
   elastic textarea

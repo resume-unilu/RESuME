@@ -112,22 +112,6 @@ headline.assign.all.abstract,,Here you can assign reviews. Please note that you 
 headline.project,main menu,project,projet,Projekt,project
 headline.people,main menu(auteurs/personnes),team,équipe,Team,team
 headline.publications,main menu,publications,publications,Publikationen,publications
-headline.publications.all.title,main menu,Publications,Publications,Publikationen,Publications
-headline.publications.all.abstract,main menu. DUPLICATE?,"The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course.","Le projet RESuME comprend des activités de recherche et d’enseignement menant à la publication de plusieurs produits, dont des monographies (ou ePublications), deux revues scientifiques multidisciplinaires, l’une sur le modèle social européen (Cahiers RESuME), l’autre sur l’Union économique et monétaire (Revue de l’Euro), ainsi que des contributions présentées par des institutions ou d'auteurs partenaires, des interviews audiovisuelles, des modules d’enseignement et un apparat scientifique (glossaire, biographie, commentaires juridiques).","Das Projekt beinhaltet Forschungs- und Lehraktivitäten, die zur Herstellung verschiedener Produkte führt, darunter ePublications, Oral-History-Interviews, e-Lehrmodule und ein Schulungskurs.","The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course."
-headline.publications.collection.title,,EPublications,,,EPublications
-headline.publications.collection.abstract,,,,,
-headline.publications.cahiers.title,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
-headline.publications.cahiers.abstract,,,,,
-headline.publications.revue-ecu-euro.title,,Revue de l'Euro,,,Revue de l'Euro
-headline.publications.revue-ecu-euro.abstract,,,,,
-headline.publications.paper.title,,EPapers,EPapers,EPapers,EPapers
-headline.publications.paper.abstract,,,,,
-headline.publications.glossary.title,,Glossary,Glossaire,Glossar,Glossary
-headline.publications.glossary.abstract,,,,,
-headline.publications.biography.title,,Biographies,Biographies,Biographien,Biographies
-headline.publications.biography.abstract,,,,,
-headline.publications.law.title,,Legislation,Législation,Recht/Rechtsvorschriften,Legislation
-headline.publications.law.abstract,,,,,
 headline.publications.todo.title,under review pending (staff only),Under review,,,Under review
 headline.publications.todo.abstract,under review pending (staff only),(staff only),(visible seulement par les membres du staff),,(staff only)
 headline.authors,main menu,authors,auteurs,Autoren/innen,authors
@@ -185,32 +169,38 @@ state.assign.reviewdone.abstract,,,,,
 state.assign.reviewdone.label,,done,,,
 state.blog.events.label,,events,événements,Veranstaltungen,events
 state.blog.all.title,,News & Events,News & Événements,News & Veranstaltungen,News & Events
-state.blog.all.label,,News & Events,News & Événements,News & Veranstaltungen,News & Events
+state.blog.all.abstract,,,,,
+state.blog.all.label,,see all,,,
+state.blog.event.title,,Events,Événements,Veranstaltungen,
+state.blog.event.abstract,,,,,
+state.blog.event.label,,Events,Événements,Veranstaltungen,Events
+state.blog.news.title,,news,news,news,
+state.blog.news.abstract,,,,,
 state.blog.news.label,,news,news,News,news
 state.publications.all.title,,Publications,Publications,Publikationen,Publications
 state.publications.all.label,,All publications,Toutes les publications,Publikationen,All publications
 state.publications.all.abstract,,"The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course.","Le projet implique des activités de recherche et d’enseignement menant à la production de plusieurs produits, dont des ePublications, des interviews s’inscrivant dans le cadre de l’histoire orale, des modules de e-enseignement et une formation.","Das Projekt beinhaltet Forschungs- und Lehraktivitäten, die zur Herstellung verschiedener Produkte führt, darunter ePublications, Oral-History-Interviews, e-Lehrmodule und ein Schulungskurs.","The project involves research and teaching activities leading to the production of several products, including ePublications, oral history interviews, e-teaching modules and a training course."
 state.publications.collection.title,,ePublications,ePublications,ePublications,ePublications
 state.publications.collection.label,,ePublications,ePublications,ePublications,ePublications
-state.publications.collection.abstract,,...,...,...,...
+state.publications.collection.abstract,,,,,
 state.publications.cahiers.title,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 state.publications.cahiers.label,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 state.publications.cahiers.abstract,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 state.publications.interviews.title,,eInterviews,eInterviews,eInterviews,eInterviews
 state.publications.interviews.label,,eInterviews,eInterviews,eInterviews,eInterviews
-state.publications.interviews.abstract,,eInterviews,eInterviews,eInterviews,eInterviews
-state.publications.papers.title,,ePapers,ePapers,ePapers,ePapers
-state.publications.papers.label,,ePapers,ePapers,ePapers,ePapers
-state.publications.papers.abstract,,eInterviews ...,eInterview...,eInterview ...,eInterviews ...
-state.publications.law.title,,law,droit,Recht,law
+state.publications.interviews.abstract,,,,,
+state.publications.paper.title,,ePapers,ePapers,ePapers,ePapers
+state.publications.paper.label,,ePapers,ePapers,ePapers,ePapers
+state.publications.paper.abstract,,,,,
+state.publications.revue-ecu-euro.title,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,
+state.publications.revue-ecu-euro.label,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,
+state.publications.revue-ecu-euro.abstract,,,,,
+state.publications.law.title,,Law,Droit,Recht,Law
 state.publications.law.label,,Legislation,Législation,Recht/Rechtsvorschriften,Legislation
-state.publications.law.abstract,,law ...,droit...,Recht ...,law ...
-state.publications.glossary.title,,glossary,glossaire,Glossar,glossary
+state.publications.law.abstract,,,,,
+state.publications.glossary.title,,Glossary,Glossaire,Glossar,Glossary
 state.publications.glossary.label,,glossary,glossaire,Glossar,glossary
-state.publications.glossary.abstract,,glossary ...,glossaire...,Glossar ...,glossary ...
-state.publications.collection.title,,ePublications,ePublications,ePublications,ePublications
-state.publications.collection.label,,ePublication,ePublications,ePublications,ePublication
-state.publications.collection.abstract,,...,...,...,...
+state.publications.glossary.abstract,,,,,
 state.publications.biography.title,,biography,biographie,Biographie,biography
 state.publications.biography.label,,biography,biographie,Biographie,biography
 state.publications.biography.abstract,,biography ...,biographie...,Biographie ...,biography ...
