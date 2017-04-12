@@ -7,11 +7,24 @@
     <p translate="headline.{{state}}.abstract"></p>
 
     <!-- Nav tabs -->
-    <ul class='nav nav-tabs'>
-      <li ng-if='user.is_reviewer' role="presentation" ui-sref-active="active" >
+    <ul class='nav nav-tabs' style='margin-top:20px'>
+      <li role="presentation" ui-sref-active="active" >
         <a href ui-sref='assign.all' aria-controls="home" role="tab" data-toggle="tab" translate="state.assign.all"></a>
       </li>
     </ul>
-    <div ui-view></div>
+
+    <table cellspacing="20">
+      <tr>
+        <td class='nav-filters'>
+          <!-- <ul class='nav nav-tabs '></ul> -->
+          <ul class='nav nav-tabs '>
+            <li ng-repeat='link in links' role="presentation" ui-sref-active="active" >
+              <a href ui-sref='assign.{{link.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.assign.{{link.slug}}"></a>
+            </li>
+          </ul>
+        </td>
+        <td><div ui-view></div></td>
+      </tr>
+    </table>
   </div>
 </div>

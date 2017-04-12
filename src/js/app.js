@@ -97,7 +97,7 @@ angular
   */
   .config(function ($translateProvider, RUNTIME) {
     // $translateProvider.useMissingTranslationHandlerLog();
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useSanitizeValueStrategy('sce')
     $translateProvider.useStaticFilesLoader({
         prefix: RUNTIME.static + 'locale/locale-',// path to translations files
         suffix: '.json'// suffix, currently- extension of the translations
@@ -474,23 +474,30 @@ angular
       .state('assign', {
         abstract: true,
         url: '/assign',
-        controller: function(){},
-        templateUrl: RUNTIME.static + 'templates/assign.html',
+        controller: 'AssignCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
         reloadOnSearch : false,
-      })
-        .state('assign.all', {
-          url: '',
+      });
+
+    _.each(RUNTIME.routes.assign, function(d){
+      $stateProvider
+        .state('assign.' + d.slug, {
+          url: d.url,
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
               return {
-                limit: 20
-              }
+                filters: JSON.stringify({
+                  status__in: d.slug? [d.slug]: ['pending', 'review', 'editing', 'reviewdone']
+                }),
+                orderby: '-date_last_modified'
+              };
             },
             items: function(StoryFactory, djangoFiltersService, initials) {
               return StoryFactory.pending(djangoFiltersService(initials)).$promise;
             },
+
             model: function() {
               return 'story.pending';
             },
@@ -499,6 +506,8 @@ angular
             }
           }
         });
+    });
+
         
     $stateProvider
       .state('reviews', {

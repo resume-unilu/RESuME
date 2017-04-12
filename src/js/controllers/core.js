@@ -320,38 +320,11 @@ angular.module('miller')
     };
 
 
-    /*
-      Select a reviewer, staff only feature.
-    */
-    $scope.suggestReviewer = function(query, options) {
-      // if(!$scope.user.is_staff){
-      //   $log.warn('🍔 CoreCtrl -> suggestReviewer is avaialble to staff only, you should not be here.'); 
-      // }
-      $log.log('🍔 CoreCtrl -> suggestReviewer', query, options);
-      var filters = options || {};
-      return UserFactory.getReviewers({}).$promise.then(function(response) {
-        return response.results;
-      });
-    };
+    
 
-    /*
-      Add a review modal
-      Cfr also locationChangeSuccess listener 
-    */
-    $rootScope.addReview = function(story) {
-      var addReviewModal = $modal({
-        scope: $scope, 
-        controller: 'AddReviewModalCtrl',
-        resolve:{
-          story: function() {
-            return story
-          }
-        },
-        template: RUNTIME.static + 'templates/partials/modals/add-review.html',
-        id: 'addReview',
-      });
-      addReviewModal.$promise.then(addReviewModal.show);
-    }
+    
+
+    
 
     /*
       Prevent from closing

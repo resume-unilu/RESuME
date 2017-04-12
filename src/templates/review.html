@@ -4,7 +4,8 @@
   <div class='view review'>
     <div class="actions" >
       <div class='btn-line-group'>
-        <button class='btn-line' ui-sref="reviews.pending" translate="button.backtoreviews"></button>
+        <button ng-if='is_assignee' class='btn-line' ui-sref="reviews.pending" translate="button.backtoreviews"></button>
+        <button ng-if='!is_assignee' class='btn-line' ui-sref="assign.all" translate="button.backtoreviews"></button>
       </div>
       <div class='btn-line-group primary'>
         <button class='btn-line' ui-sref="review.story({id:review.id})" translate="button.viewmode"></button>

@@ -17,11 +17,14 @@ angular.module('miller')
     $scope.availableStatuses = [
       'draft', 'complete', 'refusal', 'bounce'
     ];
-
+    
     // initial status
     $scope.reviewStatus = ''+review.status;
-    // you can edit a review only if it is not completed.
-    $scope.is_editable = review.status == 'draft' || review.status == 'initial';
+    // you can edit a review only if it is not completed and if you're the assignee...
+    // save method on api side enforces this.
+    $scope.is_assignee = review.assignee.username == $scope.user.username;
+    $scope.is_editable = $scope.is_assignee && (review.status == 'draft' || review.status == 'initial');
+
 
     $scope.save = function(){
       $log.debug('⏱ ReviewCtrl @SAVE');

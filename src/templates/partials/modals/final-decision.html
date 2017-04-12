@@ -1,0 +1,56 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <form name="fdForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+          <span aria-hidden="true" class='icon-close'></span>
+          </button>
+          <h4 class="modal-title" translate="modals.finaldecision.title"></h4>
+        </div>
+
+        <div class="modal-body">
+          <div class="container-fluid" style='padding-bottom: 20px'>
+            <div class='row'>
+              <div  class='col-md-12'>
+                <label>
+                  <span translate="modals.finaldecision.field.status.label"></span>
+                  <p class='description' translate='modals.finaldecision.field.status.abstract'>
+                </p>
+                </label>
+                <p>
+                <select name='finalStatus' required ng-model="review.status">
+                  <option ng-repeat='status in availableStatus' ng-value='status' translate='field.label.review.status.{{status}}'></option>
+                </select>
+                </p>
+                <!-- final comments -->
+                <label>
+                  <span translate="field.label.review.final"></span>
+                  <p class='description' translate="field.label.review.final.description"></p>
+                </label>
+                <div class='elastic-textarea-wrapper'>
+                  <textarea required rows="10" placeholder='{{"field.label.placeholder.review" | translate}}' required class='elastic-textarea' msd-elastic ng-model='review.contents.text' name='reviewcontentstext' ng-model-options="{ debounce: 200 }"></textarea>
+                </div>
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- eof body -->
+        <div class="modal-footer">
+          <span class='btn-line-group' ng-class='{"primary": fdForm.$valid && review.status}'><button type="submit" class="btn-line " ng-class="{'active':fdForm.$valid && review.status}" ng-disabled='!fdForm.$valid || !review.status' ng-click="confirm()" translate='button.confirm' translate-values='{is_saving:isSaving}'></button>
+          </span>
+          <span class='btn-line-group transparent'>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+          </span>
+        </div>
+        <!-- eof footer -->
+      </div>
+    </form>
+
+  </div>
+</div>
+
+

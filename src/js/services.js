@@ -211,6 +211,12 @@ angular.module('miller')
       patch: {
         method:'PATCH'
       },
+      close:{
+        method:'POST',
+        params:{
+          fn: 'close/'
+        }
+      },
       report:{
         method:'GET',
         params:{

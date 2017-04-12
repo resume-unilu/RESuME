@@ -1034,6 +1034,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     
    
     <script src='{% static "js/app.js" %}'></script>
+    <script src='{% static "js/controllers/assign.js" %}'></script>
     <script src='{% static "js/controllers/author.js" %}'></script>
     <script src='{% static "js/controllers/core.js" %}'></script>
     <script src='{% static "js/controllers/collection.js" %}'></script>
@@ -1057,6 +1058,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/controllers/modals/enrich.js" %}'></script>
     <script src='{% static "js/controllers/modals/covers.js" %}'></script>
     <script src='{% static "js/controllers/modals/add-review.js" %}'></script>
+    <script src='{% static "js/controllers/modals/final-decision.js" %}'></script>
 
     <script src='{% static "js/directives/commenter.js" %}'></script>
     <script src='{% static "js/directives/embedit.js" %}'></script>
@@ -1207,7 +1209,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           user: user,
           oembeds: oembeds,
           settings: settings,
+
+          routes: {
+            assign: [
+              {
+                slug: 'all',
+                url: ''
+              },
+              {
+                slug: 'pending',
+                url: '/pending'
+              },
+              {
+                slug: 'review',
+                url: '/under-review'
+              },
+              {
+                slug: 'reviewdone',
+                url: '/done'
+              }
+            ],
+          },
           stories: {
+            // for chief reviewers
+            
             writing: [
               {
                 name: 'collection',

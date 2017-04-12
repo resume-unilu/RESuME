@@ -1,11 +1,11 @@
 KEY,comment,en_US,fr_FR,de_DE,en_GB
 bibtex.howto,help text: this is a test insert bibtex reference for uploaded resource,"Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference.","Collez une référence BibTeXdepuis votre <a href=""https://www.zotero.org/support/"">bibliothèque Zotero</a>. Vous pouvez utiliser <a href='http://truben.no/latex/bibtex/' target='_blank'>cette application Web</a> pour créer une référence BibTeX .","Fügen Sie eine BibTeX-Referenz aus Ihrer <a href=""https://www.zotero.org/support/"">Zotero-Bibliothek</a> ein. Sie können <a href='http://truben.no/latex/bibtex/' target='_blank'>diese Web-App</a> verwenden um eine BibTeX-Referenz zu erstellen.","Paste in a BibTeXreference from your <a href=""https://www.zotero.org/support/"">Zotero library</a>. You can use <a href='http://truben.no/latex/bibtex/' target='_blank'>this web app</a> to create a bibtex reference."
 button.add,generic button,add,ajouter,hinzufügen,add
-button.addreview,,add review,,,
-button.askforpublication,,send for publication,,,
+button.addreview,,add review,,,add review
+button.askforpublication,,send for publication,,,send for publication
 button.annotate,,tag,balise,Tag,tag
 button.agree,,agree,accepter,akzeptieren,agree
-button.assignforreview,,assign publication,,,
+button.assignforreview,,assign publication,,,assign publication
 button.back,,back,retour,zurück,back
 button.backtoreviews,,back to review list,retour à la liste d'évaluation,zurück zur Begutachtungsliste,back to review list
 button.completereview,,create or modify review,faire ou modifier une évaluation,Begutachtung erstellen oder ändern,create or modify review
@@ -15,8 +15,9 @@ button.comment.remove,,remove,,,remove
 button.comment.reply,,reply,,,reply
 button.comment.undo,,discard,,,discard
 button.comment.leave,,leave comment,,,leave comment
-button.confirm,"in a confirm popup, OK. cfr confirm.publish.title too",OK,,,OK
+button.confirm,"in a confirm popup, OK. cfr confirm.publish.title too",{{is_saving?'saving...':'confirm'}},,,{{is_saving?'saving...':'confirm'}}
 button.dismiss,"in a confirm popup, just ignore it?",cancel,,,cancel
+button.finaldecision,,Add / edit your final decision,,,
 button.viewmode,,back to reading mode,retour au mode de lecture,zurück zum Lesemodus,back to reading mode
 button.save,,save,enregistrer,speichern,save
 button.savedraft,,{{is_saving?'saving...':'save draft'}},{{is_saving?'enregistrement en cours...':'enregistrer comme brouillon'}},{{is_saving?'speichert...':'Entwurf sichern'}},{{is_saving?'saving...':'save draft'}}
@@ -96,14 +97,16 @@ field.label.references,,"Are the references cited in the footnotes appropriate, 
 field.label.references.description,,,,,
 field.label.pertinence,,Do the selected resources make a useful contribution to the argument?,Les ressources documentaires sélectionnées contribuent-elles utilement à l’argumentation?,,Do the selected resources make a useful contribution to the argument?
 field.label.pertinence.description,,,,,
+,,,,,
+,,,,,
 filterby.authors__slug,written by,by,par,von,by
 footer.home,footer link content,home,accueil,Startseite,home
 footer.termsofservice,,terms of use,notice légale,Nutzungsbedingungen,terms of use
 footer.guideforauthors,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 footer.latest_rss,,latest news,dernières nouvelles,aktuelle Nachrichten,latest news
-headline.assign.all,,assign reviews,,,
-headline.assign.all.title,,assign reviews,,,
-headline.assign.all.abstract,,Here you can assign reviews. Please note that you can't assign reviewers to your own publication.,,,
+headline.assign.all,,assign reviews,,,assign reviews
+headline.assign.all.title,,assign reviews,,,assign reviews
+headline.assign.all.abstract,,Here you can assign reviews. Please note that you can't assign reviewers to your own publication.,,,Here you can assign reviews. Please note that you can't assign reviewers to your own publication.
 ,,,,,
 ,,,,,
 headline.project,main menu,project,projet,Projekt,project
@@ -132,9 +135,9 @@ headline.blogs,main menu,blogs,blogs,Blogs,blogs
 headline.events,main menu,events,événements,Veranstaltungen,events
 headline.review.of,,review of:,révision de:,Begutachtung von :,review of:
 headline.your.reviews,vos commentaires/vos analyses/,reviews assigned to you,vos évaluations,Ihre Begutachtungen,reviews assigned to you
-headline.reviews.all.title,,reviews assigned to you,,,
+headline.reviews.all.title,,reviews assigned to you,,,reviews assigned to you
 headline.reviews.all.abstract,,,,,
-headline.reviews.pending.title,,reviews assigned to you (todo),,,
+headline.reviews.pending.title,,reviews assigned to you (todo),,,reviews assigned to you (todo)
 headline.reviews.pending.abstract,,,,,
 headline.news,main menu,news,news,News,news
 headline.blog,main menu,Events & News,Événements & news,Veranstaltungen & News,Events & News
@@ -150,21 +153,36 @@ link.to.original,,link to the original source,lien vers la source originale,Link
 me.publications,,your contributions,vos contributions,Ihre Beiträge,your contributions
 modal.covers.title,,add cover image,ajouter une image de couverture,Titel-Bild hinzufügen,add cover image
 modal.covers.description,,add cover,ajouter une page de garde,Title-Seite hinzufügen,add cover
-modals.addreview.title,modals dialog add review (staff only),add review,,,
-modals.addreview.field.reviewers.placeholders,,type here ...,,,
-modals.addreview.field.reviewers.label,,add reviewer,,,
-modals.addreview.field.reviewers.abstract,explain how reviewers will get notified,We will send email to each of them,,,
+modals.addreview.title,modals dialog add review (staff only),add review,,,add review
+modals.addreview.field.reviewers.placeholders,,type here ...,,,type here ...
+modals.addreview.field.reviewers.label,,add reviewer,,,add reviewer
+modals.addreview.field.reviewers.abstract,explain how reviewers will get notified,We will send email to each of them,,,We will send email to each of them
+modals.finaldecision.title,,Your decision,,,
+modals.finaldecision.field.status.placeholder,,pick one,,,
+modals.finaldecision.field.status.label,,Last decision,,,
+modals.finaldecision.field.status.abstract,,"If you accept the publication, an email wll be sent to authors automatically.",,,
 drafts,,(drafts),(ébauches),(Entwürfe),(drafts)
 drafts.keywords.placeholder,,add keywords ...,ajouter des mots clés...,Schlüsselwörter hinzufügen ...,add keywords ...
 profile.type.author,,author,auteur,Autor,author
 remote.url,,url,URL,URL,url
 remote.url.placeholder,,source,source,Quelle,source
-review.category.editing,,editing,,,
-review.category.pending,,not yet assigned,,,
-review.category.review,,peer review requested,,,
-review.category.double,,under review (double blind),,,
+review.category.editing,,editing,,,editing
+review.category.pending,,not yet assigned,,,not yet assigned
+review.category.review,,peer review requested,,,peer review requested
+review.category.double,,under review (double blind),,,under review (double blind)
 staff.drafts.tags.placeholder,,website placement (staff only),positionnement sur le site Web (uniquement pour l'équipe),Platzierung auf der Website (nur für Mitarbeiter),website placement (staff only)
-state.assign.all,,all pending publications,,,
+state.assign.all.title,,all pending publications,,,all pending publications
+state.assign.all.abstract,,,,,
+state.assign.all.label,,view all,,,
+state.assign.pending.title,,publications yet to be assigned,,,
+state.assign.pending.abstract,,,,,
+state.assign.pending.label,,yet to be assigned,,,
+state.assign.review.title,,under review,,,
+state.assign.review.abstract,,,,,
+state.assign.review.label,,under review,,,
+state.assign.reviewdone.title,,publication ready to be published,,,
+state.assign.reviewdone.abstract,,,,,
+state.assign.reviewdone.label,,done,,,
 state.blog.events.label,,events,événements,Veranstaltungen,events
 state.blog.all.title,,News & Events,News & Événements,News & Veranstaltungen,News & Events
 state.blog.all.label,,News & Events,News & Événements,News & Veranstaltungen,News & Events
@@ -199,7 +217,7 @@ state.publications.biography.abstract,,biography ...,biographie...,Biographie ..
 state.publications.how-tos.title,indications éditoriales/guide éditorial/ guide à l'intention des auteurs,guide for authors,instructions aux auteurs,Hinweise für Autoren/innen,guide for authors
 state.publications.how-tos.label,,how-tos,modes d'emploi,Anleitungen,how-tos
 state.publications.how-tos.abstract,,how-tos ...,modes d'emploi...,Anleitungen,how-tos ...
-state.publications.todo.label,,pending publications,,,
+state.publications.todo.label,,pending publications,,,pending publications
 state.notifications.activities.label,,see all activities,,,see all activities
 comment.status.pending,,pending acceptation,,,pending acceptation
 comment.status.private,,visible for you and for the authors,,,visible for you and for the authors
@@ -216,56 +234,57 @@ story.status.draft,the status of a story,draft,brouillon,Entwürfe,draft
 story.status.public,,published,publié,veröffentlicht,published
 story.status.pending,pending publications,waiting for review,,,waiting for review
 story.status.editing,"first step of review, with staff helping editing the paper (preliminary review)",locked for review,,,locked for review
-story.status.review,,under review,,,
+story.status.review,,under review,,,under review
 story.status.review.pending,,pending review,évaluationen suspens,ausstehende Begutachtung,pending review
-story.status.review.done,,reviewed,évalué,begutachtet,
-collection.status.draft,,draft,brouillon,Entwürfe,
-collection.status.public,,public,public,Öffentlich,
-tab.favourite,dialog tab title,your library,votre bibliothèque,Ihre Bibliothek,
-tab.all,,all resources,toutes les ressources,alle Ressourcen,
-tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
-tag.paper,,Papers,Articles,Beiträge/Artikel,
-tag.law,,Law,Droit,Recht,
-order.by.newest,,most recent first,,,
-order.by.oldest,,most recent last,,,
-order.by.titleaz,,by title (A-Z),,,
-order.by.titleza,,by title (Z-A),,,
-oembed.type.rich,à rajouter,Media,Media,Media,
-oembed.type.link,,Link,Lien,Link,
-oembed.type.photo,,Image,Image,Bild,
-oembed.type.image,,Image,Image,Bild,
-oembed.type.picture,,Image,Image,Bild,
-tab.library,,your library,votre bibliothèque,Ihre Bibliothek,
-tab.glossary,,other publications,autres publications,andere Publikationen,
-tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,
-tab.crossref,,from Crossref,depuis Crossref,aus Crossref,
-tab.url,,from url,depuis l'URL,aus der URL,
-tab.upload,,upload,télécharger,hochladen,
-upload.title,,Upload your contribution,Téléchargez votre contribution,Ihren Beitrag hochladen,
-upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,
-upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,
-upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,
-upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,
-verb.ask_for_editing,"chenge the status to ""editing""",prepared for review,,,
-verb.commented,,commented on,,,
-verb.created,,created,,,
-verb.got_published,,published,,,
-verb.started following,,subscribed to,,,
-verb.uncommented,,delete a comment on,,,
-verb.updated,,updated,,,
-written.by,author(s) label of the article,by,par,von,
-story.read.documents,,documents,documents,Dokumente,
-story.read.reviews,,reviews,évaluations,Begutachtungen,
-story.read.comments,,comments,commentaires,Kommentare,
-field.label.doi,,doi link,,,
-field.label.reference,,reference (markdown),,,
-field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,
-field.label.review.score,,score:,points :,Punktzahl :,
-field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),
-field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,
-field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,
-field.label.review.status.bounce,paper to be reviewed,Improvements needed before publication. To be submitted again.,Améliorations nécessaires avant la publication. Nouvelle soumission requise.,Erforderliche Verbesserungen vor Veröffentlichung. Muss erneut eingereicht werden.,
-field.label.review.final,,final consideration / further comments,examen final / autres commentaires,Schlussbemerkungen / weitere Kommentare,
+story.status.review.done,,reviewed,évalué,begutachtet,reviewed
+collection.status.draft,,draft,brouillon,Entwürfe,draft
+collection.status.public,,public,public,Öffentlich,public
+tab.favourite,dialog tab title,your library,votre bibliothèque,Ihre Bibliothek,your library
+tab.all,,all resources,toutes les ressources,alle Ressourcen,all resources
+tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
+tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
+tag.law,,Law,Droit,Recht,Law
+order.by.newest,,most recent first,,,most recent first
+order.by.oldest,,most recent last,,,most recent last
+order.by.titleaz,,by title (A-Z),,,by title (A-Z)
+order.by.titleza,,by title (Z-A),,,by title (Z-A)
+oembed.type.rich,à rajouter,Media,Media,Media,Media
+oembed.type.link,,Link,Lien,Link,Link
+oembed.type.photo,,Image,Image,Bild,Image
+oembed.type.image,,Image,Image,Bild,Image
+oembed.type.picture,,Image,Image,Bild,Image
+tab.library,,your library,votre bibliothèque,Ihre Bibliothek,your library
+tab.glossary,,other publications,autres publications,andere Publikationen,other publications
+tab.CVCE,,from CVCE.eu,depuis CVCE.eu,aus CVCE.eu,from CVCE.eu
+tab.crossref,,from Crossref,depuis Crossref,aus Crossref,from Crossref
+tab.url,,from url,depuis l'URL,aus der URL,from url
+tab.upload,,upload,télécharger,hochladen,upload
+upload.title,,Upload your contribution,Téléchargez votre contribution,Ihren Beitrag hochladen,Upload your contribution
+upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,Four easy steps
+upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading
+upload.success.title,,Congratulations! Your content has been submitted,Félicitations! Votre contenu a été transmis,Herzlichen Glückwunsch! Ihre Inhalte wurden eingereicht,Congratulations! Your content has been submitted
+upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,You can find your submitted content here
+verb.ask_for_editing,"chenge the status to ""editing""",prepared for review,,,prepared for review
+verb.commented,,commented on,,,commented on
+verb.created,,created,,,created
+verb.got_published,,published,,,published
+verb.started following,,subscribed to,,,subscribed to
+verb.uncommented,,delete a comment on,,,delete a comment on
+verb.updated,,updated,,,updated
+written.by,author(s) label of the article,by,par,von,by
+story.read.documents,,documents,documents,Dokumente,documents
+story.read.reviews,,reviews,évaluations,Begutachtungen,reviews
+story.read.comments,,comments,commentaires,Kommentare,comments
+field.label.doi,,doi link,,,doi link
+field.label.reference,,reference (markdown),,,reference (markdown)
+field.label.placeholder.review,"""write here...""",write here ...,Écrivez ici...,Schreiben Sie hier ...,write here ...
+field.label.review.score,,score:,points :,Punktzahl :,score:
+field.label.review.status.initial,,(still completing the review),,,(still completing the review)
+field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),(still completing the review)
+field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,Approval for publication.
+field.label.review.status.refusal,,Refused. Do not consider for publication.,Refusé. Ne pas publier.,Abgelehnt. Nicht zur Veröffentlichung freigegeben.,Refused. Do not consider for publication.
+field.label.review.status.bounce,paper to be reviewed,Improvements needed before publication. To be submitted again.,Améliorations nécessaires avant la publication. Nouvelle soumission requise.,Erforderliche Verbesserungen vor Veröffentlichung. Muss erneut eingereicht werden.,Improvements needed before publication. To be submitted again.
+field.label.review.final,,final consideration / further comments,examen final / autres commentaires,Schlussbemerkungen / weitere Kommentare,final consideration / further comments
 field.label.review.final.description,,,,,
-field.label.review.final.decision,what is your final decision?,Final decision,Décision finale,Endgültige Entscheidung,
-state.reviews.reports,review results,Review reports,Rapports d'examen,Begutachtungsberichte,
+field.label.review.final.decision,what is your final decision?,Final decision,Décision finale,Endgültige Entscheidung,Final decision
+state.reviews.reports,review results,Review reports,Rapports d'examen,Begutachtungsberichte,Review reports
