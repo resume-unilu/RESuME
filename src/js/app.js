@@ -97,7 +97,7 @@ angular
   */
   .config(function ($translateProvider, RUNTIME) {
     // $translateProvider.useMissingTranslationHandlerLog();
-    $translateProvider.useSanitizeValueStrategy('sce')
+    $translateProvider.useSanitizeValueStrategy(null)
     $translateProvider.useStaticFilesLoader({
         prefix: RUNTIME.static + 'locale/locale-',// path to translations files
         suffix: '.json'// suffix, currently- extension of the translations
@@ -844,7 +844,7 @@ angular
       });
   })
   .run(function($window, $log, RUNTIME){
-    $log.log('☕ app run, version: Kidding Panda; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
+    $log.log('☕ app run, version: Kidding Cat; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
     if(RUNTIME.settings.analytics)
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })
