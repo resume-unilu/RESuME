@@ -513,45 +513,25 @@ angular
       .state('reviews', {
         abstract: true,
         url: '/reviews',
-        controller: function(){},
-        templateUrl: RUNTIME.static + 'templates/reviews.html',
+        controller: 'ReviewsCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
         reloadOnSearch : false,
-      })
-      
-      .state('reviews.all', {
-        url: '',
-        controller: 'ItemsCtrl',
-        templateUrl: RUNTIME.static + 'templates/items.html',
-        resolve: {
-          initials: function(){
-            return {}
-          },
-          items: function(ReviewFactory, initials) {
-            return ReviewFactory.get(initials).$promise;
-          },
-          model: function() {
-            return 'review';
-          },
-          factory: function(ReviewFactory) {
-            return ReviewFactory.get;
-          }
-        }
-      })
-      
-      .state('reviews.pending', {
-          url: '/pending',
+      });
+    _.each(RUNTIME.routes.reviews, function(d){
+      $stateProvider
+        .state('reviews.' + d.slug, {
+          url: d.url,
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify({
-                  status__in: ['initial', 'draft']
-                })
-              }
+                filters: JSON.stringify(d.filters || {}),
+                orderby: '-date_last_modified'
+              };
             },
-            items: function(ReviewFactory, initials) {
-              return ReviewFactory.get(initials).$promise;
+            items: function(ReviewFactory, djangoFiltersService, initials) {
+              return ReviewFactory.get(djangoFiltersService(initials)).$promise;
             },
 
             model: function() {
@@ -561,7 +541,10 @@ angular
               return ReviewFactory.get;
             }
           }
-        })
+        });
+      });
+
+    $stateProvider
       .state('reviews.reports', {
         url: '/reports',
         controller: 'ItemsCtrl',
