@@ -133,6 +133,7 @@ headline.publications.todo.title,under review pending (staff only),Under review,
 headline.review.of,,review of:,révision de:,Begutachtung von :,review of:
 headline.reviews,,reviews assigned to you,évaluations qui vous ont été/sont assigné(e)s,Ihnen zugewiesene Begutachtungen,reviews assigned to you
 headline.reviews.abstract,,,,,
+headline.your.reviews,main menu,reviews assigned to you,évaluations assignées,,
 headline.write,main menu,create,créer,schaffen,create
 headline.you,"main menu, access to your space, usually after your username.",(you),(vous),(Sie),(you)
 headline.your.writings,"main menu, access to your articles (weird, to be changed)",your contributions,vos contributions,Ihre Beiträge,your contributions
@@ -238,10 +239,9 @@ state.reviews.all.title,vos commentaires/vos analyses/,reviews assigned to you,v
 state.reviews.complete.abstract,rules,,,,
 state.reviews.complete.label,,completed,,,completed
 state.reviews.complete.title,,Completed reviews,,,Completed reviews
-state.reviews.initial.abstract,,,,,
-state.reviews.initial.label,,pending,,,pending
-state.reviews.initial.title,,Pending reviews,,,Pending reviews
-state.reviews.pending,,pending,en suspens,ausstehend,pending
+state.reviews.pending.title,,Pending reviews,en suspens,ausstehend,Pending reviews
+state.reviews.pending.abstract,,,,,
+state.reviews.pending.label,,pending,en suspens,ausstehend,
 state.reviews.reports,review results,Review reports,Rapports d'examen,Begutachtungsberichte,Review reports
 story.read.comments,,comments,commentaires,Kommentare,comments
 story.read.comments,,comments,commentaires,Kommentare,comments

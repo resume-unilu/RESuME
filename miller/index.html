@@ -796,7 +796,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   <a ui-sref='author.publications.all({slug:author.slug})' translate='headline.your.writings'></a>
                 </li>
                 <li ui-sref-active="active" ng-if='user.is_reviewer' style='border-bottom: 2px solid #d0d0d0'>
-                  <a ui-sref='reviews.all'><span translate='headline.your.reviews'></span></a>
+                  <a ui-sref='reviews.pending'><span translate='headline.your.reviews'></span></a>
                 </li>
                 <li ui-sref-active="active" ng-if='user.is_chief_reviewer' style='border-bottom: 2px solid #d0d0d0'>
                   <a ui-sref='assign.all'><span translate='headline.assign.all'></span></a>
@@ -1287,7 +1287,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 filters: {}
               },
               {
-                slug: 'initial',
+                slug: 'pending',
                 url: '/pending',
                 filters: {
                   status__in: ['draft', 'initial']
