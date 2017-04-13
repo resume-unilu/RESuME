@@ -7,7 +7,7 @@
  * Used directly below CoreCtrl
  */
 angular.module('miller')
-  .controller('ReviewCtrl', function ($scope, $log, $state, review, ReviewFactory, RUNTIME, EVENTS) {
+  .controller('ReviewCtrl', function ($scope, $rootScope, $log, $state, review, ReviewFactory, RUNTIME, EVENTS) {
     $log.log('⏱ ReviewCtrl ready');
 
     
@@ -103,6 +103,14 @@ angular.module('miller')
       })
     }
 
+    // autosave draft with debounce.
+    var autosave = _.debounce(function(){
+      $scope.save();
+    }, 5000, {
+      leading: true,
+      trailing: false
+    });
+
     // calculate final score based on fields.
     $scope.$watch('review', function(r, p){
       if(r){
@@ -115,7 +123,10 @@ angular.module('miller')
         
         $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && r.contents.text.trim().length > 0;
         $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
-        // autosave draft
+        
+        if($scope.is_editable)
+          autosave();
+        
       }
     }, true)
 
