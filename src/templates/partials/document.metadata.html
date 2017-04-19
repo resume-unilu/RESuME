@@ -1,18 +1,18 @@
 <div class='metadata {{document.type}}'>
-  <div ng-if='!document.metadata.details.title'>
+  <div ng-if='!document.data.details.title'>
     <button class='btn btn-line' ng-if='document._type == "doc"||document._type == "voc"' ng-click='alignTo(document._index, $event)'>
       <span class='icon icon-type-{{document.type||document._type}}'></span><span class='type {{document.type}}'></span>
     </button>
-    <span ng-if='document.type!="link" && document.type!="crossref"' class='title' embedit='document.metadata.title' language='language'></span>
+    <span ng-if='document.type!="link" && document.type!="crossref"' class='title' embedit='document.data.title' language='language'></span>
 
     <span ng-if='document.type=="crossref"'>
-      <span embedit='document.metadata.fullCitation' markdown='inline'></span> &mdash; <a ng-href='{{document.metadata.doi}}'>{{document.metadata.doi|smartUrl}}</a>
+      <span embedit='document.data.fullCitation' markdown='inline'></span> &mdash; <a ng-href='{{document.data.doi}}'>{{document.data.doi|smartUrl}}</a>
     </span>
 
-    <a ng-if='document.type=="link"' target='_blank' ng-href='{{document.metadata.url}}'><span class='title' embedit='document.metadata.title' language='language'></span></a>
+    <a ng-if='document.type=="link"' target='_blank' ng-href='{{document.data.url}}'><span class='title' embedit='document.data.title' language='language'></span></a>
     
-    <div ng-if='document.metadata.abstract'  class='abstract'>
-      <span embedit='document.metadata.abstract' language='language'></span>
+    <div ng-if='document.data.abstract'  class='abstract'>
+      <span embedit='document.data.abstract' language='language'></span>
       <span ng-if='document._type == "voc"'>
         <a ui-sref='story({postId:document.slug})'>
           <span translate='more'></span>
@@ -21,34 +21,34 @@
       </span>
     </div>
     <div>
-      <div ng-if='document.metadata.type=="link" && document.metadata.thumbnail_url' class='snapshot' lazy-img='{{document.metadata.thumbnail_url}}'></div>
+      <div ng-if='document.data.type=="link" && document.data.thumbnail_url' class='snapshot' lazy-img='{{document.data.thumbnail_url}}'></div>
       
-      <div ng-if='document.metadata.caption' class='caption' embedit='document.metadata.caption' language='language'></div>
-      <div ng-if='!document.metadata.caption && document.metadata.description' class='caption' embedit='document.metadata.description' language='language'></div>
+      <div ng-if='document.data.caption' class='caption' embedit='document.data.caption' language='language'></div>
+      <div ng-if='!document.data.caption && document.data.description' class='caption' embedit='document.data.description' language='language'></div>
     </div>
-    <div style='clear:both' ng-if='document.metadata.copyright' embedit='document.metadata.copyright' language='language' firstline='true'></div>
+    <div style='clear:both' ng-if='document.data.copyright' embedit='document.data.copyright' language='language' firstline='true'></div>
   </div>
   
   <!-- having details -->
-  <div ng-if='document.metadata.details.title'>
+  <div ng-if='document.data.details.title'>
     <button class='btn btn-line' ng-if='document._type == "doc"||document._type == "voc"' ng-click='alignTo(document._index, $event)'>
       <span class='icon icon-type-{{document.type||document._type}}'></span>
     </button>
-    <span class='title' embedit='document.metadata.details.title || document.metadata.title' language='language'></span>
-    <div class='caption' embedit='document.metadata.details.caption' language='language'></div>
-    <div class='copyright' ng-if='document.metadata.details.copyright' embedit='document.metadata.details.copyright' language='language' firstline='true'></div>
+    <span class='title' embedit='document.data.details.title || document.data.title' language='language'></span>
+    <div class='caption' embedit='document.data.details.caption' language='language'></div>
+    <div class='copyright' ng-if='document.data.details.copyright' embedit='document.data.details.copyright' language='language' firstline='true'></div>
   </div>
 
    
   <!-- author part -->
   <div>
-    <span ng-if='document.metadata.author_name'>
+    <span ng-if='document.data.author_name'>
       <span translate='author'></span>
-      <a ng-href='{{document.metadata.author_url}}' target='_blank'>{{document.metadata.author_name}}</a>
+      <a ng-href='{{document.data.author_url}}' target='_blank'>{{document.data.author_name}}</a>
     </span>
-    <span ng-if='document.metadata.provider_name'>
+    <span ng-if='document.data.provider_name'>
       <span translate='source'></span>:
-      <a ng-href='{{document.metadata.provider_url}}' target='_blank'>{{document.metadata.provider_name}}</a>
+      <a ng-href='{{document.data.provider_url}}' target='_blank'>{{document.data.provider_name}}</a>
     </span>
   </div>
   

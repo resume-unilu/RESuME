@@ -29,12 +29,12 @@
     <div class='cover-preview-wrapper'>
       <label translate="field.label.cover"></label>
       <div class="cover-preview" ng-repeat="document in story.covers">
-        <div ng-if='document.metadata'>
+        <div ng-if='document.data'>
           <div lazy-img='{{document|coverage}}' class='lazy-box'></div>
 
           <div class='tile'>
-            <div class='title' embedit='document.metadata.title' language='language'></div>
-            <div class='copyright' embedit='document.metadata.copyright'></div>
+            <div class='title' embedit='document.data.title' language='language'></div>
+            <div class='copyright' embedit='document.data.copyright'></div>
             <div class='btn-line-group'>
               <button class='btn-line' ng-disabled='!story.covers.length' ng-click='
               removeCover(document)' translate="button.removecover"></button>

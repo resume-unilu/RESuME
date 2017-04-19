@@ -1,16 +1,16 @@
 <div class='metadata {{document.type}}'>
-  <em ng-if='document.metadata.title' embedit='document.metadata.title' language='language' firstline='true'></em>
-  <em ng-if='!document.metadata.title && document.title' embedit='document.title' language='language' firstline='true'></em>
+  <em ng-if='document.data.title' embedit='document.data.title' language='language' firstline='true'></em>
+  <em ng-if='!document.data.title && document.title' embedit='document.title' language='language' firstline='true'></em>
 
-  <span ng-if='document.metadata.author_name'>
+  <span ng-if='document.data.author_name'>
     <span translate='by'></span>
-    <a ng-href='{{document.metadata.author_url}}' target='_blank'>{{document.metadata.author_name}}</a>
+    <a ng-href='{{document.data.author_url}}' target='_blank'>{{document.data.author_name}}</a>
   </span>
-  <span ng-if='document.metadata.provider_name'>
+  <span ng-if='document.data.provider_name'>
     (<span translate='source'></span>:
-    <a ng-href='{{document.metadata.url || document.metadata.provider_url}}' target='_blank'>{{document.metadata.provider_name}}</a>)
+    <a ng-href='{{document.data.url || document.data.provider_url}}' target='_blank'>{{document.data.provider_name}}</a>)
   </span>
 
-<span ng-if='document.metadata.copyright' embedit='document.metadata.copyright' language='language' firstline='true'></span>
+<span ng-if='document.data.copyright' embedit='document.data.copyright' language='language' firstline='true'></span>
 <span ng-if='user.is_staff' >&mdash; <a target='_blank' ng-href='/admin/miller/document/{{document.document_id || document.id}}/change/'>modify (admin)</a></span>
 </div>
