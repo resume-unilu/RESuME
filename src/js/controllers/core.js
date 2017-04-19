@@ -169,7 +169,7 @@ angular.module('miller')
         if(d.covers && d.covers.length){
           var cover = d.covers[0];
 
-          d.cover_url = _.get(cover, 'metadata.thumbnail_url') || _.get(cover, 'metadata.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
+          d.cover_url = _.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
           
         }
         d.isCollection = _.filter(d.tags, {slug: 'collection'}).length > 0;
