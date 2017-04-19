@@ -480,12 +480,12 @@ angular.module('miller')
 
               DocumentFactory.save({
                 title: embed.title,
-                contents: JSON.stringify(embed),
-                metadata: JSON.stringify(embed),
+                data: embed,
                 type: (embed.type|| 'link').toLowerCase(),
                 // slug:  slug,
                 url: url
               }, function(res){
+                debugger
                 $log.debug('::mde -> addDocument() document saved:', res.slug, res.id, res.short_url);
                 if(res.slug){
                   referenceModal.hide();
@@ -539,8 +539,9 @@ angular.module('miller')
               $log.debug('::mde -> addDocument() doc:', slug);
               DocumentFactory.save({
                 title: scope.selectedDocument.title,
-                contents: JSON.stringify(scope.selectedDocument),
-                metadata: JSON.stringify(scope.selectedDocument),
+                // contents: JSON.stringify(scope.selectedDocument),
+                data: scope.selectedDocument,
+                // metadata: JSON.stringify(scope.selectedDocument),
                 type: (scope.selectedDocument.type|| 'link').toLowerCase(),
                 slug:  slug,
                 url: url

@@ -103,7 +103,7 @@
       <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
         <!-- <div class='row'>
           <div class='col-md-8'> according to document type-->
-          <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
+          <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
           
           <!-- </div> -->
           

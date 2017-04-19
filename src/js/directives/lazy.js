@@ -40,17 +40,17 @@ angular.module('miller')
             return
           }
 
-          if(scope.media.metadata){
-            scope.offsetx = scope.media.metadata.thumbnail_offset_x || 'center';
-            scope.offsety = scope.media.metadata.thumbnail_offset_y || 'center';
+          if(scope.media.data){
+            scope.offsetx = scope.media.data.thumbnail_offset_x || 'center';
+            scope.offsety = scope.media.data.thumbnail_offset_y || 'center';
           }
           
           switch(scope.quality){
             case LAZY.QUALITY_HIFI: 
-              scope.src = scope.media.metadata? (scope.media.metadata.media_url || _.get(scope.media, 'metadata.urls.Publishable') || scope.media.metadata.thumbnail_url || scope.media.metadata.preview || scope.media.metadata.url || scope.media.attachment || scope.media.snapshot): (scope.media.attachment || scope.media.snapshot);
+              scope.src = scope.media.data? (scope.media.data.media_url || _.get(scope.media, 'metadata.urls.Publishable') || scope.media.data.thumbnail_url || scope.media.data.preview || scope.media.data.url || scope.media.attachment || scope.media.snapshot): (scope.media.attachment || scope.media.snapshot);
               break;
             case LAZY.QUALITY_SNAPSHOT:
-              scope.src = scope.media.metadata? (scope.media.metadata.thumbnail_url || scope.media.metadata.preview || _.get(scope.media, 'metadata.urls.Preview')  || scope.media.snapshot || scope.media.attachment || scope.media.metadata.url): (scope.media.snapshot || scope.media.attachment);
+              scope.src = scope.media.data? (scope.media.data.thumbnail_url || scope.media.data.preview || _.get(scope.media, 'metadata.urls.Preview')  || scope.media.snapshot || scope.media.attachment || scope.media.data.url): (scope.media.snapshot || scope.media.attachment);
               break;
           }
           $log.log('lazy-cover ready - src:', scope.src, 'quality:', scope.quality);

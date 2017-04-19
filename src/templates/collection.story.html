@@ -41,7 +41,7 @@
         
       </div>
       <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
-        <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.metadata' media='document' coverquality='hifi'></div>
+        <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' coverquality='hifi'></div>
         <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.html"|prefixTemplate''></div>
       </div>
      

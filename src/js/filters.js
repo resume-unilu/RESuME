@@ -50,11 +50,11 @@ angular.module('miller')
       if(typeof cover != 'object')
         return ''
       
-      if(cover.metadata){
+      if(cover.data){
         if(_hifi){
-          url = cover.metadata.media_url || _.get(cover, 'metadata.urls.Publishable') || cover.metadata.thumbnail_url || cover.metadata.preview || cover.metadata.url   || cover.attachment || cover.snapshot;
+          url = cover.data.media_url || _.get(cover, 'data.urls.Publishable') || cover.data.thumbnail_url || cover.data.preview || cover.data.url   || cover.attachment || cover.snapshot;
         } else {
-          url = cover.metadata.thumbnail_url || cover.metadata.preview || _.get(cover, 'metadata.urls.Preview')  || cover.snapshot || cover.attachment || cover.metadata.url;
+          url = cover.data.thumbnail_url || cover.data.preview || _.get(cover, 'data.urls.Preview')  || cover.snapshot || cover.attachment || cover.data.url;
         }
       } else {
         url = _hifi? (cover.attachment || cover.snapshot): (cover.snapshot || cover.attachment);

@@ -3,20 +3,20 @@
   <!-- <div class='divider'>&nbsp;</div> -->
   
   <div class='wrapper'>
-    <div ng-if='document.metadata'>
-      <div src='document.metadata.thumbnail_url || document.metadata.urls.Preview || document.snapshot || document.metadata.url' lazy-image></div>
-      <!-- <div ng-if='document.metadata.thumbnail_url' lazy-image src='document.metadata.thumbnail_url'></div>
+    <div ng-if='document.data'>
+      <div src='document.data.thumbnail_url || document.data.urls.Preview || document.snapshot || document.data.url' lazy-image></div>
+      <!-- <div ng-if='document.data.thumbnail_url' lazy-image src='document.data.thumbnail_url'></div>
 
-      <div ng-if='!document.metadata.thumbnail_url && document.metadata.urls.Preview' lazy-image src='document.metadata.urls.Preview'></div>
+      <div ng-if='!document.data.thumbnail_url && document.data.urls.Preview' lazy-image src='document.data.urls.Preview'></div>
 
-      <div ng-if='!document.metadata.thumbnail_url && !document.metadata.urls.Preview' class='lazy-box'></div>
+      <div ng-if='!document.data.thumbnail_url && !document.data.urls.Preview' class='lazy-box'></div>
  -->
       <div class='tile'>
-        <div class='title' embedit='document.metadata.title' language='language'></div>
-        <div class='copyright' embedit='document.metadata.copyright'></div>
+        <div class='title' embedit='document.data.title' language='language'></div>
+        <div class='copyright' embedit='document.data.copyright'></div>
       </div>
     </div>
-    <div ng-if='!document.metadata'>
+    <div ng-if='!document.data'>
       <div ng-if='document.urls.Preview' lazy-image src='document.urls.Preview'></div>
       <div ng-if='document.src' lazy-image src='document.src'></div>
       <!-- {{document}} -->

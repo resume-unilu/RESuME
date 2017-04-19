@@ -250,20 +250,20 @@ angular.module('miller')
     }    
     
     // listener for SOCKET_USER_COMMENTED_STORY event, cfr. PulseCtrl.
-    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, function(e, data){
-      if(data.target.id == story.id){
-        $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
-        if(data.info.comment.highlights) {
-          $scope.story.highlights.push(data.info.comment.highlights);
-        }
-        data.info.comment.unread = true;
-        $scope.comments.unshift(data.info.comment);
-        $scope.commentsCount++;
-        $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
+    $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, _.debounce(function(e, data) {
+        if(data.target.id == story.id){
+          $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
+          if(data.info.comment.highlights) {
+            $scope.story.highlights.push(data.info.comment.highlights);
+          }
+          data.info.comment.unread = true;
+          $scope.comments.unshift(data.info.comment);
+          $scope.commentsCount++;
+          $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
 
-        $scope.$apply();
-      }
-    })
+          $scope.$apply();
+        }
+    }, 200));
 
     // listener for SOCKET_USER_UNCOMMENTED_STORY event, cfr. PulseCtrl.
     $rootScope.$on(EVENTS.SOCKET_USER_UNCOMMENTED_STORY, function(event, data) {
