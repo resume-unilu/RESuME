@@ -445,7 +445,7 @@ angular.module('miller')
 
     $rootScope.$on(EVENTS.PERMISSION_DENIED, function(e, rejection){
       $log.warn('@PERMISSION_DENIED. Should redirect', $location.absUrl());
-      window.location.href = '/login/?next='+$location.path();    
+      // window.location.href = '/login/?next='+$location.path();    
     });
 
     var timer_event_message;
