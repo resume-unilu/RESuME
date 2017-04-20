@@ -813,8 +813,9 @@ ul.errorlist{
 }
 
 
-.tag a{
+.tag a, .metadata .tag a{
   color: #151515;
+  text-decoration: none;
 }
 
 
@@ -2115,6 +2116,29 @@ h4.modal-title{
   line-height: 18px;
   font-weight: bold;
   font-family: 'Lato', sans-serif;
+}
+
+.metadata .authors{
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.metadata a.author{
+  color: #9c9696;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.metadata.voc .contents {
+  margin-top: 12px;
+}
+
+.metadata.voc .tags a{
+  color: #9c9696;
+}
+
+.metadata.voc .title{
+  margin: 10px 0;
 }
 
 .metadata a{

@@ -407,6 +407,7 @@ angular.module('miller')
           // return '<a name="' + documents[0] +'" ng-click="hash(\''+url+'\')"><span class="anchor-wrapper"></span>'+text+'</a>';
         } else if(url.trim().indexOf('voc/') === 0){
           var terms = url.trim().replace('voc/','').split(',');
+          
           for(var ind in terms){
             linkIndex++;
             results.docs.push({
@@ -417,11 +418,11 @@ angular.module('miller')
               type: 'glossary'
             });
           }
-          if(!disableLazyPlaceholders && !tokens[idx + 1].content.length){
-            return '<span type="voc" lazy-placeholder="'+ terms[0] + '">' + terms[0];
-          }
           tokens[idx].attrSet('class', 'glossary');
-          return '<a id="item-'+linkIndex+'" class="special-link glossary"  ng-click="focus(\'' +linkIndex+'\')"><span hold slug="'+ terms[0] +'" type="voc" class="anchor-wrapper"></span><span class="icon icon-arrow-right-circle"></span>';
+          
+          return '<a id="item-'+linkIndex+'" class="special-link glossary"  ng-click="focus(\'' +linkIndex+'\')"><span hold slug="'+ terms[0] +'" type="voc" class="anchor-wrapper"></span><span class="icon icon-arrow-right-circle"></span>' +
+            (!disableLazyPlaceholders && !tokens[idx + 1].content.length? '&nbsp;': '')
+           ;
           // return '<a id="item-'+linkIndex+'" class="special-link glossary"  ng-click="fullsize(\'' +url+'\', \'voc\')"><span hold slug="'+ terms[0] +'" type="voc" class="anchor-wrapper"></span><span class="icon icon-arrow-right-circle"></span>';
         } else {
           return '<a href="'+url+'" target="_blank">';
