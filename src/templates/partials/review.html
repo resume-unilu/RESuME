@@ -1,6 +1,6 @@
-<div class="review stream {{review.status}}">
+<div class="review {{review.status}}">
   <div class="row">
-    <div class='col-xs-4 col-sm-4 col-md-3'>
+    <div class='col-xs-4 col-md-3'>
       <table class="table">
         <tr>
           <th><span>type</span></th>
@@ -20,7 +20,7 @@
         </tr>
       </table>
     </div>
-    <div class='col-xs-8 col-sm-6 col-md-5'>
+    <div class='col-xs-8 col-md-9'>
       <div class='reviewed'>
         <div class="date">{{review.story.date|date:'mediumDate'}}</div>
 
@@ -30,24 +30,24 @@
       
         <blockquote ng-if='review.story.metadata.abstract' embedit='review.story.metadata.abstract' language='language'></blockquote>
       </div>
-    </div>
+      <div>
 
-    <div class='col-sm-2 col-md-4'>
-      <div ng-if='review.status == "initial" || review.status == "draft"' class='center'  style='    margin-top: 35px;'>
-        <div class='btn-line-group primary'>
+        <div ng-if='review.story.source' class='btn-line-group primary transparent'>
+          <a class='btn-line ' ng-href="/api/story/{{story.id}}/download/source" _target="blank"><span class='icon icon-arrow-down-circle'></span><span translate='button.downloadsource'></span></a>
+        </div>
+        <div class='btn-line-group primary transparent'>
+          <button class='btn-line' ui-sref='review.story({id: review.id})' translate='button.viewforreview'></button>
+        </div>
+        <div ng-if='review.status == "initial" || review.status == "draft"' class='btn-line-group primary'>
           <button class='btn-line' ui-sref='review({id: review.id})' translate='button.completereview'></button>
         </div>
-      </div>
-      <div ng-if='review.status != "initial" && review.status != "draft"' class='center'  style='    margin-top: 35px;'>
-        <div class='btn-line-group primary'>
+        
+        <div ng-if='review.status != "initial" && review.status != "draft"' class='btn-line-group primary'>
           <button class='btn-line' ui-sref='review({id: review.id})' translate='button.viewreport'></button>
         </div>
       </div>
-      <div class='center'  style='    margin: 20px 0 15px 0;'>
-        <div class='btn-line-group primary'>
-          <button class='btn-line' ui-sref='review.story({id: review.id})' translate='button.viewforreview'></button>
-        </div>
-      </div>
     </div>
+
+    
   </div>
 </div>

@@ -3187,6 +3187,7 @@ content: "\e07a";
 .reviewed{
   background: #f0f0f0;
   padding: 5px 15px; 
+  margin-bottom: 3px;
 }
 
 .reviewed h2{

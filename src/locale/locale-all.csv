@@ -18,6 +18,7 @@ button.completereview,,create or modify review,faire ou modifier une évaluation
 button.confirm,"in a confirm popup, OK. cfr confirm.publish.title too",{{is_saving?'saving...':'confirm'}},,,{{is_saving?'saving...':'confirm'}}
 button.create,,create,créer,erstellen,create
 button.dismiss,"in a confirm popup, just ignore it?",cancel,,,cancel
+button.downloadsource,,download original,,,
 button.edit.author,modify author,"change biography, affiliation, etc.","modifier la biographie, l'affiliation, etc.","Biografie, Zugehörigkeit, etc.ändern","change biography, affiliation, etc."
 button.finaldecision,,Add / edit your final decision,,,Add / edit your final decision
 button.issaving,,saving ...,enregistrer...,Speichern...,saving ...

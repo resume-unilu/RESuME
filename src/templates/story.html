@@ -20,8 +20,8 @@
                 <li>
                   <a ng-href="/api/story/{{story.id}}/download/" _target="blank">pdf</a>
                 </li>
-                <li>
-                  
+                <li ng-if='user.is_staff || user.is_chief_reviewer || user.is_reviewer'>
+                  <a ng-href="/api/story/{{story.id}}/download/source" _target="blank">source (docx)</a>
                 </li>
               </ul>
             
