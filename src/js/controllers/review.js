@@ -121,7 +121,7 @@ angular.module('miller')
           return a + b;
         });
         
-        $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && r.contents.text.trim().length > 0;
+        $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && (r.contents.text || '').trim().length > 0;
         $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
         
         if($scope.is_editable)
