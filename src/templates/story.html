@@ -13,15 +13,15 @@
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
               
               <a class='btn-line' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false">
-                <span>download <span class='icon icon-cloud-download'></span></span>
+                <span translate='button.downloadas'></span> <span class='icon icon-cloud-download'></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
                 <li>
                   <a ng-href="/api/story/{{story.id}}/download/" _target="blank">pdf</a>
                 </li>
-                <li ng-if='user.is_staff || user.is_chief_reviewer || user.is_reviewer'>
-                  <a ng-href="/api/story/{{story.id}}/download/source" _target="blank">source (docx)</a>
+                <li ng-if='story.source && (user.is_staff || user.is_chief_reviewer || user.is_reviewer)'>
+                  <a ng-href="/api/story/{{story.id}}/download/source" _target="blank"><span class='icon icon-lock'></span>&nbsp;&nbsp;<span translate='button.downloadsource.limited'></span> </a>
                 </li>
               </ul>
             
