@@ -60,10 +60,10 @@
           <p class='description' translate="field.label.review.final.description"></p>
         </label>
         <div ng-show='is_editable' class='elastic-textarea-wrapper'>
-          <textarea rows="5" placeholder='{{"field.label.placeholder.review" | translate}}' required class='elastic-textarea' msd-elastic ng-model='review.contents.text' name='reviewcontentstext' ng-model-options="{ debounce: 200 }" ng-disabled='!is_editable' ></textarea>
+          <textarea rows="5" placeholder='{{"field.label.placeholder.review" | translate}}' required class='elastic-textarea' msd-elastic ng-model='review.contents' name='reviewcontentstext' ng-model-options="{ debounce: 200 }" ng-disabled='!is_editable' ></textarea>
 
         </div>
-        <div class='answer' ng-if='!is_editable' embedit='review.contents.text' markdown></div>
+        <div class='answer' ng-if='!is_editable' embedit='review.contents' markdown></div>
       </div>
 
 

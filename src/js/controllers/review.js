@@ -45,7 +45,7 @@ angular.module('miller')
         answers[field + '_score'] = $scope.review[field + '_score'] || 0
       }
 
-      answers.contents = JSON.stringify($scope.review.contents);
+      answers.contents = $scope.review.contents;
       
       answers.status = 'draft';
       
@@ -86,7 +86,7 @@ angular.module('miller')
         answers[field + '_score'] = $scope.review[field + '_score'] || 0
       }
 
-      answers.contents = JSON.stringify($scope.review.contents);
+      answers.contents = $scope.review.contents;
       answers.status   = status;
 
       ReviewFactory.patch({
@@ -124,7 +124,7 @@ angular.module('miller')
           return a + b;
         });
         
-        $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && (r.contents.text || '').trim().length > 0;
+        $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && (r.contents || '').trim().length > 0;
         $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
         
         if(!__first && $scope.is_editable)
