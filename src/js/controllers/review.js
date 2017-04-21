@@ -15,7 +15,7 @@ angular.module('miller')
       'thematic','interest', 'originality', 'innovation', 'interdisciplinarity', 'methodology', 'clarity', 'argumentation','structure', 'references', 'pertinence'];
 
     $scope.availableStatuses = [
-      'draft', 'complete', 'refusal', 'bounce'
+      'draft', 'approved', 'refusal', 'bounce'
     ];
     
     // initial status

@@ -10,7 +10,7 @@ angular.module('miller')
       }
     };
 
-    $scope.availableStatus = ['complete', 'bounce', 'refusal'];
+    $scope.availableStatus = ['approved', 'bounce', 'refusal'];
 
 
     $scope.confirm = function() {
@@ -27,7 +27,7 @@ angular.module('miller')
 
       ReviewFactory.close({
         story: story.id,
-        contents: JSON.stringify($scope.review.contents),
+        contents: $scope.review.contents,
         status: $scope.review.status
       }, function(){
         $scope.isSaving = false;

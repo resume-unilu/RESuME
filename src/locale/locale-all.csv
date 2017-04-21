@@ -100,6 +100,7 @@ field.label.review.final.decision,what is your final decision?,Final decision,D�
 field.label.review.final.description,,,,,
 field.label.review.score,,score:,points :,Punktzahl :,score:
 field.label.review.status.bounce,paper to be reviewed,Improvements needed before publication. To be submitted again.,Améliorations nécessaires avant la publication. Nouvelle soumission requise.,Erforderliche Verbesserungen vor Veröffentlichung. Muss erneut eingereicht werden.,Improvements needed before publication. To be submitted again.
+field.label.review.status.approved,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,Approval for publication.
 field.label.review.status.complete,,Approval for publication.,Feu vert pour la publication.,Grünes Licht für die Publikation.,Approval for publication.
 field.label.review.status.draft,,(still completing the review),(finalisation de l'évaluation en cours),(Fertigstellung der Begutachtung noch nicht abgeschlossen),(still completing the review)
 field.label.review.status.initial,,(still completing the review),,,(still completing the review)
