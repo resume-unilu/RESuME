@@ -23,6 +23,7 @@ angular.module('miller')
     // you can edit a review only if it is not completed and if you're the assignee...
     // save method on api side enforces this.
     $scope.is_assignee = review.assignee.username == $scope.user.username;
+    $scope.is_reviewed = ['complete', 'refusal', 'bounce'].indexOf(review.status) !== -1;
     $scope.is_editable = $scope.is_assignee && (review.status == 'draft' || review.status == 'initial');
 
 
@@ -69,6 +70,7 @@ angular.module('miller')
     $scope.finalize = function(status){
       $log.debug('⏱ ReviewCtrl -> finalize() status:', status);
       $scope.$emit(EVENTS.MESSAGE, 'closing the review');
+      $scope.is_editable = false;
       $scope.lock();
       if($scope.isSaving){
         $log.warn('wait, try again in. Is still saving.')
@@ -107,12 +109,13 @@ angular.module('miller')
     var autosave = _.debounce(function(){
       $scope.save();
     }, 5000, {
-      leading: true,
-      trailing: false
+      leading: true
     });
 
+    var __first = true;
     // calculate final score based on fields.
     $scope.$watch('review', function(r, p){
+      
       if(r){
         var filledIn = _.filter(r, function(d, k){
           return k.indexOf('_score') != -1;
@@ -124,8 +127,9 @@ angular.module('miller')
         $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && (r.contents.text || '').trim().length > 0;
         $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
         
-        if($scope.is_editable)
+        if(!__first && $scope.is_editable)
           autosave();
+        __first = false;
         
       }
     }, true)

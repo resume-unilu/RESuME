@@ -438,6 +438,21 @@ ul.errorlist{
   color: #151515;
 }
 
+.number .todo{
+  position: absolute;
+  left: -12px;
+  top: 0px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: #FF6B6B;
+  opacity: 1;
+  transition: opacity ease-in-out .36s;
+}
+
+.number .todo.resolved{
+  opacity: 0;
+}
 /*
   collection speciic style
 */
