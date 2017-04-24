@@ -1245,6 +1245,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               },
             ],
             publications: {
+              status: [
+                {
+                  slug: 'draft',
+                  url: '/draft',
+                  filters: {
+                    status: 'draft'
+                  }
+                },
+                {
+                  slug: 'reviewdone',
+                  url: '/to-be-published',
+                  filters: {
+                    status: 'reviewdone'
+                  }
+                }
+              ],
               writing: [
                 {
                   slug: 'collection',

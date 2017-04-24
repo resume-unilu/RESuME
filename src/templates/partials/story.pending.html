@@ -9,7 +9,7 @@
     <div ng-class='{"col-md-8":!story.covers.length, "col-md-5":story.covers.length}'>
       <div ng-if='!$first' class="divider"></div>
       <div class="tags">
-        <span class='tag'>to be assigned</span>
+        <span class='tag' translate='story.status.{{story.status}}'></span>
       </div>
       
 
@@ -53,19 +53,26 @@
       <table class='table'>
         <tr>
           <td colspan="4">
-            <div class='btn-line-group primary transparent'>
+            <div ng-if='story.status != "reviewdone"' class='btn-line-group primary transparent'>
               <button class='btn-line ' ng-click='addReview(story)'><span class='icon icon-plus'></span><span translate='button.assignforreview'></span></button>
             </div>
-            <div class='btn-line-group primary transparent'>
+            <div ng-if='story.status != "reviewdone"' class='btn-line-group primary transparent'>
               <button class='btn-line ' ng-click='finalDecision(story)'><span class='icon icon-plus'></span><span translate='button.finaldecision'></span></button>
             </div>
           </td>
         </tr>
-        <tr ng-repeat='review in story.reviews' class='stream review' ng-class='review.status'>
-          <td><span class='status'>{{review.status}}</span></td>
-          <td><span class='score'>{{review.score}}/55</span></td>
-          <td><span class='username'>{{review.assignee.username}}</span> </td>
+        <tr ng-repeat='review in story.reviews | filter:{ category: "!closing"}' class='stream review' ng-class='review.status'>
+          <td>
+            <div><span class='status'>{{review.status}}</span></div>
+          </td>
+          <td colspan="2"><a class='author'>{{review.assignee.username}}</a> &mdash; <span embedit='review.contents'></span></td>
           <td><a ui-sref='review({id: review.id})' translate='review.category.{{review.category}}'></a></td>
+        </tr>
+        <tr ng-repeat='review in story.reviews | filter:{ category: "closing"}' class='review' ng-class='review.status'>
+          <td>
+            <div><span class='status'>{{review.status}}</span></div>
+          </td>
+          <td colspan="3"><a class='author'>{{review.assignee.username}}</a> &mdash; <span embedit='review.contents'></span></td>
         </tr>
       </table>
     </div>

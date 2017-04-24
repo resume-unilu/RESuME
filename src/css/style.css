@@ -1134,7 +1134,7 @@ ul.errorlist{
 
 .contents a.special-link > .icon{
   float: right;
-  line-height: 25px;
+  
   padding: 0 5px;
 }
 
@@ -1523,6 +1523,16 @@ a.btn-line:hover{
 .nav-tabs > li{
   /*padding: 22px 10px 20px 0px;*/
   padding: 0px 5px 0px 0px;
+}
+
+.nav-tabs > li.divider{
+  width: 2px;
+    padding: 0;
+    height: 24px;
+    border: 0px;
+    background: #ddd;
+    /* position: static; */
+    margin: 0 10px 0 5px;
 }
 
 .nav-tabs > li > a{
@@ -3163,6 +3173,21 @@ content: "\e07a";
 .stream .table{
   margin-bottom: 0px;
   margin: 5px;
+
+}
+
+.stream span{
+  font-size: 12px;
+}
+
+.stream a{
+  color: #28bdb3;
+}
+
+
+.stream .author{
+  font-weight: bold;
+  font-size: 11px;
 }
 
 /*
@@ -3189,7 +3214,12 @@ content: "\e07a";
 
 }
 
-.review.complete .status{
+.review.bounce .status{
+  background-color: orange;
+  color: white;
+}
+
+.review.complete .status, .review.approved .status{
   background: #c7f464;
   color: #151515;
 

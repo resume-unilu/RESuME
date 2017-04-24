@@ -713,7 +713,7 @@ angular
           }
         });
 
-      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags), function(d){
+      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags).concat(RUNTIME.routes.publications.status), function(d){
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,
@@ -722,7 +722,7 @@ angular
             resolve: {
               initials: function(){
                 return {
-                  filters: d.slug? JSON.stringify({
+                  filters: d.filters? JSON.stringify(d.filters): d.slug? JSON.stringify({
                     tags__category: 'writing',
                     tags__slug: d.slug
                   }): JSON.stringify({

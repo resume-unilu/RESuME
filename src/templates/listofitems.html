@@ -10,6 +10,11 @@
       <li role="presentation" ui-sref-active="active" >
         <a href ui-sref='{{mainStatename}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{mainStatename}}.label"></a>
       </li>
+      <li ng-if='mainRoutes.length' class='divider'></li>
+      <li ng-if='mainRoutes' ng-repeat='url in mainRoutes' role="presentation" ui-sref-active="active">
+        <a ng-if='url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
+        <a ng-if='!url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{rootStatename}}.{{url.slug}}.label"></a>
+      </li>
     </ul>
     <!-- Nav tabs -->
     <table cellspacing="20">
