@@ -245,8 +245,14 @@ angular.module('miller')
           } else if(idx === 0) {
             scope.reset();
           }
-        })
+        }) 
 
+        scope.$watch('items', function(items){
+          if(items && items.length){
+            console.log('something chenge', items)
+            scope.items = items;
+          }
+        })
         $timeout(function() {
           stepsHeight = steps[0].offsetHeight,
           stepswrapperHeight = stepswrapper[0].offsetHeight,

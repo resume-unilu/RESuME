@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.isDraft = false;
@@ -66,6 +66,7 @@ angular.module('miller')
     /*
       Save or delete documents according to text contents.
     */
+    $scope.sideItems = [];
     $scope.setDocuments = function(items) {
       $log.log('WritingCtrl -> setDocuments()', items.length);
       // get the difference (store item.slug only)
@@ -82,8 +83,8 @@ angular.module('miller')
             voc: []
           };
 
-
-
+      
+      
       // which document / stories needs to be saved?
       for(var i=0; i<items.length; i++) {
         var t = items[i]._type == 'block-doc'? 'doc' : items[i]._type;
@@ -103,7 +104,7 @@ angular.module('miller')
       $log.log('... tobekept:', tobekept)
      
       // if something needs to be done, start the chain
-      if(tobesaved.voc.length || tobedeleted.voc.length || tobesaved.doc.length || tobedeleted.doc.length ){
+      // if(tobesaved.voc.length || tobedeleted.voc.length || tobesaved.doc.length || tobedeleted.doc.length ){
         $q.all(_.compact(
           _.uniq(tobesaved.doc).map(function(slug) {
             var p = CaptionFactory.save({
@@ -158,16 +159,10 @@ angular.module('miller')
           } else {
             //  $scope.$parent.setDocuments(documents);
           }
-        });
-      } else{
-        // var indexed = _.keyBy(story.documents, 'slug'),
-        //     docs = _(documents).uniq('slug').map(function(d){
-        //       return indexed[d.slug];
-        //     }).value();
-        // // console.log('indexed', docs)
 
-        // $scope.$parent.setDocuments(docs);
-      }
+          $scope.sideItems = items;
+        });
+      
     };
 
     // handle markdown preview of its contents....
@@ -265,6 +260,23 @@ angular.module('miller')
       });
     };
 
+    $scope.suggestAuthors = function(query, options) {
+      $log.log('WritingCtrl -> suggestAuthors', query, options);
+      var filters = angular.extend(options || {}, {
+        fullname__icontains: query
+      });
+      console.log(filters)
+      $log.log('FILTERS:', filters)
+      return AuthorFactory.get({
+        filters: JSON.stringify(filters),
+        exclude: JSON.stringify({
+          id__in:_.map($scope.story.authors, 'id')
+        })
+      }).$promise.then(function(response) {
+        return response.results;
+      });
+    };
+
     $scope.suggestReferences = function(service) {
       if(!service)
         DocumentFactory.get(function(){
@@ -302,7 +314,8 @@ angular.module('miller')
         abstract: $scope.abstract,
         contents: $scope.contents,
         metadata: JSON.stringify($scope.story.metadata),
-        date: $scope.date
+        date: $scope.date,
+        authors: _.map($scope.story.authors, 'id')
       }, $scope.metadata);
 
       StoryFactory.update({id: story.id}, update, function(res) {

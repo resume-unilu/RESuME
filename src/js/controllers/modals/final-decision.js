@@ -6,8 +6,7 @@ angular.module('miller')
 
     $scope.review = {
       status: false,
-      contents: { 
-      }
+      contents: ''
     };
 
     $scope.availableStatus = ['approved', 'bounce', 'refusal'];

@@ -11,7 +11,9 @@ angular.module('miller')
 
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
+    $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;
 
+     
     $scope.story.isUnderReview = ['review', 'editing', 'pending'].indexOf(story.status) !== -1;
     
     // is the layout table or other?
@@ -251,6 +253,7 @@ angular.module('miller')
     
     // listener for SOCKET_USER_COMMENTED_STORY event, cfr. PulseCtrl.
     $rootScope.$on(EVENTS.SOCKET_USER_COMMENTED_STORY, _.debounce(function(e, data) {
+      
         if(data.target.id == story.id){
           $log.log('StoryCtrl @SOCKET_USER_COMMENTED_STORY, update the comment list!')
           if(data.info.comment.highlights) {
@@ -258,8 +261,12 @@ angular.module('miller')
           }
           data.info.comment.unread = true;
           $scope.comments.unshift(data.info.comment);
+
+          
+
           $scope.commentsCount++;
-          $scope.commentsNextParams.offset = +!!$scope.commentsNextParams.offset + 1;
+          if($scope.commentsNextParams.offset)
+            $scope.commentsNextParams.offset++;
 
           $scope.$apply();
         }

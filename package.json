@@ -22,5 +22,8 @@
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
     "lodash": "^4.12.0"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1"
   }
 }

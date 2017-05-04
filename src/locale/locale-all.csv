@@ -69,6 +69,7 @@ enrich.url.noembedfound,(ask Daniele GUIDO),No embeddable object found. Simple l
 enrich.url.notvalid,(ask Daniele GUIDO),A valid URL is required,,,A valid URL is required
 feature.unsupported.dragdrop,Alert message when dragdrop is not supported,File drag/drop is not supported for this browser,Le fichier drag&drop (glisser-déposer) n'est pas pris en charge par ce navigateur.,Die drag&drop Datei wird nicht von diesem Browser unterstützt.,File drag/drop is not supported for this browser
 field.label.abstract,,abstract,résumé,Zusammenfassung,abstract
+field.label.author,,authors,,,
 field.label.affiliation,,affiliation,affiliation,Zugehörigkeit,affiliation
 field.label.argumentation,,Does the contribution provide a convincing argument to address the research question?,L’argumentation développée dans le tapuscrit est-elle convaincante au regard de la problématique retenue?,,Does the contribution provide a convincing argument to address the research question?
 field.label.argumentation.description,,,,,
@@ -265,6 +266,7 @@ story.status.pending,pending publications,waiting for review,,,waiting for revie
 story.status.public,,published,publié,veröffentlicht,published
 story.status.review,,under review,,,under review
 story.status.review.done,,reviewed,évalué,begutachtet,reviewed
+story.status.reviewdone,,reviewed,,,
 story.status.review.pending,,pending review,évaluationen suspens,ausstehende Begutachtung,pending review
 tab.all,,all resources,toutes les ressources,alle Ressourcen,all resources
 tab.crossref,,from Crossref,depuis Crossref,aus Crossref,from Crossref

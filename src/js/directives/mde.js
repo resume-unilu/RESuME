@@ -124,18 +124,18 @@ angular.module('miller')
                   prevToken = NONE,
                   c =0;
               
-              simplemde.codemirror.doc.eachLine(0, pos.line + 1, function(line){
-                var t = line.text.trim(),
-                    s = t.slice(0,5),// first 5 charcters
-                    token = t.length == 0? EMPTY_LINE: s.charAt(0) == '#'? HEADER: s.match(footnotePattern) ? FOOTNOTE: BLOCK;
+              // simplemde.codemirror.doc.eachLine(0, pos.line + 1, function(line){
+              //   var t = line.text.trim(),
+              //       s = t.slice(0,5),// first 5 charcters
+              //       token = t.length == 0? EMPTY_LINE: s.charAt(0) == '#'? HEADER: s.match(footnotePattern) ? FOOTNOTE: BLOCK;
                 
-                if((token === EMPTY_LINE && (prevToken === BLOCK  || prevToken === HEADER || prevToken === FOOTNOTE)) || (token === BLOCK && prevToken === HEADER))
-                  blockIndex++;
-                console.log(c, t.substring(0, 20), token, '- before: ', prevToken, blockIndex);
-                c++;
-                prevToken = token;
+              //   if((token === EMPTY_LINE && (prevToken === BLOCK  || prevToken === HEADER || prevToken === FOOTNOTE)) || (token === BLOCK && prevToken === HEADER))
+              //     blockIndex++;
+              //   console.log(c, t.substring(0, 20), token, '- before: ', prevToken, blockIndex);
+              //   c++;
+              //   prevToken = token;
                 
-              });
+              // });
 
               if(blockIndex == currentBlockIndex){
                 // do nothing, it's the same as before.

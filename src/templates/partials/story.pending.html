@@ -64,8 +64,10 @@
         <tr ng-repeat='review in story.reviews | filter:{ category: "!closing"}' class='stream review' ng-class='review.status'>
           <td>
             <div><span class='status'>{{review.status}}</span></div>
+            <div><span>{{review.score}}/55</span></div>
+            <div>{{review.date_last_modified}}<div>
           </td>
-          <td colspan="2"><a class='author'>{{review.assignee.username}}</a> &mdash; <span embedit='review.contents'></span></td>
+          <td colspan="2"><a class='author'>{{review.assignee.username}}</a> ({{review.due_date}}) &mdash; <span embedit='review.contents'></span></td>
           <td><a ui-sref='review({id: review.id})' translate='review.category.{{review.category}}'></a></td>
         </tr>
         <tr ng-repeat='review in story.reviews | filter:{ category: "closing"}' class='review' ng-class='review.status'>
