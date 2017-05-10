@@ -37,6 +37,10 @@ angular.module('miller')
         value:'date,-date_last_modified'
       },
       {
+        label:'lastmod',
+        value:'-date_last_modified'
+      },
+      {
         label:'titleaz',
         value:'title'
       },

@@ -122,7 +122,7 @@
                   <div embedit='embed.description'></div>
                 </div>
                 <div ng-if='embed.type == "rich" || embed.type == "video"'>
-                  <div ng-if='embed.html' style='height: 200px; width: 100%' embedit='embed.html' stretch="true"></div>
+                  <div ng-if='embed.html' style='height: 200px; width: 100%; overflow: auto' embedit='embed.html' stretch="true"></div>
                   <div ng-if='!embed.title' translate='enrich.type.notitle'></div>
                 </div>
               </div>

@@ -87,7 +87,7 @@ angular.module('miller')
         };
         
         if(scope.stretch){
-          element.css('opacity', 0)
+          // element.css('opacity', 0)
         }
         // enable listeners
         if(scope.language && typeof scope.embedit == 'object') {
