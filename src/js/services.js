@@ -181,10 +181,16 @@ angular.module('miller')
   */
   // http://localhost:8888/api/document/
   .factory('DocumentFactory', function ($resource) {
-    return $resource('/api/document/:id/', {},{
+    return $resource('/api/document/:id/:fn', {},{
       update: {
         method:'PUT'
-      }
+      },
+      oembed:{
+        method:'GET',
+        params:{
+          fn: 'oembed/'
+        }
+      },
     });
   })
   .factory('MentionFactory', function ($resource) {

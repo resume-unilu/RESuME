@@ -236,8 +236,8 @@ blockquote.matches{
   margin-top: -100px;
   background: #FF6B6B;
   color: white;
-  width: 200px;
-  z-index: 100;
+  width: 300px;
+  z-index: 10001;
   -webkit-animation-duration: .8s;
   animation-duration: .8s;
   -webkit-animation-fill-mode: both;

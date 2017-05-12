@@ -329,11 +329,21 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
     timer_preview = $timeout(function(){
       $log.debug('::mde -> previewUrl() url:', url);
       $scope.suggestMessage = '(loading...)';
-      embedService.get(url).then(function(data){
+
+      DocumentFactory.oembed({url: url}, function(data){
         $log.debug(':: mde -> previewUrl() received:', data)
         $scope.embed = data;
         $scope.suggestMessage = '(<b>done</b>)';
-      });
+      }, function(err){
+        debugger
+        $scope.suggestMessage = '(<b>error</b>)';
+      })
+
+      // embedService.get(url).then(function(data){
+      //   $log.debug(':: mde -> previewUrl() received:', data)
+      //   $scope.embed = data;
+      //   $scope.suggestMessage = '(<b>done</b>)';
+      // });
     }, 20);
   };
 
