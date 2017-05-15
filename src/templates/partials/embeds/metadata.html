@@ -1,0 +1,12 @@
+<div>
+  <a class='permalink' ng-if='embed.title' target='_blank' ng-href='{{embed.url}}'>{{embed.title}}</a>
+  <span class='permalink' ng-if='!embed.title' translate='enrich.type.notitle'></span>
+</div>
+<div class='description'>{{embed.description}} <span ng-if='embed.description'> &mdash;</span> <a target='_blank' ng-href='{{embed.url}}'>{{embed.url|smartUrl}}</a>
+  <span ng-if="embed.author_url">
+    <span translate="by"></span> <a ng-href='embed.author_url' target='_blank'>{{embed.author_name}}</a> 
+  </span>
+  <span ng-if="embed.provider_url">
+    <span translate="on"></span> <a ng-href='embed.provider_url' target='_blank'>{{embed.provider_name}}</a>
+  </span>
+</div>

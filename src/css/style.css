@@ -342,7 +342,7 @@ ul.errorlist{
   border-bottom-width: 2px;
   background: #f0f0f0;
   padding: 0px;
-  color: #999;
+  color: #595959;
   /*text-align: justify;*/
 }
 
@@ -1849,7 +1849,7 @@ a.btn-line:hover{
 .mde .wand{
   position: absolute;
   left: -30px;
-  top: 3px;
+  top: -9px;
   font-size: 18px;
   color: white;
   height: 22px;
@@ -1870,9 +1870,9 @@ a.btn-line:hover{
   background: white;
   padding: 0;
   border-radius: 0;
-  line-height: 22px;
+  line-height: 34px;
   width: 30px;
-  height: 22px;
+  height: 30px;
 }
 
 .mde .wand .btn .icon-plus{
@@ -1968,11 +1968,41 @@ h4.modal-title{
 }
 
 .modal-body .preview{
-  margin: 5px 20px 0;
+  margin: 10px 0px 0;
   box-shadow: 1px 0px 4px #d0d0d0;
-  border: 2px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
+
 }
 
+.modal-body .preview .permalink{
+  font: 13px/18px 'Lato', sans-serif;
+  padding: 10px 10px 0;
+  display: block;
+  color: #151515;
+  font-weight: bold;
+  /* font-size: 13px; */
+  /* line-height: 18px; */
+  font-weight: 700;
+  /* font-family: Lato,sans-serif; */
+  color: #9c9696;
+  text-decoration: underline;
+}
+
+.modal-body .section .preview .description{
+  font: 11px/18px 'Merriweather', serif;
+  color: #454545;
+}
+
+.modal-body .section .preview .image-wrapper{
+  height: 120px;
+  width: 120px;
+  float: left;
+  margin-right: 10px;
+}
+
+.modal-body .section .preview .embed{
+height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #dbdbdb;
+}
 
 /*
   Table of documents

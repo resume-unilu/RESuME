@@ -6,7 +6,7 @@
  * transform markdown data in miller enhanced datas
  */
 angular.module('miller')
-  .directive('mde', function ($log, $timeout, $modal,  $filter, DocumentFactory, StoryFactory, OembedSearchFactory, embedService, markdownItService, angularLoad, RUNTIME) {
+  .directive('mde', function ($log, $timeout, $modal,  $filter, DocumentFactory, StoryFactory, markdownItService, angularLoad, RUNTIME) {
     return {
       restrict: 'AE',
       scope: {
@@ -344,11 +344,12 @@ angular.module('miller')
             timer_preview = $timeout(function(){
               $log.debug('::mde -> previewUrl() url:', url);
               scope.suggestMessage = '(loading...)';
-              embedService.get(url).then(function(data){
-                $log.debug(':: mde -> previewUrl() received:', data)
-                scope.embed = data;
-                scope.suggestMessage = '(<b>done</b>)';
-              });
+              debugger;
+              // embedService.get(url).then(function(data){
+              //   $log.debug(':: mde -> previewUrl() received:', data)
+              //   scope.embed = data;
+              //   scope.suggestMessage = '(<b>done</b>)';
+              // });
             }, 20);
           };
 
@@ -357,7 +358,7 @@ angular.module('miller')
           scope.suggestResults = [];
           scope.suggestMessage = '';
           scope.suggest = function(query, service){
-            $log.log('::mde -> suggest()', scope.query, query, OembedSearchFactory);
+            $log.log('::mde -> suggest()', scope.query, query);
             
             if(query.length < 3) {
               scope.suggestMessage = '(write something more)';
@@ -400,15 +401,6 @@ angular.module('miller')
               return;
             } 
 
-            
-
-              // external search
-            
-            if(OembedSearchFactory[service])
-              OembedSearchFactory[service](query).then(function(res){
-                scope.suggestResults = res.data.results;
-                scope.suggestMessage = '(<b>' + res.data.count + '</b> results)';
-              });
             
           };
 

@@ -111,20 +111,30 @@
               
               
 
-              <div class='preview' ng-show='embed.provider_name' ng-class='embed.type'>
+              <div class='preview' ng-show='embed.url' ng-class='embed.type'>
                 <!-- <div ng-if='embed.provider_name=="CVCE"' ng-include='"templates/partials/embeds/cvce.html"|prefixTemplate'></div> -->
                 <!-- <div ng-if='embed.provider_name=="YouTube"' ng-include='"templates/partials/embeds/YouTube.html"|prefixTemplate'></div> -->
                 <div ng-if='embed.provider_name=="Flickr"' ng-include='"templates/partials/embeds/Flickr.html"|prefixTemplate'></div>
                 <div ng-if='embed.provider_name=="Ina.fr"' ng-include='"templates/partials/embeds/Ina.fr.html"|prefixTemplate'></div>
 
                 <div ng-if='embed.type == "link"'>
-                  <p translate='enrich.url.noembedfound'></p>
-                  <div embedit='embed.description'></div>
+                  <!-- <p translate='enrich.url.noembedfound'></p> -->
+                  <div ng-if='embed.thumbnail_url' class='image-wrapper'>
+                    <div lazy-img='{{embed.thumbnail_url}}' class='cover' style='height: 100%'></div>
+                  </div>
+                  
+                  <a class='permalink' target='_blank' ng-href='{{embed.url}}'>{{embed.title}}</a>
+                  <div class='description'>{{embed.description}} <a target='_blank' ng-href='{{embed.url}}'>{{embed.url|smartUrl}}</a></div>
+                  
+                  
                 </div>
+
                 <div ng-if='embed.type == "rich" || embed.type == "video"'>
-                  <div ng-if='embed.html' style='height: 200px; width: 100%; overflow: auto' embedit='embed.html' stretch="true"></div>
-                  <div ng-if='!embed.title' translate='enrich.type.notitle'></div>
+                  <div ng-if='embed.html' class='embed' style='height: 200px; width: 100%; overflow: auto' embedit='embed.html' stretch="true"></div>
+                  <div ng-include='"templates/partials/embeds/metadata.html"|prefixTemplate'></div>
+
                 </div>
+                <div style='clear:both'></div>
               </div>
             </div>
             <div class='section padded'>
@@ -140,6 +150,12 @@
               <label translate='title'></label>
               <div class='elastic-textarea-wrapper'>
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='embed.title' type='text' placeholder='untitled'></textarea>
+              </div>
+            </div>
+            <div class='section padded'>
+              <label translate='description'></label>
+              <div class='elastic-textarea-wrapper'>
+                <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='embed.description' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
             <div class='section padded last'>

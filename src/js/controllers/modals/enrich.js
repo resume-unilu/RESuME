@@ -1,4 +1,4 @@
-angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scope, $log, QueryParamsService, DocumentFactory, StoryFactory, OembedSearchFactory, CrossRefFactory, embedService, localStorageService, Upload) {
+angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scope, $log, QueryParamsService, DocumentFactory, StoryFactory, OembedSearchFactory, CrossRefFactory, localStorageService, Upload) {
   
   $log.info('EnrichModalCtrl ready with crazy scope, language:', $scope.language);
 

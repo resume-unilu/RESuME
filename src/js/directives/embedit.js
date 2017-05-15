@@ -30,7 +30,7 @@ angular.module('miller')
         stretching;
 
         scope.do_strech = function(){
-          var els = element.find('iframe').width('100%').height('100%');
+          var els = element.find('iframe').width('100%').height('100%').attr('height', '100%');
           if(stretching)
             $timeout.cancel(stretching);
           if(!els.length){
@@ -92,8 +92,8 @@ angular.module('miller')
         // enable listeners
         if(scope.language && typeof scope.embedit == 'object') {
           scope.$watch('language', scope.render);
-        } else{
-          scope.render();
+        } else {
+          scope.$watch('embedit', scope.render);
         }
 
         // if(attrs.watch)
