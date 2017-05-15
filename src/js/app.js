@@ -20,8 +20,8 @@ angular
     'pascalprecht.translate',
     // 'angular-embedly',
     // 'ngDisqus',
-    'angular-embed',
-    'angular-embed.handlers',
+    // 'angular-embed',
+    // 'angular-embed.handlers',
     'angularLoad',
     'angularLazyImg',
     'ngFileUpload',
@@ -142,10 +142,10 @@ angular
     });
     // $locationProvider.hashPrefix('!');
   })
-  .config(function(embedlyServiceProvider, RUNTIME) {
-    if(RUNTIME.oembeds.EMBEDLY_API_KEY)
-      embedlyServiceProvider.setKey(RUNTIME.oembeds.EMBEDLY_API_KEY);
-  })
+  // .config(function(embedlyServiceProvider, RUNTIME) {
+  //   if(RUNTIME.oembeds.EMBEDLY_API_KEY)
+  //     embedlyServiceProvider.setKey(RUNTIME.oembeds.EMBEDLY_API_KEY);
+  // })
   .config(function ($stateProvider, $urlRouterProvider, RUNTIME) {
     // $urlRouterProvider.config({
     //   absolute: true
@@ -391,6 +391,7 @@ angular
                     tags__category__in: ['writing', 'blog'],
                     authors__slug: author.slug
                   }),
+                  limit: 10,
                   orderby: '-date,-date_last_modified'
                 }
               },
@@ -728,6 +729,7 @@ angular
                   }): JSON.stringify({
                     tags__category: 'writing'
                   }),
+                  limit: 10,
                   orderby: '-date,-date_last_modified'
                 };
               },

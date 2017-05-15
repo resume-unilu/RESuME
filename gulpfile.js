@@ -58,8 +58,8 @@ gulp.task('libs', function() {
     './src/js/lib/angular-strap.min.js',
     './src/js/lib/angular-strap.tpl.min.js',
     './src/js/lib/angular-elastic.js',
-    './src/js/lib/angular-embedly.min.js',
-    './src/js/lib/angular-embed.min.js',
+    // './src/js/lib/angular-embedly.min.js',
+    // './src/js/lib/angular-embed.min.js',
 
     './src/js/lib/angular-local-storage.min.js',
     './src/js/lib/angular-translate.min.js',

@@ -93,7 +93,7 @@ angular.module('miller')
           orderby: 'slug',
           filters: JSON.stringify(filters),
           exclude: JSON.stringify(exclude),
-          limit: 10
+          limit: 100
         }, function(res){
           $scope.hallOfFame.publishings= {
             count: res.count,
