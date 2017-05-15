@@ -672,6 +672,7 @@ angular
                 exclude:JSON.stringify({
                   tags__slug: 'chapter'
                 }),
+                limit: 10,
                 orderby: '-date,-date_last_modified'
               }
             },
