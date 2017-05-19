@@ -168,6 +168,9 @@ oembed.type.picture,,Image,Image,Bild,Image
 oembed.type.rich,à rajouter,Media,Media,Media,Media
 order.by.newest,,most recent first,,,most recent first
 order.by.oldest,,most recent last,,,most recent last
+order.by.lastnameaz,,by name (A-Z),par nom (A-Z),,by name (A-Z)
+order.by.lastnameza,,by name (Z-A),par nom (Z-A),,by name (Z-A)
+order.by.publishedrecently,,by latest publication,by latest publication,,by latest publication
 order.by.titleaz,,by title (A-Z),par titre (A-Z),,by title (A-Z)
 order.by.titleza,,by title (Z-A),par titre (Z-A),,by title (Z-A)
 order.by.statusaz,,by status (A-Z),par status (A-Z),,by status (A-Z)
@@ -195,6 +198,27 @@ state.assign.review.title,,under review,,,under review
 state.assign.reviewdone.abstract,,,,,
 state.assign.reviewdone.label,,done,,,done
 state.assign.reviewdone.title,,publication ready to be published,,,publication ready to be published
+state.authors.all.abstract,,,,,
+state.authors.all.title,,Authors,,,
+state.authors.all.label,,all authors,,,
+state.authors.biography.abstract,,biography ...,biographie...,Biographie ...,
+state.authors.biography.label,,biography,biographie,Biographie,
+state.authors.biography.title,,biography,biographie,Biographie,
+state.authors.cahiers.abstract,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
+state.authors.cahiers.label,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
+state.authors.cahiers.title,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,
+state.authors.collection.abstract,,,,,
+state.authors.collection.label,,ePublications,ePublications,ePublications,
+state.authors.collection.title,,ePublications,ePublications,ePublications,
+state.authors.glossary.abstract,,,,,
+state.authors.glossary.label,,glossary,glossaire,Glossar,
+state.authors.glossary.title,,Glossary,Glossaire,Glossar,
+state.authors.law.abstract,,,,,
+state.authors.law.label,,Legislation,Législation,Recht/Rechtsvorschriften,
+state.authors.law.title,,Law,Droit,Recht,
+state.authors.paper.abstract,,,,,
+state.authors.paper.label,,ePapers,ePapers,ePapers,
+state.authors.paper.title,,ePapers,ePapers,ePapers,
 state.blog.all.abstract,,,,,
 state.blog.all.label,,see all,,,see all
 state.blog.all.title,,News & Events,News & Événements,News & Veranstaltungen,News & Events

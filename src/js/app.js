@@ -198,32 +198,7 @@ angular
       })
 
 
-      .state('authors', {
-        url: '/authors',
-        reloadOnSearch : false,
-        controller: 'ItemsCtrl',
-        templateUrl: RUNTIME.static + 'templates/authors.html',
-        resolve: {
-          initials: function(){
-            return {}
-          },
-          items: function(ProfileFactory, initials) {
-            return ProfileFactory.get(initials
-              // filters: JSON.stringify({
-              //   status: 'draft',
-              //   owner__username: RUNTIME.user.username,
-              //   // authors__username__in: [RUNTIME.user.username]
-              // })
-            ).$promise;
-          },
-          model: function() {
-            return 'profile';
-          },
-          factory: function(ProfileFactory) {
-            return ProfileFactory.get;
-          }
-        }
-      })
+
       // .state('login', {
       //   url: '/login',
       //   reloadOnSearch : false,
@@ -644,7 +619,48 @@ angular
     });
       
     
+    $stateProvider
+      .state('authors', {
+        url: '/authors',
+        reloadOnSearch : false,
+        abstract:true,
+        controller: 'AuthorsCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+      })
+      
 
+      _.each([{
+        slug: 'all',
+        url: ''
+      }].concat(RUNTIME.routes.authors.tags, RUNTIME.routes.authors.writing), function(d){
+        $stateProvider
+          .state('authors.' + d.slug, {
+            url: d.url,
+            controller: 'ItemsCtrl',
+            templateUrl: RUNTIME.static + 'templates/items.html',
+            resolve: {
+              initials: function(){
+                return {
+                  filters: d.filters? JSON.stringify(d.filters): {},
+                  exclude: JSON.stringify({ data__num_stories: 0}),
+                  limit: 20,
+                  orderby: 'data__lastname'
+                }
+              },
+              items: function(AuthorFactory, djangoFiltersService, initials) {
+
+                // return AuthorFactory.get(initials).$promise;
+                return AuthorFactory.get(djangoFiltersService(initials)).$promise;
+              },
+              model: function() {
+                return 'author.item';
+              },
+              factory: function(AuthorFactory) {
+                return AuthorFactory.get;
+              }
+            }
+          });
+      });
       /*
         Kind of story:writings publications
       */

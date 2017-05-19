@@ -7,7 +7,7 @@
  * If an object and a language are provided, it handles the translation.
  */
 angular.module('miller')
-  .directive('embedit', function($sce, $timeout) {
+  .directive('embedit', function($sce, $timeout, $filter) {
     return {
       restrict : 'A',
       scope:{
@@ -68,11 +68,13 @@ angular.module('miller')
             element.html(contents);
           } else if(attrs.markdown){
             var md = new window.markdownit(options)
-              .disable(disable);
-            contents = attrs.markdown=='inline'? md.renderInline(scope.embedit): md.render(scope.embedit)
+              .disable(disable),
+              contents = attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit;
+
+            contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
             element.html(contents);
           } else {
-            element.html(scope.embedit)
+            element.html(attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit)
           }
 
           if(scope.stretch){

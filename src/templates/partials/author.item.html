@@ -1,0 +1,6 @@
+<div class='item stream-item'>
+ <a class='author' ui-sref='author.publications.all({slug:author.slug})'>{{author.fullname}}</a>
+ <div class='affiliation sans-serif'>{{author.affiliation}}</div>
+ 
+ <blockquote class='reduced'><span embedit='author.data.biography || "..."' excerpt='true'></span> <a ui-sref='author.publications.all({slug:author.slug})'><span class="icon-arrow-right-circle"></span></a></blockquote>
+</div>

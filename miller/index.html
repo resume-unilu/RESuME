@@ -1036,6 +1036,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/app.js" %}'></script>
     <script src='{% static "js/controllers/assign.js" %}'></script>
     <script src='{% static "js/controllers/author.js" %}'></script>
+    <script src='{% static "js/controllers/authors.js" %}'></script>
     <script src='{% static "js/controllers/core.js" %}'></script>
     <script src='{% static "js/controllers/collection.js" %}'></script>
     <script src='{% static "js/controllers/draft.js" %}'></script>
@@ -1230,6 +1231,78 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 url: '/done'
               }
             ],
+            authors: {
+              
+
+              // {
+              //   slug: 'blog',
+              //   url: '/blog',
+              //   filters: {
+              //     stories__tags__category: 'blog'
+              //   }
+              // },
+              // {
+              //   slug: 'papers',
+              //   url: '/papers',
+              //   filters: {
+              //     stories__tags__slug__in: ['paper', 'collection']
+              //   }
+              // },
+              writing: [
+                {
+                  slug: 'collection',
+                  url: '/collection',
+                  filters: {
+                    stories__tags__slug: 'collection'
+                  }
+                },
+                {
+                  slug: 'cahiers',
+                  url: '/cahiers',
+                  filters: {
+                    stories__tags__slug: 'cahiers'
+                  }
+                },
+                {
+                  name: 'Revue de l’Euro',
+                  slug: 'revue-ecu-euro',
+                  url: '/revue-ecu-euro',
+                  filters: {
+                    stories__tags__slug: 'revue-ecu-euro'
+                  }
+                },
+              ],
+              tags:[
+                {
+                  slug: 'paper',
+                  url: '/papers',
+                  filters: {
+                    stories__tags__slug: 'paper'
+                  }
+                },
+                {
+                  slug: 'glossary',
+                  url: '/glossary',
+                  filters: {
+                    stories__tags__slug: 'glossary'
+                  }
+                },
+                {
+                  slug: 'law',
+                  url: '/laws',
+                  filters: {
+                    stories__tags__slug: 'law'
+                  }
+                },
+                {
+                  slug: 'biography',
+                  url: '/biographies',
+                  filters: {
+                    stories__tags__slug: 'biography'
+                  }
+                },
+              ]
+            },
             blog: [
               {
                 slug: 'all',

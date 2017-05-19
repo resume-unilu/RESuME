@@ -50,7 +50,7 @@ gulp.task('libs', function() {
     './src/js/lib/angular-sanitize.min.js', 
 
     // './src/js/lib/angular-disqus.min.js',
-    './src/js/lib/angular-debounce.js', 
+    // './src/js/lib/angular-debounce.js', 
     './src/js/lib/angular-load.min.js',
     // './src/js/lib/angular-animate.min.js',
     './src/js/lib/angular-socialshare.min.js',

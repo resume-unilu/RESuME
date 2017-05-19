@@ -27,8 +27,8 @@ angular.module('miller')
       AuthorFactory.patch({
         slug: $scope.author.id, // let's use the standard id for patch. This way we shouldn't change the default viewset
       },{
-        fullname: [$scope.author.metadata.firstname,$scope.author.metadata.lastname].join(' '),
-        metadata:  JSON.stringify($scope.author.metadata),
+        fullname: [$scope.author.data.firstname,$scope.author.data.lastname].join(' '),
+        data:  $scope.author.data,
         affiliation: $scope.author.affiliation
       }, function(res) {
         // $log.log('ok:',res)
