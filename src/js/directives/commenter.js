@@ -54,8 +54,10 @@ angular.module('miller')
               'quote': scope.quote || ''
             }),
             highlights: highlights,
+            version: scope.target.version,
             story: scope.target.id
           }, function(res){
+            debugger
             scope.content = ''
             // scope.quote = null
             scope.isLoading = false

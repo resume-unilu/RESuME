@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
     $scope.story = story;
 
     // is the story editable by the current user?
@@ -22,19 +22,19 @@ angular.module('miller')
     // to know that something is busy
     $scope.isLoading = false;
 
-
+    
     // openGRaph metadata coming from the story
-    $scope.setOG({
-      title: story.metadata.title[$scope.language] || story.title,
-      description: story.metadata.abstract[$scope.language] || story.abstract,
-      image: _(story.covers).map(function(d){
-        return _.get(d,'snapshot') || 
-               _.get(d,'metadata.thumbnail_url') || 
-               _.get(d,'metadata.urls.Publishable') ||
-               _.get(d,'metadata.urls.Preview') || 
-               _.get(d,'metadata.url');
-      }).first()
-    })
+    // $scope.setOG({
+    //   title: story.metadata.title[$scope.language] || story.title,
+    //   description: story.metadata.abstract[$scope.language] || story.abstract,
+    //   image: _(story.covers).map(function(d){
+    //     return _.get(d,'snapshot') || 
+    //            _.get(d,'metadata.thumbnail_url') || 
+    //            _.get(d,'metadata.urls.Publishable') ||
+    //            _.get(d,'metadata.urls.Preview') || 
+    //            _.get(d,'metadata.url');
+    //   }).first()
+    // })
 
     // set status DRAFT or PUBLIC to the document.
     $scope.setStatus = function(status){
@@ -109,6 +109,9 @@ angular.module('miller')
         
       StoryFactory.getComments(angular.extend({
         id: story.id,
+        filters: JSON.stringify({
+          version: story.version
+        }),
         orderby: '-date_created'
       }, $scope.commentsNextParams), function(res){
         $scope.comments = ($scope.comments || []).concat(res.results);
@@ -151,6 +154,26 @@ angular.module('miller')
         $scope.isLoadingComments = false;
       });
     }
+
+    // load available GIT TAGGED versions of the story.
+    $scope.versions = [];
+    $scope.isLoadingVersions = false;
+
+    $scope.loadVersions = function(){
+      $scope.isLoadingVersions = true;
+
+      StoryGitFactory.getByGitTag({
+        id: story.id
+      }, function(res) {
+        console.log(res);
+        $scope.isLoadingVersions = false;
+        $scope.versions = res.results;
+      }, function(err) {
+        console.error(err);
+        $scope.isLoadingVersions = false;
+      })
+    }
+
 
     $scope.createReview = function(){
       

@@ -90,6 +90,14 @@ angular.module('miller')
       }
     });
   })
+  .factory('StoryGitFactory', function ($resource, parseHeaderFilename) {
+    return $resource('/api/story/:id/git/:fn/:commit/', {},{
+      getByGitTag: {
+        params: {fn:'tag'},
+        method: 'GET',
+      }
+    })
+  })
   .factory('StoryTagsFactory', function ($resource) {
     return $resource('/api/story/:id/tags/', {},{
       update: {

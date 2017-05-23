@@ -1,5 +1,5 @@
 <div ng-show='isReady' class='mde'>
-  <div class='toolbox'> 
+  <div class='toolbox' sticky> 
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("strong") != -1?"active": ""}}' ng-click='action("toggleBold")'>B</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("em") != -1?"active": ""}}' style='font-style:italic' ng-click='action("toggleItalic")'>I</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-1") != -1?"active": ""}}' ng-click='action("toggleHeading1")'>H1</button>

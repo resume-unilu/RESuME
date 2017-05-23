@@ -127,7 +127,9 @@ by <a href>{{metadata.owner.username}}</a>
 
 <div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden;'>
   <div class='row'>
-    <div class='col-xs-12' id="draft-contents">
+    <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
+
+    <div ng-class='{"col-xs-6": state =="writing.compare", "col-xs-12":state =="writing"}' id="draft-contents">
       
       <div style='min-height: 50px; position:relative'>
           <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
@@ -136,6 +138,7 @@ by <a href>{{metadata.owner.username}}</a>
           
       </div>
     </div>
+    <div ui-view ng-class='{"col-xs-6": state =="writing.compare", "col-xs-12":state =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
     <!-- <div class='col-md-4 col-lg-5 col-xs-4' respect-previous-sibling update="sideItems">
       <div sliding-steps data-language='language' data-focus='focusedIdx' style='height:100%' items='sideItems'></div>
     </div> -->

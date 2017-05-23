@@ -143,6 +143,24 @@
       </div>
     </div>
     
+    <div ng-if='story.isWritable' class='versioning' sticky >
+      <div class="dropdown">
+        <a class='btn-line' ng-click='loadVersions()' bs-dropdown placement='top-left' aria-haspopup="true" aria-expanded="false">
+          <span ng-if='state=="story"'>most recent version</span><span ng-if='state!="story"'>version: {{story.version}}</span> <span class='icon icon-list'></span>
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+          <li ng-repeat='version in versions'>
+            <a ui-sref='storygit({id:story.slug, commit:version.tag})'>{{version.tag}} ({{version.date}})</a>
+          </li>
+          <li>
+            <a ui-sref='story({postId:story.slug})'>most recent version</a>
+          </li>
+        </ul>
+        
+      </div>
+
+    </div>
     <div marginalia whenvisible='loadComments()'></div>
             
   </div>

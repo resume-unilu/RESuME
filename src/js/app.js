@@ -238,7 +238,20 @@ angular
             return StoryFactory.get({id: $stateParams.storyId, nocache: true}).$promise;
           },
         }
-      });
+      })
+        .state('writing.compare', {
+          url: '/compare/:tag',
+          reloadOnSearch : false,
+          controller: function(){
+
+          },
+          templateUrl: RUNTIME.static + 'templates/writings.compare.html',
+          resolve: {
+            version: function(StoryFactory, $stateParams) {
+              return StoryFactory.get({id: $stateParams.storyId, nocache: true}).$promise;
+            },
+          }
+        })
 
     /*
 
@@ -790,6 +803,20 @@ angular
         resolve: {
           story: function(StoryFactory, $stateParams) {
             return StoryFactory.get({id: $stateParams.postId}).$promise;
+          },
+        }
+      })
+      .state('storygit', {
+        url: '/story/:id/:commit',
+        controller: 'StoryCtrl',
+        reloadOnSearch : false,
+        templateUrl: RUNTIME.static + 'templates/story.html',
+        resolve: {
+          story: function(StoryGitFactory, $stateParams) {
+            return StoryGitFactory.getByGitTag({
+              id: $stateParams.id,
+              commit: $stateParams.commit,
+            }).$promise;
           },
         }
       })

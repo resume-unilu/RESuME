@@ -1,4 +1,93 @@
 angular.module('miller')
+  .directive('mamamamama', function($log, $rootScope, angularLoad, RUNTIME, EVENTS) {
+    return {
+      restrict: 'AE',
+      templateUrl: RUNTIME.static + 'templates/partials/directives/rangy.html',// ',// template: '<div style="background:gold;height:150px; width:300px;"><div ng-click="highlightSelectedText($event)">add comment</div></div>',
+      
+      scope: {
+        actor: '=',
+        target: '=',
+        highlights: '=',
+        forwardCommented: '&commented',
+        // forwardCommentsSelected: '&onCommentsSelected'
+      },
+      link: function(scope, element, attrs) {
+        if(!attrs.container){
+          $log.error('💾 rangy directive needs a container scope babe.');
+          return;
+        }
+        // hide/show commenter        
+        scope.isEnabled = false;
+
+
+        angularLoad.loadScript(RUNTIME.static + 'js/lib/marklib.min.js').then(function() {
+
+          var container = angular.element('#' + attrs.container);
+
+
+
+          container.on('mouseup', function(e) {
+            selection = document.getSelection()
+            
+            if(selection.isCollapsed)
+              return;
+            
+            scope.renderer = new Marklib.Rendering(document, {
+                hoverClass: 'marklib--hover',
+                treeClass: 'marklib--tree',
+                // Supports arrays and/or strings
+                className: ['marking', 'highlight']
+            });
+            var result = scope.renderer.renderWithRange(selection.getRangeAt(0));
+            
+            scope.show(e)
+          })
+
+          
+          scope.renderHighlights = function(){
+
+          }
+
+          // show commentter
+          scope.show = function(event) {
+            var offset = container.offset(),
+                left   = window.innerWidth  - 510 - offset.left;//Math.max(Math.min(event.pageX , window.innerWidth - 500) - offset.left, 0);
+            element.css({'z-index':10,position: 'absolute', top: event.pageY - offset.top, left:left});
+            scope.isEnabled = true;
+          }
+
+          // hide commenter.
+          scope.hide = function() {
+            scope.isEnabled = false;
+            if(scope.renderer)
+              scope.renderer.destroy()
+            // if(previousSelectedHighlight)
+            //   previousSelectedHighlight.removeClass('active')
+            // element.css({position: 'relative', top:'auto', left:'auto'});
+          }
+
+          scope.discarded = function(){
+            $log.log('💾 rangy > discarded()');
+            // if(scope.highlight)
+            //   scope.highlight = null;
+            scope.hide();
+          }
+
+          scope.$watchCollection('highlights', function(highlights) {
+            if(highlights && highlights.length)
+              scope.renderHighlights(highlights)
+            else
+              $log.log('💾 rangy-marklib @highlights no highlights found.');
+          });
+
+          $log.log('💾 rangy-marklib directive is ready.');
+        });
+
+        
+
+      }
+    }
+  })
   .directive('rangy', function($log, $rootScope, angularLoad, RUNTIME, EVENTS) {
     return {
       restrict: 'AE',
@@ -18,7 +107,8 @@ angular.module('miller')
         }
 
         var idnum  = 0,
-            container = angular.element('#' + attrs.container);
+            container = angular.element('#' + attrs.container),
+            DOMcontainer = document.getElementById(attrs.container);
         
         scope.isEnabled = false;
         // keys are comment identifier. Values are related rangy CharacterRange dict.
@@ -65,12 +155,28 @@ angular.module('miller')
           if(!rangy.initialized)
             rangy.init();
 
-          if(!$rootScope.rangy)
+          if(!$rootScope.rangy){
             $rootScope.rangy = {}
-          
+
+            serializeHighlight = function(highlight) {
+              var h = this;
+              var characterRange = highlight.characterRange;
+              var containerElement;
+
+              return 'type:' + h.converter.type + '|' + [
+                  characterRange.start,
+                  characterRange.end,
+                  highlight.id,
+                  highlight.classApplier.className,
+                  highlight.containerElementId,
+                  JSON.stringify(highlight.attrs)
+              ].join("$");
+            };
+          }
+
           if(!$rootScope.rangy.highlighters){
             $rootScope.rangy.highlighters = {};
-            $rootScope.rangy.highlighters.highlight = rangy.createHighlighter();
+            $rootScope.rangy.highlighters.highlight = rangy.createHighlighter(document, 'TextRange');
             $rootScope.rangy.highlighters.highlight.addClassApplier(rangy.createClassApplier('highlight', {
               ignoreWhiteSpace: true,
               tagNames: ["span", "a"],

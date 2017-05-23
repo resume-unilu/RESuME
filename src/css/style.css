@@ -1894,6 +1894,11 @@ a.btn-line:hover{
  /*border-bottom: 2px solid #f0f0f0;*/
   z-index: 100;
 }
+.mde .toolbox.top-sticky{
+    position: fixed;
+    top: 70px;
+    left: 100px;
+}
 
 .mde .toolbox.active, .mde .toolbox:hover{
   background: #151515;
@@ -2423,6 +2428,32 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 .story .cover.main .metadata .copyright {
   display: inline;
 }
+
+.story .overlay{
+  position: relative;
+}
+
+.story .overlay .versioning{
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  left: 15px;
+  bottom: 10px;
+  padding: 10px;
+
+}
+
+.story .overlay .versioning.sticky{
+  position: fixed;
+  /*background-color: #eaeaea;*/
+}
+
+.story .overlay .versioning ul.dropdown-menu{
+  height: 100px;
+  overflow: auto;
+  overflow-y: auto;
+}
+
 
 .story .overlay .cover.main{
   margin-bottom: 20px;

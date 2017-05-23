@@ -98,14 +98,13 @@ gulp.task('scripts', function() {
 
 gulp.task('scripts.rangy', function() {
   return gulp.src([
-      './src/js/rangy/rangy-core.js',
-      './src/js/rangy/rangy-classapplier.js',
+      './src/js/rangy/rangy-core.min.js',
+      './src/js/rangy/rangy-textrange.min.js',
+      './src/js/rangy/rangy-classapplier.min.js',
       './src/js/rangy/rangy-highlighter.js'
+      
     ])
     .pipe($.concat('scripts.rangy.min.js'))
-    // .pipe(amdoptimize())
-    // .pipe($.uglify().on('error', $.util.log))
-    
     // Output files
     .pipe(gulp.dest('./src/js'))
     .pipe($.size({title: 'scripts.rangy'}))
