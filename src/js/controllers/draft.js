@@ -20,10 +20,21 @@ angular.module('miller')
 
       $scope.isSaving = true;
       
+      var metadata = {
+        title: {},
+        abstract: {}
+      }
+
+      // send first language used by the guy.
+      metadata.title[$scope.language] = $scope.title
+      metadata.abstract[$scope.language] = $scope.abstract
+
+      
       StoryFactory.save({}, {
         title: $scope.title,
         abstract: $scope.abstract,
-        contents: '',
+        contents:'',
+        metadata: JSON.stringify(metadata),
         status: 'draft'
       }, function(res) {
         $scope.isSaving = false;
