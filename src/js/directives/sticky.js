@@ -9,7 +9,7 @@ angular.module('miller')
         var w  = angular.element(window),
             pl = angular.element('<div class="sticky-placeholder"></div>'),
 
-            offsetTop = attrs.offset || 100,
+            offsetTop = parseInt(attrs.offset || 100),
             _is_bottom_visible = true,
             _is_top_visible    = false;
 
@@ -34,7 +34,7 @@ angular.module('miller')
           // top visibility
           _is_top_visible = ws + offsetTop < ot;
 
-          $log.log('::sticky -> evaluate()', scope.is_visible, ws, ot)
+          $log.log('::sticky -> evaluate()', scope.is_visible, ws, ot, offsetTop)
 
           if(scope.is_top_visible != _is_top_visible) {
             if(!_is_top_visible){

@@ -1885,25 +1885,29 @@ a.btn-line:hover{
 .mde .toolbox{
   position: absolute;
   left: 0;
-  top: -30px;
+  top: -50px;
   font-size: 18px;
-  height: 30px;
-  background: #E6E5E5;
+  height: 52px;
+  padding-top: 10px;
+  /*background: #E6E5E5;
   transition:  background-color .27s ease-in-out;
-  -webkit-transition: background-color .27s ease-in-out;
- /*border-bottom: 2px solid #f0f0f0;*/
+  -webkit-transition: background-color .27s ease-in-out;*/
+ border-bottom: 2px solid #E6E5E5;
   z-index: 100;
 }
 .mde .toolbox.top-sticky{
-    position: fixed;
-    top: 70px;
-    left: 100px;
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  background: #efefef;
+  padding-left: 100px;
+  padding-right: 50px;
+  width: 100%;
 }
 
-.mde .toolbox.active, .mde .toolbox:hover{
-  background: #151515;
-  color: #999999;
-}
+
+
+
 
 
 .mde .toolbox .btn{
@@ -1912,9 +1916,11 @@ a.btn-line:hover{
   margin: 0;
   line-height: 30px;
   padding: 0;
-  color: #d0d0d0;
+  color: #999999 ;
   background: transparent;
   border-radius: 0px;
+ /* transition:  color .27s ease-in-out;
+  -webkit-transition: color .27s ease-in-out;*/*/
 }
 
 .mde .toolbox .btn.active{
@@ -1929,6 +1935,8 @@ a.btn-line:hover{
 
 .mde .toolbox .btn:hover{
   background: #FF6B6B;
+  color: white;
+  /*transition-duration: 0s;*/
 }
 
 .mde .toolbox .btn:active{
