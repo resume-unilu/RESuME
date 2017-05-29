@@ -53,8 +53,9 @@ angular.module('miller')
           
           if(language && typeof scope.embedit == 'object') {
             
-            var altlanguage = scope.language.replace(/_[A-Z][A-Z]$/, ''),
-                contents = scope.embedit[language]||scope.embedit[altlanguage]||'';
+            var altlanguage =  _.filter(scope.embedit, _.identity).pop(),
+                contents = scope.embedit[language] || scope.embedit['en_US'] || scope.embedit[altlanguage] || '';
+
 
             if(attrs.markdown){
               var md = new window.markdownit(options)
