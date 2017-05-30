@@ -982,7 +982,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button>
       </div>
       {% verbatim %}
-        <!-- <ul><li ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'></li><ul> -->
+        <ul><li  ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'>
+          <a ng-click='setHash(heading.slug)' bs-tooltip data-placement='right' title='{{heading.text}}'></a>
+        </li><ul>
       {% endverbatim %}
     </div>
     {% verbatim %}

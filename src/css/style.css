@@ -727,13 +727,35 @@ ul.errorlist{
   list-style-type: none;
 }
 
-#table-of-contents-toggler li.heading{
-  width: 20px;
-  height: 20px;
-  border: 2px solid #151515;
+#table-of-contents-toggler li.heading a{
+  width: 6px;
+  height: 6px;
+  border: 2px solid #f0f0f0;
+  background-color: #837c7c;
   display: block;
-  margin-top: 5px;
+  margin-top: 10px;
+  margin-left: 12px;
   border-radius: 10px;
+  transition: background-color .26s ease-in-out, transform .26s ease-in-out;
+}
+
+#table-of-contents-toggler li.heading a:hover{
+  background-color: #151515;
+  transform: scale(1.1);
+}
+
+#table-of-contents-toggler li.heading-1 a{
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+  border-radius: 13px;
+}
+
+#table-of-contents-toggler li.heading-2 a{
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+  border-radius: 13px;
 }
 
 #table-of-contents h2, #table-of-documents h2{
@@ -1204,6 +1226,11 @@ ul.errorlist{
   text-align: center;
 }
 
+.contents .metadata.link{
+  text-align: left;
+}
+
+
 
 .contents .doc .switch{
   height: 280px;
@@ -1248,13 +1275,7 @@ ul.errorlist{
   margin-right: 20px;
 }
 
-.contents a:hover{
 
-}
-
-.contents  a{
-      word-wrap: break-word;
-}
 
 
 .contents .footnote-contents{
@@ -1899,28 +1920,37 @@ a.btn-line:hover{
 
 .toolbox{
   position: absolute;
-  left: 0;
+  left: 0px;
   top: 0px;
+  right: 0px;
   font-size: 18px;
   height: 52px;
   padding-top: 10px;
+  border-bottom: 2px solid transparent;
   padding-left: 100px;
   padding-right: 50px;
   /*background: #E6E5E5;
   transition:  background-color .27s ease-in-out;
   -webkit-transition: background-color .27s ease-in-out;*/
- border-bottom: 2px solid #E6E5E5;
+ 
   z-index: 100;
+}
+.toolbox .label{
+  font: 10px/29px 'Lato', sans-serif;
+  color: #999999;
+  text-transform: uppercase;
+  font-weight: bold;
+
 }
 .toolbox.top-sticky{
   position: fixed;
   top: 70px;
   left: 0px;
+  right: 0px;
   background: #efefef;
+  border-bottom-color:  #E6E5E5;
   
-  width: 100%;
 }
-
 
 
 
@@ -2255,7 +2285,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   /*color: #2d9f98;*/
   /*background-color: #afe9e5;*/
   color: #9c9696;
-  word-break: break-all;
+  /*word-break: break-all;*/
   text-decoration: underline;
 }
 
@@ -3667,4 +3697,20 @@ content: "\e07a";
   100% {
     opacity: 0;
   }
+}
+
+
+.tooltip-inner {
+  font-weight: normal;
+  font: 11px/18px 'Merriweather';
+  text-align: left;
+  color: #F0F0F0;
+  padding: 8px 13px;
+  background-color: #151515;
+  opacity: 1;
+  min-width: 160px;
+}
+
+.tooltip.right .tooltip-arrow{
+  border-right-color: #151515;
 }

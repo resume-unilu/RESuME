@@ -25,6 +25,8 @@ button.edit.author,modify author,"change biography, affiliation, etc.","modifier
 button.finaldecision,,Add / edit your final decision,,,Add / edit your final decision
 button.issaving,,saving ...,enregistrer...,Speichern...,saving ...
 button.loading,,loading ...,téléchargement...,Laden...,loading ...
+button.wmodenormal,,simple edit,,,simple edit
+button.wmodecompare,,compare versions,,,compare versions
 button.more,,load more,télécharger davantage,mehr laden,load more
 button.more.events,,all events,tous les événements,alla Ereignisse,all events
 button.more.news,,all news,toutes les news,alle News,all news
