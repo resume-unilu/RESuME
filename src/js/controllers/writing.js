@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.isDraft = false;
@@ -330,6 +330,26 @@ angular.module('miller')
         $scope.isSaving = false;
       });
     };
+
+    // load available GIT TAGGED versions of the story.
+    $scope.versions = [];
+    $scope.isLoadingVersions = false;
+
+    $scope.loadVersions = function(){
+      
+      $scope.isLoadingVersions = true;
+
+      StoryGitFactory.getByGitTag({
+        id: story.id
+      }, function(res) {
+        console.log(res);
+        $scope.isLoadingVersions = false;
+        $scope.versions = res.results;
+      }, function(err) {
+        console.error(err);
+        $scope.isLoadingVersions = false;
+      })
+    }
 
     // launch events that can be catched by the mde instance.
     $scope.toolboxing = function(action) {

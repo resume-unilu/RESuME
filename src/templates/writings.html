@@ -127,6 +127,7 @@ by <a href>{{metadata.owner.username}}</a>
 
 <div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden; position: relative'>
   <div class='toolbox' sticky offset='70'> 
+    
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("strong") != -1?"active": ""}}' ng-click='toolboxing("toggleBold")'>B</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("em") != -1?"active": ""}}' style='font-style:italic' ng-click='toolboxing("toggleItalic")'>I</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-1") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading1")'>H1</button>
@@ -134,15 +135,32 @@ by <a href>{{metadata.owner.username}}</a>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-3") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading3")'>H3</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("quote") != -1?"active": ""}}' ng-click='toolboxing("toggleBlockquote")'>Q</button>
       &nbsp;&nbsp;
-      <div class='btn-line-group primary transparent'>
+      <div class='btn-line-group  transparent'>
       <button class='btn-line' ng-click='save()'><span translate='button.save'></span> <span class='icon icon-disc'></span></button>
       </div>
+
+      
+      <div class='float-right btn-line-group '>
+        
+        <button class='btn-line' ng-class='{"active": state=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
+        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare"}' ng-click='loadVersions()' bs-dropdown placement='bottom-left' aria-haspopup="true" aria-expanded="false"><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li ng-repeat='version in versions'>
+            <a ui-sref='writing.compare({postId:story.slug, tag:version.tag})'>{{version.tag}} ({{version.date}})</a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <span class='float-right label'>writing mode:</span>
 
       <!-- <button style='width:70px' class='sans-serif btn {{isPreviewEnabled? "active": ""}}' ng-click='action("togglePreview")'>preview</button>
 
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("link") != -1|| activeStates.indexOf("url") != -1? "active": ""}}' ng-click='showReferenceModal()'><span class='icon-plus'></span></button> -->
       <!-- {{activeStates}} -->
+    
   </div>
+  <!-- end of toolbox -->
 
   <div class='row'>
     <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
