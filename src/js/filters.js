@@ -103,9 +103,12 @@ angular.module('miller')
           }
         }
       };
-
+      if(!st.rq[language]){
+        return text
+      }
       return (text || '')
         .replace(/([\s,;\?\.\!\[\]\(\)])(["«“])([^"»”]*)(["»”])([\s,;\?\.\!\[\]\(\)])/g, function(m, left, lq, quote, rq, right){
+          
           return [left, (st.lq[language][lq] || lq), quote, (st.rq[language][rq] || rq), right].join('')
         });
     }

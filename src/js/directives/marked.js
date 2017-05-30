@@ -84,7 +84,7 @@ angular.module('miller')
             $log.warn(':: markdownit parse() without any markdown text! Check the value for `markdownit`');
             return;
           }
-          
+
           var results  = typeof scope.markdownit == 'object'? scope.markdownit : markdownItService(scope.markdownit, scope.language);
 
 

@@ -553,6 +553,8 @@ angular.module('miller')
         // console.log(language, candidate)
         if(candidate['lang:'+language]) {
           value = candidate['lang:'+language];
+        } else if(candidate['lang:en_US']) {
+          value = candidate['lang:en_US'];
         }
         //value = value.split();
         value = $filter('quotes')(value, language);
