@@ -721,6 +721,21 @@ ul.errorlist{
 /*
   ToC
 */
+#table-of-contents-toggler ul{
+  margin: 0;
+  padding:0;
+  list-style-type: none;
+}
+
+#table-of-contents-toggler li.heading{
+  width: 20px;
+  height: 20px;
+  border: 2px solid #151515;
+  display: block;
+  margin-top: 5px;
+  border-radius: 10px;
+}
+
 #table-of-contents h2, #table-of-documents h2{
   margin-top: 120px;
   margin-left: 40px;
@@ -1882,26 +1897,27 @@ a.btn-line:hover{
   background: white;
 }
 
-.mde .toolbox{
+.toolbox{
   position: absolute;
   left: 0;
-  top: -50px;
+  top: 0px;
   font-size: 18px;
   height: 52px;
   padding-top: 10px;
+  padding-left: 100px;
+  padding-right: 50px;
   /*background: #E6E5E5;
   transition:  background-color .27s ease-in-out;
   -webkit-transition: background-color .27s ease-in-out;*/
  border-bottom: 2px solid #E6E5E5;
   z-index: 100;
 }
-.mde .toolbox.top-sticky{
+.toolbox.top-sticky{
   position: fixed;
   top: 70px;
   left: 0px;
   background: #efefef;
-  padding-left: 100px;
-  padding-right: 50px;
+  
   width: 100%;
 }
 
@@ -1910,7 +1926,7 @@ a.btn-line:hover{
 
 
 
-.mde .toolbox .btn{
+.toolbox .btn{
   height: 30px;
   width: 30px;
   margin: 0;
@@ -1923,23 +1939,23 @@ a.btn-line:hover{
   -webkit-transition: color .27s ease-in-out;*/
 }
 
-.mde .toolbox .btn.active{
+.toolbox .btn.active{
   background: #000000;
   color: white;
 }
 
-.mde .toolbox .btn .icon-plus{
+.toolbox .btn .icon-plus{
   font-size: 17px;
   line-height: 30px;;
 }
 
-.mde .toolbox .btn:hover{
+.toolbox .btn:hover{
   background: #FF6B6B;
   color: white;
   /*transition-duration: 0s;*/
 }
 
-.mde .toolbox .btn:active{
+.toolbox .btn:active{
   background: #B7B2B2;
 }
 

@@ -981,11 +981,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       <div >
         <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button>
       </div>
-      <div ng-if='state == "writing" || state == "draft"' style='margin-top:20px' ng-click='save()'>
-        <button class='btn-transparent btn-line'><span  class='icon-disc'></span></button>
-        <div class='sans-serif' style='text-transform: uppercase; font-size:11px; text-align:center; line-height:20px' translate='save'></div>
-      </div>
-      
+      {% verbatim %}
+        <!-- <ul><li ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'></li><ul> -->
+      {% endverbatim %}
     </div>
     {% verbatim %}
     <div id="messenger" ng-class='{"active":message}' translate="{{message}}"></div>

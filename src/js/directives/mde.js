@@ -186,6 +186,7 @@ angular.module('miller')
                   moveCurrentBlock(pos);
 
                   scope.activeStates = (stat.type || '').split(' ');
+                  scope.$emit('mde.activestates', scope.activeStates);
                   scope.$apply();
                 }
               }, 20);
@@ -588,6 +589,11 @@ angular.module('miller')
             scope.selectedDocument = angular.copy(doc);
             }
           };
+
+          scope.$on('mde.toolbox', function(event, data) {
+            // debugger
+            scope.action(data.action);
+          })
 
           scope.action = function(action) {
             if(action == 'togglePreview'){

@@ -5,7 +5,7 @@
 
 
 <div class="row">
-  <div class='col-md-8'>
+  <div class='col-sm-8'>
     <label>
       <span translate="field.label.author"></span>
     </label>  
@@ -31,7 +31,7 @@
 
 
   </div>
-  <div class='col-md-4'>
+  <div class='col-sm-4'>
     
     <div class='cover-preview-wrapper'>
       <label translate="field.label.cover"></label>
@@ -125,7 +125,25 @@ by <a href>{{metadata.owner.username}}</a>
 </div>
 </div>
 
-<div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden;'>
+<div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden; position: relative'>
+  <div class='toolbox' sticky offset='70'> 
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("strong") != -1?"active": ""}}' ng-click='toolboxing("toggleBold")'>B</button>
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("em") != -1?"active": ""}}' style='font-style:italic' ng-click='toolboxing("toggleItalic")'>I</button>
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-1") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading1")'>H1</button>
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-2") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading2")'>H2</button>
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-3") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading3")'>H3</button>
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("quote") != -1?"active": ""}}' ng-click='toolboxing("toggleBlockquote")'>Q</button>
+      &nbsp;&nbsp;
+      <div class='btn-line-group primary transparent'>
+      <button class='btn-line' ng-click='save()'><span translate='button.save'></span> <span class='icon icon-disc'></span></button>
+      </div>
+
+      <!-- <button style='width:70px' class='sans-serif btn {{isPreviewEnabled? "active": ""}}' ng-click='action("togglePreview")'>preview</button>
+
+      <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("link") != -1|| activeStates.indexOf("url") != -1? "active": ""}}' ng-click='showReferenceModal()'><span class='icon-plus'></span></button> -->
+      <!-- {{activeStates}} -->
+  </div>
+
   <div class='row'>
     <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
 

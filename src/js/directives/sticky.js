@@ -19,7 +19,7 @@ angular.module('miller')
         scope.is_top_visible = false;
 
         var resize = function(){
-          $log.log('::sticky -> resize()')
+          // $log.log('::sticky -> resize()')
           wh = w.height();
           evaluate();
         }
@@ -34,7 +34,7 @@ angular.module('miller')
           // top visibility
           _is_top_visible = ws + offsetTop < ot;
 
-          $log.log('::sticky -> evaluate()', scope.is_visible, ws, ot, offsetTop)
+          // $log.log('::sticky -> evaluate()', scope.is_visible, ws, ot, offsetTop)
 
           if(scope.is_top_visible != _is_top_visible) {
             if(!_is_top_visible){

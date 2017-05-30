@@ -54,7 +54,7 @@ angular.module('miller')
           if(language && typeof scope.embedit == 'object') {
             
             var altlanguage =  _.filter(scope.embedit, _.identity).pop(),
-                contents = scope.embedit[language] || scope.embedit['en_US'] || scope.embedit[altlanguage] || '';
+                contents = scope.embedit[language] || scope.embedit['en_US'] || altlanguage || '';
 
 
             if(attrs.markdown){

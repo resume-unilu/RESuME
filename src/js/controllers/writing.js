@@ -331,6 +331,19 @@ angular.module('miller')
       });
     };
 
+    // launch events that can be catched by the mde instance.
+    $scope.toolboxing = function(action) {
+      $log.debug('WritingCtrl °°toolboxing:', action);
+      $scope.$broadcast('mde.toolbox', {
+        action: action
+      });
+    }
+
+    $scope.activeStates = [];
+    $scope.$on('mde.activestates', function(e, activestates) {
+      $scope.activeStates = activestates;
+    })
+
     // listener for save event.
     $scope.$on(EVENTS.SAVE, $scope.save);
 
@@ -350,6 +363,8 @@ angular.module('miller')
       }
     })
     
+
+
     // listener for contents
     $scope.$watch('contents', function(v, p){
       if(!v || v == p)
