@@ -467,7 +467,7 @@ angular.module('miller')
         
         return '<' + tokens[idx].tag + '>'+
           // '<div class="anchor-sign" ng-click="hash(\''+ h.slug +'\')"><span class="icon-link"></span></div>'+
-          '<a name="' + h.slug +'" class="anchor" href="#' + h.slug +'"><span class="header-link"></span></a>';
+          '<a name="' + h.slug +'" id="h-' + h.slug +'" class="anchor" href="#' + h.slug +'"><span class="header-link"></span></a>';
       };
       
       console.log('rules', md.renderer.rules);
