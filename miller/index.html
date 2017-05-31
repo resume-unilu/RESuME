@@ -278,31 +278,7 @@
       }
       
 
-      #table-of-contents-toggler{
-        position: fixed;
-        bottom: 20px;
-        left: 30px;
-        transition: opacity .3s ease-in-out;
-        opacity: 0;
-        z-index: 1101;
-        transform: translateY(140px);
-        -webkit-transform: translateY(140px);
-        -moz-transform: translateY(140px);
-        -ms-transform: translateY(140px);
-      }
-
-      #table-of-contents-toggler button{
-        padding: 0;
-      }
-
-      #table-of-contents-toggler button span{
-        line-height: 30px;
-      }
-
-      #table-of-contents-toggler.active{
-        opacity: 1;
-      }
-
+      
       #table-of-documents{
         position: fixed;
         right: 0;
@@ -589,11 +565,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .navbar-nav .collapse-toggler {
           display: none;
         }
-        #table-of-contents-toggler{
-          top: 155px;
-          left: 20px;
-          z-index: 1;
-        }
+        
         #footer ul.navbar-nav{
           margin: 10px 0;
         }
@@ -977,12 +949,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       <div id="inner-table-of-documents"><div ng-include='"templates/partials/table-of-documents.html"|prefixTemplate'></div></div>
     </aside> -->
 
-    <div id='table-of-contents-toggler'  ng-class='{"active": ToC.length > 0}' >
+    <div id='table-of-contents-toggler' ng-class='{"active": state != "writing" && ToC.length > 0}' >
       <div >
-        <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button>
+        <!-- <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button> -->
+        <button class='btn-transparent'><span  class='icon-book-open'></span></button>
       </div>
       {% verbatim %}
-        <ul><li bs-scrollspy data-offset='120' data-target='#h-{{heading.slug}}' ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'>
+        <ul><li bs-scrollspy data-offset='100' data-target='#h-{{heading.slug}}' ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'>
           <a ng-click='setHash(heading.slug)' bs-tooltip data-placement='right' title='{{heading.text}}'></a>
         </li><ul>
       {% endverbatim %}
@@ -1138,15 +1111,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           st = _windox.scrollTop();
           navbar_offset = Math.max(floatinglimit - st, 0);
 
-        if(navbar_offset != _navbar_offset)
-          for(var i in _offsetables)
-            if(i != 'navbar')
-              _offsetables[i].css({
-                transform: 'translateY('+navbar_offset+'px)',
-                '-webkit-transform': 'translateY('+navbar_offset+'px)',
-                '-moz-transform': 'translateY('+navbar_offset+'px)',
-                '-ms-transform': 'translateY('+navbar_offset+'px)',
-              });
+        // if(navbar_offset != _navbar_offset)
+        //   for(var i in _offsetables)
+        //     if(i != 'navbar')
+        //       _offsetables[i].css({
+        //         transform: 'translateY('+navbar_offset+'px)',
+        //         '-webkit-transform': 'translateY('+navbar_offset+'px)',
+        //         '-moz-transform': 'translateY('+navbar_offset+'px)',
+        //         '-ms-transform': 'translateY('+navbar_offset+'px)',
+        //       });
 
         if(st > floatinglimit) {
           if(!isBelowFloating){

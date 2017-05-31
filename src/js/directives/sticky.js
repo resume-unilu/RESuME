@@ -34,7 +34,7 @@ angular.module('miller')
           // top visibility
           _is_top_visible = ws + offsetTop < ot;
 
-          // $log.log('::sticky -> evaluate()', scope.is_visible, ws, ot, offsetTop)
+          $log.log('::sticky -> evaluate() -id:', attrs.id, '-btm:', _is_bottom_visible, '-top:', _is_top_visible, '-ot:', ot, offsetTop)
 
           if(scope.is_top_visible != _is_top_visible) {
             if(!_is_top_visible){
