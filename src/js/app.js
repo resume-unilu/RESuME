@@ -242,13 +242,16 @@ angular
         .state('writing.compare', {
           url: '/compare/:tag',
           reloadOnSearch : false,
-          controller: function(){
-
+          controller: function($scope, version){
+            $scope.version = version;
           },
           templateUrl: RUNTIME.static + 'templates/writings.compare.html',
           resolve: {
-            version: function(StoryFactory, $stateParams) {
-              return StoryFactory.get({id: $stateParams.storyId, nocache: true}).$promise;
+            version: function(StoryGitFactory, $stateParams) {
+              return StoryGitFactory.getByGitTag({
+                id: $stateParams.storyId,
+                commit: $stateParams.tag,
+              }).$promise;
             },
           }
         })

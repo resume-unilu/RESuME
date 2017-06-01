@@ -239,6 +239,9 @@ angular.module('miller')
       });
     };
 
+    $scope.setToC = function(){
+      //pass
+    }
     /*
       Detach a tag that was attached before.
     */

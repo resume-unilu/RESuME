@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {    
+  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {    
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -165,11 +165,13 @@ angular.module('miller')
     */
     $scope.breakingNews = [];
     $scope.setBreakingNews = function(breakingNews) {
+
       $scope.breakingNews = breakingNews.slice(0,3).map(function(d){
         if(d.covers && d.covers.length){
           var cover = d.covers[0];
-
-          d.cover_url = _.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
+          
+          d.cover_url = $filter('coverage')(cover);
+          //_.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
           
         }
         d.isCollection = _.filter(d.tags, {slug: 'collection'}).length > 0;

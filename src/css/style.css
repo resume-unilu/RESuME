@@ -1367,10 +1367,15 @@ ul.errorlist{
     display: inline-block;
 }
 
-#wrapper.writing #contents {
+#wrapper.writing #contents, #wrapper #versioned-contents {
   transition: transform .36s ease-in-out;
   color: #999;
+  border: 2px solid #FF6B6B;
+  background-color: white;
+  padding: 10px 15px;
 }
+
+
 
 #wrapper.writing #contents > *{
   padding-left: 15px;
