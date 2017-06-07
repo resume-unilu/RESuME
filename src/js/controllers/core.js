@@ -147,11 +147,19 @@ angular.module('miller')
     */
     $scope.suggestTags = function(query, options) {
       $log.log('🍔 CoreCtrl -> suggestTags', query, options);
-      var filters = options || {};
+      var filters = options || {},
+          // request params
+          params  = {
+            filters: JSON.stringify(filters),
+            limit: 10
+          }
+      
+      if(query.trim().length > 2){
+        params.q = query
+      }
+
       filters.name__icontains = query;
-      return TagFactory.get({
-        filters: JSON.stringify(filters)
-      }).$promise.then(function(response) {
+      return TagFactory.get(params).$promise.then(function(response) {
         return response.results;
       });
     };

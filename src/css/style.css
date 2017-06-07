@@ -2063,6 +2063,12 @@ h4.modal-title{
       padding: 0px;
 }
 
+.modal-message{
+  padding: 10px 15px 0;
+  font-size: 11px;
+  line-height: 18px;
+}
+
 .modal-body .drop-box-form-wrapper{
   margin-bottom: 10px;
 }
@@ -2107,6 +2113,14 @@ h4.modal-title{
 
 .modal-body .section .preview .embed{
 height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #dbdbdb;
+}
+
+.conflict{
+  margin: 5px 0;
+}
+
+.conflict b{
+  color: #ff6b6b;
 }
 
 /*

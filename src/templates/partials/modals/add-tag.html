@@ -1,0 +1,50 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <form name="addTagForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+          <span aria-hidden="true" class='icon-close'></span>
+          </button>
+          <h4 class="modal-title" translate="modals.addtag.title"></h4>
+        </div>
+        
+        <div class="modal-body">
+          <div class="container-fluid" style='padding-bottom: 20px'>
+            <div class='row' ng-if='tag.id && !tag.created'>
+              <div class='modal-message' translate='modals.addtag.tagexist'></div>
+            </div>
+            <div class='row'>
+              <div  class='col-md-12'>
+                <label translate="modals.addtag.field.name.label"></label>
+                <input placeholder='...' required ng-model='name' class='form-control' >
+              </div>
+
+              <div ng-repeat='lang in settings.languages' class='col-md-6'>
+                <label><span translate="modals.addtag.field.name.label"></span> (<span translate='language.{{lang}}'></span>)</label>
+                <input placeholder='...'  ng-model='data.name[lang]' class='form-control'>
+                <div class='conflict sans-serif' ng-if='conflicts[lang]' translate='conflict.before' translate-values='{ value: conflicts[lang] }'></div>
+              </div>
+
+              <div  class='col-md-12'>
+                <label translate="modals.addtag.field.provider.label"></label>
+                <input placeholder='EUROVOC, EUR-LEX ...' ng-model='data.provider'  class='form-control' >
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- eof body -->
+        <div class="modal-footer">
+          <span class='btn-line-group' ng-class='{"primary": addTagForm.$valid}'><button ng-if='!tag.id' type="submit" class="btn-line " ng-class="{'active':addTagForm.$valid}" ng-disabled='!addTagForm.$valid || is_saving' ng-click="confirm()" translate='button.create'></button>
+          <button ng-if='tag.id' type="submit" class="btn-line " ng-class="{'active':addTagForm.$valid}" ng-disabled='!addTagForm.$valid || is_saving' ng-click="update()" translate='button.updateandattachtag'></button>
+          </span>
+          <span class='btn-line-group transparent'>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+          </span>
+        </div>
+        <!-- eof footer -->
+      </div>
+    </form>
+  </div>
+</div>

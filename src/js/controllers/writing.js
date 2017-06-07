@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.isDraft = false;
@@ -225,19 +225,23 @@ angular.module('miller')
       $scope.lock();
       // partial update route
       return StoryFactory.patch({id: story.id}, {
-        tags: _.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id')))
+        tags: _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> attachTag() tag success', res);
         $scope.unlock();
         $scope.isSaving =false;
+        if(tag.category == 'keyword')
+          $scope.keywords = _.uniq($scope.keywords.concat(tag), 'id');
+
         return true;
       }, function(){
-        // error
         $scope.unlock();
         $scope.isSaving =false;
         return false;
       });
     };
+
+
 
     $scope.setToC = function(){
       //pass
@@ -260,8 +264,79 @@ angular.module('miller')
       }, function(){
         // error
         return false;
+        $scope.isSaving =false;
       });
     };
+
+    
+
+    var addTagModal = $modal({
+      scope: $scope,
+      controller: function($scope, TagFactory) {
+        $scope.name = ''
+        $scope.data = {
+          provider: '',
+          creator: $scope.user.username,
+          name: {}
+        }
+        $scope.conflicts = {};
+        
+        $scope.update = function() {
+          TagFactory.update({id: $scope.tag.id}, {
+            name: $scope.name,
+            category: 'keyword',
+            data: $scope.data
+          }, function(tag){
+            $log.debug('addTagModalCtrl -> update() tag updated.');
+            $scope.$parent.attachTag(tag);
+            $scope.$hide();
+          });
+        }
+
+        $scope.confirm = function() {
+          $log.debug('addTagModalCtrl -> confirm() saving tag...');
+          
+          TagFactory.save({
+            name: $scope.name,
+            category: 'keyword',
+            data: $scope.data
+          }, function(tag){
+            // update data with their data
+            if(tag.created){
+              $log.debug('addTagModalCtrl -> confirm() tag created!');
+              
+              $scope.attachTag(tag)
+              $scope.$hide();
+            } else {
+              $log.debug('addTagModalCtrl -> confirm() tag exists. Update before use.');
+              
+              $scope.tag = tag;
+              
+              for (var i in $scope.settings.languages) {
+                _key = $scope.settings.languages[i];
+
+                if($scope.data.name[_key] && $scope.data.name[_key] != $scope.tag.data.name[_key]) {
+                  $scope.conflicts[_key] = $scope.tag.data.name[_key]
+                }
+                $scope.data.name[_key] = $scope.data.name[_key] || $scope.tag.data.name[_key];
+              }
+            }
+          }, function(){
+            debugger
+          });
+        }
+      },
+      template: RUNTIME.static + 'templates/partials/modals/add-tag.html',
+      id: 'writing.addtag',
+      show: false
+    });
+
+    $scope.openAddTagModal = function(){
+      addTagModal.$promise.then(function(){
+        $log.log('WritingCtrl -> openAddTagModal()');
+        addTagModal.show();
+      });
+    }
 
     $scope.suggestAuthors = function(query, options) {
       $log.log('WritingCtrl -> suggestAuthors', query, options);

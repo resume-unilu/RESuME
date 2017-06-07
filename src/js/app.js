@@ -726,12 +726,13 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            initials: function(){
+            initials: function($stateParams){
               return {
                 filters: JSON.stringify({
                   tags__slug: $stateParams.slug
                 }),
-                orderby: '-date,-date_last_modified'
+                limit: 10,
+                orderby: '-date'
               }
             },
             items: function(StoryFactory, djangoFiltersService, initials) {
@@ -739,7 +740,7 @@ angular
             },
 
             model: function() {
-              return 'story.pending';
+              return 'story';
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
