@@ -17,6 +17,9 @@ angular.module('miller')
     // local var used only for publicationsCtrl
     var _tag;
 
+    if($scope.state == 'publications.tags')
+      initials.filters['tags__slug__all'] = [$state.params.slug];
+
     /*
       Get the firs n sentence until the number of words are covered.
       return an array

@@ -76,6 +76,10 @@ angular.module('miller')
           exclude = {};
 
       if(initials.filters){
+        if($scope.state == 'publications.tags')
+          initials.filters['tags__slug__all'] = [$state.params.slug];
+          //    debugger;
+
         try{
           filters = angular.extend(initials.filters, $scope.filters);
         } catch(e){
