@@ -57,6 +57,14 @@ ul.list{
   position: relative;
 }
 
+.quick{
+  max-width: 180px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .lined{
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+49,2989d8+50,ffffff+51 */
 background: rgb(255,255,255); /* Old browsers */

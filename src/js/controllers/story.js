@@ -9,6 +9,14 @@ angular.module('miller')
   .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
     $scope.story = story;
 
+    $scope.story.keywords = _.filter(story.tags, {category: 'keyword'});
+    $scope.story.displayedTags = _.filter(story.tags, function(d){
+      if(d.slug == 'collection'){
+        $scope.isCollection = true
+      }
+      return d.category != 'keyword';
+    });
+
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;

@@ -276,6 +276,9 @@ state.publications.draft.label,,drafts (staff),,,
 state.publications.reviewdone.title,,ready to be published,,,
 state.publications.reviewdone.abstract,,All reviewed publications ready to be published on the website,,,
 state.publications.reviewdone.label,,ready to be published (staff),,,
+state.publications.tags.title,,tagged: ,,,
+state.publications.tags.abstract,,,,,
+state.publications.tags.label,,,,,
 state.reviews.all,,view all,voir tout,alles anzeigen/sehen,view all
 state.reviews.all.abstract,,,,,
 state.reviews.all.label,,all reviews,,,all reviews

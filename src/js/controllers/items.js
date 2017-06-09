@@ -6,15 +6,17 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, initials, items, model, factory, QueryParamsService, EVENTS) {
+  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, EVENTS) {
     $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'inititals:', initials);
 
     // model is used to get the correct item template
     $scope.model = model.split('.').shift();
     $scope.itemTemplate = model;
-
-
     $scope.nextParams = {};
+
+    // local var used only for publicationsCtrl
+    var _tag;
+
     /*
       Get the firs n sentence until the number of words are covered.
       return an array
@@ -25,6 +27,10 @@ angular.module('miller')
       return sentences;
     }
 
+    if($scope.state != 'publications.tags') {
+      $scope.setTag(null);
+    }
+
     function normalizeItems(items) {
       return items
         .map(function(d){
@@ -33,6 +39,11 @@ angular.module('miller')
           if(d.tags && d.tags.length && _.filter(d.tags, {slug: 'collection', category:'writing'}).length){
             d.isCollection = true
           }
+
+          if(!_tag && $scope.state == 'publications.tags') {
+            $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
+          }
+
           // console.log(d)
           if(!d.metadata.abstract[$scope.language]){
             return d;

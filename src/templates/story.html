@@ -71,7 +71,7 @@
       <div class='row'>
         <div class='col-md-8'>
           <div class="tags" >
-            <span ng-if="story.tags.length" class='tag sans-serif' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+            <span ng-if="story.displayedTags.length" class='tag sans-serif' ng-repeat='tag in story.displayedTags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
             
           </div>
 
@@ -111,6 +111,10 @@
           <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate'></div>
           <!-- </div> -->
         <!-- </div> -->
+      </div>
+
+      <div class="tags" >
+            <span ng-if="story.keywords.length" class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
       </div>
 
       <div class='row' style='margin-bottom: 50px'>

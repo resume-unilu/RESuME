@@ -216,9 +216,14 @@ angular.module('miller')
 
     // atthach the tag $tag for the current document.
     $scope.attachTag = function(tag) {
+
       $log.debug('WritingCtrl -> attachTag() tag', arguments);
       if($scope.isSaving){
         $log.warn('wait, try again in. Is still saving.')
+        return
+      }
+      if(!tag.id){
+        $log.error('wait, there is no tag.id...', tag);
         return
       }
       $scope.isSaving = true;
@@ -230,8 +235,10 @@ angular.module('miller')
         $log.debug('WritingCtrl -> attachTag() tag success', res);
         $scope.unlock();
         $scope.isSaving =false;
-        if(tag.category == 'keyword')
+        if(tag.category == 'keyword'){
+          debugger
           $scope.keywords = _.uniq($scope.keywords.concat(tag), 'id');
+        }
 
         return true;
       }, function(){
@@ -246,6 +253,19 @@ angular.module('miller')
     $scope.setToC = function(){
       //pass
     }
+
+    $scope.beforeAttachTag = function(tag, el) {
+      $log.log('WritingCtrl -> beforeAttachTag() tag', tag);
+      if(tag.id){
+        return $scope.attachTag(tag);
+      } else {
+        $scope.keywordToAttach = ''+tag.name;
+        tag = null
+        $scope.openAddTagModal();
+        return false;
+      }
+    }
+
     /*
       Detach a tag that was attached before.
     */
@@ -255,7 +275,7 @@ angular.module('miller')
       $scope.lock();
       // partial update route
       return StoryFactory.patch({id: story.id}, {
-        tags: _.map($scope.displayedTags, 'id')
+        tags: _.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'))
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> detachTag() tag success', res);
         $scope.unlock();
@@ -273,7 +293,8 @@ angular.module('miller')
     var addTagModal = $modal({
       scope: $scope,
       controller: function($scope, TagFactory) {
-        $scope.name = ''
+        $log.log('addTagModalCtrl is ready. Initial value:', $scope.keywordToAttach);
+        $scope.name = $scope.keywordToAttach || ''
         $scope.data = {
           provider: '',
           creator: $scope.user.username,
@@ -331,7 +352,7 @@ angular.module('miller')
       show: false
     });
 
-    $scope.openAddTagModal = function(){
+    $scope.openAddTagModal = function(tag){
       addTagModal.$promise.then(function(){
         $log.log('WritingCtrl -> openAddTagModal()');
         addTagModal.show();

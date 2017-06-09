@@ -24,8 +24,7 @@ angular.module('miller')
       }
     ];
 
-    if($state.params.slug)
-      $scope.slug = $state.params.slug;
+    
 
     $scope.availabileOrderby = [
       {
@@ -50,6 +49,15 @@ angular.module('miller')
       },
     ];
 
+
+
+    // if there is a tag, we want to get its multilingual value
+    $scope.setTag = function(tag) {
+      if(tag)
+        $log.log('🔭 PublicationsCtrl -> setTag - slug:', tag.slug, '- name:', tag.name);
+      $scope.tag = tag;
+    }
+
     // list of service premises to build the hallof fames
     var HallOfFames = [];
 
@@ -69,7 +77,7 @@ angular.module('miller')
 
       if(initials.filters){
         try{
-          filters = angular.extend(JSON.parse(initials.filters), $scope.filters);
+          filters = angular.extend(initials.filters, $scope.filters);
         } catch(e){
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }

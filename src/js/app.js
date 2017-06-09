@@ -50,7 +50,9 @@ angular
     'SOCKET_USER_UNCOMMENTED_STORY': 'socket_user_uncommented_story',
 
     'RANGY_FOCUS': 'rangy_focus',
-    'RANGY_REFRESH': 'rangy_refresh'
+    'RANGY_REFRESH': 'rangy_refresh',
+
+    'LANGUAGE_CHANGED': 'language_changed'
   })
   /*
     disqus configuration
@@ -61,6 +63,14 @@ angular
   //   }
 
   // })
+  /*
+    debug enabled
+  */
+  .config(function($logProvider, RUNTIME) {
+    console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
+    $logProvider.debugEnabled(!!RUNTIME.settings.debug)
+  })
+  
   /*
     prefix
   */
@@ -294,10 +304,10 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 status: 'draft',
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -320,10 +330,10 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 status: 'deleted',
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -346,9 +356,9 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -374,14 +384,14 @@ angular
             resolve: {
               initials: function(author) {
                 return {
-                  filters: d.slug? JSON.stringify({
+                  filters: d.slug? {
                     tags__category__in: ['writing', 'blog'],
                     tags__slug: d.slug,
                     authors__slug: author.slug
-                  }): JSON.stringify({
+                  }: {
                     tags__category__in: ['writing', 'blog'],
                     authors__slug: author.slug
-                  }),
+                  },
                   limit: 10,
                   orderby: '-date,-date_last_modified'
                 }
@@ -444,9 +454,9 @@ angular
           resolve: {
             initials: function(profile){
               return {
-                filters: JSON.stringify({
+                filters: {
                   authors__user__username: profile.username
-                }),
+                },
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -480,9 +490,9 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify({
+                filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
-                }),
+                },
                 orderby: '-date_last_modified'
               };
             },
@@ -518,7 +528,7 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify(d.filters || {}),
+                filters: d.filters || {},
                 orderby: '-date_last_modified'
               };
             },
@@ -613,11 +623,11 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify(d.slug != 'all'? {
+                filters: d.slug != 'all'? {
                   tags__slug: d.slug
-                }:{
+                } : {
                   tags__category: 'blog'
-                }),
+                },
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -657,15 +667,15 @@ angular
             resolve: {
               initials: function(){
                 return {
-                  filters: d.filters? JSON.stringify(d.filters): {},
-                  exclude: JSON.stringify({ data__num_stories: 0}),
+                  filters: d.filters? d.filters: {},
+                  exclude: {
+                    data__num_stories: 0
+                  },
                   limit: 20,
                   orderby: 'data__lastname'
                 }
               },
               items: function(AuthorFactory, djangoFiltersService, initials) {
-
-                // return AuthorFactory.get(initials).$promise;
                 return AuthorFactory.get(djangoFiltersService(initials)).$promise;
               },
               model: function() {
@@ -677,9 +687,9 @@ angular
             }
           });
       });
-      /*
-        Kind of story:writings publications
-      */
+    /*
+      Kind of story:writings publications
+    */
     $stateProvider
       .state('publications', {
         url: '/publications',
@@ -687,55 +697,26 @@ angular
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        
+        params: {
+          filters: null,
+        },
       })
-
-
-        .state('publications.all', {
-          url: '',
-          controller: 'ItemsCtrl',
-          templateUrl: RUNTIME.static + 'templates/items.html',
-          resolve: {
-            initials: function($location) {
-              return {
-                filters: JSON.stringify({
-                  tags__category: 'writing'
-                }),
-                exclude:JSON.stringify({
-                  tags__slug: 'chapter'
-                }),
-                limit: 10,
-                orderby: '-date,-date_last_modified'
-              }
-            },
-            items: function(StoryFactory, djangoFiltersService, initials) {
-              return StoryFactory.get(djangoFiltersService(initials)).$promise;
-            },
-
-            model: function() {
-              return 'story';
-            },
-            factory: function(StoryFactory) {
-              return StoryFactory.get;
-            }
-          }
-        })
-        
         .state('publications.tags', {
           url: '/tags/:slug',
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            initials: function($stateParams){
+            initials: function() {
               return {
-                filters: JSON.stringify({
-                  tags__slug: $stateParams.slug
-                }),
+                filters: {
+                  tags__category: 'writing'
+                },
                 limit: 10,
-                orderby: '-date'
-              }
+                orderby: '-date,-date_last_modified'
+              };
             },
-            items: function(StoryFactory, djangoFiltersService, initials) {
+            items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
+              initials.filters['tags__slug__all'] = [$stateParams.slug];
               return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
 
@@ -748,21 +729,26 @@ angular
           }
         });
 
-      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags).concat(RUNTIME.routes.publications.status), function(d){
+      _.each(RUNTIME.routes.publications.all.concat(
+          RUNTIME.routes.publications.writing,
+          RUNTIME.routes.publications.tags,
+          RUNTIME.routes.publications.status
+        ), function(d) {
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
+            
             resolve: {
-              initials: function(){
+              initials: function() {
                 return {
-                  filters: d.filters? JSON.stringify(d.filters): d.slug? JSON.stringify({
+                  filters: d.filters? d.filters: d.slug? {
                     tags__category: 'writing',
                     tags__slug: d.slug
-                  }): JSON.stringify({
+                  }: {
                     tags__category: 'writing'
-                  }),
+                  },
                   limit: 10,
                   orderby: '-date,-date_last_modified'
                 };
@@ -894,7 +880,8 @@ angular
       });
   })
   .run(function($window, $log, RUNTIME){
-    $log.log('☕ app run, version: Kidding Cat; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
+    $log.log('☕ app run, version: Kidding Tiger; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
+    $log.debug('skjdksjdksjdk')
     if(RUNTIME.settings.analytics)
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })

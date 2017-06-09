@@ -2,7 +2,7 @@
   <div class='view'>
     <h1>
       <a ng-if='state != mainStatename' href ui-sref='{{mainStatename}}'>../</a>
-      <span translate="state.{{state}}.title"></span>
+      <span translate="state.{{state}}.title"></span><span ng-if='tag' rewording value='tag.data.name' follow='tag' default='{{tag.name}}'></span>
     </h1>
     <p translate="state.{{state}}.abstract"></p>
     <!-- Nav tabs -->
@@ -10,7 +10,13 @@
       <li role="presentation" ui-sref-active="active" >
         <a href ui-sref='{{mainStatename}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{mainStatename}}.label"></a>
       </li>
-      <li ng-if='mainRoutes.length' class='divider'></li>
+      <li ng-if='mainRoutes.length' role="presentation" class='divider'></li>
+      <li ng-if='tag' ui-sref-active="active">
+        <a href class='quick' ui-sref='{{rootStatename}}.tags({slug: tag.slug})' aria-controls="home" role="tab" data-toggle="tab">
+          <span>{{tag.category}}</span>/<b rewording value='tag.data.name' follow='tag' default='{{tag.name}}'></b>
+        </a>
+      </li>
+      <li ng-if='tag' class='divider'></li>
       <li ng-if='mainRoutes' ng-repeat='url in mainRoutes' role="presentation" ui-sref-active="active">
         <a ng-if='url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
         <a ng-if='!url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{rootStatename}}.{{url.slug}}.label"></a>

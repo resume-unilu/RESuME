@@ -291,7 +291,8 @@ angular.module('miller')
       
       if(qs.filters){
         try {
-          _params.filters = JSON.stringify(angular.merge(JSON.parse(_params.filters), JSON.parse(qs.filters)));
+          _params.filters = JSON.stringify(angular.merge(_params.filters || {}, JSON.parse(qs.filters || '{}')));
+          _params.exclude = JSON.stringify(angular.merge(_params.exclude || {}, JSON.parse(qs.exclude || '{}')));
         } catch(e){
           $log.warn('ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
         }

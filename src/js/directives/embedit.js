@@ -7,6 +7,49 @@
  * If an object and a language are provided, it handles the translation.
  */
 angular.module('miller')
+  /*
+    Like embedit, translated according to $rootScope language.
+    use:
+    
+    ```
+    <span rewording value='object' default='{{data.name}}'></span>
+    ```
+    
+    where object is 
+
+    object = {
+      fr_FR: 'krkrkrkr',
+      en_US
+    }
+
+  */
+  .directive('rewording', function($rootScope, EVENTS) {
+    return {
+      restrict : 'A',
+      scope: {
+        value: '=',
+        follow: '='
+      },
+      template: '{{renderedValue}}',
+      link: function(scope, element, attrs) {
+        scope.render = function(event, language) {
+          if(!language) {
+            return;
+          }
+
+          scope.renderedValue = _.get(scope.value, language, attrs.default);
+        }
+        scope.$on(EVENTS.LANGUAGE_CHANGED, scope.render);
+        
+        scope.follow && scope.$watch('follow', function(v) {
+          if(v)
+            scope.render(null, $rootScope.language);
+        });
+
+        scope.render(null, $rootScope.language);
+      }
+    }
+  })
   .directive('embedit', function($sce, $timeout, $filter) {
     return {
       restrict : 'A',

@@ -266,6 +266,7 @@ angular.module('miller')
       localStorageService.set('lang', $scope.language);
       $log.log('🍔 CoreCtrl -> changeLanguage language:', $scope.language)
       $translate.use(key);
+      $scope.$broadcast(EVENTS.LANGUAGE_CHANGED, $scope.language)
     };
 
     $scope.isWithoutAuthors = function(story) {

@@ -24,8 +24,8 @@
     <textarea id='draft-abstract' class='elastic-textarea' rows="1" msd-elastic ng-model='abstract' type='text' placeholder='abstract'></textarea>
     
     <label><span translate="drafts.keywords.placeholder"></span> <div class='btn-line-group transparent'><button class='btn-line' translate='button.createnewtag' ng-click='openAddTagModal()'></button></div></label>
-    <tags-input class='tags-input' on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="true" placeholder='write here...'>
-      <auto-complete source="suggestTags($query, {category:'keyword'})"></auto-complete>
+    <tags-input class='tags-input' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="false" on-tag-adding='beforeAttachTag($tag, this)'  placeholder='write here...'>
+      <auto-complete source="suggestTags($query, {category:'keyword'})" select-first-match='false' min-length='1'></auto-complete>
     </tags-input>
 
 
