@@ -65,6 +65,7 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
+
       $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'newest';
       
       // transform filterrs from initials (they are for publication story, not for story.authors)
@@ -75,13 +76,14 @@ angular.module('miller')
           filters = {},
           exclude = {};
 
+      
       if(initials.filters){
         if($scope.state == 'publications.tags')
           initials.filters['tags__slug__all'] = [$state.params.slug];
           //    debugger;
 
         try{
-          filters = angular.extend(initials.filters, $scope.filters);
+          filters = angular.extend({}, initials.filters, $scope.filters);
         } catch(e){
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }

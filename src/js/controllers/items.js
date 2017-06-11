@@ -19,7 +19,8 @@ angular.module('miller')
 
     if($scope.state == 'publications.tags')
       initials.filters['tags__slug__all'] = [$state.params.slug];
-
+    else
+      delete initials.filters['tags__slug__all']
     /*
       Get the firs n sentence until the number of words are covered.
       return an array
@@ -102,7 +103,7 @@ angular.module('miller')
       for(var key in newParams){
         if(key == 'filters'){
           try {
-            params.filters = JSON.stringify(angular.merge(JSON.parse(params.filters), JSON.parse(newParams.filters)));
+            params.filters = JSON.stringify(angular.merge(params.filters, JSON.parse(newParams.filters)));
           } catch(e){
             $log.warn('🌻 ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
             params.filters = initials.filters;

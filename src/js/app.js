@@ -68,7 +68,7 @@ angular
   */
   .config(function($logProvider, RUNTIME) {
     console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
-    $logProvider.debugEnabled(!!RUNTIME.settings.debug)
+    $logProvider.debugEnabled(!!RUNTIME.settings.debug);
   })
   
   /*
@@ -697,9 +697,6 @@ angular
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        params: {
-          filters: null,
-        },
       })
         .state('publications.tags', {
           url: '/tags/:slug',
@@ -881,7 +878,6 @@ angular
   })
   .run(function($window, $log, RUNTIME){
     $log.log('☕ app run, version: Kidding Tiger; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
-    $log.debug('skjdksjdksjdk')
     if(RUNTIME.settings.analytics)
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })
