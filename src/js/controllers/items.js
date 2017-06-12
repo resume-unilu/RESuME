@@ -32,7 +32,8 @@ angular.module('miller')
     }
 
     if($scope.state != 'publications.tags') {
-      $scope.setTag(null);
+      if (typeof $scope.setTag == 'function') 
+        $scope.setTag(null);
     }
 
     function normalizeItems(items) {
