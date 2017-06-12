@@ -154,6 +154,7 @@ language.en_GB,,English,Anglais,Englisch,English
 language.en_US,,English,Anglais,Englisch,English
 language.fr_FR,,French,Français,Französisch,French
 link.to.original,,link to the original source,lien vers la source originale,Link zur urspünglichen Quelle,link to the original source
+matchesfound,,{{count}} documents found containing <b>{{query}}</b>,Environ {{count}} résultats pour <b>{{query}}</b>,,
 me.publications,,your contributions,vos contributions,Ihre Beiträge,your contributions
 missing,"when scrolling a list of items, the number of remaining ones",({{count}} remaining),({{count}} restants),({{count}} übrig),({{count}} remaining)
 modal.covers.description,,add cover,ajouter une page de garde,Title-Seite hinzufügen,add cover

@@ -7,7 +7,7 @@
  */
 angular.module('miller')
   .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, EVENTS) {
-    $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'inititals:', initials);
+    $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'initials:', initials);
 
     // model is used to get the correct item template
     $scope.model = model.split('.').shift();
@@ -19,8 +19,12 @@ angular.module('miller')
 
     if($scope.state == 'publications.tags')
       initials.filters['tags__slug__all'] = [$state.params.slug];
-    else
+    else if (initials.filters)
       delete initials.filters['tags__slug__all']
+
+    if($scope.state == 'search.story') {
+      $scope.setCount(items.count);
+    }
     /*
       Get the firs n sentence until the number of words are covered.
       return an array
@@ -81,6 +85,8 @@ angular.module('miller')
         return;
       }
       $scope.isLoadingNextItems = true;
+      factory
+      debugger
       factory($scope.nextParams, $scope.sync);
     }
 

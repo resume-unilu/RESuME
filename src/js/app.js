@@ -766,18 +766,42 @@ angular
 
     $stateProvider
       .state('search', {
-        url: '/search?q&tags&authors',
+        url: '/search',
         controller: 'SearchCtrl',
         reloadOnSearch : false,
+        abstract: true,
+        // reloadOnSearch : false,
         templateUrl: RUNTIME.static + 'templates/search.html',
-        resolve: {
-          items: function(StoryFactory, $location) {
-            var qs = $location.search()
-            // transform filters keywords in using a service
-            return StoryFactory.search(qs).$promise;
-          },
-        }
-      });
+        // resolve: {
+        //   items: function(StoryFactory, $location) {
+        //     var qs = $location.search()
+        //     // transform filters keywords in using a service
+        //     return StoryFactory.search(qs).$promise;
+        //   },
+        // }
+      })
+        .state('search.story', {
+          url: '?q',
+          controller: 'ItemsCtrl',
+          templateUrl: RUNTIME.static + 'templates/items.html',
+
+          resolve: {
+            initials: function() {
+              return {}
+            },
+
+            items: function(StoryFactory, $stateParams, initials, djangoFiltersService) {//(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.search(djangoFiltersService($stateParams)).$promise;
+            },
+            model: function() {
+              return 'story';
+            },
+            factory: function(StoryFactory) {
+              return StoryFactory.search;
+            }
+          }
+        });
+
 
     
 

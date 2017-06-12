@@ -2,8 +2,7 @@
 <div class='view'>
 <div class='row'>
   <div class='col-md-8'>
-
-    {{count}} results for search: {{query}}
+    <span translate='matchesfound' translate-values="{count: count, query: query}"></span>
     
     <ul class="filters">
       <li class='filter' ng-class='k' ng-repeat="(k, v) in qs">
@@ -16,8 +15,6 @@
 <!-- Nav tabs -->
 <ul class='nav nav-tabs'>
 </ul>
-<div>
-  <div ng-repeat="story in items"  ng-include='"templates/partials/story.html"|prefixTemplate'></div>
-</div>
+  <div ui-view></div>
 </div>
 </div>

@@ -50,7 +50,7 @@ angular.module('miller')
     $scope.search = function(searchquery){
       $log.log('🍔 CoreCtrl > search() searchquery:', searchquery);
 
-      $state.go('search', {
+      $state.go('search.story', {
         q: searchquery
       });
     };
