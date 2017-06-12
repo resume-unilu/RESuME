@@ -1,0 +1,6 @@
+<div ng-if='data.type == "__new__"' class="item create-new sans-serif">
+  <span translate='or'></span> <div class='btn-line-group transparent'><button class='btn-line' translate='button.createnewtag' ng-click='openAddTagModal()'></button></div>
+</div>
+<div ng-if='data.type != "__new__"' class="item selectable sans-serif">
+  <span ng-bind-html="$highlight($getDisplayText())"></span>
+</div>

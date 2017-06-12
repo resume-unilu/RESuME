@@ -10,7 +10,7 @@
       <span translate="field.label.author"></span>
     </label>  
     <tags-input class='tags-input' on-tag-added='attachAuthor($tag)' on-tag-removed='detachAuthor($tag)' key-property='id' display-property='fullname' placeholder='Add an author' ng-model="story.authors" template='{{"templates/partials/author.input.html"|prefixTemplate}}'>
-      <auto-complete source="suggestAuthors($query)"></auto-complete>
+      <auto-complete source="suggestAuthors($query)" template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}'></auto-complete>
     </tags-input>
 
     <label>
@@ -23,10 +23,11 @@
     </label>
     <textarea id='draft-abstract' class='elastic-textarea' rows="1" msd-elastic ng-model='abstract' type='text' placeholder='abstract'></textarea>
     
-    <label><span translate="drafts.keywords.placeholder"></span> <div class='btn-line-group transparent'><button class='btn-line' translate='button.createnewtag' ng-click='openAddTagModal()'></button></div></label>
-    <tags-input class='tags-input' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="false" on-tag-adding='beforeAttachTag($tag, this)'  placeholder='write here...'>
-      <auto-complete source="suggestTags($query, {category:'keyword'})" select-first-match='false' min-length='1'></auto-complete>
-    </tags-input>
+    <label><span translate="drafts.keywords.placeholder"></span> </label>
+    <tags-input class='tags-input' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="true" on-tag-adding='beforeAttachTag($tag)'  placeholder='add a tag'>
+        <auto-complete template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, {category:'keyword'}, true)" select-first-match='false' min-length='1'></auto-complete>
+        
+      </tags-input>
 
 
 
@@ -75,7 +76,7 @@
       <!-- tags placeholder  -->
       <label translate="staff.drafts.tags.placeholder"></label>
       <tags-input class='tags-input'  on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="displayedTags" add-from-autocomplete-only="true">
-          <auto-complete source="suggestTags($query, {category__in:['blog','writing', 'highlights', 'publishing']})" ></auto-complete>
+          <auto-complete template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, {category__in:['blog','writing', 'highlights', 'publishing']}, false)" ></auto-complete>
       </tags-input>
     </div>
   </div>

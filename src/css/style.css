@@ -1927,11 +1927,40 @@ a.btn-line:hover{
 }
 
 .tags-input .autocomplete .suggestion-list{margin:0;padding:0;list-style-type:none;max-height:280px;overflow-y:auto;position:relative}
-.tags-input .autocomplete .suggestion-item{padding:5px 10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:16px "Lato",sans-serif;color:#000;background-color:#fff}
-.tags-input .autocomplete .suggestion-item.selected,
-.tags-input .autocomplete .suggestion-item.selected em{color:#fff;background-color:#0097cf}
-.tags-input .autocomplete .suggestion-item em{font:normal bold 16px "Lato",sans-serif;color:#000;background-color:#fff}
+.tags-input .autocomplete .suggestion-item .item{
+  padding:5px 10px;
+  cursor:pointer;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font:11px/18px "Lato",sans-serif;
+  color:#585858;
+  text-transform: uppercase;
+  background-color:#fff;
+  width: 100%;
+}
+.tags-input .autocomplete .suggestion-item .create-new{
+  border-top: 2px solid #e6e5e5;
 
+}
+.tags-input .autocomplete .suggestion-item.selected,
+.tags-input .autocomplete .suggestion-item.selected em{color:#151515;}
+.tags-input .autocomplete .suggestion-item em{
+  font:11px/18px "Lato",sans-serif;
+  font-weight: bold;
+  background-color: #C7F464;
+  color: black;
+  
+}
+
+.tags-input .autocomplete .suggestion-item.selected .item.selectable{
+  background-color: #e6e5e5;
+}
+
+.tags-input .autocomplete .suggestion-item.selected .item.create-new .btn-line{
+  background-color: #151515;
+  color: white;
+}
 
 .mde{
   margin-top: 50px;

@@ -145,13 +145,13 @@ angular.module('miller')
     /*
       Suggest tags for writing purposes
     */
-    $scope.suggestTags = function(query, options) {
+    $scope.suggestTags = function(query, options, has_create) {
       $log.log('🍔 CoreCtrl -> suggestTags', query, options);
       var filters = options || {},
           // request params
           params  = {
             filters: JSON.stringify(filters),
-            limit: 10
+            limit: 7
           }
       
       if(query.trim().length > 2){
@@ -160,7 +160,12 @@ angular.module('miller')
 
       filters.name__icontains = query;
       return TagFactory.get(params).$promise.then(function(response) {
-        return response.results;
+        return !has_create? response.results: response.results.concat([{
+          type: '__new__',
+          name: 'createnew',
+          id: 'createnew',
+          query: query
+        }]);
       });
     };
 

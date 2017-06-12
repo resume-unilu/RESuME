@@ -216,7 +216,7 @@ angular.module('miller')
 
     // atthach the tag $tag for the current document.
     $scope.attachTag = function(tag) {
-
+      
       $log.debug('WritingCtrl -> attachTag() tag', arguments);
       if($scope.isSaving){
         $log.warn('wait, try again in. Is still saving.')
@@ -236,7 +236,6 @@ angular.module('miller')
         $scope.unlock();
         $scope.isSaving =false;
         if(tag.category == 'keyword'){
-          debugger
           $scope.keywords = _.uniq($scope.keywords.concat(tag), 'id');
         }
 
@@ -256,14 +255,13 @@ angular.module('miller')
 
     $scope.beforeAttachTag = function(tag, el) {
       $log.log('WritingCtrl -> beforeAttachTag() tag', tag);
-      if(tag.id){
-        return $scope.attachTag(tag);
-      } else {
-        $scope.keywordToAttach = ''+tag.name;
-        tag = null
-        $scope.openAddTagModal();
-        return false;
-      }
+      if(tag.type == '__new__') {
+        $scope.openAddTagModal(tag.query);
+        return false
+      } 
+
+      return $scope.attachTag(tag);
+      
     }
 
     /*
@@ -352,7 +350,8 @@ angular.module('miller')
       show: false
     });
 
-    $scope.openAddTagModal = function(tag){
+    $scope.openAddTagModal = function(value){
+      $scope.keywordToAttach = value;
       addTagModal.$promise.then(function(){
         $log.log('WritingCtrl -> openAddTagModal()');
         addTagModal.show();
