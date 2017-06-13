@@ -44,8 +44,8 @@
               <a ng-if='!url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label"></a>
 
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
-                <li ng-class='{"active":filters._tags__slug == tag.slug}' ng-repeat='tag in hallOfFame.publishings.results'>
-                  <a class='tag with-number' ng-click='toggleFilter("_tags__slug", tag.slug)'>{{tag.name}}
+                <li ng-class='{"active":(filters.tags__slug__all | inArray : tag.slug)}' ng-repeat='tag in hallOfFame.publishings.results'>
+                  <a class='tag with-number' ng-click='toggleFilter("tags__slug__all", [tag.slug])'>{{tag.name}}
                   <span class='number'>{{tag.stories}}</span>
                   </a>
                 </li>

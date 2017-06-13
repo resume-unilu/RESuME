@@ -9,6 +9,15 @@ angular.module('miller')
       return text? text.replace(/[\{\}]/g,''): '';
     };
   })
+  /*
+
+    usage: <div ng-class="{'newclass': (arr | inArray : value)}">Yay</div>
+  */
+  .filter('inArray', function(){
+    return function(arr, value) {
+      return Array.isArray(arr) && arr.indexOf(value) !== -1;
+    };
+  })
   .filter('smartUrl', function(){
     return function(text){
       return (text || '')

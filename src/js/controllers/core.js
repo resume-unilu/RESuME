@@ -45,8 +45,6 @@ angular.module('miller')
       $scope.ToCDisabled = true;
     };
 
-    // search
-
     $scope.search = function(searchquery){
       $log.log('🍔 CoreCtrl > search() searchquery:', searchquery);
 
