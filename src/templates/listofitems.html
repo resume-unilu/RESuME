@@ -1,7 +1,7 @@
 <div class='container listofitems'>
   <div class='view'>
     <h1>
-      <a ng-if='state != mainStatename' href ui-sref='{{mainStatename}}'>../</a>
+      <a ng-if='state != mainStatename' href ui-sref='{{mainStatename}}'><span class="icon icon-arrow-left-circle"></a>
       <span translate="state.{{state}}.title"></span><span ng-if='tag' rewording value='tag.data.name' follow='tag' default='{{tag.name}}'></span>
     </h1>
     <p translate="state.{{state}}.abstract"></p>

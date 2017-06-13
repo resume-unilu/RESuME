@@ -72,7 +72,8 @@
         <div class='col-md-8'>
           <div class="tags" >
             <span ng-if="story.displayedTags.length" class='tag sans-serif' ng-repeat='tag in story.displayedTags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
-            
+             <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
+          
           </div>
 
           <div class='authors' ng-if="story.authors.length">
@@ -123,9 +124,7 @@
       </div>
 
     <div class='container'>
-      <div class='publication-date'>
-        <span class='label' translate="dateofpublication"></span> <span class='date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
-      </div>
+      
           
       <div class='row' style='margin-bottom: 50px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>

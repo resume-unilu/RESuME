@@ -36,8 +36,8 @@
       <div embedit='story.matches.highlights'></div>  
     </blockquote>
 
-    <div class="tags keywords" ng-if="story.tags.length && !story.matches">
-      <span translate="keywords" class='label'></span> <span class='tag' ng-repeat='tag in story.tags|filter:{category:"keyword"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+    <div ng-if="story.keywords.length" class="tags keywords" ng-if="story.tags.length && !story.matches">
+      <span translate="keywords" class='label'></span> <span class='tag' ng-repeat='tag in story.keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
     </div>
     <p>
       

@@ -32,17 +32,17 @@ angular.module('miller')
 
     
     // openGRaph metadata coming from the story
-    // $scope.setOG({
-    //   title: story.metadata.title[$scope.language] || story.title,
-    //   description: story.metadata.abstract[$scope.language] || story.abstract,
-    //   image: _(story.covers).map(function(d){
-    //     return _.get(d,'snapshot') || 
-    //            _.get(d,'metadata.thumbnail_url') || 
-    //            _.get(d,'metadata.urls.Publishable') ||
-    //            _.get(d,'metadata.urls.Preview') || 
-    //            _.get(d,'metadata.url');
-    //   }).first()
-    // })
+    $scope.setOG({
+      title: story.metadata.title[$scope.language] || story.title,
+      description: story.metadata.abstract[$scope.language] || story.abstract,
+      image: _(story.covers).map(function(d){
+        return _.get(d,'snapshot') || 
+               _.get(d,'metadata.thumbnail_url') || 
+               _.get(d,'metadata.urls.Publishable') ||
+               _.get(d,'metadata.urls.Preview') || 
+               _.get(d,'metadata.url');
+      }).first()
+    })
 
     // set status DRAFT or PUBLIC to the document.
     $scope.setStatus = function(status){

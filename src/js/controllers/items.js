@@ -48,6 +48,8 @@ angular.module('miller')
           if(d.tags && d.tags.length && _.filter(d.tags, {slug: 'collection', category:'writing'}).length){
             d.isCollection = true
           }
+          // set keywords
+          d.keywords = _.filter(d.tags, {category: "keyword"});
 
           if(!_tag && $scope.state == 'publications.tags') {
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
@@ -85,8 +87,7 @@ angular.module('miller')
         return;
       }
       $scope.isLoadingNextItems = true;
-      factory
-      debugger
+      
       factory($scope.nextParams, $scope.sync);
     }
 

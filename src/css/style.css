@@ -11,6 +11,14 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4{
   color: #454545;
 }
 
+h1 .icon{
+  font-size: 29px;
+}
+
+h1 a:hover, h1 a:focus{
+  text-decoration: none;
+}
+
 h5{
   font-family: 'Lato', sans-serif;
 
@@ -228,6 +236,10 @@ blockquote.reduced, blockquote.reduced p{
   font-size: 13px;
   line-height: 21px;
   margin-bottom: 10px;
+}
+
+blockquote.reduced.no-margin, blockquote.reduced.no-margin p{
+  margin-bottom: 0px;
 }
 
 blockquote.matches{
@@ -1031,7 +1043,7 @@ ul.errorlist{
   font-size: 11px;
 }
 
-.story.item .date{
+.story.item .date, .story .date.publication-date, .coverstory .date.publication-date{
   display: inline-block;
   border-left: 2px solid #b6b6b6;
   padding-left: 8px;
@@ -1166,7 +1178,8 @@ ul.errorlist{
 }
 
 .coverstory h4 a{
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 27px;
   color: #333;
 }
 
@@ -2588,14 +2601,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   display: inline;
 }
 
-.story .publication-date {
-  margin-bottom: 15px;
-  line-height: 20px;
-}
 
-.story .publication-date .date{
-  color: #454545;
-}
 
 .story .overlay{
   position: relative;
@@ -2624,7 +2630,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 
 .story .overlay .cover.main{
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   min-height: 400px;
 }
 
@@ -2661,11 +2667,11 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   margin-bottom: 10px;
 }
 
-.story .tags.keywords .label, 
-.story .publication-date .label{
+.story .tags.keywords .label,
+.coverstory .tags.keywords .label{
   color: #9c9696;
   font-size: 10px;
-  line-height: inherit;
+  line-height: 18px;
   padding: 0 6px 0 0;
   font-family: Lato, sans-serif; 
   text-transform: uppercase;
@@ -2675,8 +2681,20 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   margin-bottom: 20px;
 }
 
-.story .tags.keywords .tag a {
+.story .tags.keywords .tag a,
+.coverstory .tags.keywords .tag a  {
   color: #454545;
+
+}
+
+.coverstory .tags.keywords{
+  margin: 5px 0 10px 0;
+  line-height: 15px;
+}
+
+.coverstory .tags.keywords .tag a {
+  font-size: 10px;
+  line-height: 15px;
 }
 
 /*
