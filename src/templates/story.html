@@ -96,13 +96,21 @@
           <!-- <div embedit='story.metadata.issue' ng-if='story.metadata.issue' markdown='true' language='language'></div>
           -->
           
-          <blockquote embedit='story.metadata.abstract' language='language'></blockquote>
+          <blockquote class='abstract' rewording value='story.metadata.abstract' default='story.abstract'></blockquote>
+
+          <div class="tags keywords">
+            <span ng-if="story.keywords.length" translate="keywords" class='label'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+          </div>
+          
         </div>
       </div>
-      
+    </div>
+
       <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
-        <!-- <div class='row'>
-          <div class='col-md-8'> according to document type-->
+        
+        <div class='container'>
+
           <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
           
           <!-- </div> -->
@@ -111,14 +119,17 @@
           <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate'></div>
           <!-- </div> -->
         <!-- </div> -->
+        </div>
       </div>
 
-      <div class="tags" >
-            <span ng-if="story.keywords.length" class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+    <div class='container'>
+      <div class='publication-date'>
+        <span class='label' translate="dateofpublication"></span> <span class='date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
       </div>
-
+          
       <div class='row' style='margin-bottom: 50px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
+
           <div style='position:relative' class="contents">
             
             <!-- contents of the story -->

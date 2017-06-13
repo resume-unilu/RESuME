@@ -54,6 +54,7 @@ comment.status.public,,everyone can view this,,,everyone can view this
 confirm.publish.question,,You will not be able to make any modifications before the review process has been completed.,,,You will not be able to make any modifications before the review process has been completed.
 confirm.publish.title,,Submit for review,,,Submit for review
 conflict.before,,previous value: <b>{{value}}</b>,,,
+dateofpublication,,publication date,date de parution,,
 document.preview,,(preview),(aperçu),(Vorschau),(preview)
 drafts,,(drafts),(ébauches),(Entwürfe),(drafts)
 drafts.keywords.placeholder,,add keywords ...,ajouter des mots clés...,Schlüsselwörter hinzufügen ...,add keywords ...
@@ -140,7 +141,7 @@ headline.project,main menu,project,projet,Projekt,project
 headline.publications,main menu,publications,publications,Publikationen,publications
 headline.publications.todo.abstract,under review pending (staff only),(staff only),(visible seulement par les membres du staff),,(staff only)
 headline.publications.todo.title,under review pending (staff only),Under review,,,Under review
-headline.review.of,,review of:,révision de:,Begutachtung von :,review of:
+headline.review.of,,review of:,révision de&#8239;:,Begutachtung von :,review of:
 headline.reviews,,reviews assigned to you,évaluations qui vous ont été/sont assigné(e)s,Ihnen zugewiesene Begutachtungen,reviews assigned to you
 headline.reviews.abstract,,,,,
 headline.your.reviews,main menu,reviews assigned to you,évaluations assignées,,
@@ -148,6 +149,7 @@ headline.write,main menu,create,créer,schaffen,create
 headline.you,"main menu, access to your space, usually after your username.",(you),(vous),(Sie),(you)
 headline.your.writings,"main menu, access to your articles (weird, to be changed)",your contributions,vos contributions,Ihre Beiträge,your contributions
 items.empty,,"Sorry, no items matched your search","Désolé, aucun objetne correspond à votre recherche.",Leider ergab Ihre Suche keine Treffer.,"Sorry, no items matched your search"
+keywords,,keywords,mots-clés,,
 language.de_DE,,German,Allemand,Deutsch,German
 language.en,,English,Anglais,Englisch,English
 language.en_GB,,English,Anglais,Englisch,English

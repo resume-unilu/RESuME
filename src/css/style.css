@@ -1023,6 +1023,14 @@ ul.errorlist{
   display: inline-block;
 }
 
+.story.item .tags.keywords{
+  margin-bottom: 10px;
+}
+
+.story.item .tags.keywords .tag a {
+  font-size: 11px;
+}
+
 .story.item .date{
   display: inline-block;
   border-left: 2px solid #b6b6b6;
@@ -2571,13 +2579,22 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   background-color: transparent;
   padding: 10px 5px;
   /*margin-right: 40%;*/
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .story .cover.main .metadata .title,
 .story .cover.main .metadata .caption,
 .story .cover.main .metadata .copyright {
   display: inline;
+}
+
+.story .publication-date {
+  margin-bottom: 15px;
+  line-height: 20px;
+}
+
+.story .publication-date .date{
+  color: #454545;
 }
 
 .story .overlay{
@@ -2607,7 +2624,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 
 .story .overlay .cover.main{
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   min-height: 400px;
 }
 
@@ -2639,6 +2656,29 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 .story .ref .label:first-child{
   width: 40px;
 }
+
+.story blockquote.abstract {
+  margin-bottom: 10px;
+}
+
+.story .tags.keywords .label, 
+.story .publication-date .label{
+  color: #9c9696;
+  font-size: 10px;
+  line-height: inherit;
+  padding: 0 6px 0 0;
+  font-family: Lato, sans-serif; 
+  text-transform: uppercase;
+}
+
+.story .tags.keywords {
+  margin-bottom: 20px;
+}
+
+.story .tags.keywords .tag a {
+  color: #454545;
+}
+
 /*
   dribbble like documents
 */

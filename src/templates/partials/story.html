@@ -9,7 +9,7 @@
     <div ng-class='{"col-md-12":!story.covers.length, "col-md-8":story.covers.length}'>
     <div ng-if='!$first' class="divider"></div>
     <div class="tags" ng-if="story.tags.length && !story.matches">
-      <span class='tag' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+      <span class='tag' ng-repeat='tag in story.tags|filter:{status:"public",category:"writing"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
     </div>
     <div class="tags" ng-if="story.tags.length && story.matches">
       <span class='tag' ng-click='setLocationFilter("tags",tag.slug)' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
@@ -36,6 +36,9 @@
       <div embedit='story.matches.highlights'></div>  
     </blockquote>
 
+    <div class="tags keywords" ng-if="story.tags.length && !story.matches">
+      <span translate="keywords" class='label'></span> <span class='tag' ng-repeat='tag in story.tags|filter:{category:"keyword"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+    </div>
     <p>
       
       <!-- <span class='creator' ng-if="!story.authors.length">
