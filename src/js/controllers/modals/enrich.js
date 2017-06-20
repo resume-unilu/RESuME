@@ -15,7 +15,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
 
       suggest: function(query, keep){
         var $s = this,
-            q  = query.length > 2? query.replace('*', '').trim() + '*': false;
+            q  = query && query.length > 2? query.replace('*', '').trim() + '*': false;
 
         $log.log('tab.favourite > suggest', $s);
         $s.isLoadingNextItems = true;
