@@ -15,7 +15,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
 
       suggest: function(query, keep){
         var $s = this,
-            q  = query && query.length > 2? query.replace('*', '').trim() + '*': false;
+            q  = query && query.length > 2? query.replace('*', '').trim() + '*': '';
 
         $log.log('tab.favourite > suggest', $s);
         $s.isLoadingNextItems = true;
@@ -23,12 +23,10 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           $s.next = undefined;
         }
 
-        DocumentFactory.get($s.next || q? {
+        DocumentFactory.get($s.next || {
           q: q,
           facets: 'data__type'
           // filters: JSON.stringify(query.length > 2? {contents__icontains: query}: {})
-        }: {
-          facets: 'data__type'
         }, function(res){
           $log.log('tab.favourite > suggest loaded n.docs:', res.results.length, QueryParamsService(res.next || ''));
           

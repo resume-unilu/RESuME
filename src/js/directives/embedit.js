@@ -36,8 +36,15 @@ angular.module('miller')
           if(!language) {
             return;
           }
+          var _renderedValue = attrs.default;
 
-          scope.renderedValue = _.get(scope.value, language, attrs.default);
+          if(typeof scope.value == 'object') {
+            _renderedValue = _.get(scope.value, language);
+            if(!_renderedValue)
+              _renderedValue = _(scope.value).filter().first()
+          }
+
+          scope.renderedValue = _renderedValue;
         }
         scope.$on(EVENTS.LANGUAGE_CHANGED, scope.render);
         
