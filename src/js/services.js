@@ -193,6 +193,12 @@ angular.module('miller')
       update: {
         method:'PUT'
       },
+      suggest:{
+        method: 'GET',
+        params:{
+          fn: 'suggest' 
+        }
+      },
       oembed:{
         method:'GET',
         params:{

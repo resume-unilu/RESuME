@@ -2354,6 +2354,15 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   margin-top: -200px;
 }
 
+.modal .suggestions{
+  padding: 5px 0 0 0;
+}
+
+.modal .suggestions li{
+  display: inline-block;
+  padding: 5px 10px 0 10px;
+  font-style: italic;
+}
 /*
   Lazy box (image background)
 */
