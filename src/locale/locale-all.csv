@@ -26,7 +26,8 @@ button.edit.author,modify author,"change biography, affiliation, etc.","modifier
 button.finaldecision,,Add / edit your final decision,,,Add / edit your final decision
 button.issaving,,saving ...,enregistrer...,Speichern...,saving ...
 button.loading,,loading ...,téléchargement...,Laden...,loading ...
-button.wmodenormal,,simple edit,,,simple edit
+button.wmodenormal,,write only,,,simple edit
+button.wmodepreview,,live preview,,,
 button.wmodecompare,,compare versions,,,compare versions
 button.more,,load more,télécharger davantage,mehr laden,load more
 button.more.events,,all events,tous les événements,alla Ereignisse,all events
@@ -38,6 +39,7 @@ button.removecover,,remove cover image,supprimer l'image de couverture,Titelbild
 button.reviewcompleted,,"{{is_valid?'I completed the review.':'cannot finalize the review, some fields are missing'}}","{{is_valid?'Je complète l'évaluation.':'ne peux pas finaliser l'évaluation, parce que certains some fields are missing'}}","{{is_valid?'Ich vervollständige completed the review.':'cannot finalize the review, weil einige Felder fehlen'}}","{{is_valid?'I completed the review.':'cannot finalize the review, some fields are missing'}}"
 button.save,,save,enregistrer,speichern,save
 button.savedraft,,{{is_saving?'saving...':'save draft'}},{{is_saving?'enregistrement en cours...':'enregistrer comme brouillon'}},{{is_saving?'speichert...':'Entwurf sichern'}},{{is_saving?'saving...':'save draft'}}
+button.saveversion,,save version,,,
 button.undo,,undo,annuler,rückgängig machen,undo
 button.upload,"when uploading resources (images, pdf)",upload,télécharger sur la plateforme,hochladen,upload
 button.upload.story,when uploading docx to create a proper content (e.g; article),upload my contribution,télécharger ma contribution,mein Beitraghochladen,upload my contribution
@@ -173,6 +175,11 @@ modals.finaldecision.field.status.abstract,,"If you accept the publication, an e
 modals.finaldecision.field.status.label,,Last decision,,,Last decision
 modals.finaldecision.field.status.placeholder,,pick one,,,pick one
 modals.finaldecision.title,,Your decision,,,Your decision
+modals.saveversion.title,,Save version,,,
+modals.saveversion.field.version.tag.description,,"(no spaces, only a-z characters, number, points ""."" and underscore ""_"")",,,
+modals.saveversion.field.version.tag.label,,Specify a name,,,
+modals.saveversion.field.version.message.label,,"Description, max 100 chars",,,
+modals.saveversion.tagexist,,"Please specify a different name, a version with this name already exists.",,,
 oembed.type.image,,Image,Image,Bild,Image
 oembed.type.link,,Link,Lien,Link,Link
 oembed.type.photo,,Image,Image,Bild,Image

@@ -105,7 +105,7 @@ angular.module('miller')
           $log.error('💾 rangy directive needs a container scope babe.');
           return;
         }
-
+        
         var idnum  = 0,
             container = angular.element('#' + attrs.container),
             DOMcontainer = document.getElementById(attrs.container);

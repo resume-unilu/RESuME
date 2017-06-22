@@ -94,6 +94,8 @@
   <div class='btn-line-group primary'>
     <button ng-if='!isDraft' ng-click='save()' class='btn-line'><span ng-if='!isSaving' translate="button.save"></span><span ng-if='isSaving' translate="button.issaving"></span></button>
     <button ng-if='isDraft' ng-click='save()' class='btn-line'><span translate="button.create"></span></button>
+
+    
     
   </div>
   <!-- </div> -->
@@ -137,19 +139,29 @@ by <a href>{{metadata.owner.username}}</a>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("quote") != -1?"active": ""}}' ng-click='toolboxing("toggleBlockquote")'>Q</button>
       &nbsp;&nbsp;
       <div class='btn-line-group  transparent'>
-      <button class='btn-line' ng-click='save()'><span translate='button.save'></span> <span class='icon icon-disc'></span></button>
+        <button class='btn-line' ng-click='save()'><span translate='button.save'></span> <span class='icon icon-disc'></span></button>
+        <button ng-click='openSaveVersionModal()' class='btn-line'><span translate="button.saveversion"></span> <span class='icon icon-pin'></span></button>
       </div>
 
       
-      <div class='float-right btn-line-group '>
+      <div class='float-right btn-line-group dropdown'>
         
         <button class='btn-line' ng-class='{"active": state=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
-        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare"}' ng-click='loadVersions()' bs-dropdown placement='bottom-left' aria-haspopup="true" aria-expanded="false"><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
+        <button class='btn-line' ng-class='{"active": state=="writing.preview"}' ui-sref='writing.preview({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
+        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
         <ul class="dropdown-menu" role="menu">
-          <li ng-repeat='version in versions'>
-            <a ui-sref='writing.compare({postId:story.slug, tag:version.tag})'>{{version.tag}} ({{version.date}})</a>
+          <!-- <li>
+            {{story.version}}
+          </li> -->
+          <li class='version' ng-repeat='version in versions'>
+            <div ng-repeat='tag in version.tags'>
+              <a class='tag-version' ui-sref='writing.compare({postId:story.slug, tag:version.hexsha})'>{{tag.tag}}</a>
+              <span class='date'>{{tag.date|date:"yyyy'.'MM'.'dd"}}</span>
+              <div>
+                <blockquote><span class='username'>{{tag.username}}</span> &mdash; {{tag.message}}</blockquote>
+              </div>
+            </div>
           </li>
-          
         </ul>
       </div>
 
@@ -166,16 +178,19 @@ by <a href>{{metadata.owner.username}}</a>
   <div class='row'>
     <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
 
-    <div ng-class='{"col-xs-6": state =="writing.compare", "col-xs-12":state =="writing"}' id="draft-contents">
+    <div ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}' id="draft-contents">
       
-      <div style='min-height: 50px; position:relative'>
+      <div class='contents' style='margin-top: 50px; min-height: 50px; position:relative'>
           <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
-          
-          <div mde='contents' language='language' setdocs='setDocuments(documents)' setmarked='setMarked(marked)' settoc='setToC(items)'></div>
+          <div class='log-version'>
+            <span class='tag-version' >{{story.version}}</span>
+            <span class='date'> {{story.date_last_modified|date:"yyyy'.'MM'.'dd"}}</span>
+          </div>
+          <div mde='contents' style='margin-top:1px' language='language' setdocs='setDocuments(documents)' setmarked='setMarked(marked)' settoc='setToC(items)'></div>
           
       </div>
     </div>
-    <div ui-view ng-class='{"col-xs-6": state =="writing.compare", "col-xs-12":state =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
+    <div ui-view ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
     <!-- <div class='col-md-4 col-lg-5 col-xs-4' respect-previous-sibling update="sideItems">
       <div sliding-steps data-language='language' data-focus='focusedIdx' style='height:100%' items='sideItems'></div>
     </div> -->

@@ -1,3 +1,15 @@
-<div style='position:relative; margin-top: 50px' class="contents versioned">
+<div style='position:relative; margin-top: 50px' class="contents versioned" ng-class='{"current": version.version == story.version}'>
+  <div ng-if="version.version == story.version">This is the current displayed version.</div>
+  <div class='log-version' ng-repeat='tag in version.logs'>
+
+    <span class='tag-version' >{{tag.tag}}</span>
+    <span class='date'> {{tag.date|date:"yyyy'.'MM'.'dd"}}</span> &mdash;<span class='message'> <span ng-if='user.username != tag.username'><b class='username' >{{tag.username}}</b>  &mdash;</span> "{{tag.message}}"</span>
+    
+
+  </div>
+  <div class='ui-view'>
   <div id='versioned-contents' markdownit='version.contents' watchlanguage='true' language='language'></div>
+
+  <div rangy container='versioned-contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
+  </div>
 </div>

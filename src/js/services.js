@@ -93,8 +93,22 @@ angular.module('miller')
   .factory('StoryGitFactory', function ($resource, parseHeaderFilename) {
     return $resource('/api/story/:id/git/:fn/:commit/', {},{
       getByGitTag: {
-        params: {fn:'tag'},
+        params: {
+          fn:'tag'
+        },
         method: 'GET',
+      },
+      getDiff:{
+        params: {
+          fn:'diff'
+        },
+        method: 'GET',
+      },
+      saveVersion:{
+        params: {
+          fn: 'tag'
+        },
+        method: 'POST'
       }
     })
   })

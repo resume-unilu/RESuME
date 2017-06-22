@@ -82,7 +82,7 @@ angular.module('miller')
   .filter('statetoclass', function(){
     return function(text){
       return (text || '')
-        .replace('.', ' ')
+        .split('.').join(' ')
     }
   })
   /*

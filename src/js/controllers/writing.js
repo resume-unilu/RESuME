@@ -357,6 +357,53 @@ angular.module('miller')
         addTagModal.show();
       });
     }
+    /*
+      Modal window that describe new version.
+    */
+    var saveVersionModal = $modal({
+      template: RUNTIME.static + 'templates/partials/modals/save-version.html',
+      id: 'writing.saveversion',
+      controller: function($scope, $log, StoryGitFactory) {
+        $scope.version = {
+          tag: '',
+          message: ''
+        };
+        $scope.is_saving = false;
+        
+        $scope.confirm = function() {
+          $scope.is_saving = true;
+
+          StoryGitFactory.saveVersion({
+            id: story.id
+          },{
+            tag: $scope.version.tag.trim(),
+            message: $scope.version.message.trim()
+          }, function(res) {
+            $log.debug(res)
+            $scope.is_saving = false; 
+            $scope.$hide();
+          }, function(err) {
+            $log.error(err);
+            if(err.data)
+              $scope.errors = err.data;
+            $scope.is_saving = false;
+          })
+        }
+      },
+      show: false
+    })
+    /*
+      open save version modal so that you can compare and comment on later.
+    */
+    $scope.openSaveVersionModal = function(value) {
+      $scope.save(function(){
+        saveVersionModal.$promise.then(function() {
+          $log.log('WritingCtrl -> openSaveVersionModal()');
+          saveVersionModal.show();
+        });
+      })
+      
+    };
 
     $scope.suggestAuthors = function(query, options) {
       $log.log('WritingCtrl -> suggestAuthors', query, options);
@@ -397,7 +444,7 @@ angular.module('miller')
       });
     }
 
-    $scope.save = function() {
+    $scope.save = function(next) {
       $log.debug('WritingCtrl @SAVE');
       $scope.$emit(EVENTS.MESSAGE, 'saving');
       $scope.lock();
@@ -417,13 +464,18 @@ angular.module('miller')
       }, $scope.metadata);
 
       StoryFactory.update({id: story.id}, update, function(res) {
-        console.log(res)
+        // update version number
+        $scope.story.version = res.version;
+        
         $log.debug('WritingCtrl @SAVE: success');
         $scope.$emit(EVENTS.MESSAGE, 'saved');
         $scope.unlock();
         $scope.isSaving = false;
         // disable stopping change status, cfr core controller
         $scope.toggleStopStateChangeStart(false);
+
+        if(next)
+          next()
       }, function(){
         $scope.isSaving = false;
       });

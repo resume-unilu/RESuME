@@ -6,6 +6,32 @@
  * transform markdown data in miller enhanced datas
  */
 angular.module('miller')
+  .directive('codediff', function($log, angularLoad, RUNTIME) {
+    return {
+      restrict: 'A',
+      scope: {
+        raw: '='
+      },
+      template: "<div id='versioned-contents'><textarea></textarea></div>",
+      link: function(scope, el, attributes){
+        scope.isReady = true;
+        $log.log('::codediff loading...')
+        angularLoad.loadScript(RUNTIME.static + 'js/lib/simplemde.min.js').then(function() {
+          $log.log('::codediff lib loading done.');
+          
+          var cm = CodeMirror.fromTextArea(el.find('textarea')[0], {
+            lineNumbers: false,
+            readOnly: true,
+            lineWrapping: true,
+            mode: 'markdown'
+          });
+          
+          cm.setValue(scope.raw)
+          $log.log('::codediff ready.')
+        })
+      }
+    }
+  })
   .directive('mde', function ($log, $timeout, $modal,  $filter, DocumentFactory, StoryFactory, markdownItService, angularLoad, RUNTIME) {
     return {
       restrict: 'AE',
@@ -156,7 +182,7 @@ angular.module('miller')
                   lt = simplemde.codemirror.charCoords({line: pos.line, ch: 0}, "local").top;
               // $log.log('     l:', pos, '- p:', blockIndex, '- ot:', ot, '- tline:', lt);
 
-              contents.css('transform', 'translateY('+(lt - ot + 50)+'px)');
+              // contents.css('transform', 'translateY('+(lt - ot + 50)+'px)');
               // debugger
             }
 
@@ -257,7 +283,7 @@ angular.module('miller')
               timer_recompile = setTimeout(function(){
                 recompile();
                 scope.$apply()
-              }, 500);  
+              }, 100);  
             }
 
             // listener codemirror@changeEnd

@@ -1,0 +1,53 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <form name="f">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+          <span aria-hidden="true" class='icon-close'></span>
+          </button>
+          <h4 class="modal-title" translate="modals.saveversion.title"></h4>
+        </div>
+        
+        <div class="modal-body">
+          <div class="container-fluid" style='padding-bottom: 20px'>
+            <div class='row' ng-if='errors && errors.tag'>
+              <div class='modal-message error'><span translate='modals.saveversion.tagexist'></span></div>
+            </div>
+            <div class='row'>
+              <div  class='col-md-12'>
+                <label><span translate="modals.saveversion.field.version.tag.label"></span>
+                  <div class="description"><span translate="modals.saveversion.field.version.tag.description"></span></div>
+                </label>
+                <div class="elastic-textarea-wrapper">
+                  <textarea required ng-model='version.tag' ng-pattern='/^[A-Za-z\d\._\-]+$/' class='elastic-textarea' style='min-height: 25px' msd-elastic></textarea>
+                </div>
+              </div>
+
+
+              <div  class='col-md-12'>
+                <label>
+                  <span translate="modals.saveversion.field.version.message.label"></span>
+                  {{version.message.length > 120? "> 120" : version.message.length}} / 120
+                </label>
+                <div class="elastic-textarea-wrapper">
+                <textarea ng-model='version.message' class='elastic-textarea' style='min-height: 50px' ng-maxlength='120' rows="3" msd-elastic></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- eof body -->
+        <div class="modal-footer">
+          <span class='btn-line-group' ng-class='{"primary": f.$valid}'><button type="submit" class="btn-line " ng-class="{'active':f.$valid}" ng-disabled='!f.$valid || is_saving' ng-click="confirm()" translate='button.create'></button>
+          </span>
+          <span class='btn-line-group transparent'>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+          </span>
+        </div>
+        <!-- eof footer -->
+      </div>
+    </form>
+  </div>
+</div>

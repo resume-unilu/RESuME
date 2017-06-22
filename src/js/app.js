@@ -249,6 +249,13 @@ angular
           },
         }
       })
+        .state('writing.preview', {
+          url: '/preview',
+          reloadOnSearch : false,
+          controller: function($scope){
+          },
+          templateUrl: RUNTIME.static + 'templates/writings.preview.html'
+        })
         .state('writing.compare', {
           url: '/compare/:tag',
           reloadOnSearch : false,
@@ -265,6 +272,22 @@ angular
             },
           }
         })
+          .state('writing.compare.diff', {
+            url: '/diff',
+            reloadOnSearch : false,
+            controller: function($scope, diff){
+              $scope.diff = diff
+            },
+            templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
+            resolve: {
+              diff: function(StoryGitFactory, $stateParams) {
+                return StoryGitFactory.getDiff({
+                  id: $stateParams.storyId,
+                  commit: $stateParams.tag,
+                }).$promise;
+              },
+            }
+          })
 
     /*
 
