@@ -156,7 +156,7 @@ angular.module('miller')
         params.q = query
       }
 
-      filters.name__icontains = query;
+      // filters.name__icontains = query;
       return TagFactory.get(params).$promise.then(function(response) {
         return !has_create? response.results: response.results.concat([{
           type: '__new__',
