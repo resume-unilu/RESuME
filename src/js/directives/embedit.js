@@ -100,33 +100,35 @@ angular.module('miller')
         scope.render = function(language) {
           if(!scope.embedit)
             return;
-          
-          if(language && typeof scope.embedit == 'object') {
-            
+          // get contents
+          if(language && typeof scope.embedit == 'object') {            
             var altlanguage =  _.filter(scope.embedit, _.identity).pop(),
                 contents = scope.embedit[language] || scope.embedit['en_US'] || altlanguage || '';
-
-
-            if(attrs.markdown){
-              var md = new window.markdownit(options)
-                .disable(disable);
-              contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
-            }
-            
-            if(scope.firstline)
-              contents = contents.split(/<br\s?\/?>/).shift();
-            
-            element.html(contents);
-          } else if(attrs.markdown){
-            var md = new window.markdownit(options)
-              .disable(disable),
-              contents = attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit;
-
-            contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
-            element.html(contents);
           } else {
-            element.html(attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit)
+            contents = scope.embedit
           }
+
+          if(attrs.excerpt) {
+            contents = $filter('tokenize')(contents, parseInt(attrs.excerpt) || 32)
+          }
+
+          if(attrs.markdown){
+            var md = new window.markdownit(options)
+                .disable(disable);
+            contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
+          } else {
+            // smplie '\n'
+            contents = contents.split(/[\n\r]+/).join('<br/>')
+          }
+            
+          if(scope.firstline) {
+            contents = contents.split(/<br\s?\/?>/).shift();
+          }
+            
+          
+          element.html(contents);
+
+
 
           if(scope.stretch){
             scope.do_strech();
