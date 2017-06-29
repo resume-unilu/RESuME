@@ -28,9 +28,10 @@ angular.module('miller')
       restrict : 'A',
       scope: {
         value: '=',
-        follow: '='
+        follow: '=',
+        highlight: '&?' // highlight function
       },
-      template: '{{renderedValue}}',
+      template: '<span ng-bind-html="renderedValue"></span>',
       link: function(scope, element, attrs) {
         scope.render = function(event, language) {
           if(!language) {
@@ -44,7 +45,13 @@ angular.module('miller')
               _renderedValue = _(scope.value).filter().first()
           }
 
-          scope.renderedValue = _renderedValue;
+         
+
+          if(scope.highlight) {
+            scope.renderedValue = scope.highlight({text: _renderedValue});
+          } else {
+            scope.renderedValue = _renderedValue || attrs.default;
+          }
         }
         scope.$on(EVENTS.LANGUAGE_CHANGED, scope.render);
         
