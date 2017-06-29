@@ -1205,7 +1205,7 @@ ul.errorlist{
   font-size: 12px;
 }
 
-.author{
+a.author{
   text-transform: uppercase;
   font-family: 'Lato';  
 }
@@ -1424,6 +1424,7 @@ ul.errorlist{
 
 #wrapper.writing.diff #versioned-contents .CodeMirror{
   border: none;
+  color: #4d4d4d;
 }
 
 #wrapper.writing.preview #versioned-contents{
@@ -1555,6 +1556,15 @@ ul.errorlist{
   word-break: break-word;
 }
 
+.btn-line.mini{    
+  font-weight: normal;
+    font-size: 9px;
+    line-height: 15px;
+    padding: 0 3px;
+
+}
+
+
 a.btn-line{
   display: inline-block;
 }
@@ -1597,6 +1607,10 @@ a.btn-line:hover{
   border: 2px solid #151515;
 }
 
+.btn-line-group.red{
+  border: 2px solid #ff6b6b;
+}
+
 .btn-line-group.transparent{
   border-color: transparent;
   border-width: 0px;
@@ -1604,6 +1618,9 @@ a.btn-line:hover{
 
 .btn-line-group.primary .btn-line{
   color: #151515;
+}
+.btn-line-group.red .btn-line.active{
+  background: #ff6b6b;
 }
 
 .btn-line-group.primary .btn-line:hover{
@@ -3810,7 +3827,7 @@ content: "\e07a";
     right: 18px;
     width: 20px;
     height: 20px;
-    background: crimson;
+    background: #ff6B6B;
     border-radius: 20px;
     font-size: 10px;
     line-height: 20px;
@@ -3976,13 +3993,27 @@ content: "\e07a";
 
 }
 
-.versioned.current .tag-version{
-  background: #151515;
+.contents .tag-version{
+  background: #B7B2B2
 }
+
+
 
 .preview .versioned .tag-version{
   background: #B7B2B2;
 }
+
+.compare .contents .tag-version{
+  background: #151515;
+}
+
+.compare .contents.versioned .tag-version{
+  background: #ff6b6b;
+}
+.compare .contents.versioned.current .tag-version{
+  background: #151515;
+}
+
 
 .versioned .message{
   

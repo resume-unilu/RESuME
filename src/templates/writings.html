@@ -148,7 +148,7 @@ by <a href>{{metadata.owner.username}}</a>
         
         <button class='btn-line' ng-class='{"active": state=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
         <button class='btn-line' ng-class='{"active": state=="writing.preview"}' ui-sref='writing.preview({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
-        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
+        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare" || state=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
         <ul class="dropdown-menu" role="menu">
           <!-- <li>
             {{story.version}}
@@ -182,7 +182,12 @@ by <a href>{{metadata.owner.username}}</a>
       
       <div class='contents' style='margin-top: 50px; min-height: 50px; position:relative'>
           <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
-          <div class='log-version'>
+          <div class='log-version' ng-if='story.logs.length' ng-repeat='tag in story.logs'>
+            <span class='tag-version' >{{tag.tag}}</span>
+            <span class='date'> {{tag.date|date:"yyyy'.'MM'.'dd"}}</span> &mdash; {{tag.message}}
+          </div>
+
+          <div class='log-version' ng-if='!story.logs.length'>
             <span class='tag-version' >{{story.version}}</span>
             <span class='date'> {{story.date_last_modified|date:"yyyy'.'MM'.'dd"}}</span>
           </div>

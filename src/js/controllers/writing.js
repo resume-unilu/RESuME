@@ -466,6 +466,7 @@ angular.module('miller')
       StoryFactory.update({id: story.id}, update, function(res) {
         // update version number
         $scope.story.version = res.version;
+        $scope.story.logs    = res.logs;
         
         $log.debug('WritingCtrl @SAVE: success');
         $scope.$emit(EVENTS.MESSAGE, 'saved');
