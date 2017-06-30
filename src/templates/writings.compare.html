@@ -6,12 +6,14 @@
   </div>
   <div class='actions'>
     <div class='btn-line-group red transparent'>
-      <button class='btn-line mini' ng-class='{active: state=="writing.compare.diff"}'><span translate='source' ui-sref='writing.compare.diff({storyId: story.slug, tag: version.version})'></span></button>
-      <button class='btn-line mini'  ng-class='{active: state=="writing.compare"}'><span translate='preview' ui-sref='writing.compare({storyId: story.slug, tag: version.version})'></span></button>
+      <button class='btn-line mini' ui-sref='writing.compare.diff({storyId: story.slug, tag: version.version})' ng-class='{active: state=="writing.compare.diff"}'><span translate='diff'></span></button>
+      <button class='btn-line mini' ng-class='{active: state=="writing.compare"}' ui-sref='writing.compare({storyId: story.slug, tag: version.version})'><span translate='source' ></span></button>
+      <button class='btn-line mini' ui-sref='writing.compare.preview({storyId: story.slug, tag: version.version})' ng-class='{active: state=="writing.compare.preview"}'><span translate='preview' ></span></button>
     </div>
   </div>
   <div class='ui-view'>
-    <div id='versioned-contents' markdownit='version.contents' watchlanguage='true' language='language'></div>
-    <div rangy container='versioned-contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
+    <div codediff raw='version.contents'></div>
+    <!-- <div class='ready' id='versioned-contents' markdownit='version.contents' watchlanguage='true' language='language'></div>
+    <div rangy container='versioned-contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div> -->
   </div>
 </div>

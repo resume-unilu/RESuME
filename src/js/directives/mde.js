@@ -10,11 +10,12 @@ angular.module('miller')
     return {
       restrict: 'A',
       scope: {
-        raw: '='
+        raw: '=',
+        diff: '='
       },
-      template: "<div id='versioned-contents'><textarea></textarea></div>",
+      template: "<div ng-class='{\"ready\": isReady}' id='versioned-contents'><textarea></textarea></div>",
       link: function(scope, el, attributes){
-        scope.isReady = true;
+        scope.isReady = false;
         $log.log('::codediff loading...')
         angularLoad.loadScript(RUNTIME.static + 'js/lib/simplemde.min.js').then(function() {
           $log.log('::codediff lib loading done.');
@@ -27,7 +28,97 @@ angular.module('miller')
           });
           
           cm.setValue(scope.raw)
-          $log.log('::codediff ready.')
+          
+          var displayDiff = function(diff) {
+            if(typeof diff != 'object') {
+              // reset diff if any;
+              $log.log('::codediff -> displayDiff() no diff to display, codediff is ready.');
+              scope.isReady = true;
+              return
+            }
+            $log.log('::codediff -> displayDiff()');
+            
+            var lovely = /\[\-(.+?)\-\]|\{\+(.+?)\+\}/g
+
+            // get lines to highlight
+            for(var i in diff) {
+              $log.log('::codediff', i, diff[i])
+
+              // get line offset, the starting line (hence the -1)
+              var loffset = i.match(/\+(\d+)[,\d\s]+?@@$/)[1] - 1;
+
+              // concerned lines for this section:
+              var lines = diff[i].split(/\n/);
+              // $log.log('::codediff', lines);
+              for(var j=0, jl=lines.length; j < jl; j++) {
+                // match [32m till first [m and get chars info
+                // $log.log('::codediff', j,lines[j])
+                // has remarquable diffs?
+                var hasDiffs = lines[j].match(lovely),
+                    line = loffset + j - 1,
+                    contents = lines[j].replace(lovely, function(m, del, add) {
+                      return del || add;
+                    }),
+                    charoffset = 0;
+                // set line style  based on what it matched.
+                if(hasDiffs){
+                  // cm.replaceRange(lines[j], {
+                  cm.replaceRange(contents, {
+                    line: line,
+                    ch: 0
+                  }, {
+                    line:line,
+                    ch: line.length
+                  })
+                  // add line class according to the nature of lovely match.
+                  // if both add and del have been matched, it suhould be gray; otherwise light green or pink.
+                  cm.addLineClass(line, 'wrap','mod');
+                }
+                
+                while ((match = lovely.exec(lines[j])) != null) {
+                  var isDel  = typeof match[1] != 'undefined',
+                      left   = match.index - charoffset,
+                      right  = match.index - charoffset + match[0].length - 4;
+
+                  // $log.log('::codediff',"match found at " + match.index, match, 'on line:', line, charoffset, isDel);
+                  
+                  // $log.log('::codediff',"match found at " + match.index, match[0], match[0].length, 'offset:', charoffset, 'ch:', left, right)
+                  // $log.log('     matchC:', contents);
+                  // $log.log('     matchO:', lines[j]);
+                  cm.doc.markText({
+                    line: line,
+                    ch: left
+                  }, {
+                    line: line,
+                    ch: right
+                  }, {
+                    className: typeof match[1] == 'undefined'? 'add': 'del'
+                  })
+                  
+                  // if(isDel)
+                  //   charoffset = charoffset + match[0].length;
+                  // else
+                  charoffset += 4;
+                  
+                  // add specific mark at line.
+                }
+
+
+                // lines[j].spli(/\[32m [m/, function(){
+                //   console.log(args);
+
+                // })
+                scope.isReady = true; 
+              }
+              
+
+            }
+          }
+          // calculate diffs, watch;
+
+          scope.$watch('diff', displayDiff);
+          
+          $log.log('::codediff ready.');
         })
       }
     }
@@ -40,7 +131,8 @@ angular.module('miller')
         settoc: '&',
         setdocs: '&',
         setmarked: '&',
-        language: '='
+        language: '=',
+        diffs: '='
       },
       templateUrl: RUNTIME.static + 'templates/partials/directives/mde.html',
       link: function(scope, el, attributes){

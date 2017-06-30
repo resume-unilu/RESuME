@@ -1416,23 +1416,33 @@ a.author{
   border: 2px solid #FF6B6B;
   background-color: white;
   padding: 10px 15px;
+  visibility: hidden;
 }
 
-#wrapper.writing.diff #versioned-contents{
+#wrapper.writing #contents, #wrapper #versioned-contents.ready {
+  visibility: visible;
+}
+
+#wrapper.writing.compare #versioned-contents{
   padding:0;
 }
 
-#wrapper.writing.diff #versioned-contents .CodeMirror{
+#wrapper.writing.compare.preview #versioned-contents{
+
+  color: #4d4d4d;
+}
+
+#wrapper.writing #versioned-contents .CodeMirror{
   border: none;
   color: #4d4d4d;
 }
 
-#wrapper.writing.preview #versioned-contents{
+#wrapper.writing.live #versioned-contents{
   border-color: #c8c8c8;
   color: #151515;
 }
 
-#wrapper .versioned.current #versioned-contents{
+#wrapper.writing.live .versioned.current #versioned-contents{
   border-color: #151515;
 }
 
@@ -1486,6 +1496,24 @@ a.author{
   border-right-width: 0;
   font-family: monospace;
 }
+
+.CodeMirror-code .mod pre.CodeMirror-line > span{
+  background: #f0f0f0;
+}
+
+.CodeMirror-code .mod pre.CodeMirror-line > span > span.add{
+  background: #86f386;
+}
+
+.CodeMirror-code .mod pre.CodeMirror-line > span > span.del{
+  background: #ffffff;
+  color: #837c7c; 
+  text-decoration: line-through;
+}
+
+
+
+
 .cover-preview {
   overflow: auto;
   text-align:left;

@@ -26,6 +26,8 @@ angular.module('miller')
             docs = [],
             footnotes = {};
 
+        scope.isReady = false;
+
         scope.hash = function(what) {
           $location.hash(what);
         };
@@ -97,7 +99,7 @@ angular.module('miller')
           if(scope.setdocs){
             scope.setdocs({items:results.docs});
           }
-          
+          scope.isReady = true;
         };
 
         // watch language and reparse everything when needed.

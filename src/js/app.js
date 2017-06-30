@@ -249,12 +249,10 @@ angular
           },
         }
       })
-        .state('writing.preview', {
-          url: '/preview',
+        .state('writing.live', {
+          url: '/live',
           reloadOnSearch : false,
-          controller: function($scope){
-          },
-          templateUrl: RUNTIME.static + 'templates/writings.preview.html'
+          templateUrl: RUNTIME.static + 'templates/writings.live.html'
         })
         .state('writing.compare', {
           url: '/compare/:tag',
@@ -275,8 +273,24 @@ angular
           .state('writing.compare.diff', {
             url: '/diff',
             reloadOnSearch : false,
-            controller: function($scope, diff){
-              $scope.diff = diff
+            controller: function($scope, diff, story, StoryGitFactory, $stateParams){
+              $scope.diff = diff.results.diff;
+              // original story
+              $scope.hash = story.version;
+
+              $scope.$watch('story', function(v){
+                
+                if(v.version && v.version != $scope.hash) {
+                  StoryGitFactory.getDiff({
+                    id: $stateParams.storyId,
+                    commit: $stateParams.tag,
+                  }, function(res){
+                    $scope.diff = res.results.diff;
+                  })
+                }
+                // 
+                
+              }, true)
             },
             templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
             resolve: {
@@ -287,6 +301,11 @@ angular
                 }).$promise;
               },
             }
+          })
+          .state('writing.compare.preview', {
+            url: '/preview',
+            reloadOnSearch : false,
+            templateUrl: RUNTIME.static + 'templates/writings.compare.preview.html'
           })
 
     /*

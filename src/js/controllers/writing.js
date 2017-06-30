@@ -475,7 +475,7 @@ angular.module('miller')
         // disable stopping change status, cfr core controller
         $scope.toggleStopStateChangeStart(false);
 
-        if(next)
+        if(typeof next == 'function')
           next()
       }, function(){
         $scope.isSaving = false;
