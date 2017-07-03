@@ -20,7 +20,7 @@
           <span class='icon icon-type-{{item.type||item._type}}'></span><span class='type {{document.type}}'></span>
         </button>
        
-        <span class='title' embedit='item.metadata.title' language='language'></span>
+        <span class='title' embedit='item.data.title' language='language'></span>
           
         
         <!-- glossary contents -->
@@ -35,7 +35,7 @@
           </span>
           
           <div class='caption'>
-            <span embedit='item.metadata.abstract' language='language'></span>
+            <span embedit='item.data.abstract' language='language'></span>
             <span>
               <a ui-sref='story({postId:item.slug})'>
                 <span translate='more'></span>

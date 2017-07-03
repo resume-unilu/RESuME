@@ -34,7 +34,7 @@ angular.module('miller')
           // top visibility
           _is_top_visible = ws + offsetTop < ot;
 
-          $log.log('::sticky -> evaluate() -id:', attrs.id, '-btm:', _is_bottom_visible, '-top:', _is_top_visible, '-ot:', ot, offsetTop)
+          // $log.log('::sticky -> evaluate() -id:', attrs.id, '-btm:', _is_bottom_visible, '-top:', _is_top_visible, '-ot:', ot, offsetTop)
 
           if(scope.is_top_visible != _is_top_visible) {
             if(!_is_top_visible){
@@ -65,7 +65,7 @@ angular.module('miller')
           w.on('scroll', evaluate);
           w.on('resize', resize);
           resize();
-          $log.log('::sticky ready.');
+          // $log.log('::sticky ready.');
         }, 200);
         
         scope.$on('$destroy', function(){
