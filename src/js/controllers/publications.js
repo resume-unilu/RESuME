@@ -28,6 +28,10 @@ angular.module('miller')
 
     $scope.availabileOrderby = [
       {
+        label:'issue',
+        value:'-date,-priority,-date_last_modified'
+      },
+      {
         label:'newest',
         value:'-date,-date_last_modified'
       },
@@ -49,6 +53,7 @@ angular.module('miller')
       },
     ];
 
+    // see ordering below.
 
 
     // if there is a tag, we want to get its multilingual value
@@ -65,8 +70,7 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
-
-      $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'newest';
+      $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'issue';
       
       // transform filterrs from initials (they are for publication story, not for story.authors)
       var initials = $state.current.resolve.initials(),
