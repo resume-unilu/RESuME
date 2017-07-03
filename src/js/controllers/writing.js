@@ -16,25 +16,25 @@ angular.module('miller')
     $scope.story = story;
     
     // just to be sure
-    if(typeof $scope.story.metadata !== 'object'){
-      $scope.story.metadata = {
-        title: {},
-        abstract: {}
-      }
-    }
+    // if(typeof $scope.story.metadata !== 'object'){
+    //   $scope.story.metadata = {
+    //     title: {},
+    //     abstract: {}
+    //   }
+    // }
 
-    // if multilanguage fields do not exists for metadata
-    ['title', 'abstract'].forEach(function(field){
-      if($scope.language && !$scope.story.metadata[field][$scope.language]){
-        $scope.story.metadata[field][$scope.language] = story[field]
+    // if multilanguage fields do not exists for data
+    ['title', 'abstract'].forEach(function(field) {
+      if($scope.language && !$scope.story.data[field][$scope.language]){
+        $scope.story.data[field][$scope.language] = story[field]
       }
     });
 
     $scope.id    = story.id;
     
     // form will be linked to current languages. Cfr watch language below.
-    $scope.title    = $scope.story.metadata.title[$scope.language];
-    $scope.abstract = $scope.story.metadata.abstract[$scope.language];
+    $scope.title    = $scope.story.data.title[$scope.language];
+    $scope.abstract = $scope.story.data.abstract[$scope.language];
     $scope.contents = story.contents;
 
     // $scope.date     = story.date;
@@ -48,6 +48,7 @@ angular.module('miller')
       return d.category != 'keyword';
     });
 
+    // @todo disambiguate against (data)
     $scope.metadata = {
       status: story.status,
       owner: story.owner
@@ -458,7 +459,7 @@ angular.module('miller')
         title: $scope.title,
         abstract: $scope.abstract,
         contents: $scope.contents,
-        metadata: JSON.stringify($scope.story.metadata),
+        data: $scope.story.data,
         date: $scope.date,
         authors: _.map($scope.story.authors, 'id')
       }, $scope.metadata);
@@ -557,12 +558,12 @@ angular.module('miller')
 
     $scope.$watch('title', function(v){
       if($scope.language)
-        $scope.story.metadata.title[$scope.language] = v;
+        $scope.story.data.title[$scope.language] = v;
     });
 
     $scope.$watch('abstract', function(v){
       if($scope.language)
-        $scope.story.metadata.abstract[$scope.language] = v;
+        $scope.story.data.abstract[$scope.language] = v;
     });
 
     // enable stateChengestart by default

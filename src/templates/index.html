@@ -30,10 +30,10 @@
             <span  class='tag' ng-repeat='tag in story.tags|filter:{status:"public",category:"writing"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
             <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
           </div>
-          <div class="issue" embedit='story.metadata.issue'></div>
+          <div class="issue" embedit='story.data.issue'></div>
           <h4>
-            <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" embedit='story.metadata.title' language='language'></a>
-            <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" embedit='story.metadata.title' language='language'></a>
+            <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
+            <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
           </h4>
           <div class='authors' ng-if="story.authors.length">
             by <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
@@ -61,8 +61,8 @@
         <div ng-if='!$first' class="divider"></div>
         <div class="date">{{story.date|date:"yyyy'.'MM'.'dd"}}</div>
         <h4>
-          <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" embedit='story.metadata.title' language='language'></a>
-          <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" embedit='story.metadata.title' language='language'></a>
+          <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
+          <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
         </h4>
 
         <div class='contents'>

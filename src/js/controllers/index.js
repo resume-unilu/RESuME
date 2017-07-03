@@ -17,8 +17,8 @@ angular.module('miller')
         story.is_collection = true
       }
       story.keywords = _.filter(story.tags, {category: "keyword"})
-      for(var i in story.metadata.abstract)
-        story.excerpt[i] = $filter('tokenize')(story.metadata.abstract[i], 32)
+      for(var i in story.data.abstract)
+        story.excerpt[i] = $filter('tokenize')(story.data.abstract[i], 32)
 
       return story
     }

@@ -20,7 +20,7 @@
     
 
 
-    <h3 class="title"><a ui-sref="story({postId: story.slug})"><span embedit='story.metadata.title' language='language'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>  
+    <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>  
     <div class='authors' ng-if="story.authors.length">
       <span translate="written.by"></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
     </div>
@@ -30,7 +30,7 @@
       </a>
     </blockquote>
     
-    <blockquote ng-if='!story.excerpt && !story.matches' class="reduced" embedit='story.metadata.abstract' language='language'></blockquote>
+    <blockquote ng-if='!story.excerpt && !story.matches' class="reduced" rewording value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
     <blockquote class="reduced matches" ng-if="story.matches.highlights">
       <div embedit='story.matches.highlights'></div>  
