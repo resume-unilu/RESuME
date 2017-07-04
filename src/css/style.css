@@ -150,6 +150,8 @@ font-size: 12px;
   font-size: 12px;
 }
 
+
+
 .container{
   transition: transform .26s ease-in-out;
 }
@@ -1044,7 +1046,9 @@ ul.errorlist{
   height: 190px;
 }
 
-
+.issue{
+  display: inline-block;
+}
 .story.item .tags{
   display: inline-block;
 }

@@ -14,7 +14,7 @@
     <div class="tags" ng-if="story.tags.length && story.matches">
       <span class='tag' ng-click='setLocationFilter("tags",tag.slug)' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
     </div>
-
+    <div ng-if='story.data.issue' class="issue">&mdash; {{story.data.issue}}</div>
     <div class="date">{{story.date|date:"yyyy'.'MM'.'dd"}}</div>
 
     

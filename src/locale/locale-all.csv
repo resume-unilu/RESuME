@@ -190,7 +190,7 @@ order.by.oldest,,most recent last,,,most recent last
 order.by.lastnameaz,,by name (A-Z),par nom (A-Z),,by name (A-Z)
 order.by.lastnameza,,by name (Z-A),par nom (Z-A),,by name (Z-A)
 order.by.lastmod,,by last modified,,,
-order.by.issue,,by issue,par parution,,
+order.by.issue,,by issue,par numéro,,
 order.by.publishedrecently,,by latest publication,by latest publication,,by latest publication
 order.by.titleaz,,by title (A-Z),par titre (A-Z),,by title (A-Z)
 order.by.titleza,,by title (Z-A),par titre (Z-A),,by title (Z-A)

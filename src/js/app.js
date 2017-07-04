@@ -789,7 +789,7 @@ angular
                     tags__category: 'writing'
                   },
                   limit: 10,
-                  orderby: '-date,-priority,-date_last_modified'
+                  orderby: d.orderby? d.orderby:'-date,-date_last_modified'
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {

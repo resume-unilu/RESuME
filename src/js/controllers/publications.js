@@ -23,13 +23,12 @@ angular.module('miller')
         urls: RUNTIME.routes.publications.tags
       }
     ];
-
     
 
     $scope.availabileOrderby = [
       {
         label:'issue',
-        value:'-date,-priority,-date_last_modified'
+        value:'data__issue,-date'
       },
       {
         label:'newest',
@@ -70,7 +69,6 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
-      $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'issue';
       
       // transform filterrs from initials (they are for publication story, not for story.authors)
       var initials = $state.current.resolve.initials(),
@@ -78,9 +76,21 @@ angular.module('miller')
             limit: 10
           },
           filters = {},
-          exclude = {};
+          exclude = {},
+          ordering;
 
+      ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label')
+
+      if(!ordering && initials.orderby)
+        ordering = _.get(_.find($scope.availabileOrderby, {value: initials.orderby}),'label')
       
+      if(!ordering)
+        ordering = 'newest';
+
+
+      $scope.ordering =  ordering;
+      
+
       if(initials.filters){
         if($scope.state == 'publications.tags')
           initials.filters['tags__slug__all'] = [$state.params.slug];
