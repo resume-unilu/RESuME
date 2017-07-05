@@ -879,7 +879,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <!-- CONTENTS -->
     
     <div id='wrapper' ng-class='state|statetoclass'>
-      <div ng-click='hasToC = false;' ng-class='{"with-ToC": hasToC && ToC.length>0}' >
+      <div  ng-class='{"with-ToC": hasToC && ToC.length>0}' >
         {% block content %}
         <div ng-class='state' ui-view='' autoscroll>
         </div>

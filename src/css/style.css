@@ -819,6 +819,7 @@ ul.errorlist{
   -moz-transform: translateX(-270px);
   -ms-transform: translateX(-270px);
   z-index: 2;
+  overflow: hidden;
 }
 
 
@@ -827,14 +828,28 @@ ul.errorlist{
   top:150px;
 }
 
+#table-of-contents .actions {
+    top: 18px;
+    right: 20px;
+}
+
+#table-of-contents .action{
+  color: #b0b0b0;
+}
+#table-of-contents .action:hover{
+  color: #151515;
+  text-decoration: none;
+}
 
 #table-of-contents h2{
-  margin-top: 10px;
-  margin-left: 20px;
-  font-family: 'Lato', sans-serif;
-  font-size: 11px;
-  text-transform: uppercase;
-  font-weight: bold;  
+    margin: 10px 20px 0;
+    margin-left: 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 2px solid #b0b0b0;
+    padding-bottom: 5px;
 }
 
 
@@ -846,16 +861,9 @@ ul.errorlist{
 #table-of-contents ul{
   max-height: 300px;
   overflow: auto;
-  /* border-top: 2px solid; */
   padding: 15px 20px;
-/*
-
-  padding: 0;
-  margin: 0 20px 0 40px;
-  position: absolute;
-  top: 190px;
-  bottom: 0px;
-  overflow: auto;*/
+  margin-right: -20px;
+  padding-right: 40px;
 }
 
 #table-of-contents ul li{
