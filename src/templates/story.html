@@ -103,7 +103,10 @@
             <span ng-if="story.keywords.length" translate="keywords" class='label'></span>
             <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
           </div>
-          
+          <div class='btn-line-group transparent toC'>
+            <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

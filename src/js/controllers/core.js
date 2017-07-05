@@ -23,8 +23,10 @@ angular.module('miller')
 
     $scope.stopStateChangeStart = false; // cfr toggleStopStateChangeStart below
 
-    $scope.toggleTableOfContents = function() {
+    $scope.toggleTableOfContents = function(e) {
       $scope.hasToC = !$scope.hasToC;
+      if(e)
+        e.stopImmediatePropagation()
     };
 
     $scope.locationPath = '';
