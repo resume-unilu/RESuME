@@ -119,7 +119,7 @@
               <div class='preview' ng-show='embed.url' ng-class='embed.type'>
                 <!-- <div ng-if='embed.provider_name=="CVCE"' ng-include='"templates/partials/embeds/cvce.html"|prefixTemplate'></div> -->
                 <!-- <div ng-if='embed.provider_name=="YouTube"' ng-include='"templates/partials/embeds/YouTube.html"|prefixTemplate'></div> -->
-                <div ng-if='embed.provider_name=="Flickr"' ng-include='"templates/partials/embeds/Flickr.html"|prefixTemplate'></div>
+                <div ng-if='embed.type == "photo"' ng-include='"templates/partials/embeds/Flickr.html"|prefixTemplate'></div>
                 <div ng-if='embed.provider_name=="Ina.fr"' ng-include='"templates/partials/embeds/Ina.fr.html"|prefixTemplate'></div>
 
                 <div ng-if='embed.type == "link"'>
