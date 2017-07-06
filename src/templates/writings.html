@@ -23,13 +23,7 @@
     </label>
     <textarea id='draft-abstract' class='elastic-textarea' rows="1" msd-elastic ng-model='abstract' type='text' placeholder='abstract'></textarea>
     
-    <label><span translate="drafts.keywords.placeholder"></span> </label>
-    <tags-input class='tags-input' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="keywords" add-from-autocomplete-only="true" on-tag-adding='beforeAttachTag($tag)'  placeholder='add a tag'>
-        <auto-complete template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, {category:'keyword'}, true)" select-first-match='false' min-length='1'></auto-complete>
-        
-      </tags-input>
-
-
+    <div ng-repeat='tagField in tagFields|filter:{relevance:"primary"}' ng-include='"templates/partials/tags.input.html"|prefixTemplate'></div>
 
   </div>
   <div class='col-sm-4'>
@@ -80,12 +74,15 @@
       <textarea class='elastic-textarea' rows="1" msd-elastic ng-model='story.data.reference' type='text' placeholder='reference'></textarea>
 
 
-      <!-- tags placeholder  -->
-      <label translate="staff.drafts.tags.placeholder"></label>
+      <!-- <label translate="staff.drafts.tags.placeholder"></label>
       <tags-input class='tags-input'  on-tag-added='attachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="displayedTags" add-from-autocomplete-only="true">
           <auto-complete template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, {category__in:['blog','writing', 'highlights', 'publishing']}, false)" ></auto-complete>
-      </tags-input>
+      </tags-input> -->
     </div>
+
+    <!-- tags placeholder  -->
+    <div ng-repeat='tagField in tagFields|filter:{relevance:"secondary"}' ng-include='"templates/partials/tags.input.html"|prefixTemplate'></div>
+      
   </div>
 </div>
 

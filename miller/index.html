@@ -1164,6 +1164,47 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           oembeds: oembeds,
           settings: settings,
 
+          writings: { // loaded on runtime, from django settings.
+            tags: [
+              { 
+                label: 'drafts.keywords.placeholder', 
+                relevance: 'primary',
+                filters:  {
+                  category:'keyword'
+                },
+                lambda: {
+                  category:'keyword'
+                },
+                addFromAutocompleteOnly: false
+              },
+              {% if user.is_staff %}
+              {
+                label: 'staff.drafts.tags.placeholder',
+                relevance: 'secondary',
+                filters:  {
+                  category__in:['writing', 'blog', 'highlights']
+                },
+                lambda: function(d) {
+                  return ['writing', 'blog', 'highlights'].indexOf(d.category) != -1
+                },
+                addFromAutocompleteOnly: true
+              },
+              
+              {
+                label: 'publishing',
+                relevance: 'secondary',
+                filters:  {
+                  category: 'publishing'
+                },
+                lambda: {
+                  category: 'publishing'
+                },
+                addFromAutocompleteOnly: true
+              }
+              {% endif %}
+            ]
+          },
+
           routes: {
             assign: [
               {

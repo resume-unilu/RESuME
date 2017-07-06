@@ -37,6 +37,15 @@ angular.module('miller')
     $scope.abstract = $scope.story.data.abstract[$scope.language];
     $scope.contents = story.contents;
 
+    // add tags to scope
+    $scope.tagFields = RUNTIME.writings.tags;
+
+    for(var i = 0, j=$scope.tagFields.length; i<j; i++) {
+      $scope.tagFields[i].tags = _.filter(story.tags, $scope.tagFields[i].lambda);
+
+      
+    };
+
     // $scope.date     = story.date;
     $scope.keywords = _.filter(story.tags, {category: 'keyword'});
 
@@ -229,16 +238,17 @@ angular.module('miller')
       }
       $scope.isSaving = true;
       $scope.lock();
+      
       // partial update route
       return StoryFactory.patch({id: story.id}, {
-        tags: _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
+        tags: _($scope.tagFields).map('tags').flatten().map('id').concat([tag.id]).uniq().value()// _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> attachTag() tag success', res);
         $scope.unlock();
         $scope.isSaving =false;
-        if(tag.category == 'keyword'){
-          $scope.keywords = _.uniq($scope.keywords.concat(tag), 'id');
-        }
+        // if(tag.category == 'keyword'){
+        //   $scope.keywords = _.uniq($scope.keywords.concat(tag), 'id');
+        // }
 
         return true;
       }, function(){
@@ -274,7 +284,7 @@ angular.module('miller')
       $scope.lock();
       // partial update route
       return StoryFactory.patch({id: story.id}, {
-        tags: _.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'))
+        tags: _($scope.tagFields).map('tags').flatten().map('id').uniq().value()
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> detachTag() tag success', res);
         $scope.unlock();
