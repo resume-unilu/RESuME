@@ -860,7 +860,7 @@ angular
         }
       })
       .state('storygit', {
-        url: '/story/:id/:commit',
+        url: '/story/:id/git/:commit',
         controller: 'StoryCtrl',
         reloadOnSearch : false,
         templateUrl: RUNTIME.static + 'templates/story.html',
@@ -873,30 +873,34 @@ angular
           },
         }
       })
+      
+        // .state('collection', {
+        //   url: '/collection/:collectionId',
+        //   controller: 'StoryCtrl',
+        //   reloadOnSearch : false,
+        //   templateUrl: RUNTIME.static + 'templates/story.html',
+        //   resolve: {
+        //     story: function(CollectionFactory, $stateParams) {
+        //       return CollectionFactory.get({id: $stateParams.collectionId}).$promise;
+        //     },
+        //   }
+        // })
+        .state('story.story', { // i.e the chapters ;)
+          url: '/:chapterId',
+          controller: function($scope, chapter) {
+            $scope.chapter = chapter;
+            $scope.chapter.isWritable = $scope.hasWritingPermission($scope.user, $scope.chapter);
+          },
+          reloadOnSearch : false,
+          templateUrl: RUNTIME.static + 'templates/story.chapter.html',
+          resolve: {
+            chapter: function(StoryFactory, $stateParams) {
+              return StoryFactory.get({id: $stateParams.chapterId}).$promise;
+            },
+          }
+        });
 
-    $stateProvider
-      .state('collection', {
-        url: '/collection/:collectionId',
-        controller: 'CollectionCtrl',
-        reloadOnSearch : false,
-        templateUrl: RUNTIME.static + 'templates/collection.html',
-        resolve: {
-          collection: function(CollectionFactory, $stateParams) {
-            return CollectionFactory.get({id: $stateParams.collectionId}).$promise;
-          },
-        }
-      })
-      .state('collection.story', { // i.e the chapters ;)
-        url: '/:storyId',
-        controller: 'StoryCtrl',
-        reloadOnSearch : false,
-        templateUrl: RUNTIME.static + 'templates/collection.story.html',
-        resolve: {
-          story: function(StoryFactory, $stateParams) {
-            return StoryFactory.get({id: $stateParams.storyId}).$promise;
-          },
-        }
-      })
+    
 
     
     $stateProvider

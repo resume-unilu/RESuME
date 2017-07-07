@@ -1,4 +1,6 @@
-<div class="story">
+<div ng-if='isCollection' ng-include='"templates/collection.html"|prefixTemplate'></div>
+
+<div ng-if='!isCollection' class="story">
   <div class='container'>
     <div class="view">
       <div class="actions" >

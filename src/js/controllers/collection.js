@@ -6,6 +6,7 @@
  * transfor a story having tag collection in something completely crazy
  */
 angular.module('miller')
+
   .controller('CollectionCtrl', function($scope, $rootScope, $log, collection, EVENTS, StoryFactory, markdownItChaptersService){
     $log.log('CollectionCtrl ready', $scope.user.username, $scope.language)
 

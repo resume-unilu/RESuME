@@ -6,17 +6,29 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, markdownItChaptersService, EVENTS, RUNTIME) {
     $scope.story = story;
 
-    $scope.story.keywords = _.filter(story.tags, {category: 'keyword'});
-    $scope.story.displayedTags = _.filter(story.tags, function(d){
-      if(d.slug == 'collection'){
-        $scope.isCollection = true
-      }
-      return d.category != 'keyword';
-    });
+    // check whether is a collection
+    for (var i=0, j=story.tags.length; i<j; i++) {
+      if(story.tags[i].slug == 'collection'){
+        $scope.isCollection = true;
+        var links = markdownItChaptersService(story.contents, $scope.language);
+        var stories = _.keyBy(story.stories, 'slug');
+        
+        // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
+        $scope.chapters = _(links).map(function(d){
+          if(stories[d.slug]){
+            return stories[d.slug]
+          } else{
+            $log.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
+          }
+        }).compact().value();
 
+        break;
+      }
+    }
+    
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;

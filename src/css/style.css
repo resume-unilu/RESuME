@@ -495,11 +495,20 @@ ul.errorlist{
 .collection{
   /*background-color: #f0f0f0;*/
 }
-.collection h1.collection-title{
+.collection h1#collection-title{
   margin: 0;
   margin-top:10px;
 }
-.collection.story h1.collection-title{
+.collection h1#collection-title a{
+  text-decoration: none;
+  color: #151515;
+}
+
+.collection.story h1#collection-title a{
+  color: #151515;
+}
+
+.collection.story h1#collection-title{
   font-size: 18px;
     line-height: 35px;
     margin: 5px 0;
@@ -524,21 +533,13 @@ ul.errorlist{
   padding-right: 15px;
 }
 
-.collection h1.collection-title a{
-  text-decoration: none;
-  color: #151515;
-}
 
-.collection.story h1.collection-title a{
-
-  color: #151515;
-}
 .collection .chapter{
   background-color: white; 
   min-height: 200px;
   position: relative;
   padding: 10px 10px 0px 10px;
-  background: #f0f0f0;
+  background: #e6e6e6;
 }
 
 .collection .chapter h2 a {
@@ -558,18 +559,18 @@ ul.errorlist{
 }
 
 .collection .chapter .number{
-      position: absolute;
-    left: 20px;
-    width: 30px;
-    font-size: 20px;
-    z-index: 1;
-    top: 53px;
-    text-align: center;
-    border: 2px solid #151515 ;
-    color: #151515;
-    border-radius: 30px;
-    height: 30px;
-    font-family: 'Lato'
+  position: absolute;
+  left: 20px;
+  width: 30px;
+  z-index: 1;
+  top: 53px;
+  text-align: center;
+  border: 2px solid #151515;
+  color: #151515;
+  border-radius: 30px;
+  height: 30px;
+  font: 11px/25px 'Lato', sans-serif;
+  font-weight: bold;
 }
 
 .collection .chapter .inner{
@@ -640,21 +641,39 @@ ul.errorlist{
   line-height: 30px;
 }
 
-.collection-abstract{
+#collection-abstract{
+  margin: 15px 0px;
+}
+
+#collection-index{
+  position: absolute;
+  z-index: 2;
+  background: white;
+  width: 100%;
+}
+
+#collection-index.top-sticky{
+  position: fixed;
+  top: 70px;
+  height: 50px;
   background: #f0f0f0;
-  padding: 5px 20px 5px 20px;
-  margin: 0
+  width: 100%;
+}
+
+#collection-index ul.pagination{
+  width: 100%;
+}
+
+#collection-index.top-sticky ul.pagination{
+  border-bottom: 2px solid #151515;
 }
 
 /*
   override bootstrap pagination: usage within the collection;
 */
 .pagination{
-  /*border-bottom: 2px solid #B7B2B2;*/
-  padding-bottom: 0px 20px;
   border-radius: 0;
-  margin: 0;
-  /*width: 100%;*/
+  margin: 5px 0 0;
 }
 .pagination > li.special > a{
   width: auto;
@@ -662,40 +681,33 @@ ul.errorlist{
 }
 
 .pagination > li > a, .pagination > li > span{
-  margin: 5px 00px;
+  margin: 5px 0px;
   border: 0px solid transparent;
-  /*border-top-right-radius: 30px;
-  border-top-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;*/
+  border-bottom-width: 2px;
   color: #6b6b6b;
   padding: 0;
   width: 30px;
-  line-height: 26px;
   height: 30px;
   text-align: center;
-  font-family: 'Lato';
-  font-size: 13px;
+  font: 11px/26px 'Lato', sans-serif;
   transition: border-color .36s ease-in-out;
+  text-transform: uppercase;
   background: transparent;
 }
 
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus{
-  border: 0px solid transparent;
-  border: 0px solid #4ECDC4;
+  border-color: #4ECDC4;
   color: #4ECDC4;
   background: transparent;
 }
 
-.pagination > .active > a, 
-.pagination > .active > span, 
-.pagination > .active > a:hover, 
-.pagination > .active > span:hover, 
-.pagination > .active > a:focus, 
-.pagination > .active > span:focus{
-  border: 0px solid transparent;
-  /*border: 2px solid #FF6B6B;*/
-  /*color: #FF6B6B;*/
+.pagination > li.active > a, 
+.pagination > li.active > span, 
+.pagination > li.active > a:hover, 
+.pagination > li.active > span:hover, 
+.pagination > li.active > a:focus, 
+.pagination > li.active > span:focus{
+  border-color: #ff6b6b;
   color: #151515;
   background: transparent;
 }
@@ -1242,6 +1254,8 @@ a.author{
   padding-left: 5px;
   transition: background-color .36s ease-in;
   cursor: pointer;
+  word-break: break-all;
+  min-width: 20px;
 }
 
 .contents a.special-link:hover{
@@ -1408,10 +1422,6 @@ a.author{
   display: none;
 }
 
-.contents a.special-link{
-    min-width: 20px;
-    display: inline-block;
-}
 
 #wrapper.writing #contents, #wrapper #versioned-contents {
   transition: transform .36s ease-in-out;
