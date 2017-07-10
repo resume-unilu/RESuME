@@ -17,13 +17,13 @@
       </div>
       <!-- <div class="date">{{story.date_created|date:'mediumDate'}}</div> -->
       
-      <h3 class="title"><a ui-sref="collection({collectionId: story.slug})"><span embedit='story.metadata.title' language='language'></span> {{story.status != 'public'? '(DRAFT)': ''}}</a></h3>  
+      <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '(DRAFT)': ''}}</a></h3>  
       
       <div class='authors' ng-if="story.authors.length">
         <span translate='by'></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
       </div>
-      <blockquote ng-if='story.excerpt' class="reduced">{{story.excerpt}}.
-        <a href ui-sref="collection({collectionId: story.slug})">
+      <blockquote ng-if='story.excerpt' class="reduced"><span ng-bind-html='story.excerpt'></span>
+        <a href ui-sref="story({postId: story.slug})">
           <span class='icon-arrow-right-circle'></span>
         </a>
         <p>
@@ -31,7 +31,7 @@
         </p>
       </blockquote>
       
-      <blockquote ng-if='!story.excerpt' embedit='story.metadata.abstract' language='language'></blockquote>
+      <blockquote ng-if='!story.excerpt' rewording value='story.data.abstract' markdown='inline' default='{{story.abstract}}'></blockquote>
     </div>
   </div>
 </div>

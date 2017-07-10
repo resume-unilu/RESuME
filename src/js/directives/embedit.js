@@ -55,6 +55,7 @@ angular.module('miller')
                   'heading'
                 ]);
 
+            _renderedValue = _renderedValue || ''
             // _renderedValue = _renderedValue.split(/[\n\r]+/).join('<br/>')
             _renderedValue = attrs.markdown=='inline'? md.renderInline(_renderedValue): md.render(_renderedValue)
           }

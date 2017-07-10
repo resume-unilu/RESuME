@@ -279,8 +279,8 @@ state.publications.paper.abstract,,,,,
 state.publications.paper.label,,ePapers,ePapers,ePapers,ePapers
 state.publications.paper.title,,ePapers,ePapers,ePapers,ePapers
 state.publications.revue-ecu-euro.abstract,,,,,
-state.publications.revue-ecu-euro.label,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro
-state.publications.revue-ecu-euro.title,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro
+state.publications.revue-ecu-euro.label,,Revue de l'euro,Revue de l'euro,Revue de l'euro,Revue de l'euro
+state.publications.revue-ecu-euro.title,,Revue de l'euro,Revue de l'euro,Revue de l'euro,Revue de l'euro
 state.publications.todo.label,,pending publications,,,pending publications
 state.publications.draft.title,,drafts,,,
 state.publications.draft.abstract,,,,,
@@ -327,6 +327,7 @@ tab.url,,from url,depuis l'URL,aus der URL,from url
 tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 tag.law,,Law,Droit,Recht,Law
 tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
+table.of.contents,,,,,
 upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,Four easy steps
 upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading
 upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,You can find your submitted content here
