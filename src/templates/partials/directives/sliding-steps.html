@@ -57,7 +57,7 @@
       <!-- <div ng-if="item.type=='image'">
         {{item.data}}
       </div> -->
-      <div ng-if='item.data' ng-include='"templates/partials/document.metadata.html"|prefixTemplate'></div>
+      <div ng-if='item.data && item._type!="voc"' ng-include='"templates/partials/document.metadata.html"|prefixTemplate'></div>
     </div>
   </div>
 </div>
