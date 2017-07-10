@@ -7,7 +7,7 @@
       <div ng-if='!term.covers.length' class='title' rewording value='term.data.title'></div>
       <div ng-if='!term.covers.length' class='copyright' rewording value='term.data.abstract'></div>
       <!-- {{term.covers}} -->
-      <div class='cover' ng-repeat='cover in term.covers' lazy-img="{{ cover.metadata.thumbnail_url || cover.metadata.urls.Preview }}"></div>
+      <div class='cover' ng-repeat='cover in term.covers' lazy-img='{{cover|coverage}}'></div>
     </div>
     <div class='tile'>
       <div class="tags" ng-if="term.tags.length">
