@@ -41,6 +41,16 @@ angular.module('miller')
     }
 
     function normalizeItems(items) {
+      var md = new window.markdownit({
+                  breaks:       true,
+                  linkify:      true,
+                  html: false
+                })
+                .disable([
+                  'image', 
+                  'heading'
+                ]);
+
       return items
         .map(function(d){
           if(!d.data || !d.data.abstract)
@@ -61,7 +71,7 @@ angular.module('miller')
             return d;
           }
 
-          d.excerpt = $filter('tokenize')(d.data.abstract[$scope.language], 32);
+          d.excerpt = md.renderInline($filter('tokenize')( d.data.abstract[$scope.language], 32));
           return d;
         })
     };

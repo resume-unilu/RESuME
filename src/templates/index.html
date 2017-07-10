@@ -30,7 +30,7 @@
             <span  class='tag' ng-repeat='tag in story.tags|filter:{status:"public",category:"writing"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
             <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
           </div>
-          <div class="issue" embedit='story.data.issue'></div>
+          <div ng-if='story.data.issue' class="issue" embedit='story.data.issue'></div>
           <h4>
             <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
             <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>

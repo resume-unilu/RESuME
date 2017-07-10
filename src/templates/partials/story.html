@@ -24,7 +24,7 @@
     <div class='authors' ng-if="story.authors.length">
       <span translate="written.by"></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
     </div>
-    <blockquote ng-if='story.excerpt' class="reduced">{{story.excerpt}}.
+    <blockquote ng-if='story.excerpt' class="reduced"><span ng-bind-html='story.excerpt'></span>
       <a href ui-sref="story({postId: story.id})">
         <span class='icon-arrow-right-circle'></span>
       </a>
