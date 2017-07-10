@@ -43,24 +43,25 @@ angular.module('miller')
     function normalizeItems(items) {
       return items
         .map(function(d){
-          if(!d.metadata || !d.metadata.abstract)
+          if(!d.data || !d.data.abstract)
             return d
           if(d.tags && d.tags.length && _.filter(d.tags, {slug: 'collection', category:'writing'}).length){
             d.isCollection = true
           }
           // set keywords
           d.keywords = _.filter(d.tags, {category: "keyword"});
-
+          
           if(!_tag && $scope.state == 'publications.tags') {
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
+
           }
 
           // console.log(d)
-          if(!d.metadata.abstract[$scope.language]){
+          if(!d.data.abstract[$scope.language]){
             return d;
           }
 
-          d.excerpt = $filter('tokenize')(d.metadata.abstract[$scope.language], 32);
+          d.excerpt = $filter('tokenize')(d.data.abstract[$scope.language], 32);
           return d;
         })
     };

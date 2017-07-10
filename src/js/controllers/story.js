@@ -29,6 +29,13 @@ angular.module('miller')
       }
     }
     
+    $scope.keywords = _.filter(story.tags, {category: 'keyword'});
+
+    
+    $scope.displayedTags = _.filter(story.tags, function(d){
+      return d.status == 'public' && d.category != 'keyword';
+    });
+
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;

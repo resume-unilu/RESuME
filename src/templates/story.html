@@ -73,7 +73,7 @@
       <div class='row'>
         <div class='col-md-8'>
           <div class="tags" >
-            <span ng-if="story.displayedTags.length" class='tag sans-serif' ng-repeat='tag in story.displayedTags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+            <span ng-if="displayedTags.length" class='tag sans-serif' ng-repeat='tag in displayedTags' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
              <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
           
           </div>
@@ -102,8 +102,8 @@
           <blockquote class='abstract' rewording value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
           <div class="tags keywords">
-            <span ng-if="story.keywords.length" translate="keywords" class='label'></span>
-            <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+            <span ng-if="keywords.length" translate="keywords" class='label'></span>
+            <span class='tag sans-serif' ng-repeat='tag in keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
           </div>
           <div class='btn-line-group transparent toC'>
             <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
