@@ -44,8 +44,20 @@ angular.module('miller')
             if(!_renderedValue)
               _renderedValue = _(scope.value).filter().first()
           }
+          if(attrs.markdown){
+            var md = new window.markdownit({
+                  breaks:       true,
+                  linkify:      true,
+                  html: false
+                })
+                .disable([
+                  'image', 
+                  'heading'
+                ]);
 
-         
+            // _renderedValue = _renderedValue.split(/[\n\r]+/).join('<br/>')
+            _renderedValue = attrs.markdown=='inline'? md.renderInline(_renderedValue): md.render(_renderedValue)
+          }
 
           if(scope.highlight) {
             scope.renderedValue = scope.highlight({text: _renderedValue});
