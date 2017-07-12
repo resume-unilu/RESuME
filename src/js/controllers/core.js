@@ -424,7 +424,7 @@ angular.module('miller')
       } else if(!$scope.qs.view && $scope.fullsized){
          fullsizeModal.hide();
       }
-
+      
       /*
         Now emit stuff
       */

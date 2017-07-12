@@ -545,6 +545,13 @@ angular.module('miller')
       }
     })
     
+    $scope.$on(EVENTS.PARAMS_CHANGED, function(e,qs){
+      // check the collection (is it a slug?)
+      
+      if(qs.collection && qs.collection.match(/^[a-zA-Z\-\_\d]+$/)){
+        $scope.collection = qs.collection
+      }
+    })
 
 
     // listener for contents

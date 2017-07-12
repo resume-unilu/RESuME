@@ -269,10 +269,11 @@ angular.module('miller')
     // cfr corectrl setDocuments function.
     $scope.setDocuments = function(items) {
       $log.log('StoryCtrl > setDocuments items n.:', items.length, items);
+
       var documents = [];
 
       $scope.sidedocuments = 0;
-
+      
       documents = _(items)
         .map(function(d){
           // check if it is in the story.documents list

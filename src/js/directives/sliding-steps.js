@@ -249,7 +249,7 @@ angular.module('miller')
 
         scope.$watch('items', function(items){
           if(items && items.length){
-            console.log('something chenge', items)
+            $log.log('⏣ sliding-steps @items', items);
             scope.items = items;
           }
         })

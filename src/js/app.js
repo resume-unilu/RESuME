@@ -239,7 +239,7 @@ angular
         }
       })
       .state('writing', {
-        url: '/writing/:storyId',
+        url: '/writing/:storyId?collection',
         reloadOnSearch : false,
         controller: 'WritingCtrl',
         templateUrl: RUNTIME.static + 'templates/writings.html',
@@ -307,7 +307,6 @@ angular
             reloadOnSearch : false,
             templateUrl: RUNTIME.static + 'templates/writings.compare.preview.html'
           })
-
     /*
 
       Author routes.
@@ -887,10 +886,7 @@ angular
         // })
         .state('story.story', { // i.e the chapters ;)
           url: '/:chapterId',
-          controller: function($scope, chapter) {
-            $scope.chapter = chapter;
-            $scope.chapter.isWritable = $scope.hasWritingPermission($scope.user, $scope.chapter);
-          },
+          controller: 'ChapterCtrl',
           reloadOnSearch : false,
           templateUrl: RUNTIME.static + 'templates/story.chapter.html',
           resolve: {
