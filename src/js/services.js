@@ -73,6 +73,10 @@ angular.module('miller')
         params:{fn:'featured'},
         method: 'GET'
       },
+      getNeighbors: {
+        params:{fn:'neighbors'},
+        method: 'GET'
+      },
       pending: {
         params:{fn:'pending'},
         method: 'GET'

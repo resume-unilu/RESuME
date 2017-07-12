@@ -163,7 +163,8 @@
     </div>
     
     <div ng-if='story.isWritable' class='versioning' sticky >
-      <div class="dropdown">
+
+      <div class="btn-line-group transparent dropdown">
         <a class='btn-line' ng-click='loadVersions()' bs-dropdown placement='top-left' aria-haspopup="true" aria-expanded="false">
           <span ng-if='state=="story"'>most recent version</span><span ng-if='state!="story"'>version: {{story.version}}</span> <span class='icon icon-list'></span>
         </a>
@@ -178,14 +179,27 @@
         </ul>
         
       </div>
-
+      <!-- <div>{{neighbors}}</div> -->
+      <div class="btn-line-group transparent black " ng-if='neighbors.previous_sibling'>
+        <button class='btn-line' ui-sref='story({postId:neighbors.previous_sibling.slug})'>
+          <span class='icon left icon-arrow-left-circle'></span>
+          <span rewording value='neighbors.previous_sibling.data.title' default='{{neighbors.previous_sibling.title}}'></span>
+        </button>
+      </div>
+      <div class="btn-line-group transparent black" ng-if='neighbors.next_sibling'>
+        <button class='btn-line' ui-sref='story({postId:neighbors.next_sibling.slug})'>
+          <span rewording value='neighbors.next_sibling.data.title' default='{{neighbors.next_sibling.title}}'></span>
+          <span class='icon icon-arrow-right-circle'></span>
+        </button>
+      </div>
     </div>
+
     <div marginalia whenvisible='loadComments()'></div>
             
   </div>
   <div class='responses' ng-if='story.isWritable || story.isReviewable'>
     <div class='container' >
-      <div class='row' style='margin-bottom: 50px'>
+      <div class='row' style='margin-bottom: 100px'>
         <div class='col-md-12'>
           <!-- comment list babe -->
             <div  class='sliding-steps'>

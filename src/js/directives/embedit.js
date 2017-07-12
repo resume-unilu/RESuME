@@ -144,11 +144,8 @@ angular.module('miller')
           if(scope.firstline) {
             contents = contents.split(/<br\s?\/?>/).shift();
           }
-            
           
           element.html(contents);
-
-
 
           if(scope.stretch){
             scope.do_strech();

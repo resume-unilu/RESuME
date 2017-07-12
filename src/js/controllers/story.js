@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, markdownItChaptersService, EVENTS, RUNTIME) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $timeout, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, markdownItChaptersService, EVENTS, RUNTIME) {
     $scope.story = story;
 
     // check whether is a collection
@@ -28,6 +28,8 @@ angular.module('miller')
         break;
       }
     }
+
+
     
     $scope.keywords = _.filter(story.tags, {category: 'keyword'});
 
@@ -181,6 +183,19 @@ angular.module('miller')
         $scope.isLoadingComments = false;
       });
     }
+
+
+    // load previous and next.
+    $scope.loadNeighbors = function(){
+      StoryFactory.getNeighbors({
+        id: story.id
+      }, function(res){
+        $scope.neighbors = res;
+      })
+    };
+    // autoload
+
+    $timeout($scope.loadNeighbors(), 2000);
 
     // load available GIT TAGGED versions of the story.
     $scope.versions = [];
