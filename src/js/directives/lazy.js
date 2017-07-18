@@ -146,6 +146,47 @@ angular.module('miller')
     }
   })
 
+  .directive('respectSibling', function($log, $timeout,$rootScope, EVENTS){
+    return {
+      scope:{
+        update: '='
+      },
+      restrict : 'A',
+      link: function(scope, element, attrs){
+        $log.log('🚀 respect-next-sibling ready')
+        var p,
+            _sibling = attrs.respectSibling == 'next'? 'next': 'previous';
+        
+
+        function setHeight(){
+          $log.log('🚀 respect-next-sibling > setHeight()')
+          // debugger
+          $timeout.cancel(p)
+          p = $timeout(function(){
+            var h = _sibling == 'next'? element.next()[0].offsetHeight: element.prev()[0].offsetHeight;
+            element.height(Math.max(h, attrs.minHeight || 300));
+          }, 500);
+        }
+
+
+        
+
+        setHeight();
+        angular.element(window).bind('resize', setHeight);
+
+        $rootScope.$on(EVENTS.RESIZE, function(){
+          setHeight()
+        });
+        //   setHeight();
+        // }, true);
+
+        // scope.$watch('update', function(){
+        //   setHeight();
+        // }, true);
+      }
+    }
+  })
+
   .directive('respectPreviousSibling', function($log, $timeout){
     return {
       scope:{

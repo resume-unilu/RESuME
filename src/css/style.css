@@ -4110,3 +4110,287 @@ content: "\e07a";
   padding: 0px 5px;
   line-height: 25px;
 }
+
+
+/*
+  directive: biography;
+*/
+
+.biography-wrapper{
+  background-color: #f0f0f0;
+  margin-bottom: 25px;
+}
+
+.biography {
+  height: 300px;
+  position: relative;
+}
+
+.biography .date{
+  color: #837c7c;
+}
+
+.biography .frame{
+  position:absolute;
+  top: 15px;
+  left: 10px;
+  right:10px;
+  bottom: 0;
+}
+
+.biography .frame label{
+  position: absolute;
+  color: #837c7c;
+  top: 0;
+  margin: 0;
+  width: 50%;
+}
+
+.biography .frame label.birth{
+  left: 0px;
+  
+}
+
+.biography .frame label .place{
+  font: 11px/18px 'Merriweather', sans-serif;
+}
+
+
+.biography .frame label.death{
+  right: 0px;
+  text-align: right;
+}
+
+.biography .frame .lifespan{
+  position:absolute;
+  top: 0px;
+  height: 55px;
+  left: 35px;
+  right: 35px;
+}
+
+.biography .frame .line{
+  position:absolute;
+  top: 28px;
+  height: 2px;
+  background-color: #B7B2B2;
+  width: 100%;
+  left:0;
+}
+
+
+
+.biography .lifespan .line.offset{
+  background-color: #151515;
+  top: 70px;
+  left: initial;
+  right: initial;
+}
+
+
+
+
+
+.biography .bar-wrapper{
+  position: absolute;
+  left: 200px;
+  top: 20px;
+}
+
+.biography .bar-wrapper .date{
+  color: #151515;
+  position: absolute;
+  top: -10px;
+}
+.biography .bar-wrapper .date.right{
+/*    right: 4px;
+    top: 13px;*/
+  right: 4px;
+  top: -17px;
+}
+
+.biography .bar-wrapper .date.left{
+ left: 4px;
+    top: -17px;
+
+}
+
+.biography .bar-wrapper .border{
+  position: absolute;
+  height: 48px;
+  width: 2px;
+  top: 4px;
+  background-color: #151515;
+  left:0;
+}
+.biography .bar-wrapper .border.right{
+  left: initial;
+  right: 0;
+}
+
+.biography .bar-wrapper .bar{
+  position: absolute;
+  top: 4px;
+  height: 10px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #151515;
+  /*border: 2px solid #151515;*/
+}
+
+.biography .activity .bar-wrapper .bar{
+  top: 8px;
+  border: 2px solid #6b6b6b;
+  background-color: rgba(182, 182, 182, 0.5);
+      height: 10px;
+}
+
+
+.biography .activities{
+  position: absolute;
+  top: 80px;
+  /*background: crimson;*/
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+
+.biography .activities .activity{
+  font: 11px/18px 'Merriweather';
+  font-style: italic;
+  position: absolute;
+  left: 35px;
+  right: 35px;
+  
+}
+
+.biography .activity .bar-wrapper{
+  top: 0;
+  z-index:1;
+}
+
+.biography .activity .bar-wrapper .date{
+  top: 4px;
+  font-style: normal;
+  background-color: #f0f0f0;
+  font-size: 11px;
+}
+.biography .activity .bar-wrapper .date.right{
+  right: -30px;
+}
+.biography .activity .bar-wrapper .date.left{
+      left: -30px;
+}
+
+.biography .activity .line{
+  top: 12px;
+  z-index: 0;
+}
+
+.biography .activity .description{
+  position: absolute;
+  /*display: none;*/
+  z-index:2;
+  left: 0px;
+  right: 0px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
+
+.biography .activity .description > span{
+  background: #f0f0f0;
+  padding: 0 4px;
+  color: #837c7c;
+      line-height: 25px;
+}
+
+.biography .activity.active .line{
+  
+  background-color: transparent;
+}
+.biography .activity.active .description > span {
+  color: #151515;
+}
+
+.biography .activity.active .bar-wrapper .bar{
+  background: white;
+  border-color: #151515;
+  /*border-color: #ff6b6b;*/
+}
+
+.biography .activity .bar-wrapper .bar.POL{
+  border-color: #ff6b6b;
+    background-color:rgba(255, 107, 107, 0.37);
+}
+.biography .activity.active .bar-wrapper .bar.POL{
+  background-color:#ff6b6b;
+  border-color: #151515;
+}
+/*
+  biography tooltip
+*/
+.biography-tooltip{
+  width: 250px;
+  position: absolute;
+  top: 0;
+  left: -10000px;
+  z-index: 10;
+  color: white;
+  transition: opacity .26s ease-in-out;
+  opacity: 1;
+}
+
+.biography-tooltip.hide{
+  display: block !important;
+  opacity: 0;
+  transition-delay: .36s;
+  pointer-events: none;
+}
+
+.biography-tooltip .inner{
+  background-color: rgba(26,26,26,.93);
+  padding: 5px 10px 10px;
+}
+
+.biography-tooltip .date{
+  color: white;
+  display: inline-block;
+}
+.biography-tooltip .type{
+  font: 11px/18px 'Lato', sans-serif;
+  text-transform: uppercase;
+  border-bottom: 2px solid #6b6b6b;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  color: #e0e0e0;
+}
+
+.biography-tooltip .type.POL{
+  border-bottom-color: #ff6b6b;
+}
+
+.biography-tooltip .description{
+ 
+    font-weight: normal;
+    font: 12px/19px 'Merriweather', serif;
+    font-style: italic;
+    color: #d0d0d0;
+
+
+}
+
+.biography-tooltip .inner .arrow {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid rgba(26,26,26,.93);
+    position: absolute;
+    bottom: -7px;
+    left: 47px;
+}
+

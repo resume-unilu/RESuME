@@ -13,6 +13,19 @@ angular.module('miller')
     $scope.isSaving = false;
     $scope.isCollection = false;
 
+    // biography.
+    story.covers    = _(story.covers).filter(function(d){
+      d.type !=  'entity'
+    });
+    
+    story.biography = _(story.covers).filter({
+      type: 'entity', 
+      data: {
+        type: 'person'
+      }
+    }).first()
+
+
     $scope.story = story;
     
     // just to be sure
@@ -119,9 +132,7 @@ angular.module('miller')
           _.uniq(tobesaved.doc).map(function(slug) {
             var p = CaptionFactory.save({
               story: story.id,
-              document: {
-                slug: slug
-              }
+              document: slug
             }, function(res) {
               $log.warn('... CaptionFactory.save success', res);
               // documents.push(res);
@@ -190,7 +201,7 @@ angular.module('miller')
       $scope.isSaving = true;
       $scope.lock();
       StoryFactory.patch({id: story.id}, {
-        covers: [doc.id]
+        covers: $scope.biography? [$scope.biography.id, doc.id]: [doc.id]
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> setCover() doc success', res);
         $scope.story.covers = [doc];
@@ -208,7 +219,7 @@ angular.module('miller')
       $scope.isSaving = true;
       $scope.lock();
       StoryFactory.patch({id: story.id}, {
-        covers: []
+        covers: $scope.biography? [$scope.biography.id]:[]
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> removeCover() doc success', res);
         $scope.story.covers = [];

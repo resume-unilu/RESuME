@@ -34,6 +34,7 @@ angular.module('miller')
       template: '<span ng-bind-html="renderedValue"></span>',
       link: function(scope, element, attrs) {
         scope.render = function(event, language) {
+          
           if(!language) {
             return;
           }
@@ -68,12 +69,17 @@ angular.module('miller')
         }
         scope.$on(EVENTS.LANGUAGE_CHANGED, scope.render);
         
-        scope.follow && scope.$watch('follow', function(v) {
-          if(v)
-            scope.render(null, $rootScope.language);
-        });
-
-        scope.render(null, $rootScope.language);
+        if(attrs.follow){
+          scope.$watch('follow', function(v) {
+            if(attrs.debug === 'true'){
+              console.log('::: embedit @follow - value:', v)
+            }
+            if(v)
+              scope.render(null, $rootScope.language);
+          });
+        } else {
+          scope.render(null, $rootScope.language);
+        }
       }
     }
   })

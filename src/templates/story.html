@@ -112,9 +112,26 @@
         </div>
       </div>
     </div>
+      <div ng-if='isBiography'>
+        <div class='container' >
+          <div class='row no-gutter biography-wrapper' >
+            <div class='col-sm-4' style='padding: 0' respect-sibling='next'>
+              <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
+                <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
+              </div>
+              <div ng-if='!story.covers.length && biography' class="main cover" style='height: 100%'>
+                
+                <div class="lazy-cover" style="background-position:{{biography.data.offsetx}} {{biography.data.offsety}};" lazy-img="{{biography.data.url||biography.data.thumbnail_url}}"></div>
+              </div>
 
-      <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
-        
+            </div>
+            <div class='col-sm-8' >
+              <div biography data='biography.data'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if='!isBiography && story.covers.length' class="main cover" ng-repeat='document in story.covers'>
         <div class='container'>
 
           <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>

@@ -7,12 +7,14 @@
  */
 angular.module('miller')
   .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $timeout, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, markdownItChaptersService, EVENTS, RUNTIME) {
-    $scope.story = story;
 
-    // check whether is a collection
+
+    
+
+    // check whether is a collection or a biography
     for (var i=0, j=story.tags.length; i<j; i++) {
-      if(story.tags[i].slug == 'collection'){
-        $scope.isCollection = true;
+      if(story.tags[i].category='writing' && story.tags[i].slug == 'collection'){
+        
         var links = markdownItChaptersService(story.contents, $scope.language);
         var stories = _.keyBy(story.stories, 'slug');
         
@@ -25,10 +27,23 @@ angular.module('miller')
           }
         }).compact().value();
 
-        break;
+        $scope.isCollection = true;
+      } else if(story.tags[i].category='writing' && story.tags[i].slug == 'biography'){
+        
+        $scope.biography = _(story.covers).filter({type: 'entity', data: {type: 'person'}}).first()
+        // extract the biography from the covers or from documents
+        $scope.isBiography = !!$scope.biography && $scope.biography.data.activities && $scope.biography.data.activities.length;
+        
+        // story.covers = _.filter(story.covers, function(o) { return r.type != 'entity' })
       }
     }
 
+    // filter out 'entity' from story covers (they should appear elsewhere)
+    story.covers = _(story.covers).filter(function(d){
+      d.type !=  'entity'
+    });
+
+    $scope.story = story;
 
     
     $scope.keywords = _.filter(story.tags, {category: 'keyword'});
