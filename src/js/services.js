@@ -591,6 +591,85 @@ angular.module('miller')
       return results;
     };
   })
+  /*
+    Basic item extension service, based on model name dispatch it to the correct service.
+  */
+  .service('extendItem', function($injector) {
+    return function(item, model, options) {
+      if(model == 'story') {
+        return $injector.get('extendStoryItem')(item, options.language);
+      }
+      return item;
+    }
+  })
+  /*
+    add information about a story given its tags.
+    extend story with:
+    ```
+    story._chapters     = [];
+    story._biography    = null;
+    story._isBiography  = false;
+    story._isCollection = false;
+    ```
+    Then rewrite `covers`property excluding special documents.
+    Return an extended story.
+  */
+  .service('extendStoryItem', function(markdownItChaptersService) {
+    return function(story, language) {
+      // extend story with:
+      story._chapters     = [];
+
+      story._biography    = null;
+      story._isBiography  = false;
+      story._isCollection = false;
+
+      // tags by category
+      story._tags = {};
+
+      for (var i=0, j=story.tags.length; i<j; i++) {
+        if(story.tags[i].category=='writing' && story.tags[i].slug == 'collection'){
+          
+          var links = markdownItChaptersService(story.contents, language);
+          var stories = _.keyBy(story.stories, 'slug');
+          
+          // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
+          story._chapters = _(links).map(function(d){
+            if(stories[d.slug]){
+              return stories[d.slug]
+            } else{
+              $log.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
+            }
+          }).compact().value();
+
+          story._isCollection = true;
+        } else if(story.tags[i].category=='writing' && story.tags[i].slug == 'biography'){
+          story._isBiography = true;
+        }
+        
+        if(!story._tags[story.tags[i].category])
+          story._tags[story.tags[i].category] = []
+
+        if(story.tags[i].status == "public")
+          story._tags[story.tags[i].category].push(story.tags[i])
+
+      }
+
+      // exclude document types as "entity" from covers
+      story.covers = story.covers.filter(function(doc){
+        // if there is an entity, use it as a _biography document.
+        if(story._isBiography && doc.type =='entity' && doc.data.type == 'person') {
+          story._biography = doc
+        }
+        return doc.type !=  'entity'
+      });
+
+      // confirm that the biography is valid.
+      story._isBiography = !!story._biography && !!story._biography.data.activities && !!story._biography.data.activities.length;
+
+      return story
+    }
+  })
+
   .factory('metadataFactory', function($log) {
     return {
       parse: function(story){

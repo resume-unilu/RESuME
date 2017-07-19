@@ -6,58 +6,15 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $timeout, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, markdownItChaptersService, EVENTS, RUNTIME) {
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $timeout, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, extendStoryItem, EVENTS, RUNTIME) {
 
-
-    
-
-    // check whether is a collection or a biography
-    for (var i=0, j=story.tags.length; i<j; i++) {
-      if(story.tags[i].category='writing' && story.tags[i].slug == 'collection'){
-        
-        var links = markdownItChaptersService(story.contents, $scope.language);
-        var stories = _.keyBy(story.stories, 'slug');
-        
-        // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
-        $scope.chapters = _(links).map(function(d){
-          if(stories[d.slug]){
-            return stories[d.slug]
-          } else{
-            $log.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
-          }
-        }).compact().value();
-
-        $scope.isCollection = true;
-      } else if(story.tags[i].category='writing' && story.tags[i].slug == 'biography'){
-        
-        $scope.biography = _(story.covers).filter({type: 'entity', data: {type: 'person'}}).first()
-        // extract the biography from the covers or from documents
-        $scope.isBiography = !!$scope.biography && $scope.biography.data.activities && $scope.biography.data.activities.length;
-        
-        // story.covers = _.filter(story.covers, function(o) { return r.type != 'entity' })
-      }
-    }
-
-    // filter out 'entity' from story covers (they should appear elsewhere)
-    story.covers = _(story.covers).filter(function(d){
-      d.type !=  'entity'
-    });
+    story = extendStoryItem(story, $scope.language);
 
     $scope.story = story;
-
     
-    $scope.keywords = _.filter(story.tags, {category: 'keyword'});
-
-    
-    $scope.displayedTags = _.filter(story.tags, function(d){
-      return d.status == 'public' && d.category != 'keyword';
-    });
-
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;
-
-     
     $scope.story.isUnderReview = ['review', 'editing', 'pending'].indexOf(story.status) !== -1;
     
     // is the layout table or other?

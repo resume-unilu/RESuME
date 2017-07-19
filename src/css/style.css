@@ -2744,7 +2744,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   background-color: transparent;
 }
 .story .cover.main .cover-oembed{
-  height: 400px;
+  height: 100%;/*400px;*/
 }
 
 .story .cover.main .metadata{

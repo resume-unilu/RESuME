@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, EVENTS) {
+  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, extendItem, EVENTS) {
     $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'initials:', initials);
 
     // model is used to get the correct item template
@@ -55,15 +55,14 @@ angular.module('miller')
         .map(function(d){
           if(!d.data || !d.data.abstract)
             return d
-          if(d.tags && d.tags.length && _.filter(d.tags, {slug: 'collection', category:'writing'}).length){
-            d.isCollection = true
-          }
-          // set keywords
-          d.keywords = _.filter(d.tags, {category: "keyword"});
+          
+          d = extendItem(d, $scope.model, {
+            language: $scope.language
+          });
           
           if(!_tag && $scope.state == 'publications.tags') {
+            _tag = true;
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
-
           }
 
           // console.log(d)

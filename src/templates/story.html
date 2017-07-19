@@ -1,6 +1,6 @@
-<div ng-if='isCollection' ng-include='"templates/collection.html"|prefixTemplate'></div>
+<div ng-if='story._isCollection' ng-include='"templates/collection.html"|prefixTemplate'></div>
 
-<div ng-if='!isCollection' class="story">
+<div ng-if='!story._isCollection' class="story">
   <div class='container'>
     <div class="view">
       <div class="actions" >
@@ -73,7 +73,8 @@
       <div class='row'>
         <div class='col-md-8'>
           <div class="tags" >
-            <span ng-if="displayedTags.length" class='tag sans-serif' ng-repeat='tag in displayedTags' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.writing' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.blog' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
              <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
           
           </div>
@@ -102,8 +103,8 @@
           <blockquote class='abstract' rewording markdown='inline' value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
           <div class="tags keywords">
-            <span ng-if="keywords.length" translate="keywords" class='label'></span>
-            <span class='tag sans-serif' ng-repeat='tag in keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+            <span ng-if="story._tags.keywords" translate="keywords" class='label'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
           </div>
           <div class='btn-line-group transparent toC'>
             <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
@@ -112,29 +113,29 @@
         </div>
       </div>
     </div>
-      <div ng-if='isBiography'>
+      <div ng-if='story._isBiography'>
         <div class='container' >
           <div class='row no-gutter biography-wrapper' >
             <div class='col-sm-4' style='padding: 0' respect-sibling='next'>
-              <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
+              <div ng-if='story.covers.length' class="main cover" style='height: 100%' ng-repeat='document in story.covers'>
                 <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
               </div>
-              <div ng-if='!story.covers.length && biography' class="main cover" style='height: 100%'>
+              <div ng-if='!story.covers.length' class="main cover" style='height: 100%'>
                 
-                <div class="lazy-cover" style="background-position:{{biography.data.offsetx}} {{biography.data.offsety}};" lazy-img="{{biography.data.url||biography.data.thumbnail_url}}"></div>
+                <div class="lazy-cover" style="background-position:{{story._biography.data.offsetx}} {{story._biography.data.offsety}};" lazy-img="{{story._biography.data.url||story._biography.data.thumbnail_url}}"></div>
               </div>
 
             </div>
             <div class='col-sm-8' >
-              <div biography data='biography.data'></div>
+              <div biography data='story._biography.data'></div>
             </div>
           </div>
         </div>
       </div>
-      <div ng-if='!isBiography && story.covers.length' class="main cover" ng-repeat='document in story.covers'>
+      <div ng-if='!story._isBiography && story.covers.length' class="main cover" ng-repeat='document in story.covers'>
         <div class='container'>
 
-          <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
+          <div class='cover-oembed'  style='height: 400px' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
           
           <!-- </div> -->
           
