@@ -6,36 +6,14 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
-    $scope.isDraft = false;
-    $scope.isSaving = false;
-    $scope.isCollection = false;
-
-    // biography.
-    story.covers    = _(story.covers).filter(function(d){
-      d.type !=  'entity'
-    });
+    story = extendStoryItem(story, $scope.language);
     
-    story.biography = _(story.covers).filter({
-      type: 'entity', 
-      data: {
-        type: 'person'
-      }
-    }).first()
-
-
     $scope.story = story;
+    $scope.isSaving = false;
     
-    // just to be sure
-    // if(typeof $scope.story.metadata !== 'object'){
-    //   $scope.story.metadata = {
-    //     title: {},
-    //     abstract: {}
-    //   }
-    // }
-
     // if multilanguage fields do not exists for data
     ['title', 'abstract'].forEach(function(field) {
       if($scope.language && !$scope.story.data[field][$scope.language]){
@@ -50,26 +28,14 @@ angular.module('miller')
     $scope.abstract = $scope.story.data.abstract[$scope.language];
     $scope.contents = story.contents;
 
-    // add tags to scope
+    // add tags to scope, including their fields
     $scope.tagFields = RUNTIME.writings.tags;
 
     for(var i = 0, j=$scope.tagFields.length; i<j; i++) {
       $scope.tagFields[i].tags = _.filter(story.tags, $scope.tagFields[i].lambda);
-
-      
     };
 
-    // $scope.date     = story.date;
-    $scope.keywords = _.filter(story.tags, {category: 'keyword'});
-
     
-    $scope.displayedTags = _.filter(story.tags, function(d){
-      if(d.slug == 'collection'){
-        $scope.isCollection = true
-      }
-      return d.category != 'keyword';
-    });
-
     // @todo disambiguate against (data)
     $scope.metadata = {
       status: story.status,
