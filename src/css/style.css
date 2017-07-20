@@ -2122,6 +2122,11 @@ a.btn-line:hover{
   background-color: #e6e5e5;
 }
 
+.tags-input .autocomplete  .item.selectable .description{
+  font: 11px/18px 'Merriweather', serif;
+  text-transform: none;
+}
+
 .tags-input .autocomplete .suggestion-item.selected .item.create-new .btn-line{
   background-color: #151515;
   color: white;

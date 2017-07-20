@@ -10,7 +10,7 @@
       <span translate="field.label.author"></span>
     </label>  
     <tags-input class='tags-input' on-tag-added='attachAuthor($tag)' on-tag-removed='detachAuthor($tag)' key-property='id' display-property='fullname' placeholder='Add an author' ng-model="story.authors" template='{{"templates/partials/author.input.html"|prefixTemplate}}'>
-      <auto-complete source="suggestAuthors($query)" template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}'></auto-complete>
+      <auto-complete source="suggestAuthors($query)" template='{{"templates/partials/author.autocomplete.html"|prefixTemplate}}'></auto-complete>
     </tags-input>
 
     <label>
