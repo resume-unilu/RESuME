@@ -10,6 +10,7 @@
     </span>
 
     <a ng-if='document.type=="link"' target='_blank' ng-href='{{document.data.url}}'><span class='title' embedit='document.data.title' language='language'></span></a>
+    <a ng-if='document.type=="entity" && document.data.wiki_id' target='_blank' ng-href='https://dbpedia.org/page/{{document.data.wiki_id}}'><span class='title'><span translate='cfr'></span> dbpedia</a>
     
     <div ng-if='document.data.abstract'  class='abstract'>
       <span embedit='document.data.abstract' language='language'></span>

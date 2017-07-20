@@ -77,6 +77,7 @@ angular.module('miller')
         params:{fn:'neighbors'},
         method: 'GET'
       },
+
       pending: {
         params:{fn:'pending'},
         method: 'GET'
@@ -93,6 +94,9 @@ angular.module('miller')
         }
       }
     });
+  })
+  .factory('StoryDOIMetadataFactory', function ($resource) {
+    return $resource('/api/story/:id/doi/metadata/', {},{})
   })
   .factory('StoryGitFactory', function ($resource, parseHeaderFilename) {
     return $resource('/api/story/:id/git/:fn/:commit/', {},{

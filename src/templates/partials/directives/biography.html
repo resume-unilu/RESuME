@@ -22,8 +22,10 @@
       
       <div class='line'></div>
       
-      <div class='line offset left' style='left: 0px; width: {{lifespan.left}}px'></div>
-      <div class='line offset right' style='right: 0px; width: {{lifespan.right}}px'></div>
+      <div class='line offset'></div>
+
+      
+      
 
       
 
@@ -32,12 +34,18 @@
         <div class='date right'>{{lifespan.years.max}}</div>
         <div class='bar'></div>
         <div class='border left'></div>
-        <div class='border right'></div>
+      <div class='border right'></div>
+        <!-- <div class='border left'></div>
+        <div class='border right'></div> -->
       </div>
 
     </div>
 
     <div class='activities'>
+
+      <div class='date left'><span>{{lifespan.years.min}}</span></div>
+      <div class='date right'><span>{{lifespan.years.max}}</span></div>
+
       <div class='activity' ng-class='{"active": $index == tooltip.idx}' ng-mouseover='showTooltip(activity, $index, $event)'  ng-mouseleave='hideTooltip()' style='top:{{$index * activity.height}}px;height:{{activity.height}}px' ng-repeat='activity in data.activities'>
       <div class='description' ng-if='activity.description.alignment=="left"|| activity.nodate' style='left:5px; right: {{activity.description.right}}px;text-align:right' rewording value='activity.description'></div>
         <div class='description' ng-if='activity.description.alignment=="right"' style='left: {{activity.description.left}}px' rewording value='activity.description'></div>

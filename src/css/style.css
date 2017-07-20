@@ -3559,7 +3559,7 @@ div.profile-others .profile-thumb{
 /*
   Special icons by documenttype
 */
-.icon-type-image:before, .icon-type-photo:before, .icon-type-picture:before, .icon-type-video:before{
+.icon-type-image:before, .icon-type-photo:before, .icon-type-picture:before, .icon-type-video:before, .icon-type-entity:before{
     content: "\e087";
 }
 
@@ -4117,7 +4117,6 @@ content: "\e07a";
 */
 
 .biography-wrapper{
-  background-color: #f0f0f0;
   margin-bottom: 25px;
 }
 
@@ -4215,23 +4214,24 @@ content: "\e07a";
 
 }
 
-.biography .bar-wrapper .border{
+.biography .lifespan .border{
   position: absolute;
-  height: 48px;
-  width: 2px;
+  height: 10px;
+  width: 10px;
   top: 4px;
-  background-color: #151515;
-  left:0;
+  background-color: white;
+  left: 0;
+  border-radius: 10px;
+  border: 4px solid #151515;
 }
-.biography .bar-wrapper .border.right{
+.biography .lifespan .border.right{
   left: initial;
   right: 0;
 }
 
 .biography .bar-wrapper .bar{
   position: absolute;
-  top: 4px;
-  height: 10px;
+  top: 8px;
   left: 0;
   right: 0;
   height: 2px;
@@ -4240,10 +4240,12 @@ content: "\e07a";
 }
 
 .biography .activity .bar-wrapper .bar{
-  top: 8px;
-  border: 2px solid #6b6b6b;
-  background-color: rgba(182, 182, 182, 0.5);
-      height: 10px;
+    top: 8px;
+    border: 2px solid #6b6b6b;
+    background-color: rgba(182, 182, 182, .7);
+    height: 10px;
+    border-radius: 10px;
+
 }
 
 
@@ -4256,6 +4258,26 @@ content: "\e07a";
   bottom: 0px;
 }
 
+.biography .activities > .date{
+    position: absolute;
+    left: 0px;
+    width: 40px;
+    top: -20px;
+}
+
+.biography .activities > .date > span{
+      background-color: #151515;
+    border-radius: 5px;
+    line-height: 0px;
+    padding: 2px 5px;
+    color: white;
+}
+
+.biography .activities > .date.right{
+  left:initial;
+  right: 0px;
+  text-align: right;
+}
 
 .biography .activities .activity{
   font: 11px/18px 'Merriweather';
@@ -4274,7 +4296,7 @@ content: "\e07a";
 .biography .activity .bar-wrapper .date{
   top: 4px;
   font-style: normal;
-  background-color: #f0f0f0;
+  background-color: #fff;
   font-size: 11px;
 }
 .biography .activity .bar-wrapper .date.right{
@@ -4302,7 +4324,7 @@ content: "\e07a";
 }
 
 .biography .activity .description > span{
-  background: #f0f0f0;
+  background: #fff;
   padding: 0 4px;
   color: #837c7c;
       line-height: 25px;
