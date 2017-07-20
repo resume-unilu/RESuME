@@ -2797,7 +2797,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 .story .overlay .cover.main{
   margin-bottom: 20px;
-  min-height: 400px;
+  /*min-height: 400px;*/
 }
 
 .story .overlay .cover.main .image-wrapper.cover{
