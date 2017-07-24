@@ -216,9 +216,12 @@ angular.module('miller')
       $scope.isSaving = true;
       $scope.lock();
       
-      // partial update route
+      // partial update route (data will be updated, too)
+      $scope.story.data._ordering.tags[tag.category].push(tag.id);
+      
       return StoryFactory.patch({id: story.id}, {
-        tags: _($scope.tagFields).map('tags').flatten().map('id').concat([tag.id]).uniq().value()// _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
+        tags: _($scope.tagFields).map('tags').flatten().map('id').concat([tag.id]).uniq().value(),
+        data: $scope.story.data// _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> attachTag() tag success', res);
         $scope.unlock();
@@ -260,8 +263,19 @@ angular.module('miller')
       $scope.isSaving = true;
       $scope.lock();
       // partial update route
+      // partial update route (data will be updated, too)
+      //$scope.story.data._ordering.tags[tag.category] = 
+      $scope.story.data._ordering.tags[tag.category] = _($scope.tagFields)
+        .map('tags')
+        .flatten()
+        .filter({category: tag.category})
+        .map('id')
+        .value();
+      
+
       return StoryFactory.patch({id: story.id}, {
-        tags: _($scope.tagFields).map('tags').flatten().map('id').uniq().value()
+        tags: _($scope.tagFields).map('tags').flatten().map('id').uniq().value(),
+        data: $scope.story.data,
       }).$promise.then(function(res) {
         $log.debug('WritingCtrl -> detachTag() tag success', res);
         $scope.unlock();
@@ -441,7 +455,10 @@ angular.module('miller')
         return
       }
       $scope.isSaving = true;
-      
+
+      // update ordering 
+      debugger
+
       var update = angular.extend({
         title: $scope.title,
         abstract: $scope.abstract,

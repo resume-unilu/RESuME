@@ -651,11 +651,34 @@ angular.module('miller')
         }
         
         if(!story._tags[story.tags[i].category])
-          story._tags[story.tags[i].category] = []
+          story._tags[story.tags[i].category] = {}
 
-        if(story.tags[i].status == "public")
-          story._tags[story.tags[i].category].push(story.tags[i])
+        if(story.tags[i].status) {
+          story._tags[story.tags[i].category][story.tags[i].id] = story.tags[i]
+        }
+      }
 
+      // apply ordering to tags
+      if(!story.data._ordering) {
+        story.data._ordering = {} 
+      }
+      // https://stackoverflow.com/questions/28719795/lodash-sort-collection-based-on-external-array
+      if(!story.data._ordering.authors) {
+        story.data._ordering.authors = _.map(story.authors, 'id')
+      }
+
+      if(!story.data._ordering.tags) {
+        story.data._ordering.tags = _.mapValues(story._tags, function(d) {
+          return _.map(d, 'id')
+        })
+      } else {
+        for(var category in story.data._ordering.tags) {
+          // console.log('group',j, story.data._ordering.tags[j])
+          story._tags[category] = story.data._ordering.tags[category].map(function(d) {
+            return story._tags[category][d];
+          });
+          story.tags = _(story._tags).map(_.identity).flatten().compact().value()
+        }
       }
 
       // exclude document types as "entity" from covers
