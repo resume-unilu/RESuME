@@ -843,21 +843,6 @@ angular
           }
         });
 
-
-    $stateProvider
-      .state('doi', {
-        url: '/doi/:storyId',
-        controller: function(metadata) {
-          debugger
-        },
-        templateUrl: RUNTIME.static + 'templates/doi.html',
-        resolve: {
-          metadata: function(StoryDOIMetadataFactory, $stateParams) {
-            return StoryDOIMetadataFactory.get({id: $stateParams.storyId, test:true}).$promise;
-          },
-        }
-      })
-
     $stateProvider
       .state('story', {
         url: '/story/:postId',

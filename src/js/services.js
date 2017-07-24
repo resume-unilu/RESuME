@@ -665,6 +665,11 @@ angular.module('miller')
       // https://stackoverflow.com/questions/28719795/lodash-sort-collection-based-on-external-array
       if(!story.data._ordering.authors) {
         story.data._ordering.authors = _.map(story.authors, 'id')
+      } else {
+        var authors = _.keyBy(story.authors, 'id');
+        story.authors = story.data._ordering.authors.map(function(d){
+          return authors[d];
+        })
       }
 
       if(!story.data._ordering.tags) {

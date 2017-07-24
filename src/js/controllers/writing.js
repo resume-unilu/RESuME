@@ -457,7 +457,7 @@ angular.module('miller')
       $scope.isSaving = true;
 
       // update ordering 
-      debugger
+      $scope.story.data._ordering.authors = _.map($scope.story.authors, 'id');
 
       var update = angular.extend({
         title: $scope.title,
