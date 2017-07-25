@@ -1,0 +1,4 @@
+<label translate="{{tagField.label}}"></label>
+<tags-input class='tags-input' on-tag-adding='beforeAttachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="tagField.tags" add-from-autocomplete-only="true">
+    <auto-complete template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, tagField.filters, !tagField.addFromAutocompleteOnly)" ></auto-complete>
+</tags-input>

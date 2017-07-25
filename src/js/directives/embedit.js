@@ -7,6 +7,82 @@
  * If an object and a language are provided, it handles the translation.
  */
 angular.module('miller')
+  /*
+    Like embedit, translated according to $rootScope language.
+    use:
+    
+    ```
+    <span rewording value='object' default='{{data.name}}'></span>
+    ```
+    
+    where object is 
+
+    object = {
+      fr_FR: 'krkrkrkr',
+      en_US
+    }
+
+  */
+  .directive('rewording', function($rootScope, EVENTS) {
+    return {
+      restrict : 'A',
+      scope: {
+        value: '=',
+        follow: '=',
+        highlight: '&?' // highlight function
+      },
+      template: '<span ng-bind-html="renderedValue"></span>',
+      link: function(scope, element, attrs) {
+        scope.render = function(event, language) {
+          
+          if(!language) {
+            return;
+          }
+          var _renderedValue = attrs.default;
+
+          if(typeof scope.value == 'object') {
+            _renderedValue = _.get(scope.value, language);
+            if(!_renderedValue)
+              _renderedValue = _(scope.value).filter().first()
+          }
+          if(attrs.markdown){
+            var md = new window.markdownit({
+                  breaks:       true,
+                  linkify:      true,
+                  html: false
+                })
+                .disable([
+                  'image', 
+                  'heading'
+                ]);
+
+            _renderedValue = _renderedValue || ''
+            // _renderedValue = _renderedValue.split(/[\n\r]+/).join('<br/>')
+            _renderedValue = attrs.markdown=='inline'? md.renderInline(_renderedValue): md.render(_renderedValue)
+          }
+
+          if(scope.highlight) {
+            scope.renderedValue = scope.highlight({text: _renderedValue});
+          } else {
+            scope.renderedValue = _renderedValue || attrs.default;
+          }
+        }
+        scope.$on(EVENTS.LANGUAGE_CHANGED, scope.render);
+        
+        if(attrs.follow){
+          scope.$watch('follow', function(v) {
+            if(attrs.debug === 'true'){
+              console.log('::: embedit @follow - value:', v)
+            }
+            if(v)
+              scope.render(null, $rootScope.language);
+          });
+        } else {
+          scope.render(null, $rootScope.language);
+        }
+      }
+    }
+  })
   .directive('embedit', function($sce, $timeout, $filter) {
     return {
       restrict : 'A',
@@ -50,33 +126,32 @@ angular.module('miller')
         scope.render = function(language) {
           if(!scope.embedit)
             return;
-          
-          if(language && typeof scope.embedit == 'object') {
-            
+          // get contents
+          if(language && typeof scope.embedit == 'object') {            
             var altlanguage =  _.filter(scope.embedit, _.identity).pop(),
                 contents = scope.embedit[language] || scope.embedit['en_US'] || altlanguage || '';
-
-
-            if(attrs.markdown){
-              var md = new window.markdownit(options)
-                .disable(disable);
-              contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
-            }
-            
-            if(scope.firstline)
-              contents = contents.split(/<br\s?\/?>/).shift();
-            
-            element.html(contents);
-          } else if(attrs.markdown){
-            var md = new window.markdownit(options)
-              .disable(disable),
-              contents = attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit;
-
-            contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
-            element.html(contents);
           } else {
-            element.html(attrs.excerpt? $filter('tokenize')(scope.embedit, 32): scope.embedit)
+            contents = scope.embedit
           }
+
+          if(attrs.excerpt) {
+            contents = $filter('tokenize')(contents, parseInt(attrs.excerpt) || 32)
+          }
+
+          if(attrs.markdown){
+            var md = new window.markdownit(options)
+                .disable(disable);
+            contents = attrs.markdown=='inline'? md.renderInline(contents): md.render(contents)
+          } else {
+            // smplie '\n'
+            contents = contents.split(/[\n\r]+/).join('<br/>')
+          }
+            
+          if(scope.firstline) {
+            contents = contents.split(/<br\s?\/?>/).shift();
+          }
+          
+          element.html(contents);
 
           if(scope.stretch){
             scope.do_strech();

@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {    
+  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {    
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -23,8 +23,10 @@ angular.module('miller')
 
     $scope.stopStateChangeStart = false; // cfr toggleStopStateChangeStart below
 
-    $scope.toggleTableOfContents = function() {
+    $scope.toggleTableOfContents = function(e) {
       $scope.hasToC = !$scope.hasToC;
+      if(e)
+        e.stopImmediatePropagation()
     };
 
     $scope.locationPath = '';
@@ -45,12 +47,10 @@ angular.module('miller')
       $scope.ToCDisabled = true;
     };
 
-    // search
-
     $scope.search = function(searchquery){
       $log.log('🍔 CoreCtrl > search() searchquery:', searchquery);
 
-      $state.go('search', {
+      $state.go('search.story', {
         q: searchquery
       });
     };
@@ -145,14 +145,27 @@ angular.module('miller')
     /*
       Suggest tags for writing purposes
     */
-    $scope.suggestTags = function(query, options) {
+    $scope.suggestTags = function(query, options, has_create) {
       $log.log('🍔 CoreCtrl -> suggestTags', query, options);
-      var filters = options || {};
-      filters.name__icontains = query;
-      return TagFactory.get({
-        filters: JSON.stringify(filters)
-      }).$promise.then(function(response) {
-        return response.results;
+      var filters = options || {},
+          // request params
+          params  = {
+            filters: JSON.stringify(filters),
+            limit: 7
+          }
+      
+      if(query.trim().length > 2){
+        params.q = query
+      }
+
+      // filters.name__icontains = query;
+      return TagFactory.get(params).$promise.then(function(response) {
+        return !has_create? response.results: response.results.concat([{
+          type: '__new__',
+          name: 'createnew',
+          id: 'createnew',
+          query: query
+        }]);
       });
     };
 
@@ -165,11 +178,13 @@ angular.module('miller')
     */
     $scope.breakingNews = [];
     $scope.setBreakingNews = function(breakingNews) {
+
       $scope.breakingNews = breakingNews.slice(0,3).map(function(d){
         if(d.covers && d.covers.length){
           var cover = d.covers[0];
-
-          d.cover_url = _.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
+          
+          d.cover_url = $filter('coverage')(cover);
+          //_.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
           
         }
         d.isCollection = _.filter(d.tags, {slug: 'collection'}).length > 0;
@@ -256,6 +271,7 @@ angular.module('miller')
       localStorageService.set('lang', $scope.language);
       $log.log('🍔 CoreCtrl -> changeLanguage language:', $scope.language)
       $translate.use(key);
+      $scope.$broadcast(EVENTS.LANGUAGE_CHANGED, $scope.language)
     };
 
     $scope.isWithoutAuthors = function(story) {
@@ -408,7 +424,7 @@ angular.module('miller')
       } else if(!$scope.qs.view && $scope.fullsized){
          fullsizeModal.hide();
       }
-
+      
       /*
         Now emit stuff
       */

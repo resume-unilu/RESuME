@@ -17,6 +17,7 @@ button.comment.undo,,discard,,,discard
 button.completereview,,create or modify review,faire ou modifier une évaluation,Begutachtung erstellen oder ändern,create or modify review
 button.confirm,"in a confirm popup, OK. cfr confirm.publish.title too",{{is_saving?'saving...':'confirm'}},,,{{is_saving?'saving...':'confirm'}}
 button.create,,create,créer,erstellen,create
+button.createnewtag,,create keyword,,,
 button.dismiss,"in a confirm popup, just ignore it?",cancel,,,cancel
 button.downloadas,heck google spreadsheet download as,download as,télécharger,,
 button.downloadsource,,download original,,,
@@ -25,7 +26,8 @@ button.edit.author,modify author,"change biography, affiliation, etc.","modifier
 button.finaldecision,,Add / edit your final decision,,,Add / edit your final decision
 button.issaving,,saving ...,enregistrer...,Speichern...,saving ...
 button.loading,,loading ...,téléchargement...,Laden...,loading ...
-button.wmodenormal,,simple edit,,,simple edit
+button.wmodenormal,,write only,,,simple edit
+button.wmodepreview,,live preview,,,
 button.wmodecompare,,compare versions,,,compare versions
 button.more,,load more,télécharger davantage,mehr laden,load more
 button.more.events,,all events,tous les événements,alla Ereignisse,all events
@@ -37,9 +39,11 @@ button.removecover,,remove cover image,supprimer l'image de couverture,Titelbild
 button.reviewcompleted,,"{{is_valid?'I completed the review.':'cannot finalize the review, some fields are missing'}}","{{is_valid?'Je complète l'évaluation.':'ne peux pas finaliser l'évaluation, parce que certains some fields are missing'}}","{{is_valid?'Ich vervollständige completed the review.':'cannot finalize the review, weil einige Felder fehlen'}}","{{is_valid?'I completed the review.':'cannot finalize the review, some fields are missing'}}"
 button.save,,save,enregistrer,speichern,save
 button.savedraft,,{{is_saving?'saving...':'save draft'}},{{is_saving?'enregistrement en cours...':'enregistrer comme brouillon'}},{{is_saving?'speichert...':'Entwurf sichern'}},{{is_saving?'saving...':'save draft'}}
+button.saveversion,,save version,,,
 button.undo,,undo,annuler,rückgängig machen,undo
 button.upload,"when uploading resources (images, pdf)",upload,télécharger sur la plateforme,hochladen,upload
 button.upload.story,when uploading docx to create a proper content (e.g; article),upload my contribution,télécharger ma contribution,mein Beitraghochladen,upload my contribution
+button.updateandattachtag,,update and add this tag,,,
 button.viewforreview,,view publication,voir la publication,Publikation sehen,view publication
 button.viewmode,,back to reading mode,retour au mode de lecture,zurück zum Lesemodus,back to reading mode
 button.viewreport,,read review,lire l'évaluation,Begutachtung lesen,read review
@@ -51,6 +55,8 @@ comment.status.private,,visible for you and for the authors,,,visible for you an
 comment.status.public,,everyone can view this,,,everyone can view this
 confirm.publish.question,,You will not be able to make any modifications before the review process has been completed.,,,You will not be able to make any modifications before the review process has been completed.
 confirm.publish.title,,Submit for review,,,Submit for review
+conflict.before,,previous value: <b>{{value}}</b>,,,
+dateofpublication,,publication date,date de parution,,
 document.preview,,(preview),(aperçu),(Vorschau),(preview)
 drafts,,(drafts),(ébauches),(Entwürfe),(drafts)
 drafts.keywords.placeholder,,add keywords ...,ajouter des mots clés...,Schlüsselwörter hinzufügen ...,add keywords ...
@@ -137,7 +143,7 @@ headline.project,main menu,project,projettt,Projekt,project
 headline.publications,main menu,publications,publications,Publikationen,publications
 headline.publications.todo.abstract,under review pending (staff only),(staff only),(visible seulement par les membres du staff),,(staff only)
 headline.publications.todo.title,under review pending (staff only),Under review,,,Under review
-headline.review.of,,review of:,révision de:,Begutachtung von :,review of:
+headline.review.of,,review of:,révision de&#8239;:,Begutachtung von :,review of:
 headline.reviews,,reviews assigned to you,évaluations qui vous ont été/sont assigné(e)s,Ihnen zugewiesene Begutachtungen,reviews assigned to you
 headline.reviews.abstract,,,,,
 headline.your.reviews,main menu,reviews assigned to you,évaluations assignées,,
@@ -145,12 +151,14 @@ headline.write,main menu,create,créer,schaffen,create
 headline.you,"main menu, access to your space, usually after your username.",(you),(vous),(Sie),(you)
 headline.your.writings,"main menu, access to your articles (weird, to be changed)",your contributions,vos contributions,Ihre Beiträge,your contributions
 items.empty,,"Sorry, no items matched your search","Désolé, aucun objetne correspond à votre recherche.",Leider ergab Ihre Suche keine Treffer.,"Sorry, no items matched your search"
+keywords,,keywords,mots-clés,,
 language.de_DE,,German,Allemand,Deutsch,German
 language.en,,English,Anglais,Englisch,English
 language.en_GB,,English,Anglais,Englisch,English
 language.en_US,,English,Anglais,Englisch,English
 language.fr_FR,,French,Français,Französisch,French
 link.to.original,,link to the original source,lien vers la source originale,Link zur urspünglichen Quelle,link to the original source
+matchesfound,,{{count}} documents found containing <b>{{query}}</b>,Environ {{count}} résultats pour <b>{{query}}</b>,,
 me.publications,,your contributions,vos contributions,Ihre Beiträge,your contributions
 missing,"when scrolling a list of items, the number of remaining ones",({{count}} remaining),({{count}} restants),({{count}} übrig),({{count}} remaining)
 modal.covers.description,,add cover,ajouter une page de garde,Title-Seite hinzufügen,add cover
@@ -159,10 +167,19 @@ modals.addreview.field.reviewers.abstract,explain how reviewers will get notifie
 modals.addreview.field.reviewers.label,,add reviewer,,,add reviewer
 modals.addreview.field.reviewers.placeholders,,type here ...,,,type here ...
 modals.addreview.title,modals dialog add review (staff only),add review,,,add review
+modals.addtag.title,,create keyword,,,
+modals.addtag.field.name.label,,value,,,
+modals.addtag.field.provider.label,,"thesaurus provider, if any (e.g. Eurovoc)",,,
+modals.addtag.tagexist,,A tag with the same value exists already: {{hasConflicts? 'check the conflicts between your version and the translated value': 'you can help us by filling the missing translations'}},,,
 modals.finaldecision.field.status.abstract,,"If you accept the publication, an email wll be sent to authors automatically.",,,"If you accept the publication, an email wll be sent to authors automatically."
 modals.finaldecision.field.status.label,,Last decision,,,Last decision
 modals.finaldecision.field.status.placeholder,,pick one,,,pick one
 modals.finaldecision.title,,Your decision,,,Your decision
+modals.saveversion.title,,Save version,,,
+modals.saveversion.field.version.tag.description,,"(no spaces, only a-z characters, number, points ""."" and underscore ""_"")",,,
+modals.saveversion.field.version.tag.label,,Specify a name,,,
+modals.saveversion.field.version.message.label,,"Description, max 100 chars",,,
+modals.saveversion.tagexist,,"Please specify a different name, a version with this name already exists.",,,
 oembed.type.image,,Image,Image,Bild,Image
 oembed.type.link,,Link,Lien,Link,Link
 oembed.type.photo,,Image,Image,Bild,Image
@@ -172,6 +189,8 @@ order.by.newest,,most recent first,,,most recent first
 order.by.oldest,,most recent last,,,most recent last
 order.by.lastnameaz,,by name (A-Z),par nom (A-Z),,by name (A-Z)
 order.by.lastnameza,,by name (Z-A),par nom (Z-A),,by name (Z-A)
+order.by.lastmod,,by last modified,,,
+order.by.issue,,by issue,par numéro,,
 order.by.publishedrecently,,by latest publication,by latest publication,,by latest publication
 order.by.titleaz,,by title (A-Z),par titre (A-Z),,by title (A-Z)
 order.by.titleza,,by title (Z-A),par titre (Z-A),,by title (Z-A)
@@ -260,8 +279,8 @@ state.publications.paper.abstract,,,,,
 state.publications.paper.label,,ePapers,ePapers,ePapers,ePapers
 state.publications.paper.title,,ePapers,ePapers,ePapers,ePapers
 state.publications.revue-ecu-euro.abstract,,,,,
-state.publications.revue-ecu-euro.label,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro
-state.publications.revue-ecu-euro.title,,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro,Revue de l'Euro
+state.publications.revue-ecu-euro.label,,Revue de l'euro,Revue de l'euro,Revue de l'euro,Revue de l'euro
+state.publications.revue-ecu-euro.title,,Revue de l'euro,Revue de l'euro,Revue de l'euro,Revue de l'euro
 state.publications.todo.label,,pending publications,,,pending publications
 state.publications.draft.title,,drafts,,,
 state.publications.draft.abstract,,,,,
@@ -269,6 +288,9 @@ state.publications.draft.label,,drafts (staff),,,
 state.publications.reviewdone.title,,ready to be published,,,
 state.publications.reviewdone.abstract,,All reviewed publications ready to be published on the website,,,
 state.publications.reviewdone.label,,ready to be published (staff),,,
+state.publications.tags.title,,tagged: ,,,
+state.publications.tags.abstract,,,,,
+state.publications.tags.label,,,,,
 state.reviews.all,,view all,voir tout,alles anzeigen/sehen,view all
 state.reviews.all.abstract,,,,,
 state.reviews.all.label,,all reviews,,,all reviews
@@ -305,6 +327,7 @@ tab.url,,from url,depuis l'URL,aus der URL,from url
 tag.cahiers,,RESuME Papers,Cahiers RESuME,RESuME-Beiträge,RESuME Papers
 tag.law,,Law,Droit,Recht,Law
 tag.paper,,Papers,Articles,Beiträge/Artikel,Papers
+table.of.contents,,,,,
 upload.description,,Four easy steps,Quatre étapes simples,Vier einfache Schritte,Four easy steps
 upload.missing.steps,,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading,Vous y êtes presque!... {{steps > 1? 'encore' + steps+ 'étape(s)': 'une dernière étape'}} avant de télécharger,Fast erreicht! ... {{steps > 1? 'noch' + steps+ 'Schritt(e)': 'ein letzter Schritt'}} vor dem Hochladen,Almost there! ... {{steps > 1? steps + 'more steps': 'one last step'}} before uploading
 upload.success.description,,You can find your submitted content here,Vous trouverez ici votre contenu transmis,Hier finden Sie Ihre eingereichten Inhalte,You can find your submitted content here

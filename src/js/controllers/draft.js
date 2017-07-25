@@ -34,7 +34,7 @@ angular.module('miller')
         title: $scope.title,
         abstract: $scope.abstract,
         contents:'',
-        metadata: JSON.stringify(metadata),
+        data: metadata,
         status: 'draft'
       }, function(res) {
         $scope.isSaving = false;

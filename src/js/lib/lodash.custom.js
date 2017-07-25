@@ -1,7 +1,7 @@
 /**
  * @license
  * Lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash include="map,filter,each,compact,uniq,value,keyBy,first,chunk,fromPairs,mapValues,isEmpty,take,takeRight,find,difference,debounce"`
+ * Build: `lodash include="map,filter,each,compact,uniq,value,keyBy,first,chunk,fromPairs,mapValues,isEmpty,take,takeRight,find,difference,debounce,concat"`
  * Copyright JS Foundation and other contributors <https://js.foundation/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -4322,6 +4322,43 @@
   }
 
   /**
+   * Creates a new array concatenating `array` with any additional arrays
+   * and/or values.
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Array
+   * @param {Array} array The array to concatenate.
+   * @param {...*} [values] The values to concatenate.
+   * @returns {Array} Returns the new concatenated array.
+   * @example
+   *
+   * var array = [1];
+   * var other = _.concat(array, 2, [3], [[4]]);
+   *
+   * console.log(other);
+   * // => [1, 2, 3, [4]]
+   *
+   * console.log(array);
+   * // => [1]
+   */
+  function concat() {
+    var length = arguments.length;
+    if (!length) {
+      return [];
+    }
+    var args = Array(length - 1),
+        array = arguments[0],
+        index = length;
+
+    while (index--) {
+      args[index - 1] = arguments[index];
+    }
+    return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
+  }
+
+  /**
    * Creates an array of `array` values not included in the other given arrays
    * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
    * for equality comparisons. The order and references of result values are
@@ -6461,6 +6498,7 @@
   lodash.chain = chain;
   lodash.chunk = chunk;
   lodash.compact = compact;
+  lodash.concat = concat;
   lodash.constant = constant;
   lodash.debounce = debounce;
   lodash.difference = difference;

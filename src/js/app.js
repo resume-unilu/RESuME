@@ -50,7 +50,9 @@ angular
     'SOCKET_USER_UNCOMMENTED_STORY': 'socket_user_uncommented_story',
 
     'RANGY_FOCUS': 'rangy_focus',
-    'RANGY_REFRESH': 'rangy_refresh'
+    'RANGY_REFRESH': 'rangy_refresh',
+
+    'LANGUAGE_CHANGED': 'language_changed'
   })
   /*
     disqus configuration
@@ -61,6 +63,14 @@ angular
   //   }
 
   // })
+  /*
+    debug enabled
+  */
+  .config(function($logProvider, RUNTIME) {
+    console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
+    $logProvider.debugEnabled(!!RUNTIME.settings.debug);
+  })
+  
   /*
     prefix
   */
@@ -229,7 +239,7 @@ angular
         }
       })
       .state('writing', {
-        url: '/writing/:storyId',
+        url: '/writing/:storyId?collection',
         reloadOnSearch : false,
         controller: 'WritingCtrl',
         templateUrl: RUNTIME.static + 'templates/writings.html',
@@ -239,20 +249,64 @@ angular
           },
         }
       })
+        .state('writing.live', {
+          url: '/live',
+          reloadOnSearch : false,
+          templateUrl: RUNTIME.static + 'templates/writings.live.html'
+        })
         .state('writing.compare', {
           url: '/compare/:tag',
           reloadOnSearch : false,
-          controller: function(){
-
+          controller: function($scope, version){
+            $scope.version = version;
           },
           templateUrl: RUNTIME.static + 'templates/writings.compare.html',
           resolve: {
-            version: function(StoryFactory, $stateParams) {
-              return StoryFactory.get({id: $stateParams.storyId, nocache: true}).$promise;
+            version: function(StoryGitFactory, $stateParams) {
+              return StoryGitFactory.getByGitTag({
+                id: $stateParams.storyId,
+                commit: $stateParams.tag,
+              }).$promise;
             },
           }
         })
+          .state('writing.compare.diff', {
+            url: '/diff',
+            reloadOnSearch : false,
+            controller: function($scope, diff, story, StoryGitFactory, $stateParams){
+              $scope.diff = diff.results.diff;
+              // original story
+              $scope.hash = story.version;
 
+              $scope.$watch('story', function(v){
+                
+                if(v.version && v.version != $scope.hash) {
+                  StoryGitFactory.getDiff({
+                    id: $stateParams.storyId,
+                    commit: $stateParams.tag,
+                  }, function(res){
+                    $scope.diff = res.results.diff;
+                  })
+                }
+                // 
+                
+              }, true)
+            },
+            templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
+            resolve: {
+              diff: function(StoryGitFactory, $stateParams) {
+                return StoryGitFactory.getDiff({
+                  id: $stateParams.storyId,
+                  commit: $stateParams.tag,
+                }).$promise;
+              },
+            }
+          })
+          .state('writing.compare.preview', {
+            url: '/preview',
+            reloadOnSearch : false,
+            templateUrl: RUNTIME.static + 'templates/writings.compare.preview.html'
+          })
     /*
 
       Author routes.
@@ -291,10 +345,10 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 status: 'draft',
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -317,10 +371,10 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 status: 'deleted',
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -343,9 +397,9 @@ angular
         resolve: {
           initials: function(author) {
             return {
-              filters: JSON.stringify({
+              filters: {
                 authors__slug: author.slug
-              }),
+              },
               orderby: '-date,-date_last_modified'
             }
           },
@@ -371,14 +425,14 @@ angular
             resolve: {
               initials: function(author) {
                 return {
-                  filters: d.slug? JSON.stringify({
+                  filters: d.slug? {
                     tags__category__in: ['writing', 'blog'],
                     tags__slug: d.slug,
                     authors__slug: author.slug
-                  }): JSON.stringify({
+                  }: {
                     tags__category__in: ['writing', 'blog'],
                     authors__slug: author.slug
-                  }),
+                  },
                   limit: 10,
                   orderby: '-date,-date_last_modified'
                 }
@@ -441,9 +495,9 @@ angular
           resolve: {
             initials: function(profile){
               return {
-                filters: JSON.stringify({
+                filters: {
                   authors__user__username: profile.username
-                }),
+                },
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -477,9 +531,9 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify({
+                filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
-                }),
+                },
                 orderby: '-date_last_modified'
               };
             },
@@ -515,7 +569,7 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify(d.filters || {}),
+                filters: d.filters || {},
                 orderby: '-date_last_modified'
               };
             },
@@ -610,11 +664,11 @@ angular
           resolve: {
             initials: function(){
               return {
-                filters: JSON.stringify(d.slug != 'all'? {
+                filters: d.slug != 'all'? {
                   tags__slug: d.slug
-                }:{
+                } : {
                   tags__category: 'blog'
-                }),
+                },
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -654,15 +708,15 @@ angular
             resolve: {
               initials: function(){
                 return {
-                  filters: d.filters? JSON.stringify(d.filters): {},
-                  exclude: JSON.stringify({ data__num_stories: 0}),
+                  filters: d.filters? d.filters: {},
+                  exclude: {
+                    data__num_stories: 0
+                  },
                   limit: 20,
                   orderby: 'data__lastname'
                 }
               },
               items: function(AuthorFactory, djangoFiltersService, initials) {
-
-                // return AuthorFactory.get(initials).$promise;
                 return AuthorFactory.get(djangoFiltersService(initials)).$promise;
               },
               model: function() {
@@ -674,9 +728,9 @@ angular
             }
           });
       });
-      /*
-        Kind of story:writings publications
-      */
+    /*
+      Kind of story:writings publications
+    */
     $stateProvider
       .state('publications', {
         url: '/publications',
@@ -684,28 +738,23 @@ angular
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        
       })
-
-
-        .state('publications.all', {
-          url: '',
+        .state('publications.tags', {
+          url: '/tags/:slug',
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            initials: function($location) {
+            initials: function() {
               return {
-                filters: JSON.stringify({
+                filters: {
                   tags__category: 'writing'
-                }),
-                exclude:JSON.stringify({
-                  tags__slug: 'chapter'
-                }),
+                },
                 limit: 10,
                 orderby: '-date,-date_last_modified'
-              }
+              };
             },
-            items: function(StoryFactory, djangoFiltersService, initials) {
+            items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
+              initials.filters['tags__slug__all'] = [$stateParams.slug];
               return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
 
@@ -716,51 +765,30 @@ angular
               return StoryFactory.get;
             }
           }
-        })
-        
-        .state('publications.tags', {
-          url: '/tags/:slug',
-          controller: 'ItemsCtrl',
-          templateUrl: RUNTIME.static + 'templates/items.html',
-          resolve: {
-            initials: function(){
-              return {
-                filters: JSON.stringify({
-                  tags__slug: $stateParams.slug
-                }),
-                orderby: '-date,-date_last_modified'
-              }
-            },
-            items: function(StoryFactory, djangoFiltersService, initials) {
-              return StoryFactory.get(djangoFiltersService(initials)).$promise;
-            },
-
-            model: function() {
-              return 'story.pending';
-            },
-            factory: function(StoryFactory) {
-              return StoryFactory.get;
-            }
-          }
         });
 
-      _.each(RUNTIME.routes.publications.writing.concat(RUNTIME.routes.publications.tags).concat(RUNTIME.routes.publications.status), function(d){
+      _.each(RUNTIME.routes.publications.all.concat(
+          RUNTIME.routes.publications.writing,
+          RUNTIME.routes.publications.tags,
+          RUNTIME.routes.publications.status
+        ), function(d) {
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
+            
             resolve: {
-              initials: function(){
+              initials: function() {
                 return {
-                  filters: d.filters? JSON.stringify(d.filters): d.slug? JSON.stringify({
+                  filters: d.filters? d.filters: d.slug? {
                     tags__category: 'writing',
                     tags__slug: d.slug
-                  }): JSON.stringify({
+                  }: {
                     tags__category: 'writing'
-                  }),
+                  },
                   limit: 10,
-                  orderby: '-date,-date_last_modified'
+                  orderby: d.orderby? d.orderby:'-date,-date_last_modified'
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
@@ -779,20 +807,41 @@ angular
 
     $stateProvider
       .state('search', {
-        url: '/search?q&tags&authors',
+        url: '/search',
         controller: 'SearchCtrl',
         reloadOnSearch : false,
+        abstract: true,
+        // reloadOnSearch : false,
         templateUrl: RUNTIME.static + 'templates/search.html',
-        resolve: {
-          items: function(StoryFactory, $location) {
-            var qs = $location.search()
-            // transform filters keywords in using a service
-            return StoryFactory.search(qs).$promise;
-          },
-        }
-      });
+        // resolve: {
+        //   items: function(StoryFactory, $location) {
+        //     var qs = $location.search()
+        //     // transform filters keywords in using a service
+        //     return StoryFactory.search(qs).$promise;
+        //   },
+        // }
+      })
+        .state('search.story', {
+          url: '?q',
+          controller: 'ItemsCtrl',
+          templateUrl: RUNTIME.static + 'templates/items.html',
 
-    
+          resolve: {
+            initials: function() {
+              return {}
+            },
+
+            items: function(StoryFactory, $stateParams, initials, djangoFiltersService) {//(StoryFactory, djangoFiltersService, initials) {
+              return StoryFactory.search(djangoFiltersService($stateParams)).$promise;
+            },
+            model: function() {
+              return 'story';
+            },
+            factory: function(StoryFactory) {
+              return StoryFactory.search;
+            }
+          }
+        });
 
     $stateProvider
       .state('story', {
@@ -807,7 +856,7 @@ angular
         }
       })
       .state('storygit', {
-        url: '/story/:id/:commit',
+        url: '/story/:id/git/:commit',
         controller: 'StoryCtrl',
         reloadOnSearch : false,
         templateUrl: RUNTIME.static + 'templates/story.html',
@@ -820,30 +869,31 @@ angular
           },
         }
       })
+      
+        // .state('collection', {
+        //   url: '/collection/:collectionId',
+        //   controller: 'StoryCtrl',
+        //   reloadOnSearch : false,
+        //   templateUrl: RUNTIME.static + 'templates/story.html',
+        //   resolve: {
+        //     story: function(CollectionFactory, $stateParams) {
+        //       return CollectionFactory.get({id: $stateParams.collectionId}).$promise;
+        //     },
+        //   }
+        // })
+        .state('story.story', { // i.e the chapters ;)
+          url: '/:chapterId',
+          controller: 'ChapterCtrl',
+          reloadOnSearch : false,
+          templateUrl: RUNTIME.static + 'templates/story.chapter.html',
+          resolve: {
+            chapter: function(StoryFactory, $stateParams) {
+              return StoryFactory.get({id: $stateParams.chapterId}).$promise;
+            },
+          }
+        });
 
-    $stateProvider
-      .state('collection', {
-        url: '/collection/:collectionId',
-        controller: 'CollectionCtrl',
-        reloadOnSearch : false,
-        templateUrl: RUNTIME.static + 'templates/collection.html',
-        resolve: {
-          collection: function(CollectionFactory, $stateParams) {
-            return CollectionFactory.get({id: $stateParams.collectionId}).$promise;
-          },
-        }
-      })
-      .state('collection.story', { // i.e the chapters ;)
-        url: '/:storyId',
-        controller: 'StoryCtrl',
-        reloadOnSearch : false,
-        templateUrl: RUNTIME.static + 'templates/collection.story.html',
-        resolve: {
-          story: function(StoryFactory, $stateParams) {
-            return StoryFactory.get({id: $stateParams.storyId}).$promise;
-          },
-        }
-      })
+    
 
     
     $stateProvider
@@ -890,7 +940,7 @@ angular
       });
   })
   .run(function($window, $log, RUNTIME){
-    $log.log('☕ app run, version: Kidding Cat; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
+    $log.log('☕ app run, version: Kidding Tiger; analytics:', RUNTIME.settings.analytics? 'enabled': 'disabled');
     if(RUNTIME.settings.analytics)
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })

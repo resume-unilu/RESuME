@@ -6,15 +6,25 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, initials, items, model, factory, QueryParamsService, EVENTS) {
-    $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'inititals:', initials);
+  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, extendItem, EVENTS) {
+    $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'initials:', initials);
 
     // model is used to get the correct item template
     $scope.model = model.split('.').shift();
     $scope.itemTemplate = model;
-
-
     $scope.nextParams = {};
+
+    // local var used only for publicationsCtrl
+    var _tag;
+
+    if($scope.state == 'publications.tags')
+      initials.filters['tags__slug__all'] = [$state.params.slug];
+    else if (initials.filters)
+      delete initials.filters['tags__slug__all']
+
+    if($scope.state == 'search.story') {
+      $scope.setCount(items.count);
+    }
     /*
       Get the firs n sentence until the number of words are covered.
       return an array
@@ -25,20 +35,42 @@ angular.module('miller')
       return sentences;
     }
 
+    if($scope.state != 'publications.tags') {
+      if (typeof $scope.setTag == 'function') 
+        $scope.setTag(null);
+    }
+
     function normalizeItems(items) {
+      var md = new window.markdownit({
+                  breaks:       true,
+                  linkify:      true,
+                  html: false
+                })
+                .disable([
+                  'image', 
+                  'heading'
+                ]);
+
       return items
         .map(function(d){
-          if(!d.metadata || !d.metadata.abstract)
+          if(!d.data || !d.data.abstract)
             return d
-          if(d.tags && d.tags.length && _.filter(d.tags, {slug: 'collection', category:'writing'}).length){
-            d.isCollection = true
+          
+          d = extendItem(d, $scope.model, {
+            language: $scope.language
+          });
+          
+          if(!_tag && $scope.state == 'publications.tags') {
+            _tag = true;
+            $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
           }
+
           // console.log(d)
-          if(!d.metadata.abstract[$scope.language]){
+          if(!d.data.abstract[$scope.language]){
             return d;
           }
 
-          d.excerpt = $filter('tokenize')(d.metadata.abstract[$scope.language], 32);
+          d.excerpt = md.renderInline($filter('tokenize')( d.data.abstract[$scope.language], 32));
           return d;
         })
     };
@@ -65,6 +97,7 @@ angular.module('miller')
         return;
       }
       $scope.isLoadingNextItems = true;
+      
       factory($scope.nextParams, $scope.sync);
     }
 
@@ -88,7 +121,7 @@ angular.module('miller')
       for(var key in newParams){
         if(key == 'filters'){
           try {
-            params.filters = JSON.stringify(angular.merge(JSON.parse(params.filters), JSON.parse(newParams.filters)));
+            params.filters = JSON.stringify(angular.merge(params.filters, JSON.parse(newParams.filters)));
           } catch(e){
             $log.warn('🌻 ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
             params.filters = initials.filters;

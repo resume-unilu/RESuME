@@ -25,6 +25,11 @@
                 <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
               </label>
               <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 450 }" ng-change='suggest(query)'>
+              <ul class="suggestions">
+                <li ng-repeat='suggestion in tab.suggestions'><a href='' ng-click='tab.suggestquery(suggestion)'>{{suggestion}}</a></li>
+              </ul>
+              <!-- <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 450 }" ng-change='suggest(query)' bs-options="item in tab.typeahead($viewValue)" bs-typeahead data-template='{{"templates/partials/typeahead.html"|prefixTemplate}}'> -->
+              <!-- <input placeholder='...' class='form-control' type='text' ng-model='ghh' bs-options="item as item.label in tab.typeahead($viewValue)" bs-typeahead> -->
             </div>
             <div class='section last'>
               <ul class='list-of-documents'><li ng-repeat='document in tab.items' ng-include='"templates/partials/embeds/document.html"|prefixTemplate'></li>
@@ -114,7 +119,7 @@
               <div class='preview' ng-show='embed.url' ng-class='embed.type'>
                 <!-- <div ng-if='embed.provider_name=="CVCE"' ng-include='"templates/partials/embeds/cvce.html"|prefixTemplate'></div> -->
                 <!-- <div ng-if='embed.provider_name=="YouTube"' ng-include='"templates/partials/embeds/YouTube.html"|prefixTemplate'></div> -->
-                <div ng-if='embed.provider_name=="Flickr"' ng-include='"templates/partials/embeds/Flickr.html"|prefixTemplate'></div>
+                <div ng-if='embed.type == "photo"' ng-include='"templates/partials/embeds/Flickr.html"|prefixTemplate'></div>
                 <div ng-if='embed.provider_name=="Ina.fr"' ng-include='"templates/partials/embeds/Ina.fr.html"|prefixTemplate'></div>
 
                 <div ng-if='embed.type == "link"'>

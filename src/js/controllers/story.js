@@ -6,14 +6,15 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, EVENTS, RUNTIME) {
-    $scope.story = story;
+  .controller('StoryCtrl', function ($rootScope, $scope, $log, $filter, $timeout, $modal, story, StoryFactory, StoryGitFactory, CommentFactory, QueryParamsService, extendStoryItem, EVENTS, RUNTIME) {
 
+    story = extendStoryItem(story, $scope.language);
+
+    $scope.story = story;
+    
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;
-
-     
     $scope.story.isUnderReview = ['review', 'editing', 'pending'].indexOf(story.status) !== -1;
     
     // is the layout table or other?
@@ -24,17 +25,17 @@ angular.module('miller')
 
     
     // openGRaph metadata coming from the story
-    // $scope.setOG({
-    //   title: story.metadata.title[$scope.language] || story.title,
-    //   description: story.metadata.abstract[$scope.language] || story.abstract,
-    //   image: _(story.covers).map(function(d){
-    //     return _.get(d,'snapshot') || 
-    //            _.get(d,'metadata.thumbnail_url') || 
-    //            _.get(d,'metadata.urls.Publishable') ||
-    //            _.get(d,'metadata.urls.Preview') || 
-    //            _.get(d,'metadata.url');
-    //   }).first()
-    // })
+    $scope.setOG({
+      title: story.data.title[$scope.language] || story.title,
+      description: story.data.abstract[$scope.language] || story.abstract,
+      image: _(story.covers).map(function(d){
+        return _.get(d,'snapshot') || 
+               _.get(d,'metadata.thumbnail_url') || 
+               _.get(d,'metadata.urls.Publishable') ||
+               _.get(d,'metadata.urls.Preview') || 
+               _.get(d,'metadata.url');
+      }).first()
+    })
 
     // set status DRAFT or PUBLIC to the document.
     $scope.setStatus = function(status){
@@ -155,6 +156,19 @@ angular.module('miller')
       });
     }
 
+
+    // load previous and next.
+    $scope.loadNeighbors = function(){
+      StoryFactory.getNeighbors({
+        id: story.id
+      }, function(res){
+        $scope.neighbors = res;
+      })
+    };
+    // autoload
+
+    $timeout($scope.loadNeighbors(), 2000);
+
     // load available GIT TAGGED versions of the story.
     $scope.versions = [];
     $scope.isLoadingVersions = false;
@@ -227,10 +241,11 @@ angular.module('miller')
     // cfr corectrl setDocuments function.
     $scope.setDocuments = function(items) {
       $log.log('StoryCtrl > setDocuments items n.:', items.length, items);
+
       var documents = [];
 
       $scope.sidedocuments = 0;
-
+      
       documents = _(items)
         .map(function(d){
           // check if it is in the story.documents list

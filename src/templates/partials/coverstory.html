@@ -10,11 +10,11 @@
       <div class="tags" ng-if="coverstory.tags.length">
         <span class="tag" ng-repeat='tag in coverstory.tags|filter:{ category: "writing" }' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
       </div>
-      <div class="issue" embedit='coverstory.metadata.issue' ng-click='next()'></div>
+      <div class="issue" embedit='coverstory.data.issue' ng-click='next()'></div>
        
       <h3>
-        <a ng-if='!story.is_collection' href ui-sref="story({postId: coverstory.slug})" embedit='coverstory.metadata.title' language='language'></a>
-        <a ng-if='story.is_collection' href ui-sref="collection({collectionId: coverstory.slug})" embedit='coverstory.metadata.title' language='language'></a>
+        <a ng-if='!story.is_collection' href ui-sref="story({postId: coverstory.slug})" embedit='coverstory.data.title' language='language'></a>
+        <a ng-if='story.is_collection' href ui-sref="collection({collectionId: coverstory.slug})" embedit='coverstory.data.title' language='language'></a>
       </h3>
       <div class='authors' ng-if="coverstory.authors.length">
         by <span ng-repeat='author in coverstory.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>

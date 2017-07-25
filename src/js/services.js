@@ -73,6 +73,11 @@ angular.module('miller')
         params:{fn:'featured'},
         method: 'GET'
       },
+      getNeighbors: {
+        params:{fn:'neighbors'},
+        method: 'GET'
+      },
+
       pending: {
         params:{fn:'pending'},
         method: 'GET'
@@ -90,11 +95,28 @@ angular.module('miller')
       }
     });
   })
+  .factory('StoryDOIMetadataFactory', function ($resource) {
+    return $resource('/api/story/:id/doi/metadata/', {},{})
+  })
   .factory('StoryGitFactory', function ($resource, parseHeaderFilename) {
     return $resource('/api/story/:id/git/:fn/:commit/', {},{
       getByGitTag: {
-        params: {fn:'tag'},
+        params: {
+          fn:'tag'
+        },
         method: 'GET',
+      },
+      getDiff:{
+        params: {
+          fn:'diff'
+        },
+        method: 'GET',
+      },
+      saveVersion:{
+        params: {
+          fn: 'tag'
+        },
+        method: 'POST'
       }
     })
   })
@@ -192,6 +214,12 @@ angular.module('miller')
     return $resource('/api/document/:id/:fn', {},{
       update: {
         method:'PUT'
+      },
+      suggest:{
+        method: 'GET',
+        params:{
+          fn: 'suggest' 
+        }
       },
       oembed:{
         method:'GET',
@@ -291,7 +319,8 @@ angular.module('miller')
       
       if(qs.filters){
         try {
-          _params.filters = JSON.stringify(angular.merge(JSON.parse(_params.filters), JSON.parse(qs.filters)));
+          _params.filters = JSON.stringify(angular.merge(_params.filters || {}, JSON.parse(qs.filters || '{}')));
+          _params.exclude = JSON.stringify(angular.merge(_params.exclude || {}, JSON.parse(qs.exclude || '{}')));
         } catch(e){
           $log.warn('ItemsCtrl @EVENTS.PARAMS_CHANGED wrong filters provided!');
         }
@@ -566,6 +595,113 @@ angular.module('miller')
       return results;
     };
   })
+  /*
+    Basic item extension service, based on model name dispatch it to the correct service.
+  */
+  .service('extendItem', function($injector) {
+    return function(item, model, options) {
+      if(model == 'story') {
+        return $injector.get('extendStoryItem')(item, options.language);
+      }
+      return item;
+    }
+  })
+  /*
+    add information about a story given its tags.
+    extend story with:
+    ```
+    story._chapters     = [];
+    story._biography    = null;
+    story._isBiography  = false;
+    story._isCollection = false;
+    ```
+    Then rewrite `covers`property excluding special documents.
+    Return an extended story.
+  */
+  .service('extendStoryItem', function(markdownItChaptersService) {
+    return function(story, language) {
+      // extend story with:
+      story._chapters     = [];
+
+      story._biography    = null;
+      story._isBiography  = false;
+      story._isCollection = false;
+
+      // tags by category
+      story._tags = {};
+
+      for (var i=0, j=story.tags.length; i<j; i++) {
+        if(story.tags[i].category=='writing' && story.tags[i].slug == 'collection'){
+          
+          var links = markdownItChaptersService(story.contents, language);
+          var stories = _.keyBy(story.stories, 'slug');
+          
+          // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
+          story._chapters = _(links).map(function(d){
+            if(stories[d.slug]){
+              return stories[d.slug]
+            } else{
+              $log.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
+            }
+          }).compact().value();
+
+          story._isCollection = true;
+        } else if(story.tags[i].category=='writing' && story.tags[i].slug == 'biography'){
+          story._isBiography = true;
+        }
+        
+        if(!story._tags[story.tags[i].category])
+          story._tags[story.tags[i].category] = {}
+
+        if(story.tags[i].status) {
+          story._tags[story.tags[i].category][story.tags[i].id] = story.tags[i]
+        }
+      }
+
+      // apply ordering to tags
+      if(!story.data._ordering) {
+        story.data._ordering = {} 
+      }
+      // https://stackoverflow.com/questions/28719795/lodash-sort-collection-based-on-external-array
+      if(!story.data._ordering.authors) {
+        story.data._ordering.authors = _.map(story.authors, 'id')
+      } else {
+        var authors = _.keyBy(story.authors, 'id');
+        story.authors = story.data._ordering.authors.map(function(d){
+          return authors[d];
+        })
+      }
+
+      if(!story.data._ordering.tags) {
+        story.data._ordering.tags = _.mapValues(story._tags, function(d) {
+          return _.map(d, 'id')
+        })
+      } else {
+        for(var category in story.data._ordering.tags) {
+          // console.log('group',j, story.data._ordering.tags[j])
+          story._tags[category] = story.data._ordering.tags[category].map(function(d) {
+            return story._tags[category][d];
+          });
+          story.tags = _(story._tags).map(_.identity).flatten().compact().value()
+        }
+      }
+
+      // exclude document types as "entity" from covers
+      story.covers = story.covers.filter(function(doc){
+        // if there is an entity, use it as a _biography document.
+        if(story._isBiography && doc.type =='entity' && doc.data.type == 'person') {
+          story._biography = doc
+        }
+        return doc.type !=  'entity'
+      });
+
+      // confirm that the biography is valid.
+      story._isBiography = !!story._biography && !!story._biography.data.activities && !!story._biography.data.activities.length;
+
+      return story
+    }
+  })
+
   .factory('metadataFactory', function($log) {
     return {
       parse: function(story){

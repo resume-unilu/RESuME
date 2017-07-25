@@ -10,8 +10,13 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       count: 0,
       next: undefined,
       isLoadingNextItems: false,
+      
+      suggestions: [],
+
       suggest: function(query, keep){
-        var $s = this;
+        var $s = this,
+            q  = query && query.length > 2? query.replace('*', '').trim() + '*': '';
+
         $log.log('tab.favourite > suggest', $s);
         $s.isLoadingNextItems = true;
         if(!keep){
@@ -19,7 +24,9 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
         }
 
         DocumentFactory.get($s.next || {
-          filters: JSON.stringify(query.length > 2? {contents__icontains: query}: {})
+          q: q,
+          facets: 'data__type'
+          // filters: JSON.stringify(query.length > 2? {contents__icontains: query}: {})
         }, function(res){
           $log.log('tab.favourite > suggest loaded n.docs:', res.results.length, QueryParamsService(res.next || ''));
           
@@ -29,6 +36,28 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           $s.next    = QueryParamsService(res.next || '');
 
           $s.isLoadingNextItems = false;
+
+          $s.typeahead(query);
+        });
+      },
+
+      suggestquery: function(q) {
+        var $s = this;
+        $scope.query = q;
+        $s.suggest(q);
+      } ,
+
+      typeahead: function(query) {
+        var $s = this;
+        if (!query || query.length < 3){
+          $s.suggestions = [];
+          return
+        }
+
+        DocumentFactory.suggest({
+          q: query
+        }, function(res) {
+          $s.suggestions = res.results;
         });
       },
       init: function(){

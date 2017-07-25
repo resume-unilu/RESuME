@@ -1,3 +1,4 @@
 <div ng-if='embed.html' style='height: 200px; width: 100%; overflow: hidden' embedit='embed.html' stretch="true"></div>
+<div ng-if='!embed.html' style='height: 200px; width:100%; background-position: center; background-color: #151515; background-size:contain; background-repeat: no-repeat;' lazy-img='{{embed.url}}'></div>
 <a class='permalink' target='_blank' ng-href='{{embed.url}}'>{{embed.title}}</a>
 <div class='description'>{{embed.description}} <a target='_blank' ng-href='{{embed.url}}'>{{embed.url|smartUrl}}</a> <span translate="by"></span> <a ng-href='embed.author_url' target='_blank'>{{embed.author_name}}</a> <span translate="on"></span> <a ng-href='embed.provider_url' target='_blank'>{{embed.provider_name}}</a></div>

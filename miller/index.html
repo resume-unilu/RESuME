@@ -232,33 +232,7 @@
         height: 30px;
       }
 
-      #table-of-contents{
-        position: fixed;
-        left:0;
-        top: 70px;
-        width: 250px;
-        bottom: 0;
-        color: white;
-        background: #FF6B6B;
-        transition: transform .27s ease-in-out;
-        transform: translateX(-250px);
-        -webkit-transform: translateX(-250px);
-        -moz-transform: translateX(-250px);
-        -ms-transform: translateX(-250px);
-        z-index: 2;
-      }
-
-      #inner-table-of-contents {
-        position:absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        transform: translateY(140px);
-        -webkit-transform: translateY(140px);
-        -moz-transform: translateY(140px);
-        -ms-transform: translateY(140px);
-      }
+      
 
 
       #writing-tools {
@@ -278,31 +252,7 @@
       }
       
 
-      #table-of-contents-toggler{
-        position: fixed;
-        bottom: 20px;
-        left: 30px;
-        transition: opacity .3s ease-in-out;
-        opacity: 0;
-        z-index: 1101;
-        transform: translateY(140px);
-        -webkit-transform: translateY(140px);
-        -moz-transform: translateY(140px);
-        -ms-transform: translateY(140px);
-      }
-
-      #table-of-contents-toggler button{
-        padding: 0;
-      }
-
-      #table-of-contents-toggler button span{
-        line-height: 30px;
-      }
-
-      #table-of-contents-toggler.active{
-        opacity: 1;
-      }
-
+      
       #table-of-documents{
         position: fixed;
         right: 0;
@@ -589,11 +539,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .navbar-nav .collapse-toggler {
           display: none;
         }
-        #table-of-contents-toggler{
-          top: 155px;
-          left: 20px;
-          z-index: 1;
-        }
+        
         #footer ul.navbar-nav{
           margin: 10px 0;
         }
@@ -620,6 +566,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       }
 
       @media (min-width: 992px){
+        .truncate{
+          max-width: 280px;
+        }
+        .navbar-default .navbar-nav > li > a, #footer ul.navbar-nav > li > a{
+          max-width: 200px;
+        }
+
         .rangy{
           width: 500px;
         }
@@ -673,7 +626,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         }
       }
       @media (min-width: 1200px){
-        
+        .truncate{
+          max-width: 380px;
+        }
         .coverstory .cover {
           height: 200px;
         }
@@ -689,6 +644,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       }
       
       @media (min-width: 1400px) {
+        .truncate{
+          max-width: 480px;
+        }
         .nav-filters{
           width: 300px;
         }
@@ -928,8 +886,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     
     <!-- CONTENTS -->
     
-    <div id='wrapper' ng-class='state'>
-      <div ng-click='hasToC = false;' ng-class='{"with-ToC": hasToC && ToC.length>0}' >
+    <div id='wrapper' ng-class='state|statetoclass'>
+      <div  ng-class='{"with-ToC": hasToC && ToC.length>0}' >
         {% block content %}
         <div ng-class='state' ui-view='' autoscroll>
         </div>
@@ -969,7 +927,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       </div>
     </div>
     {% endblock %}
-    <aside id='table-of-contents'  ng-class='{"active":hasToC && ToC.length>0}'>
+    <aside id='table-of-contents' ng-class='{"active":hasToC && ToC.length>0}'>
       <div id="inner-table-of-contents"><div ng-include='"templates/partials/table-of-contents.html"|prefixTemplate'></div></div>
     </aside>
 
@@ -977,15 +935,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       <div id="inner-table-of-documents"><div ng-include='"templates/partials/table-of-documents.html"|prefixTemplate'></div></div>
     </aside> -->
 
-    <div id='table-of-contents-toggler'  ng-class='{"active": ToC.length > 0}' >
-      <div >
-        <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button>
+    <div id='table-of-contents-toggler' ng-class='{"active": state != "writing" && ToC.length > 0}' >
+      <div>
+        <!-- <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button> -->
+        <button class='btn-transparent' ng-class='{"active": hasToC && ToC.length > 0}' ng-click='toggleTableOfContents()' bs-tooltip data-placement='right' title='table of contents'><span class='icon-book-open'></span></button>
       </div>
-      {% verbatim %}
-        <ul><li bs-scrollspy data-offset='120' data-target='#h-{{heading.slug}}' ng-repeat='heading in ToC' class='heading heading-{{heading.level}}'>
-          <a ng-click='setHash(heading.slug)' bs-tooltip data-placement='right' title='{{heading.text}}'></a>
-        </li><ul>
-      {% endverbatim %}
+      
     </div>
     {% verbatim %}
     <div id="messenger" ng-class='{"active":message}' translate="{{message}}"></div>
@@ -1041,6 +996,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/controllers/assign.js" %}'></script>
     <script src='{% static "js/controllers/author.js" %}'></script>
     <script src='{% static "js/controllers/authors.js" %}'></script>
+    <script src='{% static "js/controllers/chapter.js" %}'></script>
     <script src='{% static "js/controllers/core.js" %}'></script>
     <script src='{% static "js/controllers/collection.js" %}'></script>
     <script src='{% static "js/controllers/draft.js" %}'></script>
@@ -1066,6 +1022,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/controllers/modals/add-review.js" %}'></script>
     <script src='{% static "js/controllers/modals/final-decision.js" %}'></script>
 
+    <script src='{% static "js/directives/biography.js" %}'></script>
     <script src='{% static "js/directives/commenter.js" %}'></script>
     <script src='{% static "js/directives/embedit.js" %}'></script>
     <script src='{% static "js/directives/footnote.js" %}'></script>  
@@ -1113,7 +1070,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           _offsetables = {
             navbar: $('#navbar'),
             'table-of-contents-toggler': angular.element('#table-of-contents-toggler'),
-            'inner-table-of-contents': angular.element('#inner-table-of-contents'),
+            'table-of-contents': angular.element('#table-of-contents'),
             // 'inner-table-of-documents': $('#inner-table-of-documents'),
             // 'writing-tools': $('#writing-tools')
           },
@@ -1138,15 +1095,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           st = _windox.scrollTop();
           navbar_offset = Math.max(floatinglimit - st, 0);
 
-        if(navbar_offset != _navbar_offset)
-          for(var i in _offsetables)
-            if(i != 'navbar')
-              _offsetables[i].css({
-                transform: 'translateY('+navbar_offset+'px)',
-                '-webkit-transform': 'translateY('+navbar_offset+'px)',
-                '-moz-transform': 'translateY('+navbar_offset+'px)',
-                '-ms-transform': 'translateY('+navbar_offset+'px)',
-              });
+        // if(navbar_offset != _navbar_offset)
+        //   for(var i in _offsetables)
+        //     if(i != 'navbar')
+        //       _offsetables[i].css({
+        //         transform: 'translateY('+navbar_offset+'px)',
+        //         '-webkit-transform': 'translateY('+navbar_offset+'px)',
+        //         '-moz-transform': 'translateY('+navbar_offset+'px)',
+        //         '-ms-transform': 'translateY('+navbar_offset+'px)',
+        //       });
 
         if(st > floatinglimit) {
           if(!isBelowFloating){
@@ -1216,6 +1173,47 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           user: user,
           oembeds: oembeds,
           settings: settings,
+
+          writings: { // loaded on runtime, from django settings.
+            tags: [
+              { 
+                label: 'drafts.keywords.placeholder', 
+                relevance: 'primary',
+                filters:  {
+                  category:'keyword'
+                },
+                lambda: {
+                  category:'keyword'
+                },
+                addFromAutocompleteOnly: false
+              },
+              {% if user.is_staff %}
+              {
+                label: 'staff.drafts.tags.placeholder',
+                relevance: 'secondary',
+                filters:  {
+                  category__in:['writing', 'blog', 'highlights']
+                },
+                lambda: function(d) {
+                  return ['writing', 'blog', 'highlights'].indexOf(d.category) != -1
+                },
+                addFromAutocompleteOnly: true
+              },
+              
+              {
+                label: 'publishing',
+                relevance: 'secondary',
+                filters:  {
+                  category: 'publishing'
+                },
+                lambda: {
+                  category: 'publishing'
+                },
+                addFromAutocompleteOnly: true
+              }
+              {% endif %}
+            ]
+          },
 
           routes: {
             assign: [
@@ -1323,6 +1321,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               },
             ],
             publications: {
+              all: [{
+                slug: 'all',
+                url: '',
+                filters: {
+                  tags__category: 'writing'
+                }
+              }],
               status: [
                 {
                   slug: 'draft',
@@ -1346,12 +1351,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 },
                 {
                   slug: 'cahiers',
-                  url: '/cahiers'
+                  url: '/cahiers',
+                  orderby: 'data__issue,-date'
                 },
                 {
                   name: 'Revue de l’Euro',
                   slug: 'revue-ecu-euro',
-                  url: '/revue-ecu-euro'
+                  url: '/revue-ecu-euro',
+                  orderby: 'data__issue,-date'
                 },
               ],
               tags:[

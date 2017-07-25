@@ -1,4 +1,6 @@
-<div class="story">
+<div ng-if='story._isCollection' ng-include='"templates/collection.html"|prefixTemplate'></div>
+
+<div ng-if='!story._isCollection' class="story">
   <div class='container'>
     <div class="view">
       <div class="actions" >
@@ -30,7 +32,7 @@
         </div>
 
         <div ng-if='story.isWritable && !story.isUnderReview' class='btn-line-group primary transparent'>
-          <button  class='btn-line' nref ui-sref='writing({storyId:story.slug})'><span translate='edit'></span> <span class='icon icon-pencil'></span></button>
+          <button class='btn-line' nref ui-sref='writing({storyId:story.slug})'><span translate='edit'></span> <span class='icon icon-pencil'></span></button>
         </div>
         
 
@@ -71,8 +73,10 @@
       <div class='row'>
         <div class='col-md-8'>
           <div class="tags" >
-            <span ng-if="story.tags.length" class='tag sans-serif' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
-            
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.writing' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.blog' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
+             <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
+          
           </div>
 
           <div class='authors' ng-if="story.authors.length">
@@ -85,7 +89,7 @@
 
       <div class='row'>
         <div class='col-md-12'>
-          <h1 embedit='story.metadata.title' language='language'></h1>
+          <h1 rewording value='story.data.title' default='{{story.title}}'></h1>
           
           
           
@@ -93,17 +97,45 @@
           <div ng-if='story.status == "public"' ng-include='"templates/partials/story.socialshare.html"|prefixTemplate'></div>
 
           <!-- story reference and cite as buttons -->
-          <!-- <div embedit='story.metadata.issue' ng-if='story.metadata.issue' markdown='true' language='language'></div>
+          <!-- <div embedit='story.data.issue' ng-if='story.data.issue' markdown='true' language='language'></div>
           -->
           
-          <blockquote embedit='story.metadata.abstract' language='language'></blockquote>
+          <blockquote class='abstract' rewording markdown='inline' value='story.data.abstract' default='{{story.abstract}}'></blockquote>
+
+          <div class="tags keywords">
+            <span ng-if="story._tags.keywords" translate="keywords" class='label'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+          </div>
+          <div class='btn-line-group transparent toC'>
+            <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
+            </button>
+          </div>
         </div>
       </div>
-      
-      <div ng-if='story.covers.length' class="main cover" ng-repeat='document in story.covers'>
-        <!-- <div class='row'>
-          <div class='col-md-8'> according to document type-->
-          <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
+    </div>
+      <div ng-if='story._isBiography'>
+        <div class='container' >
+          <div class='row no-gutter biography-wrapper' >
+            <div class='col-sm-4' style='padding: 0' respect-sibling='next'>
+              <div ng-if='story.covers.length' class="main cover" style='height: 100%' ng-repeat='document in story.covers'>
+                <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
+              </div>
+              <div ng-if='!story.covers.length' class="main cover" style='height: 100%'>
+                
+                <div class="lazy-cover" style="background-position:{{story._biography.data.offsetx}} {{story._biography.data.offsety}};" lazy-img="{{story._biography.data.url||story._biography.data.thumbnail_url}}"></div>
+              </div>
+
+            </div>
+            <div class='col-sm-8' >
+              <div biography data='story._biography.data'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if='!story._isBiography && story.covers.length' class="main cover" ng-repeat='document in story.covers'>
+        <div class='container'>
+
+          <div class='cover-oembed'  style='height: 400px' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
           
           <!-- </div> -->
           
@@ -111,22 +143,27 @@
           <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate'></div>
           <!-- </div> -->
         <!-- </div> -->
+        </div>
       </div>
 
-      <div class='row' style='margin-bottom: 50px'>
+    <div class='container'>
+      
+          
+      <div class='row' style='margin-bottom: 100px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
+
           <div style='position:relative' class="contents">
             
             <!-- contents of the story -->
             <div id='contents' markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
 
             <!-- DOI / reference -->
-            <div class='ref' ng-if='story.metadata.doi || story.metadata.reference'>
+            <div class='ref' ng-if='story.data.doi || story.data.reference'>
               <span translate='ref' class='label'></span>
-              <a target='_blank' embedit='story.metadata.reference' markdown='true' language='language'></a>
-              <span ng-if='story.metadata.doi && story.metadata.reference'>&mdash;</span>
-              <span class='label' ng-if='story.metadata.doi' translate='doi'></span>
-              <a ng-if='story.metadata.doi' ng-href='https://doi.org/{{story.metadata.doi}}' target='_blank'>{{story.metadata.doi}}</a> 
+              <a target='_blank' embedit='story.data.reference' markdown='true' language='language'></a>
+              <span ng-if='story.data.doi && story.data.reference'>&mdash;</span>
+              <span class='label' ng-if='story.data.doi' translate='doi'></span>
+              <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'>{{story.data.doi}}</a> 
             </div>
 
             
@@ -143,8 +180,9 @@
       </div>
     </div>
     
-    <div ng-if='story.isWritable' class='versioning' sticky >
-      <div class="dropdown">
+    <div  class='versioning' sticky >
+
+      <div ng-if='story.isWritable' class="btn-line-group transparent dropdown">
         <a class='btn-line' ng-click='loadVersions()' bs-dropdown placement='top-left' aria-haspopup="true" aria-expanded="false">
           <span ng-if='state=="story"'>most recent version</span><span ng-if='state!="story"'>version: {{story.version}}</span> <span class='icon icon-list'></span>
         </a>
@@ -159,14 +197,27 @@
         </ul>
         
       </div>
-
+      <!-- <div>{{neighbors}}</div> -->
+      <div class="btn-line-group transparent black " ng-if='neighbors.previous_sibling'>
+        <button class='btn-line' title='{{neighbors.previous_sibling.title}}'  ui-sref='story({postId:neighbors.previous_sibling.slug})'>
+          <span class='icon left icon-arrow-left-circle'></span>
+          <span class='truncate' rewording value='neighbors.previous_sibling.data.title' default='{{neighbors.previous_sibling.title}}'></span>
+        </button>
+      </div>
+      <div class="btn-line-group transparent black" ng-if='neighbors.next_sibling'>
+        <button class='btn-line' title='{{neighbors.next_sibling.title}}' ui-sref='story({postId:neighbors.next_sibling.slug})'>
+          <span class='truncate' rewording value='neighbors.next_sibling.data.title' default='{{neighbors.next_sibling.title}}'></span>
+          <span class='icon icon-arrow-right-circle'></span>
+        </button>
+      </div>
     </div>
+
     <div marginalia whenvisible='loadComments()'></div>
             
   </div>
   <div class='responses' ng-if='story.isWritable || story.isReviewable'>
     <div class='container' >
-      <div class='row' style='margin-bottom: 50px'>
+      <div class='row' style='margin-bottom: 100px'>
         <div class='col-md-12'>
           <!-- comment list babe -->
             <div  class='sliding-steps'>

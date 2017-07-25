@@ -1,0 +1,62 @@
+<div class="biography">
+  <div class='biography-tooltip' ng-class='{"hide": tooltip.idx  < 0}' style='left:{{tooltip.left}}px;bottom:{{tooltip.bottom}}px;top:initial'>
+    <div class='inner'>
+      <div class='date' rewording value='tooltip.date' follow='tooltip'></div>
+      <div class='type' ng-class='tooltip.type' ng-if='tooltip.type' translate='biography.activitytype.{{tooltip.type}}'></div>
+      <div class='description' rewording value='tooltip.description' follow='tooltip'></div>
+      <div class='arrow'></div>
+    </div>
+  </div>
+  <div class='frame'>
+    <label class='birth'>
+        <div class='place'>{{data.birth_place}}</div>
+        <div class='date'>{{data.start_date|date:"yyyy"}}</div>
+    </label>
+
+    <label class='death'>
+        <div class='place'>{{data.death_place}}</div>
+        <div class='date'>{{data.end_date|date:"yyyy"}}</div>
+      </label>
+
+    <div class='lifespan'>
+      
+      <div class='line'></div>
+      
+      <div class='line offset'></div>
+
+      
+      
+
+      
+
+      <div class='bar-wrapper' style='left: {{lifespan.left}}px; right: {{lifespan.right}}px'>
+        <div class='date left'>{{lifespan.years.min}}</div>
+        <div class='date right'>{{lifespan.years.max}}</div>
+        <div class='bar'></div>
+        <div class='border left'></div>
+      <div class='border right'></div>
+        <!-- <div class='border left'></div>
+        <div class='border right'></div> -->
+      </div>
+
+    </div>
+
+    <div class='activities'>
+
+      <div class='date left'><span>{{lifespan.years.min}}</span></div>
+      <div class='date right'><span>{{lifespan.years.max}}</span></div>
+
+      <div class='activity' ng-class='{"active": $index == tooltip.idx}' ng-mouseover='showTooltip(activity, $index, $event)'  ng-mouseleave='hideTooltip()' style='top:{{$index * activity.height}}px;height:{{activity.height}}px' ng-repeat='activity in data.activities'>
+      <div class='description' ng-if='activity.description.alignment=="left"|| activity.nodate' style='left:5px; right: {{activity.description.right}}px;text-align:right' rewording value='activity.description'></div>
+        <div class='description' ng-if='activity.description.alignment=="right"' style='left: {{activity.description.left}}px' rewording value='activity.description'></div>
+
+        <div class='bar-wrapper' style='left: {{activity.left}}px; right: {{activity.right}}px; min-width: 3px'>
+          <div class='date left'>{{activity.start_date}}</div>
+          <div class='date right' ng-show='!activity.uniqdate'>{{activity.end_date}}</div>
+          <div class='bar' ng-class='activity.type'></div>
+        </div>
+        <div class='line'></div>
+      </div>
+    </div>
+  </div>
+</div>
