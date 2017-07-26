@@ -3,6 +3,10 @@ logs
 *.log
 npm-debug.log*
 
+#locales
+src/locale/*.json
+src/locale/*.csv
+
 # Runtime data
 pids
 *.pid
