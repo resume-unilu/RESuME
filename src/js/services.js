@@ -343,7 +343,9 @@ angular.module('miller')
     return function(value, language){
       var v,
         candidate;
-
+      if(!value){
+        return ''
+      }
       candidate = _(value.split(/<!--\s*(lang:[a-zA-Z_]{2,5})\s*-->/))
         .compact()
         .chunk(2)
