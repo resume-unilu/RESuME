@@ -59,16 +59,16 @@ angular.module('miller')
     $scope.setDocuments = function(documents) {
       $log.log('🍔 CoreCtrl > setDocuments items n.:', documents.length, documents);
       $scope.documents = _.uniq(documents, 'id');
-      if($scope.qs.view) {
-        // check if it's somewhere in the scope, otherwise callit
-        for(var i=0,j=$scope.documents.length;i<j;i++){
-          if($scope.qs.view == $scope.documents[i].short_url){
-            $scope.fullsized = $scope.documents[i];
-            fullsizeModal.$promise.then(fullsizeModal.show);
-            break;
-          }
-        }
-      }
+      // if($scope.qs.view) {
+      //   // check if it's somewhere in the scope, otherwise callit
+      //   for(var i=0,j=$scope.documents.length;i<j;i++){
+      //     if($scope.qs.view == $scope.documents[i].short_url){
+      //       $scope.fullsized = $scope.documents[i];
+      //       fullsizeModal.$promise.then(fullsizeModal.show);
+      //       break;
+      //     }
+      //   }
+      // }
     };
 
     // look for document by slug (internal, cached docs or ask for new one)
@@ -300,20 +300,43 @@ angular.module('miller')
     });
     
     $scope.$on('modal.hide', function(e,modal){
-      if(modal.$id== 'dii')
-        $location.search('view', null);
+      // if(modal.$id== 'dii')
+      //   $location.search('view', null);
+      $scope.fullsized = null;
     });
 
     // 
     $rootScope.fullsize = function(slug, type) {
-      $log.log('🍔 CoreCtrl -> fullsize, doc slug:', slug, type);
+      $log.log('🍔 CoreCtrl -> fullsize -slug:', slug, '-type:', type);
       
       if(type=='voc'){
         $state.go('story', {
           postId:slug
         })
       } else {
-        $location.search('view', slug);
+        // go to fullpage view for document
+        // $location.search('view', slug);
+        var _isCached = false;
+        // check if it's somewhere in the scope, otherwise callit
+        for(var i=0,j=$scope.documents.length;i<j;i++){
+          if(slug == $scope.documents[i].slug){
+            $scope.fullsized = $scope.documents[i];
+            fullsizeModal.$promise.then(fullsizeModal.show);
+            _isCached = true
+            break;
+          }
+        }
+        if(!_isCached) {
+          $log.log('🍔 CoreCtrl -> fullsize, doc slug:', slug, 'not found in documents, loading...');
+          DocumentFactory.get({id: slug}, function(res){
+            $scope.fullsized = res;
+            fullsizeModal.$promise.then(fullsizeModal.show);
+          });
+        }
+
+        // if($scope.qs.view){
+        // 
+      
       }
       // $scope.fullsized = doc;
       // $location.search('view', doc.short_url);
@@ -410,20 +433,23 @@ angular.module('miller')
       $scope.locationPath = path;
       $scope.path = $location.path();
       $scope.searchquery = $scope.qs.q;
-      // load fullsize
-      if($scope.qs.view){
-        DocumentFactory.get({id: $scope.qs.view}, function(res){
-          $scope.fullsized = res;
-          fullsizeModal.$promise.then(fullsizeModal.show);
-        });
+      // // load fullsize
+      // if($scope.qs.view){
+      //   DocumentFactory.get({id: $scope.qs.view}, function(res){
+      //     $scope.fullsized = res;
+      //     fullsizeModal.$promise.then(fullsizeModal.show);
+      //   });
+      // }
+      if($scope.fullsized) {
+        $scope.fullsized = null;
+        fullsizeModal.hide();
       }
-
-      if($scope.qs.view && $scope.fullsized && $scope.fullsized.short_url == $scope.qs.view){
-        // normal behaviour, after fullsize has been called the view param is present in location
-        fullsizeModal.$promise.then(fullsizeModal.show);
-      } else if(!$scope.qs.view && $scope.fullsized){
-         fullsizeModal.hide();
-      }
+      // if($scope.qs.view && $scope.fullsized && $scope.fullsized.short_url == $scope.qs.view){
+      //   // normal behaviour, after fullsize has been called the view param is present in location
+      //   fullsizeModal.$promise.then(fullsizeModal.show);
+      // } else if(!$scope.qs.view && $scope.fullsized){
+      //    fullsizeModal.hide();
+      // }
       
       /*
         Now emit stuff
