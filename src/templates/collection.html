@@ -52,7 +52,7 @@
           <li ui-sref-active="active" class='special'>
             <a ui-sref='story({postId:story.slug})' translate='index'>&nbsp;</a>
           </li>
-          <li ui-sref-active="active" ng-repeat="chapter in chapters">
+          <li ui-sref-active="active" ng-repeat="chapter in story._chapters">
             <a ui-sref='story.story({postId:story.slug, chapterId:chapter.slug})'>{{$index + 1}}</a>
           </li>
 
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    <div  ng-repeat="chapter in chapters">
+    <div  ng-repeat="chapter in story._chapters">
       <div class='container'>
         <div class="chapter" ng-class='{"last": $last}'>
 

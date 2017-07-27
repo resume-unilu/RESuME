@@ -639,11 +639,13 @@ angular.module('miller')
           var stories = _.keyBy(story.stories, 'slug');
           
           // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
+          
           story._chapters = _(links).map(function(d){
+
             if(stories[d.slug]){
               return stories[d.slug]
             } else{
-              $log.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
+              console.warn('chapter with slug: ',d.slug, 'was not found in related stories!!!')
             }
           }).compact().value();
 
