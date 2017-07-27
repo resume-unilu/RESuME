@@ -217,6 +217,8 @@ angular.module('miller')
       $scope.lock();
       
       // partial update route (data will be updated, too)
+      if(!$scope.story.data._ordering.tags[tag.category])
+        $scope.story.data._ordering.tags[tag.category] = []  
       $scope.story.data._ordering.tags[tag.category].push(tag.id);
       
       return StoryFactory.patch({id: story.id}, {
