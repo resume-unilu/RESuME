@@ -134,8 +134,8 @@
                   
                 </div>
 
-                <div ng-if='embed.type == "rich" || embed.type == "video"'>
-                  <div ng-if='embed.html' class='embed' style='height: 200px; width: 100%; overflow: auto' embedit='embed.html' stretch="true"></div>
+                <div ng-if='embed.type == "rich" || embed.type == "video" || embed.type == "timeline"'>
+                  <div ng-if='embed.html' class='embed' style='height: 300px; width: 100%; overflow: auto' embedit='embed.html' stretch="true"></div>
                   <div ng-include='"templates/partials/embeds/metadata.html"|prefixTemplate'></div>
 
                 </div>

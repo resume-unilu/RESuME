@@ -12,7 +12,7 @@
       </div>
       <div class="main">
         <div class="box sidebar"></div>
-        <div class="box content" ng-if='fullsized.type == "photo" || fullsized.type == "image" || fullsized.type == "rich" || fullsized.type == "video"'>
+        <div class="box content" ng-if='fullsized.type != "text"'>
           <div class='embedded' ng-if='fullsized.data.urls.Publishable || fullsized.attachment'>
             <div class='image' lazy-image size='contain' src='fullsized.data.urls.Publishable || fullsized.attachment'></div>
           </div>

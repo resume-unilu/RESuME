@@ -1,0 +1,74 @@
+/* timelineJS override*/
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.tl-timeline{
+  font-family: 'Lato', sans-serif;
+}
+
+.tl-timeline h1, .tl-timeline h2, .tl-timeline h2.tl-headline-title, .tl-timeline h3, .tl-skinny .tl-text h2.tl-headline, .tl-skinny .tl-text h2.tl-headline-title, .tl-medium .tl-text h2.tl-headline, .tl-medium .tl-text h2.tl-headline-title{
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.tl-timeline h2.tl-headline-title{
+  font-weight: bold;
+}
+
+.tl-text p {
+  color: #151515;
+  font: 11px/18px 'Merriweather', serif;
+}
+
+.tl-timeline .tl-caption, .tl-timeline .tl-credit, .tl-timeline .tl-slidenav-next, .tl-timeline .tl-slidenav-previous{
+  font: 11px/18px 'Merriweather', serif;
+}
+
+.tl-slidenav-next .tl-slidenav-icon, .tl-slidenav-previous .tl-slidenav-icon, [class*=" tl-icon-"], [class^=tl-icon-]{
+  font-family: 'simple-line-icons';
+  font-size: 18px;
+}
+
+.tl-slidenav-next .tl-slidenav-icon:before{
+  content: "\e606";
+}
+
+.tl-slidenav-previous .tl-slidenav-icon:before{
+  content: "\e605";
+}
+
+.tl-icon-zoom-in:after{
+  content: "\e091";
+}
+
+.tl-icon-zoom-out:after{
+  content: "\e092";
+}
+
+.tl-icon-goback:after{
+  content: "\e06f";
+}
+
+
+.tl-text .tl-headline-date, .tl-text h3.tl-headline-date, .tl-text .tl-headline-date small, .tl-text h3.tl-headline-date small{
+  font: 11px/18px 'Merriweather', serif;
+}
+
+.tl-credit{
+  text-align: left
+}
+
+.tl-caption{
+  margin-top: 0;
+}
+.tl-timemarker .tl-timemarker-content-container{
+      border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.tl-slidenav-next .tl-slidenav-title, .tl-slidenav-previous .tl-slidenav-title{
+  line-height: 15px;
+}

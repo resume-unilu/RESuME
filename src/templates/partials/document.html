@@ -1,6 +1,8 @@
 <div class='doc doc-{{document.type}} {{document.isSelected?"active":""}} orientation-{{document.data.layout.orientation||"landscape"}} caption-align-{{document.data.layout.caption_align||"center"}} size-{{document.data.layout.size||"cover"}}' ng-click='selectDocument(document)'>
   <div class='switch' ng-if='document.type=="image" || document.type=="rich" || document.type=="video" || document.type=="photo"' rich-oembed fullscreen='fullsize(document.slug)' oembed='document.data' media='document' quality='{{quality}}'></div>
 
+  <div class='switch timeline' ng-if='document.type=="timeline"' stretch='true' embedit='document.data.html'></div>
+
   <div class='switch' ng-if='document.type=="picture"' style='height: 400px; width:100%; background-position: center; background-color: #151515; background-size:contain; background-repeat: no-repeat;' lazy-img='{{document.src}}'></div>
 
   <div ng-if='document.data' ng-include='"templates/partials/document.metadata.html"|prefixTemplate'></div>

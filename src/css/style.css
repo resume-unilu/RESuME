@@ -1347,7 +1347,7 @@ a.author{
   height: 280px;
 }
 
-.contents .doc.orientation-portrait .switch{
+.contents .doc .switch.timeline, .contents .doc.orientation-portrait .switch{
   height: 500px;
 }
 
@@ -2463,6 +2463,10 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   overflow: auto;
   background-color: #151515;
   transition: opacity .25s ease-in-out;
+}
+
+.modal.fullsize .oversize.timeline .wrapper .box .embedded{
+  overflow: hidden;
 }
 
 .modal.fullsize .oversize .wrapper .box .embedded .image{
@@ -4421,3 +4425,9 @@ content: "\e07a";
     left: 47px;
 }
 
+
+.tl-timeline p{
+  font: 'Merriweather', serif !important;
+  color: red!important;
+  background: gold;
+}
