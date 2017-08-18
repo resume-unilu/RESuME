@@ -2756,6 +2756,10 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   height: 100%;/*400px;*/
 }
 
+.story .cover.main .cover-oembed.cover-chapter{
+  height: 400px;
+}
+
 .story .cover.main .metadata{
   margin: 0;
   background-color: transparent;
