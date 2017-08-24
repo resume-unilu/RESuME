@@ -46,6 +46,13 @@ h1, .h1 {
   vertical-align: top;
 }
 
+table.async{
+  transition: opacity .3s ease-in-out
+}
+
+table.async.loading{
+  opacity: .3;
+}
 
 ul.list{
   padding: 10px 0 0 12px;
@@ -73,6 +80,32 @@ ul.list{
 
 .relative{
   position: relative;
+}
+
+.badge{
+  font-family: 'Lato', sans-serif;
+  line-height: inherit;
+  font-size: 11px;
+  padding: 0 8px;
+  border-radius: 2em;
+  text-transform: uppercase;
+  margin: 0 5px;
+  color: #22b300;
+  font-weight: normal;
+  background: #c7f464;
+  box-shadow: 0px 1px 2px rgba(18, 93, 0, 0.21);
+}
+
+.badge.badge-warning{
+  color: #ff6b6b;
+  background-color: #f8eb75;
+}
+
+.badge .icon{
+  font-size: 15px;
+  line-height: 1em;
+  float: left;
+  padding: 5px 5px 0 0;
 }
 
 .quick{
@@ -138,7 +171,9 @@ font-size: 12px;
   font-size: 13px;
 } 
 
-
+.contents ol, ul{
+  margin-top: 30px;
+}
 
 
 .page .contents h1, .page .contents .h1 {
@@ -2354,6 +2389,35 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   list-style-type: none;
   
 }*/
+/*
+  Modal: SaveDoi;
+*/
+
+.modal.save-doi table{
+      margin-top: 15px;
+    background: #f0f0f0;
+    margin-bottom: 0px;
+}
+
+
+.modal.save-doi table th{
+  width: 100px;
+}
+.modal.save-doi table ol{
+  padding: 0;
+  font-size: 11px;
+  line-height: 18px;
+  margin-top: 5px;
+}
+
+.modal.save-doi table.loading td > span{
+  background: #ccc;
+  display: block;
+  height: 19px;
+  width: 50px;
+  padding: 0px;
+  margin: 4px 0 0;
+}
 
 /*
   Modal:oversize;

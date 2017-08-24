@@ -96,7 +96,16 @@ angular.module('miller')
     });
   })
   .factory('StoryDOIMetadataFactory', function ($resource) {
-    return $resource('/api/story/:id/doi/metadata/', {},{})
+    return $resource('/api/story/:id/doi/:fn/', {},{
+      getMetadata: {
+        method: 'GET',
+        params: {fn: 'metadata'}
+      },
+      updateMetadata: {
+        method: 'POST',
+        params: {fn: 'metadata'}
+      }
+    })
   })
   .factory('StoryGitFactory', function ($resource, parseHeaderFilename) {
     return $resource('/api/story/:id/git/:fn/:commit/', {},{

@@ -1,0 +1,68 @@
+<div class="modal save-doi" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1051; display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+        <span aria-hidden="true" class='icon-close'></span>
+        </button>
+        <h4 class="modal-title"><span translate="modals.savedoi.title"></span><span ng-if='doi'> ({{doi}})</span></h4>
+      </div>
+      <div class="modal-body" style='padding: 20px 0'>
+        <div class="container-fluid" >
+          <div class='row'>
+            <div  class='col-md-12'>
+            <p translate='modals.savedoi.description' class='sans-serif' style='font-size:11px; line-height:18px; margin-bottom:10px'>
+            </p>
+            <div>
+              <div class='btn-line-group'>
+                <a class='btn-line' target='_blank' href="/admin/miller/story/{{storyId}}/change/">change metadata (admin)</a>
+              </div>
+              <div class='btn-line-group transparent' ng-if='should_update_doi'>
+                <a class='btn-line' target='_blank' href="/api/story/{{storyId}}/doi/metadata/">verify remote metadata</a>
+              </div>
+              <div class='btn-line-group transparent' ng-if='doi'>
+                <a class='btn-line' target='_blank' href="/api/story/{{storyId}}/doi/metadata/?test=true&content-type=xml">preview metadata</a>
+              </div>
+            </div>
+              <table class='table async' ng-class='{"loading": !currentMetadata}'>
+                <tr><th>DOI</th><td><span>{{currentMetadata.DOI}}</span><span class='badge' ng-if='should_update_doi'><span class='icon icon-check'></span>public</span><span class='badge badge-warning' ng-if='!should_update_doi && currentMetadata'><span class='icon icon-exclamation'></span>not yet created</span></td></tr>
+                <tr><th>publisher</th><td><span>{{currentMetadata.publisher}}</span></td></tr>
+                <tr><th>resourceType</th><td><span>{{currentMetadata.resourceType}}</span></td></tr>
+                <tr><th>publicationYear</th><td><span>{{currentMetadata.publicationYear}}</span></td></tr>
+                <tr><th>lastUpdate</th><td><span>{{currentMetadata.lastUpdate}}</span></td></tr>
+                <tr><th>title</th><td><span>{{currentMetadata.title}}</span></td></tr>
+                <tr><th>abstract</th><td style='font-size:11px;line-height:18px'><span>{{currentMetadata.abstract}}<span></td></tr>
+                <tr><th>subjects</th><td style='font-size:11px;line-height:18px'><span>{{currentMetadata.subjects}}<span></td></tr>
+                <tr>
+                  <th>creators</th>
+                  <td>
+                    <ol ng-repeat='person in currentMetadata.creators'><li><b>{{person.creatorName}}</b><br/><em>affiliation</em>: {{person.affiliation || "*no affiliation*"}}<br/><em>ORCID</em>: {{person.ORCID || "*no orcid*"}}</li></ol>
+                  </td>
+                </tr>
+                <tr>
+                  <th>contributors</th>
+                  <td>
+                    <ol ng-repeat='person in currentMetadata.contributors'><li><b>{{person.contributorName}}</b><br/><em>role</em>: {{person.contributorType}}<br/><em>affiliation</em>: {{person.affiliation || "*no affiliation*"}}<br/><em>ORCID</em>: {{person.ORCID || "*no orcid*"}}</li></ol>
+                    
+                  </td>
+                </tr>
+              </table>
+              
+            </div>
+          </div>
+          <div class='row' ng-if='log_message.error'>
+            <div class='modal-message error'>{{log_message.error}}, {{log_message.errorDescription}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class='btn-line-group primary'>
+          <button type="submit" class="btn-line " ng-disabled='is_saving && !doi' ng-click="confirm()" translate='button.createorupdate' translate-values='{create: !should_update_doi}'></button>
+        </span>
+        <span class='btn-line-group transparent'>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,7 +37,7 @@
           <div class='tile'>
             <div class='title' embedit='document.data.title' language='language'></div>
             <div class='copyright' embedit='document.data.copyright'></div>
-            <div class='btn-line-group'>
+            <div class='btn-line-group transparent'>
               <button class='btn-line' ng-disabled='!story.covers.length' ng-click='
               removeCover(document)' translate="button.removecover"></button>
             </div>
@@ -46,7 +46,7 @@
 
       </div>
       <div class="center">
-        <div class='btn-line-group ' style='width: 100%'>
+        <div class='btn-line-group' style='width: 100%'>
           <button   class='btn-line' ng-click='
             openCoversModal()' translate="button.choosecover"></button>
         </div>
@@ -56,10 +56,12 @@
     <div ng-if='user.is_staff'>
       <!-- doi -->
       <label>
-        <span translate="field.label.doi"></span>
+        <span translate="field.label.doi"></span> 
       </label>
-      <textarea class='elastic-textarea' rows="1" msd-elastic ng-model='story.data.doi' type='text' placeholder='doi'></textarea>
-
+      <div>
+      <span>{{story.data.doi}}</span>
+        <div class='btn-line-group transparent'><button class='btn-line' ng-click='openSaveDoiModal()' translate='button.createorupdate' translate-values='{create: !story.data.doi}'></button></div>
+      </div>
       <!-- citation -->
       <label>
         <span translate="field.label.issue"></span>

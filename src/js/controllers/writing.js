@@ -361,6 +361,31 @@ angular.module('miller')
         addTagModal.show();
       });
     }
+
+
+    var saveDoiModal = $modal({
+      template: RUNTIME.static + 'templates/partials/modals/save-doi.html',
+      id: 'writing.savedoi',
+      controller: 'SaveDoiModalCtrl',
+      scope: $scope,
+      resolve: {
+        storyId: function() {
+          return story.id
+        },
+      },
+      show: false
+    });
+
+    $scope.openSaveDoiModal = function(value) {
+      saveDoiModal.$promise.then(function() {
+          $log.log('WritingCtrl -> openSaveDoiModal()');
+          saveDoiModal.show();
+      });
+    };
+
+    $scope.localUpdateDoi = function(doi) {
+      $scope.story.data.doi = doi;
+    }
     /*
       Modal window that describe new version.
     */
