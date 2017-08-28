@@ -1361,6 +1361,7 @@ a.author{
 }
 .contents .placeholder{
   margin-top: 15px;
+  min-width: 250px;
 }
 
 .contents .lazy-placeholder .metadata .button{
