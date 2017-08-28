@@ -450,7 +450,7 @@ angular.module('miller')
               _index: linkIndex, // internal id
               _type: tokens[idx + 1].content.length? 'doc': 'block-doc',
               citation: tokens[idx + 1].content,
-              slug: doc
+              slug: doc,
             });
           
           if(!disableLazyPlaceholders && !tokens[idx + 1].content.length){

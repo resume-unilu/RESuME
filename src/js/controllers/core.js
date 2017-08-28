@@ -70,6 +70,10 @@ angular.module('miller')
       //   }
       // }
     };
+    $scope.$on(EVENTS.STORY_SET_DOCUMENTS, function(e, documents) {
+      $log.log('🍔 CoreCtrl @EVENTS.STORY_SET_DOCUMENTS setDocuments documents n.:', documents.length);
+      $scope.setDocuments(documents);
+    });
 
     // look for document by slug (internal, cached docs or ask for new one)
     $rootScope.resolve = function(slug, type, callback){

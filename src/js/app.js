@@ -46,6 +46,7 @@ angular
     'MARKDOWNIT_RESOLVE': 'markdownit_resolve',
     'MARKDOWNIT_FOCUS': 'markdownit_focus',
 
+    'STORY_SET_DOCUMENTS': 'story_set_documents',
     'SOCKET_USER_COMMENTED_STORY': 'socket_user_commented_story',
     'SOCKET_USER_UNCOMMENTED_STORY': 'socket_user_uncommented_story',
 

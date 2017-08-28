@@ -8,22 +8,24 @@
  * Please make sure that $scope.$parent.$parent.setDocuments exists and is CoreCtrl.
  */
 angular.module('miller')
-  .controller('ChapterCtrl', function($scope, $timeout, chapter) {
+  .controller('ChapterCtrl', function($log, $scope, $timeout, chapter, EVENTS) {
     $scope.chapter = chapter;
     $scope.chapter.isWritable = $scope.hasWritingPermission($scope.user, $scope.chapter);
     $scope.isChapter = true;
 
     $scope.setDocuments = function(items){
+      
       var documents = [];
 
       $scope.sidedocuments = 0;
       
       documents = _(items)
         .map(function(d){
+          
           // check if it is in the story.documents list
           for(var i=0;i<chapter.documents.length;i++){
             if(chapter.documents[i].slug == d.slug){
-              $scope.sidedocuments += !!d.citation.length;
+              $scope.sidedocuments += d.citation.length;
               return angular.extend({
                 _type: d._type,
                 _index: d._index,
@@ -34,7 +36,7 @@ angular.module('miller')
 
           for(i=0;i<chapter.stories.length;i++){
             if(chapter.stories[i].slug == d.slug){
-              $scope.sidedocuments += !!d.citation.length;
+              $scope.sidedocuments += d.citation.length;
               return angular.extend({
                 _type: d._type,
                 _index: d._index,
@@ -42,13 +44,16 @@ angular.module('miller')
               }, chapter.stories[i]);
             }
           }
-          $scope.sidedocuments++;
+          // $scope.sidedocuments++;
           // this is another story or a footnote or a missing document (weird)
           // will be lazily filled with stuffs later
           return d;
         }).value();
       $timeout(function(){
-        $scope.$parent.$parent.setDocuments(documents);
+        $log.log('ChapterCtrl > setDocuments items n.:', documents.length, $scope.sidedocuments > 0? 'WITH': 'NO', 'sideDocuments.');
+        if($scope.sidedocuments > 0)
+          $scope.$emit(EVENTS.STORY_SET_DOCUMENTS, documents);
+        //$scope.$parent.$parent.setDocuments(documents);
       }, 1000)
       
     }
