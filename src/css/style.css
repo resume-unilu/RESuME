@@ -2422,6 +2422,17 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 /*
   Modal:oversize;
 */
+.modal.fullsize.link.with-cover{
+  width: auto;
+  left: 0;
+  right: 0;
+  bottom:0;
+  top:0;
+  margin-top: 0;
+  margin-left: 0;
+  height: auto;
+}
+
 .modal.fullsize.link{
   width: 400px;
   left: 50%;

@@ -1,4 +1,4 @@
-<div ng-class='fullsized.type' class="modal fullsize"  tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1050; display: block;">
+<div ng-class='{"with-cover":fullsized.data.thumbnail_url}' class="modal fullsize {{fullsized.type}}"  tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1050; display: block;">
   <div ng-click='$hide()' class='close'>
   <span class='icon-close'></span>
   </div>
@@ -13,16 +13,16 @@
       <div class="main">
         <div class="box sidebar"></div>
         <div class="box content" ng-if='fullsized.type != "text"'>
-          <div class='embedded' ng-if='fullsized.data.urls.Publishable || fullsized.attachment'>
-            <div class='image' lazy-image size='contain' src='fullsized.data.urls.Publishable || fullsized.attachment'></div>
+          <div class='embedded' ng-if='fullsized.data.html && !fullsized.data.urls' stretch='true' embedit='fullsized.data.html'></div>
+          <div class='embedded' ng-if='fullsized.data.html && fullsized.data.urls'>
+            <!-- ex cvce -->
+            <div class='image-wrapper cover' style='background-size:contain; background-color: #151515; background-image:url({{fullsized|coverage:"hifi"}})'></div>
           </div>
-          <div class='embedded' ng-if='!fullsized.data.urls.Publishable && fullsized.data.html' stretch='true' embedit='fullsized.data.html'></div>
-          <div class='embedded' ng-if='!fullsized.data.urls.Publishable && fullsized.data.url && !fullsized.data.html && fullsized.data.url != "url"'>
-            <div class='image' lazy-image size='contain' src='fullsized.data.url'></div>
+          <div class='embedded' ng-if='!fullsized.data.html'>
+            <div class='image-wrapper cover' style='background-size:contain; background-color: #151515; background-image:url({{fullsized|coverage:"hifi"}})'></div>
+
           </div>
-          <div class='embedded' ng-if='!fullsized.data.urls.Publishable && fullsized.data.url && !fullsized.data.html && fullsized.data.url == fullsized.url'>
-            <div class='image' lazy-image size='contain' src='fullsized.data.thumbnail_url'></div>
-          </div>
+          {{fullsized}}
         </div>
         <div class="box content" ng-if='fullsized.type == "text"'>
           <div class='embedded' stretch='true' embedit='fullsized.data.caption'></div>
