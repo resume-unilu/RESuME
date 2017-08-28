@@ -5,7 +5,7 @@
   <div ng-class='fullsized.type' class='oversize' style=''>
     <div class="wrapper">
       <div class="header">
-        <div class="inner">
+        <div class="inner" style='display: table-cell'>
           <h2 embedit='fullsized.data.title'></h2>
           <div ng-init='document=fullsized' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate''></div>
         </div>
@@ -22,7 +22,7 @@
             <div class='image-wrapper cover' style='background-size:contain; background-color: #151515; background-image:url({{fullsized|coverage:"hifi"}})'></div>
 
           </div>
-          {{fullsized}}
+          <!-- {{fullsized}} -->
         </div>
         <div class="box content" ng-if='fullsized.type == "text"'>
           <div class='embedded' stretch='true' embedit='fullsized.data.caption'></div>
