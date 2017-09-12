@@ -165,7 +165,7 @@
 
             <div class='ref' ng-if='story.data.doi'>
               <span class='label' ng-if='story.data.doi' translate='doi'></span>
-              <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'>{{story.data.doi}}</a> 
+              <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'><p>{{story.data.doi}}</p></a> 
             </div>
             <!-- contains the commenter -->
             <div ng-if='story.isWritable || story.isReviewable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
