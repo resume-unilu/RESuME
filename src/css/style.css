@@ -1016,7 +1016,7 @@ ul.errorlist{
 
 .ref > a{
   color: #6b6b6b;
-  display: inline-block;
+  display: block;
 }
 
 .ref > a:hover{
