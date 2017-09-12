@@ -103,8 +103,8 @@
           <blockquote class='abstract' rewording markdown='inline' value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
           <div class="tags keywords">
-            <span ng-if="story._tags.keywords" translate="keywords" class='label'></span>
-            <span class='tag sans-serif' ng-repeat='tag in story._tags.keywords' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+            <span ng-if="story._tags.keyword" translate="keywords" class='label'></span>
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.keyword' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
           </div>
           <div class='btn-line-group transparent toC'>
             <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
