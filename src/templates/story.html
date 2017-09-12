@@ -158,16 +158,15 @@
             <div id='contents' markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
 
             <!-- DOI / reference -->
-            <div class='ref' ng-if='story.data.doi || story.data.reference'>
+            <div class='ref' ng-if='story.data.reference'>
               <span translate='ref' class='label'></span>
               <a target='_blank' embedit='story.data.reference' markdown='true' language='language'></a>
-              <span ng-if='story.data.doi && story.data.reference'>&mdash;</span>
+            </div>
+
+            <div class='ref' ng-if='story.data.doi'>
               <span class='label' ng-if='story.data.doi' translate='doi'></span>
               <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'>{{story.data.doi}}</a> 
             </div>
-
-            
-            
             <!-- contains the commenter -->
             <div ng-if='story.isWritable || story.isReviewable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
             
