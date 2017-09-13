@@ -692,9 +692,9 @@ angular.module('miller')
       } else {
         for(var category in story.data._ordering.tags) {
           // console.log('group',j, story.data._ordering.tags[j])
-          story._tags[category] = story.data._ordering.tags[category].map(function(d) {
+          story._tags[category] = _(story.data._ordering.tags[category]).uniq().map(function(d) {
             return story._tags[category][d];
-          });
+          }).value();
           story.tags = _(story._tags).map(_.identity).flatten().compact().value()
         }
       }
