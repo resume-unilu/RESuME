@@ -13,7 +13,7 @@
           </ul>
           <div class='slides-inner'>
             <div class='slides-rail' style='transform: translateY(-{{currentOffset}}px)'>
-              <div class='slide' style='width: 100%' ng-repeat="coverstory in coverstories | limitTo: 1" ng-include='"templates/partials/coverstory.html"|prefixTemplate'></div>
+              <div class='slide' style='width: 100%' ng-repeat="coverstory in coverstories" ng-include='"templates/partials/coverstory.html"|prefixTemplate'></div>
             </div>
           </div>
         </div>
