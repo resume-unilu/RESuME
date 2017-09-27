@@ -13,7 +13,7 @@
           </ul>
           <div class='slides-inner'>
             <div class='slides-rail' style='transform: translateY(-{{currentOffset}}px)'>
-              <div class='slide' style='width: 100%' ng-repeat="coverstory in coverstories" ng-include='"templates/partials/coverstory.html"|prefixTemplate'></div>
+              <div class='slide' style='width: 100%' ng-repeat="coverstory in coverstories | limitTo: 1" ng-include='"templates/partials/coverstory.html"|prefixTemplate'></div>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
             <span ng-if="story.keywords.length" translate="keywords" class='label'></span>
             <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
           </div>
-          <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers' class='fluid-container relative'>
+          <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
             <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
             <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
           </div>
@@ -75,7 +75,7 @@
           </blockquote>
         </div>
         
-        <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers' class='fluid-container relative'>
+        <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
           <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
           <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
         </div>
