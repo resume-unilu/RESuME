@@ -13,16 +13,16 @@ angular.module('miller')
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
-    $scope.availableRoutes = [
-      {
+
+    var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
+
+
+    $scope.availableRoutes = availableRoutes.map(function(d){
+      return {
         state: 'publications',
-        urls: RUNTIME.routes.publications.writing
-      },
-      {
-        state: 'publications',
-        urls: RUNTIME.routes.publications.tags
+        urls: RUNTIME.routes.publications[d]
       }
-    ];
+    });
     
 
     $scope.availabileOrderby = [
