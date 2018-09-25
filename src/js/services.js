@@ -6,7 +6,7 @@
  * Resource REST API service Factory.
  */
 angular.module('miller')
-  .service('parseHeaderFilename', function() {  
+  .service('parseHeaderFilename', function() {
     return function(headers) {
       var header = headers('content-disposition');
       var result = header.split(';')[1].trim().split('=')[1];
@@ -227,7 +227,7 @@ angular.module('miller')
       suggest:{
         method: 'GET',
         params:{
-          fn: 'suggest' 
+          fn: 'suggest'
         }
       },
       oembed:{
@@ -325,7 +325,7 @@ angular.module('miller')
     return function(params) {
       var _params = angular.copy(params),
           qs = $location.search();
-      
+
       if(qs.filters){
         try {
           _params.filters = JSON.stringify(angular.merge(_params.filters || {}, JSON.parse(qs.filters || '{}')));
@@ -363,7 +363,7 @@ angular.module('miller')
       // console.log(language, candidate)
       if(candidate['lang:'+language])
         return candidate['lang:'+language];
-      
+
       return value
     }
   })
@@ -376,7 +376,7 @@ angular.module('miller')
 
       md.renderer.rules.link_open = function(tokens, idx){
         var url = tokens[idx].attrGet('href').trim(); // only on block element (e.g.  url starting with 'doc/' without any text attached.
-        
+
         // console.log('LINK_OPEN', url, tokens[idx])
         if(url.indexOf('voc/') === 0){
           linkIndex++;
@@ -423,7 +423,7 @@ angular.module('miller')
         .use(window.markdownitContainer, 'abstract')
         .use(window.markdownItAttrs);
 
-      
+
       // md.renderer.rules.paragraph_open = function(tokens, idx) {
       //   // console.log('paragraph', results.paragraphs, tokens[idx-1])
       //   if(idx > 0 && tokens[idx-1] && tokens[idx-1].type != 'footnote_open'){
@@ -452,7 +452,7 @@ angular.module('miller')
               citation: tokens[idx + 1].content,
               slug: doc,
             });
-          
+
           if(!disableLazyPlaceholders && !tokens[idx + 1].content.length){
             return '<span id="item-'+linkIndex+'" class="lazy-placeholder '+klass+'" type="doc" lazy-placeholder="'+ doc + '"></span><a>';
           }
@@ -461,7 +461,7 @@ angular.module('miller')
           // return '<a name="' + documents[0] +'" ng-click="hash(\''+url+'\')"><span class="anchor-wrapper"></span>'+text+'</a>';
         } else if(url.trim().indexOf('voc/') === 0){
           var terms = url.trim().replace('voc/','').split(',');
-          
+
           for(var ind in terms){
             linkIndex++;
             results.docs.push({
@@ -473,14 +473,14 @@ angular.module('miller')
             });
           }
           tokens[idx].attrSet('class', 'glossary');
-          
+
           return '<a id="item-'+linkIndex+'" class="special-link glossary"  ng-click="focus(\'' +linkIndex+'\')"><span hold slug="'+ terms[0] +'" type="voc" class="anchor-wrapper"></span><span class="icon icon-arrow-right-circle"></span>' +
             (!disableLazyPlaceholders && !tokens[idx + 1].content.length? '&nbsp;': '')
            ;
           // return '<a id="item-'+linkIndex+'" class="special-link glossary"  ng-click="fullsize(\'' +url+'\', \'voc\')"><span hold slug="'+ terms[0] +'" type="voc" class="anchor-wrapper"></span><span class="icon icon-arrow-right-circle"></span>';
         } else {
           return '<a href="'+url+'" target="_blank">';
-        }  
+        }
       };
 
       md.renderer.rules.table_open = function(tokens, idx){
@@ -494,7 +494,7 @@ angular.module('miller')
       //   return '</a>';
       // };
 
-      
+
       md.renderer.rules.heading_open = function(tokens, idx){
         var text = tokens[idx+1].content,
             h = {
@@ -504,15 +504,15 @@ angular.module('miller')
             };
 
         results.ToC.push(h);
-        
+
         return '<' + tokens[idx].tag + '>'+
           // '<div class="anchor-sign" ng-click="hash(\''+ h.slug +'\')"><span class="icon-link"></span></div>'+
           '<a name="' + h.slug +'" id="h-' + h.slug +'" class="anchor" href="#' + h.slug +'"><span class="header-link"></span></a>';
       };
-      
+
       console.log('rules', md.renderer.rules);
 
-      
+
 
       md.renderer.rules.image = function(tokens, idx){
         var src   = tokens[idx].attrGet('src'),
@@ -520,7 +520,7 @@ angular.module('miller')
             alt   = tokens[idx].content;
 
         // console.log('IMAGE', src, 'title:', title, 'alt:', alt, tokens[idx]);
-        
+
         if(alt.indexOf('profile/') === 0){
           return '<div class="profile-thumb" style="background-image:url('+src+')"></div>';
         }
@@ -536,7 +536,7 @@ angular.module('miller')
       md.renderer.rules.footnote_anchor = function(tokens, idx, options, env, slf){
         var caption = slf.rules.footnote_caption(tokens, idx, options, env, slf);
         // eliminate starting and ending
-        
+
 
         return '<span class="footnote-anchor">'+caption.replace(/[\[\]]/g, '')+'</span>';
       };
@@ -559,14 +559,14 @@ angular.module('miller')
         return '<span  ng-click="focus(\''+ linkIndex +'\')" id="item-' + linkIndex +'" class="footnote-ref"><span class="footnote"><a>'+caption+'</a></span></span>' //replaced! footnote="'+ id + '" class="footnote-ref" caption="'+caption+'"></span>';
       };
 
-      
+
       // get the yaml metadata ;)
       value.replace(/[\n\s\r]*---[\n\r]((.|[\n\r])+)\.{3}[\n\s\r]*/m, function(d, m){
         // basic metadata chunks @todo
         results.meta = m;
         return ''
       })
-      
+
       // if(yamlmetadata)
       //   metadata = metadata[0]
 
@@ -643,12 +643,12 @@ angular.module('miller')
 
       for (var i=0, j=story.tags.length; i<j; i++) {
         if(story.tags[i].category=='writing' && story.tags[i].slug == 'collection'){
-          
+
           var links = markdownItChaptersService(story.contents, language);
           var stories = _.keyBy(story.stories, 'slug');
-          
+
           // filter chapters from links (avoid errors, double check if links are stored and related stories still exists.)
-          
+
           story._chapters = _(links).map(function(d){
 
             if(stories[d.slug]){
@@ -662,7 +662,7 @@ angular.module('miller')
         } else if(story.tags[i].category=='writing' && story.tags[i].slug == 'biography'){
           story._isBiography = true;
         }
-        
+
         if(!story._tags[story.tags[i].category])
           story._tags[story.tags[i].category] = {}
 
@@ -673,7 +673,7 @@ angular.module('miller')
 
       // apply ordering to tags
       if(!story.data._ordering) {
-        story.data._ordering = {} 
+        story.data._ordering = {}
       }
       // https://stackoverflow.com/questions/28719795/lodash-sort-collection-based-on-external-array
       if(!story.data._ordering.authors) {
@@ -692,9 +692,19 @@ angular.module('miller')
       } else {
         for(var category in story.data._ordering.tags) {
           // console.log('group',j, story.data._ordering.tags[j])
-          story._tags[category] = _(story.data._ordering.tags[category]).uniq().map(function(d) {
-            return story._tags[category][d];
-          }).value();
+          story._tags[category] = _(story.data._ordering.tags[category])
+            .uniq()
+              .map(function(d) {
+                if(story._tags[category] && story._tags[category][d]) {
+                  return story._tags[category][d];
+                }
+                return false
+              })
+              .filter(function(d){
+                return d !== false
+              })
+              .value();
+              
           story.tags = _(story._tags).map(_.identity).flatten().compact().value()
         }
       }

@@ -14,14 +14,14 @@ angular.module('miller')
     $scope.isChapter = true;
 
     $scope.setDocuments = function(items){
-      
+
       var documents = [];
 
       $scope.sidedocuments = 0;
-      
+
       documents = _(items)
         .map(function(d){
-          
+
           // check if it is in the story.documents list
           for(var i=0;i<chapter.documents.length;i++){
             if(chapter.documents[i].slug == d.slug){
@@ -51,10 +51,10 @@ angular.module('miller')
         }).value();
       $timeout(function(){
         $log.log('ChapterCtrl > setDocuments items n.:', documents.length, $scope.sidedocuments > 0? 'WITH': 'NO', 'sideDocuments.');
-        if($scope.sidedocuments > 0)
+        if(documents.length > 0)
           $scope.$emit(EVENTS.STORY_SET_DOCUMENTS, documents);
         //$scope.$parent.$parent.setDocuments(documents);
       }, 1000)
-      
+
     }
   });
