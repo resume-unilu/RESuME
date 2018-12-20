@@ -205,7 +205,7 @@ angular.module('monospaced.elastic', [])
             forceAdjust();
           });
 
-          $timeout(adjust, 100, false);
+          $timeout(adjust, 0, false);
 
           /*
            * destroy
