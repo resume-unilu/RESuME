@@ -1,7 +1,7 @@
 var gulp  = require('gulp'),
     pkg   = require('./package.json'),
     _     = require('lodash'),
-    
+
     // files = require('./src/files').development,
     $     = require('gulp-load-plugins')({
               rename: {
@@ -31,7 +31,7 @@ gulp.task('templates', function () {
 
 gulp.task('libs', function() {
   return gulp.src([
-    './src/js/lib/jquery-3.1.1.min.js',
+    './src/js/lib/jquery.min.js',
     './src/js/lib/md5.js',
     './src/js/lib/lodash.custom.min.js',
     // './src/js/lib/marked.min.js',
@@ -43,18 +43,18 @@ gulp.task('libs', function() {
     // './src/js/lib/bibtexParse.js',
     './src/js/lib/reconnecting-websocket.min.js',
 
-    './src/js/lib/angular.min.js', 
-    './src/js/lib/angular-route.min.js', 
-    './src/js/lib/angular-resource.min.js', 
-    './src/js/lib/angular-cookies.min.js', 
-    './src/js/lib/angular-sanitize.min.js', 
+    './src/js/lib/angular.min.js',
+    './src/js/lib/angular-route.min.js',
+    './src/js/lib/angular-resource.min.js',
+    './src/js/lib/angular-cookies.min.js',
+    './src/js/lib/angular-sanitize.min.js',
 
     // './src/js/lib/angular-disqus.min.js',
-    // './src/js/lib/angular-debounce.js', 
+    // './src/js/lib/angular-debounce.js',
     './src/js/lib/angular-load.min.js',
     // './src/js/lib/angular-animate.min.js',
     './src/js/lib/angular-socialshare.min.js',
-    './src/js/lib/angular-ui-router.min.js', 
+    './src/js/lib/angular-ui-router.min.js',
     './src/js/lib/angular-strap.min.js',
     './src/js/lib/angular-strap.tpl.min.js',
     './src/js/lib/angular-elastic.js',
@@ -84,12 +84,12 @@ gulp.task('scripts', function() {
       './src/js/controllers/**/*.js',
       './src/js/directives/*.js',
       './src/js/templates.js',
-      
+
     ])
     .pipe($.concat('scripts.min.js'))
     .pipe($.uglify({mangle: false}))
-    
-    
+
+
     // Output files
     .pipe(gulp.dest('./src/js'))
     .pipe($.size({title: 'js'}))
@@ -102,7 +102,7 @@ gulp.task('scripts.rangy', function() {
       './src/js/rangy/rangy-textrange.min.js',
       './src/js/rangy/rangy-classapplier.min.js',
       './src/js/rangy/rangy-highlighter.js'
-      
+
     ])
     .pipe($.concat('scripts.rangy.min.js'))
     // Output files
@@ -183,7 +183,7 @@ gulp.task('jshint.rangy', function() {
 // });
 // // Build
 // gulp.task('build', function() {
-  
+
 // });
 
 // Default
