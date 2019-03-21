@@ -180,23 +180,6 @@ angular.module('miller')
       Set breaking news above the header.
       Cfr indexCtrl
     */
-    $scope.breakingNews = [];
-    $scope.setBreakingNews = function(breakingNews) {
-
-      $scope.breakingNews = breakingNews.slice(0,3).map(function(d){
-        if(d.covers && d.covers.length){
-          var cover = d.covers[0];
-
-          d.cover_url = $filter('coverage')(cover);
-          //_.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
-
-        }
-        d.isCollection = _.filter(d.tags, {slug: 'collection'}).length > 0;
-        return d;
-      });
-    };
-
-
     $transitions.onStart({}, function($transition$) {
       var to = $transition$.$to().name;
 
@@ -523,11 +506,6 @@ angular.module('miller')
     // load language
     $scope.language = localStorageService.get('lang') || 'en_US';
     $scope.changeLanguage($scope.language);
-    // load "huighlights"
-    StoryFactory.featured({}, function(data){
-      $log.log('🍔 CoreCtrl breaking news loaded', data);
-      $scope.setBreakingNews(data.results);
-    });
 
     // understand window size;
     $scope.calculateBounds();

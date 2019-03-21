@@ -291,109 +291,6 @@
         -ms-transform: translateY(140px);
       }
 
-
-
-
-
-
-
-
-      #unilu-logo-wrapper{
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        /*border-left: 2px solid white;*/
-      }
-
-      #unilu-logo{
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width: 380px;
-        background-color: #4ECDC4;
-        background-image: url(/static/images/DEIS_uni.lu.png);
-        z-index: 1;
-        background-size: contain;
-        /* border-top-left-radius: 5px; */
-        /* border-top-right-radius: 5px; */
-        background-position: left bottom;
-      }
-
-      #showreel{
-        position: absolute;
-        top: 0px;
-        background: #101010;
-        left:0;
-        width: 100%;
-        z-index: 3;
-        overflow:hidden;
-      }
-
-      #showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{
-        height: 70px;
-      }
-
-
-
-
-      .breakingNews{
-        float:left;
-        width:40%;
-        color: white;
-        height: 100%;
-        background: #111;
-      }
-
-      .breakingNews.branding {
-        width: 20%;
-      }
-
-      .breakingNews .wrapper{
-        position: relative;
-        height: 100%;
-        width: 100%;
-      }
-
-      .breakingNews .overlay{
-        position: absolute;
-        bottom: 0px;
-        background: rgba(76,76,76,0);
-background: -moz-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(76,76,76,0)), color-stop(100%, rgba(19,19,19,0.89)));
-background: -webkit-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
-background: -o-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
-background: -ms-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
-background: linear-gradient(to bottom, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0 );
-
-        left: 0;
-        right: 0;
-        padding: 11px 8px 0 8px;
-      }
-
-      .breakingNews h3{
-        color: #F0F0F0;
-        font-size: 10px;
-        line-height: 15px;
-        border-bottom: 2px solid #FF6B6B;
-        margin: 0 0 5px 0;
-        padding: 0px 0 10px 0;
-        max-height: 34px;
-        overflow: hidden;
-      }
-      .breakingNews .type, .breakingNews span.tag {
-        font-family: 'Lato', sans-serif;
-        font-size: 10px;
-        color: #fafafa;
-        text-transform: uppercase
-      }
-      .breakingNews a{
-        color: #f0f0f0;
-      }
-      .breakingNews a:hover, .breakingNews a:focus{
-        color: white
-      }
-
       #wrapper {
         min-height: 100%;
         height: auto !important;
@@ -479,10 +376,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           height: 70px;
         }
 
-        #showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{
-          height: 100px;
-        }
-
         .view{
           margin-top: 200px;
         }
@@ -519,14 +412,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           height: 100%;
         }
 
-
-
-        .breakingNews .overlay{
-          padding: 11px 15px 0 15px;
-        }
-        .breakingNews h3{
-          margin: 0 0 10px 0;
-        }
         .coverstory .cover {
           height: 300px;
         }
@@ -598,16 +483,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           font-size: 15px;
           line-height: 25px;
         }
-        .breakingNews, .breakingNews.branding{
-          width: 25%;
-        }
 
-        .breakingNews h3{
-          font-size: 12px;
-          line-height: 19px;
-          max-height: 62px;
-          margin: 0 0 10px 0;
-        }
         .nav-filters{
           width: 200px;
         }
@@ -667,25 +543,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 {% block body %}
   <body  ng-controller='CoreCtrl' >
     {% block page %}
-    <!-- where highlights are -->
-    <div id='showreel'>
-      <div class='container'>
-        <div class="row" ><div class='col-sm-12'>
-          <div class="row">
-          <div id='showreel-inner'>
-            {% verbatim %}
-            <div class="breakingNews branding">
-              <div id='unilu-logo-wrapper'>
-                <div id='unilu-logo'></div>
-              </div>
-            </div>
-            <div class="breakingNews" ng-repeat='news in breakingNews' ng-include='"templates/partials/breakingNews.html"|prefixTemplate'></div>
-            {% endverbatim %}
-          </div>
-          </div>
-        </div>
-      </div></div>
-    </div>
 
     {% block navbar %}
     <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
@@ -856,17 +713,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   {% if user.is_authenticated %}
                   <li class="dropdown">
                   <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
-
-
-
-                    <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
+                  <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
                       <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
                       <li ui-sref-active="active"><a ui-sref="profile.publications({username:user.username})">your writings</a></li>
                       <li><a href='{% url "logout_view" %}'>log out</a></li>
                       {% if user.is_staff %}
                       <li><a href='{% url "admin:index" %}'>admin</a></li>
                       {% endif %}
-
 
                   </li>
                   {% else %}
