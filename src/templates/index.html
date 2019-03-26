@@ -3,10 +3,10 @@
 <div class="row">
   <div class="col-md-12">
     <h5 class='lined'><span translate='site.title'></span></h5>
-    
+
     <!-- CONVER STORY -->
     <div class="row">
-      
+
         <div class='slides-wrapper' slides autoscroll ng-mouseover='pause()' ng-mouseout='play()'>
           <ul class='nav slides-nav'>
             <li ng-repeat="n in numSlides" ng-click='jumpTo(n)' ng-class='{"active": currentIndex == n}'></li>
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-     
+
     </div>
   </div>
   <div class="col-md-8">
@@ -44,7 +44,7 @@
             <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})"><span class='icon-arrow-right-circle'></span></a></blockquote>
           <div class="tags keywords" ng-if='story.keywords.length'>
             <span ng-if="story.keywords.length" translate="keywords" class='label'></span>
-            <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+            <span class='tag sans-serif' ng-repeat='tag in story.keywords|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
           </div>
           <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
             <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
@@ -74,13 +74,13 @@
             <a href ui-sref="story({postId: story.slug})"><span class='icon-arrow-right-circle'></span></a>
           </blockquote>
         </div>
-        
+
         <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
           <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
           <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
         </div>
           <div style='clear:both'></div>
-        
+
       </div>
     </div>
 
