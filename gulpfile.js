@@ -140,6 +140,10 @@ gulp.task('jshint', function() {
     .pipe($.jshint.reporter('jshint-stylish'))
 });
 
+gulp.task('watch', ['templates'], function() {
+  gulp.watch('./src/templates/**/*.html', ['templates']);
+})
+
 // Lint rangy Javascript
 gulp.task('jshint.rangy', function() {
   return gulp.src([
@@ -187,7 +191,7 @@ gulp.task('jshint.rangy', function() {
 // });
 
 // Default
-gulp.task('default', ['templates', 'libs', 'scripts', 'styles']);
+gulp.task('default', ['templates', 'libs', 'scripts', 'styles', 'watch']);
 
 
 
