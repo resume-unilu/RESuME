@@ -191,7 +191,7 @@ gulp.task('jshint.rangy', function() {
 // });
 
 // Default
-gulp.task('default', ['templates', 'libs', 'scripts', 'styles', 'watch']);
+gulp.task('default', ['templates', 'libs', 'scripts', 'styles']);
 
 
 
