@@ -5,16 +5,16 @@
         <td class='nav-filters'>
           <ul class='nav nav-tabs nav-top'>
                 <li role="presentation" ui-sref-active="active" >
-                  <a href ui-sref='{{mainStatename}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{mainStatename}}.label"></a>
+                  <a ui-sref='{{mainStatename}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{mainStatename}}.label"></a>
                 </li>
                 <li ng-if='tag' ui-sref-active="active">
-                  <a href class='quick' ui-sref='{{rootStatename}}.tags({slug: tag.slug})' aria-controls="home" role="tab" data-toggle="tab">
+                  <a class='quick' ui-sref='{{rootStatename}}.tags({slug: tag.slug})' aria-controls="home" role="tab" data-toggle="tab">
                     <span>{{tag.category}}</span>/<b rewording value='tag.data.name' follow='tag' default='{{tag.name}}'></b>
                   </a>
                 </li>
                 <li ng-if='mainRoutes' ng-repeat='url in mainRoutes' role="presentation" ui-sref-active="active">
-                  <a ng-if='url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
-                  <a ng-if='!url.name' href ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{rootStatename}}.{{url.slug}}.label"></a>
+                  <a ng-if='url.name' ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
+                  <a ng-if='!url.name' ui-sref='{{rootStatename}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{rootStatename}}.{{url.slug}}.label"></a>
                 </li>
               </ul>
 
@@ -32,8 +32,8 @@
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
 
             <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ui-sref-active="active">
-              <a ng-if='url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
-              <a ng-if='!url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label"></a>
+              <a ng-if='url.name' ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
+              <a ng-if='!url.name' ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label"></a>
 
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
                 <li ng-class='{"active":(filters.tags__slug__all | inArray : tag.slug)}' ng-repeat='tag in hallOfFame.publishings.results'>
