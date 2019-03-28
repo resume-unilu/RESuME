@@ -1090,8 +1090,14 @@ ul.errorlist{
 }
 
 .story.item .title{
-      margin-top: 10px;
-    margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  /*padding-left: 5px;*/
+  /*padding-right: 5px;*/
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .story.item .title a{
@@ -4510,4 +4516,16 @@ content: "\e07a";
   font: 'Merriweather', serif !important;
   color: red!important;
   background: gold;
+}
+
+.story-card {
+  max-width: 555px;
+  min-height: 340px;
+}
+
+.story-card-inner {
+  padding-left: 0;
+  padding-right: 0;
+  height: 98%;
+  /*background-color: rgb(231, 231, 231);*/
 }
