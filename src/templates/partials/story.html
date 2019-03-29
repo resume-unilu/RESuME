@@ -2,12 +2,15 @@
   <div class="col-md-4 story-card" ng-if='story.covers.length'>
     <div class="story-card-inner">
       <div  ng-repeat='document in story.covers' class='fluid-container relative'>
-        <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
+        <a ui-sref="story({postId: story.slug})">
+          <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
+        </a>
         <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
       </div>
 
-  <!--    Title-->
-      <h3 class="title" style="overflow: hidden;"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>
+      <h3 class="title" style="overflow: hidden;">
+        <a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a>
+      </h3>
 
       <div>
         <div>
