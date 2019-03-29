@@ -389,6 +389,7 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(author) {
+                debugger
                 return {
                   filters: d.slug? {
                     tags__category__in: ['writing', 'blog'],
@@ -459,6 +460,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(profile){
+              debugger
               return {
                 filters: {
                   authors__user__username: profile.username
@@ -495,6 +497,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
@@ -533,6 +536,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: d.filters || {},
                 orderby: '-date_last_modified'
@@ -559,6 +563,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
           initials: function() {
+            debugger
             return {}
           },
           items: function(ReviewFactory) {
@@ -628,6 +633,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: d.slug != 'all'? {
                   tags__slug: d.slug
@@ -672,6 +678,7 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(){
+                debugger
                 return {
                   filters: d.filters? d.filters: {},
                   exclude: {
@@ -710,11 +717,12 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
+              debugger
               return {
                 filters: {
                   tags__category: 'writing'
                 },
-                limit: 10,
+                limit: 9,
                 orderby: '-date,-date_last_modified'
               };
             },
@@ -746,6 +754,7 @@ angular
 
             resolve: {
               initials: function() {
+                // debugger
                 return {
                   filters: d.filters? d.filters: d.slug? {
                     tags__category: 'writing',
@@ -753,7 +762,7 @@ angular
                   }: {
                     tags__category: 'writing'
                   },
-                  limit: 10,
+                  limit: 9,
                   orderby: d.orderby? d.orderby:'-date,-date_last_modified'
                 };
               },
@@ -794,6 +803,7 @@ angular
 
           resolve: {
             initials: function() {
+              debugger
               return {}
             },
 
@@ -818,7 +828,7 @@ angular
         resolve: {
           story: function(StoryFactory, $stateParams) {
             return StoryFactory.get({id: $stateParams.postId}).$promise;
-          },
+          }
         }
       })
       .state('storygit', {
@@ -830,9 +840,9 @@ angular
           story: function(StoryGitFactory, $stateParams) {
             return StoryGitFactory.getByGitTag({
               id: $stateParams.id,
-              commit: $stateParams.commit,
+              commit: $stateParams.commit
             }).$promise;
-          },
+          }
         }
       })
 
@@ -875,6 +885,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
+              debugger
               return {}
             },
             items: function(PulseFactory, initials) {

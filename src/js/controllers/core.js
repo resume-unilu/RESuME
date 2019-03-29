@@ -16,7 +16,7 @@ angular.module('miller')
 
     $scope.settings = RUNTIME.settings;
 
-    $rootScope.page = 'index';
+    $rootScope.page = 'author.publications.all';
 
     $scope.hasToC = false;
     $scope.ToCEnabled = false;
@@ -186,12 +186,11 @@ angular.module('miller')
       $log.log('🍔 CoreCtrl @stateChangeStart new:', to, '- previous:', $scope.state);
       if(to === 'login' && $scope.user.short_url){
         $log.warn('... cannot switch to login, user already logged in:', $scope.user.username);
-        debugger
 
         if($scope.state && $scope.state!='login')
           $state.go($scope.state);
         else
-          $state.go('index');
+          $state.go('author.publications.all');
 
         return;
       }
