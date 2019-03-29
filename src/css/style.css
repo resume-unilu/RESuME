@@ -195,9 +195,7 @@ font-size: 12px;
   font-size: 12px;
 }
 
-
-
-.container{
+.container, .tight-container{
   transition: transform .26s ease-in-out;
 }
 
