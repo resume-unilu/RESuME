@@ -165,15 +165,6 @@ angular
       .otherwise("/");
 
     $stateProvider
-      .state('notfound', {
-        url: '/not-found',
-        controller: function($log){
-          $log.warn('requested page not found.')
-        },
-        templateUrl: RUNTIME.static + 'templates/index.html',
-      });
-
-    $stateProvider
       .state('index.signup', {
         url: '/',
         reloadOnSearch : false,
