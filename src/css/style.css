@@ -4521,6 +4521,12 @@ content: "\e07a";
   min-height: 340px;
 }
 
+.story-missing-cover {
+  height: 189px;
+  width: 100%;
+  background-color: #e7e7e7;
+}
+
 .story-card-inner {
   padding-left: 0;
   padding-right: 0;
