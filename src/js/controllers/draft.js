@@ -8,7 +8,7 @@
 angular.module('miller')
   .controller('DraftCtrl', function ($scope, $log, $state, localStorageService, StoryFactory, EVENTS) {
     $log.debug('DraftCtrl welcome');
-    
+
     $scope.isSaving = false;
 
     $scope.save = function(){
@@ -19,20 +19,16 @@ angular.module('miller')
       }
 
       $scope.isSaving = true;
-      
+
       var metadata = {
-        title: {},
-        abstract: {}
+        title: {}
       }
 
       // send first language used by the guy.
       metadata.title[$scope.language] = $scope.title
-      metadata.abstract[$scope.language] = $scope.abstract
 
-      
       StoryFactory.save({}, {
         title: $scope.title,
-        abstract: $scope.abstract,
         contents:'',
         data: metadata,
         status: 'draft'
@@ -50,10 +46,9 @@ angular.module('miller')
         $scope.isSaving = false;
       });
     };
-    
+
     $scope.$on(EVENTS.SAVE, function() {
       $scope.$emit(EVENTS.MESSAGE, 'saving');
       $scope.save();
     });
   });
-  
