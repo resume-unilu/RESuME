@@ -205,6 +205,11 @@ angular.module('miller')
     });
 
     $transitions.onSuccess({}, function($transition$) {
+      // Transition is triggered when the hash change. This function should not be executed in this situation
+      if (!$transition$.paramsChanged().hasOwnProperty('name') && $state.current.name !== "publications.all") {
+        return;
+      }
+
       var h =  $location.hash();
 
       // clean
@@ -244,7 +249,6 @@ angular.module('miller')
 
       // google analytics
       $window.ga('send', 'pageview', $location.path());
-
     });
 
 
