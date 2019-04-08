@@ -380,7 +380,6 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(author) {
-                debugger
                 return {
                   filters: d.slug? {
                     tags__category__in: ['writing', 'blog'],
@@ -714,7 +713,7 @@ angular
                   tags__category: 'writing'
                 },
                 limit: 9,
-                orderby: '-date,-date_last_modified'
+                orderby: 'featured'
               };
             },
             items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
@@ -754,7 +753,7 @@ angular
                     tags__category: 'writing'
                   },
                   limit: 9,
-                  orderby: d.orderby? d.orderby:'-date,-date_last_modified'
+                  orderby: d.orderby? d.orderby:'featured'
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
