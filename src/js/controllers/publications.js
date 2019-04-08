@@ -27,6 +27,10 @@ angular.module('miller')
 
     $scope.availabileOrderby = [
       {
+        label:'featured',
+        value:'featured'
+      },
+      {
         label:'issue',
         value:'data__issue,-date'
       },
@@ -49,7 +53,7 @@ angular.module('miller')
       {
         label:'titleza',
         value:'-title'
-      },
+      }
     ];
 
     // see ordering below.
