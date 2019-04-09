@@ -730,12 +730,7 @@ angular
           }
         });
 
-      _.each(RUNTIME.routes.publications.all.concat(
-          RUNTIME.routes.publications.writing,
-          RUNTIME.routes.publications.specials,
-          RUNTIME.routes.publications.tags,
-          RUNTIME.routes.publications.status
-        ), function(d) {
+      _.each(RUNTIME.routes.publications.all.concat(RUNTIME.routes.publications.status), function(d) {
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,
