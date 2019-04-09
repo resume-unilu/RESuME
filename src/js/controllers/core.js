@@ -274,6 +274,9 @@ angular.module('miller')
       $window.ga('send', 'pageview', $location.path());
     });
 
+    $rootScope.getTagRoute = function (tag) {
+      return '/?orderby=-date,-date_last_modified&filters={"tags__slug":["' + tag.slug + '"]}';
+    }
 
     $scope.setHash = function(hash) {
       $location.hash(hash);
