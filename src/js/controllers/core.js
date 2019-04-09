@@ -121,7 +121,30 @@ angular.module('miller')
       $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
     }
 
+    $scope.selectTag = function (tag) {
+      if (!('tags__slug' in $scope.filters)) {
+        $scope.filters.tags__slug = [];
+      }
 
+      if ($scope.filters.tags__slug.indexOf(tag) !== -1) {
+        $scope.filters.tags__slug.splice($scope.filters.tags__slug.indexOf(tag), 1);
+        if ($scope.filters.tags__slug.length === 0) {
+          delete $scope.filters.tags__slug
+        }
+      } else  {
+        $scope.filters.tags__slug.push(tag);
+      }
+
+      // Avoid to keep the "featured" orderby
+      var params = $location.search()
+      if (!('orderby' in params) || !params.orderby) {
+        params.orderby = '-date,-date_last_modified';
+        params.filters = JSON.stringify($scope.filters);
+        $location.search(params);
+      } else {
+        $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      }
+    }
 
     $scope.download = function(){
       $log.log('🍔 CoreCtrl > @DOWNLOAD ...');
