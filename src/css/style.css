@@ -4533,3 +4533,5 @@ content: "\e07a";
   height: 98%;
   /*background-color: rgb(231, 231, 231);*/
 }
+
+.force-pointer { cursor: pointer !important; }
