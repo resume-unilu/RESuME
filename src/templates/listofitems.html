@@ -32,7 +32,7 @@
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
 
             <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active":(filters.tags__slug | inArray : url.slug)}'>
-              <a aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label" ng-click='selectTag(url.slug)'></a>
+              <a aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label" ng-click='selectTag(url.slug)' class="force-pointer"></a>
 
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
                 <li ng-class='{"active":(filters.tags__slug__all | inArray : tag.slug)}' ng-repeat='tag in hallOfFame.publishings.results'>
