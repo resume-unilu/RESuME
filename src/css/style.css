@@ -1476,7 +1476,7 @@ a.author{
 #wrapper.writing #contents, #wrapper #versioned-contents {
   transition: transform .36s ease-in-out;
   color: #999;
-  border: 2px solid #FF6B6B;
+  border: 2px solid;
   background-color: white;
   padding: 10px 15px;
   visibility: hidden;
