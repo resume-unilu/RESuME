@@ -13,7 +13,6 @@ angular.module('miller')
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
-
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
 
@@ -23,41 +22,6 @@ angular.module('miller')
         urls: RUNTIME.routes.publications[d]
       }
     });
-
-
-    $scope.availabileOrderby = [
-      {
-        label:'featured',
-        value:'featured'
-      },
-      {
-        label:'issue',
-        value:'data__issue,-date'
-      },
-      {
-        label:'newest',
-        value:'-date,-date_last_modified'
-      },
-      {
-        label:'oldest',
-        value:'date,-date_last_modified'
-      },
-      {
-        label:'lastmod',
-        value:'-date_last_modified'
-      },
-      {
-        label:'titleaz',
-        value:'title'
-      },
-      {
-        label:'titleza',
-        value:'-title'
-      }
-    ];
-
-    // see ordering below.
-
 
     // if there is a tag, we want to get its multilingual value
     $scope.setTag = function(tag) {
@@ -73,7 +37,6 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
-
       // transform filterrs from initials (they are for publication story, not for story.authors)
       var initials = $state.current.resolve.initials(),
           params = {
@@ -83,6 +46,7 @@ angular.module('miller')
           exclude = {},
           ordering;
 
+      $scope.availabileOrderby = initials.availabileOrderby;
       ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label')
 
       if(!ordering && initials.orderby)
@@ -90,7 +54,6 @@ angular.module('miller')
 
       if(!ordering)
         ordering = 'newest';
-
 
       $scope.ordering =  ordering;
 

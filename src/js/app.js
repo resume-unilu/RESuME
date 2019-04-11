@@ -707,13 +707,12 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
-              debugger
               return {
                 filters: {
                   tags__category: 'writing'
                 },
                 limit: 9,
-                orderby: 'featured'
+                orderby: '-date,-date_last_modified'
               };
             },
             items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
@@ -739,7 +738,6 @@ angular
 
             resolve: {
               initials: function() {
-                // debugger
                 return {
                   filters: d.filters? d.filters: d.slug? {
                     tags__category: 'writing',
@@ -748,7 +746,15 @@ angular
                     tags__category: 'writing'
                   },
                   limit: 9,
-                  orderby: d.orderby? d.orderby:'featured'
+                  orderby: d.orderby? d.orderby: d.slug === 'all' ? 'featured' : '-date,-date_last_modified',
+                  availabileOrderby: _.concat(d.slug === 'all' ? [{label:'featured', value:'featured'}] : [], [
+                    {label:'issue', value:'data__issue,-date'},
+                    {label:'newest', value:'-date,-date_last_modified'},
+                    {label:'oldest', value:'date,-date_last_modified'},
+                    {label:'lastmod', value:'-date_last_modified'},
+                    {label:'titleaz', value:'title'},
+                    {label:'titleza', value:'-title'}
+                  ])
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
