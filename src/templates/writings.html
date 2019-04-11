@@ -152,9 +152,9 @@ by <a href>{{metadata.owner.username}}</a>
 
       <div class='float-right btn-line-group dropdown'>
 
-        <button class='btn-line' ng-class='{"active": state=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
-        <button class='btn-line' ng-class='{"active": state=="writing.live"}' ui-sref='writing.live({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
-        <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare" || state=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
+        <button class='btn-line' ng-class='{"active": state.current.name=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
+        <button class='btn-line' ng-class='{"active": state.current.name=="writing.live"}' ui-sref='writing.live({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
+        <button class='btn-line dropdown' ng-class='{"active": state.current.name=="writing.compare" || state.current.name=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
         <ul class="dropdown-menu" role="menu">
           <!-- <li>
             {{story.version}}
@@ -183,8 +183,7 @@ by <a href>{{metadata.owner.username}}</a>
 
   <div class='row'>
     <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
-
-    <div ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}' id="draft-contents">
+    <div ng-class='{"col-xs-6": state.current.name !="writing", "col-xs-12":state.current.name =="writing"}' id="draft-contents">
 
       <div class='contents' style='margin-top: 50px; min-height: 50px; position:relative'>
           <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
@@ -201,7 +200,7 @@ by <a href>{{metadata.owner.username}}</a>
 
       </div>
     </div>
-    <div ui-view ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
+    <div ui-view ng-class='{"col-xs-6": state.current.name !="writing", "col-xs-12":state.current.name =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
     <!-- <div class='col-md-4 col-lg-5 col-xs-4' respect-previous-sibling update="sideItems">
       <div sliding-steps data-language='language' data-focus='focusedIdx' style='height:100%' items='sideItems'></div>
     </div> -->
