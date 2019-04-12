@@ -178,8 +178,8 @@ angular.module('miller')
           // request params
           params  = {
             filters: JSON.stringify(filters),
-            limit: 7
-          }
+            limit: 999
+          };
 
       if(query.trim().length > 2){
         params.q = query
@@ -187,6 +187,7 @@ angular.module('miller')
 
       // filters.name__icontains = query;
       return TagFactory.get(params).$promise.then(function(response) {
+        console.log(response.results)
         return !has_create? response.results: response.results.concat([{
           type: '__new__',
           name: 'createnew',
