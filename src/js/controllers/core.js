@@ -229,8 +229,9 @@ angular.module('miller')
     });
 
     $transitions.onSuccess({}, function($transition$) {
-      // Transition is triggered when the hash change. This function should not be executed in this situation
-      if (!$transition$.paramsChanged().hasOwnProperty('name') && $state.current.name !== "publications.all") {
+      // Transition is triggered when the hash change. Block transition if only the hash change
+      var updatedParams = $transition$.paramsChanged();
+      if (Object.keys(updatedParams).length === 1 && Object.keys(updatedParams)[0] === '#' && updatedParams['#'] !== null) {
         return;
       }
 
