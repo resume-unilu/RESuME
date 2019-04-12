@@ -272,6 +272,7 @@ angular.module('miller')
 
       // google analytics
       $window.ga('send', 'pageview', $location.path());
+      window.scrollTo(0, 0);
     });
 
     $rootScope.getTagRoute = function (tag) {
