@@ -734,4 +734,29 @@ angular.module('miller')
 
       }
     };
+  })
+  .service('storyCart', function() {
+    this.selectedItems = [];
+
+    this.selectItem = function (id) {
+      this.selectedItems.push(id);
+    }
+
+    this.deselectItem = function (id) {
+      this.selectedItems.splice(
+        this.selectedItems.findIndex(function (e) {
+          return e === id;
+        }), 1)
+    }
+
+    this.isItemSelected = function (id) {
+      return this.selectedItems.findIndex(function (e) {
+        return e === id;
+      }) !== -1;
+    }
+
+    this.clearList = function () {
+      this.selectedItems = [];
+    }
+
   });

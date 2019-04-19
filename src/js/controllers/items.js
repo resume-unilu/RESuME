@@ -137,21 +137,12 @@ angular.module('miller')
     // })
 
     /* Shopping cart */
-    $scope.selectedItems = [];
-    $scope.selectItem = function (id) {
-      var itemIdx = $scope.selectedItems.findIndex(function (e) {
-        return e === id;
-      });
-      if (itemIdx === -1){
-        $scope.selectedItems.push(id);
+    $scope.boxChecked = function (id) {
+      if ($scope.cart.isItemSelected(id)) {
+        $scope.cart.deselectItem(id);
       } else {
-        $scope.selectedItems.splice(itemIdx, 1);
+        $scope.cart.selectItem(id);
       }
     }
 
-    $scope.isItemSelected = function (id) {
-      return $scope.selectedItems.findIndex(function (e) {
-        return e === id;
-      }) !== -1;
-    }
   });
