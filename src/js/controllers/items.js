@@ -135,4 +135,23 @@ angular.module('miller')
     //     $scope.items =normalizeItems($scope.items);
     //   }
     // })
+
+    /* Shopping cart */
+    $scope.selectedItems = [];
+    $scope.selectItem = function (id) {
+      var itemIdx = $scope.selectedItems.findIndex(function (e) {
+        return e === id;
+      });
+      if (itemIdx === -1){
+        $scope.selectedItems.push(id);
+      } else {
+        $scope.selectedItems.splice(itemIdx, 1);
+      }
+    }
+
+    $scope.isItemSelected = function (id) {
+      return $scope.selectedItems.findIndex(function (e) {
+        return e === id;
+      }) !== -1;
+    }
   });
