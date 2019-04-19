@@ -5,6 +5,9 @@
         <a ui-sref="story({postId: story.slug})">
           <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
         </a>
+        <div class="cover-checkbox" >
+          <input type="checkbox"/>
+        </div>
         <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
       </div>
 

@@ -4535,3 +4535,23 @@ content: "\e07a";
 }
 
 .force-pointer { cursor: pointer !important; }
+
+.cover-checkbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 30px;
+}
+
+.cover-checkbox input[type=checkbox]{
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  margin: 0;
+  -ms-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  cursor: pointer;
+}
