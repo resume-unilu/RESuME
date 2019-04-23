@@ -4557,11 +4557,6 @@ content: "\e07a";
   cursor: pointer;
 }
 
-.story-cart-icon {
-  position: absolute;
-  right: 20px;
-}
-
 ul.article-list {
   list-style-type: none;
   margin-left: 5px;

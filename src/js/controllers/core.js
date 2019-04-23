@@ -542,34 +542,34 @@ angular.module('miller')
     // understand window size;
     $scope.calculateBounds();
 
-    $scope.cart = storyCart;
+    $rootScope.cart = storyCart;
     var downloadCartModal = $modal({
-      scope: $scope,
-      controller: function($scope) {
-        $scope.downloadUrl = '';
+      scope: $rootScope,
+      controller: function($rootScope) {
+        $rootScope.downloadUrl = '';
 
-        $scope.setUrl = function () {
-          if (!$scope.cart.selectedItems.length) {
-            $scope.downloadUrl = ''
+        $rootScope.setUrl = function () {
+          if (!$rootScope.cart.selectedItems.length) {
+            $rootScope.downloadUrl = ''
           }
-          else if ($scope.cart.selectedItems.length === 1) {
-            $scope.downloadUrl = '/api/story/' + $scope.cart.selectedItems[0].id + '/download'
+          else if ($rootScope.cart.selectedItems.length === 1) {
+            $rootScope.downloadUrl = '/api/story/' + $rootScope.cart.selectedItems[0].id + '/download'
           }
           else {
-            var selectedIds = $scope.cart.selectedItems.map(function (item) {
+            var selectedIds = $rootScope.cart.selectedItems.map(function (item) {
               return item.id
             })
-            $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
+            $rootScope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
           }
         }
-        $scope.setUrl();
+        $rootScope.setUrl();
       },
       template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
       id: 'download-cart-modal',
       show: false
     })
 
-    $scope.openDownloadCartModal = function () {
+    $rootScope.openDownloadCartModal = function () {
       downloadCartModal.$promise.then(function () {
         downloadCartModal.show();
       });
