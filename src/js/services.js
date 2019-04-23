@@ -738,20 +738,28 @@ angular.module('miller')
   .service('storyCart', function() {
     this.selectedItems = [];
 
-    this.selectItem = function (id) {
-      this.selectedItems.push(id);
+    this.count = function () {
+      return this.selectedItems.length;
+    }
+
+    this.isEmpty = function () {
+      return this.count() === 0;
+    }
+
+    this.selectItem = function (item) {
+      this.selectedItems.push(item);
     }
 
     this.deselectItem = function (id) {
       this.selectedItems.splice(
         this.selectedItems.findIndex(function (e) {
-          return e === id;
+          return e.id === id;
         }), 1)
     }
 
     this.isItemSelected = function (id) {
       return this.selectedItems.findIndex(function (e) {
-        return e === id;
+        return e.id === id;
       }) !== -1;
     }
 

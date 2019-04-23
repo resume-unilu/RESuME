@@ -1,0 +1,29 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+          <span aria-hidden="true" class='icon-close'></span>
+        </button>
+        <h4 class="modal-title">Download selected articles</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid" style='padding-bottom: 20px'>
+          <ul>
+            <li ng-repeat="article in cart.selectedItems">
+              <span rewording value='article.data.title' default='{{article.title}}'></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class='btn-line-group transparent'>
+          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); downloadDone()">Download</a>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

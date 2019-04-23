@@ -543,4 +543,27 @@ angular.module('miller')
     $scope.calculateBounds();
 
     $scope.cart = storyCart;
+    var downloadCartModal = $modal({
+      scope: $scope,
+      controller: function($scope) {
+        var selectedIds = $scope.cart.selectedItems.map(function (item) {
+          return item.id;
+        });
+
+        $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
+
+        $scope.downloadDone = function () {
+          $scope.cart.clearList();
+        }
+      },
+      template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
+      id: 'download-cart-modal',
+      show: false
+    })
+
+    $scope.openDownloadCartModal = function () {
+      downloadCartModal.$promise.then(function () {
+        downloadCartModal.show();
+      });
+    }
   });

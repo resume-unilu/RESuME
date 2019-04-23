@@ -4536,6 +4536,7 @@ content: "\e07a";
 
 .force-pointer { cursor: pointer !important; }
 
+/* Shopping cart */
 .cover-checkbox {
   position: absolute;
   top: 0;
@@ -4554,4 +4555,9 @@ content: "\e07a";
   -webkit-transform: scale(1.2);
   -o-transform: scale(1.2);
   cursor: pointer;
+}
+
+.story-cart-icon {
+  position: absolute;
+  right: 20px;
 }
