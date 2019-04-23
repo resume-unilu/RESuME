@@ -740,7 +740,10 @@ angular.module('miller')
       ? JSON.parse(window.localStorage.getItem('selectedArticles'))
       : [];
 
-    var updateLocalStorage = () => window.localStorage.setItem('selectedArticles', JSON.stringify(this.selectedItems));
+    var self = this;
+    var updateLocalStorage = function () {
+      window.localStorage.setItem('selectedArticles', JSON.stringify(self.selectedItems));
+    }
 
     this.count = function () {
       return this.selectedItems.length;
