@@ -549,13 +549,17 @@ angular.module('miller')
         $scope.downloadUrl = '';
 
         $scope.setUrl = function () {
-          if ($scope.cart.selectedItems.length) {
+          if (!$scope.cart.selectedItems.length) {
+            $scope.downloadUrl = ''
+          }
+          else if ($scope.cart.selectedItems.length === 1) {
+            $scope.downloadUrl = '/api/story/' + $scope.cart.selectedItems[0].id + '/download'
+          }
+          else {
             var selectedIds = $scope.cart.selectedItems.map(function (item) {
-              return item.id;
-            });
-            $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many';
-          } else {
-            $scope.downloadUrl = '';
+              return item.id
+            })
+            $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
           }
         }
         $scope.setUrl();
