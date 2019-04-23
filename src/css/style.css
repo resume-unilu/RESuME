@@ -4561,3 +4561,42 @@ content: "\e07a";
   position: absolute;
   right: 20px;
 }
+
+ul.article-list {
+  list-style-type: none;
+  margin-left: 5px;
+  padding-left: 0;
+}
+
+ul.article-list li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.article-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+ul.article-list .authors {
+margin-left: 10px;
+font-size: smaller;
+}
+
+ul.article-list .article-title {
+color: #454545;
+}
+
+ul.article-list .remove {
+  margin-right: 10px;
+  color: #837c7c;
+}
+
+.empty-selection {
+  width: 172px;
+  margin: 20px auto 5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #837c7c;
+}

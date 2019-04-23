@@ -756,12 +756,10 @@ angular.module('miller')
     }
 
     this.deselectItem = function (id) {
-      console.log(this.selectedItems)
       this.selectedItems.splice(
         this.selectedItems.findIndex(function (e) {
           return e.id === id;
         }), 1)
-      console.log(this.selectedItems)
       updateLocalStorage();
     }
 

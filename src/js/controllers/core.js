@@ -546,11 +546,19 @@ angular.module('miller')
     var downloadCartModal = $modal({
       scope: $scope,
       controller: function($scope) {
-        var selectedIds = $scope.cart.selectedItems.map(function (item) {
-          return item.id;
-        });
+        $scope.downloadUrl = '';
 
-        $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many';
+        $scope.setUrl = function () {
+          if ($scope.cart.selectedItems.length) {
+            var selectedIds = $scope.cart.selectedItems.map(function (item) {
+              return item.id;
+            });
+            $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many';
+          } else {
+            $scope.downloadUrl = '';
+          }
+        }
+        $scope.setUrl();
       },
       template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
       id: 'download-cart-modal',
