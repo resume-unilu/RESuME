@@ -550,11 +550,7 @@ angular.module('miller')
           return item.id;
         });
 
-        $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
-
-        $scope.downloadDone = function () {
-          $scope.cart.clearList();
-        }
+        $scope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many';
       },
       template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
       id: 'download-cart-modal',

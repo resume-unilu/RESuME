@@ -736,7 +736,11 @@ angular.module('miller')
     };
   })
   .service('storyCart', function() {
-    this.selectedItems = [];
+    this.selectedItems = 'selectedArticles' in window.localStorage
+      ? JSON.parse(window.localStorage.getItem('selectedArticles'))
+      : [];
+
+    var updateLocalStorage = () => window.localStorage.setItem('selectedArticles', JSON.stringify(this.selectedItems));
 
     this.count = function () {
       return this.selectedItems.length;
@@ -748,13 +752,17 @@ angular.module('miller')
 
     this.selectItem = function (item) {
       this.selectedItems.push(item);
+      updateLocalStorage();
     }
 
     this.deselectItem = function (id) {
+      console.log(this.selectedItems)
       this.selectedItems.splice(
         this.selectedItems.findIndex(function (e) {
           return e.id === id;
         }), 1)
+      console.log(this.selectedItems)
+      updateLocalStorage();
     }
 
     this.isItemSelected = function (id) {
@@ -765,6 +773,6 @@ angular.module('miller')
 
     this.clearList = function () {
       this.selectedItems = [];
+      updateLocalStorage();
     }
-
   });

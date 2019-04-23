@@ -137,11 +137,11 @@ angular.module('miller')
     // })
 
     /* Shopping cart */
-    $scope.boxChecked = function (id) {
-      if ($scope.cart.isItemSelected(id)) {
-        $scope.cart.deselectItem(id);
+    $scope.boxChecked = function (item) {
+      if ($scope.cart.isItemSelected(item.id)) {
+        $scope.cart.deselectItem(item);
       } else {
-        $scope.cart.selectItem(id);
+        $scope.cart.selectItem(item);
       }
     }
 

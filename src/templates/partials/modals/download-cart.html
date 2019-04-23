@@ -20,7 +20,8 @@
 
       <div class="modal-footer">
         <span class='btn-line-group transparent'>
-          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); downloadDone()">Download</a>
+          <button type="button" class="btn-line" ng-click="$hide(); cart.clearList()">Clear</button>
+          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); cart.clearList()">Download</a>
           <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
         </span>
       </div>
