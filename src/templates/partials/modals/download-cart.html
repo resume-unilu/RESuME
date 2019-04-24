@@ -5,14 +5,12 @@
         <button type="button" class="close" aria-label="Close" ng-click="$hide()">
           <span aria-hidden="true" class='icon-close'></span>
         </button>
-        <h4 class="modal-title" translate="cart.modal.title"></h4>
+        <h4 class="modal-title" translate="modal.cart.title"></h4>
       </div>
 
       <div class="modal-body">
         <div class="container-fluid" style='padding-bottom: 20px'>
-          <div ng-if="!cart.selectedItems.length" class="empty-selection">
-            No article selected
-          </div>
+          <div ng-if="!cart.selectedItems.length" class="empty-selection" translate="modal.cart.empty"></div>
 
           <ul class="article-list" ng-if="cart.selectedItems.length">
             <li ng-repeat="article in cart.selectedItems">
@@ -27,7 +25,7 @@
               </div>
 
               <div class='authors' ng-if="article.authors.length" style="display: inline">
-                <span translate="written.by"></span> <span ng-repeat='author in article.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+                <span translate="written.by"></span> <span ng-click="$hide()" ng-repeat='author in article.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
               </div>
             </li>
           </ul>
