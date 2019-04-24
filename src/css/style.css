@@ -4589,7 +4589,8 @@ ul.article-list .remove {
 }
 
 .empty-selection {
-  width: 172px;
+  width: 80%;
+  text-align: center;
   margin: 20px auto 5px;
   letter-spacing: 1px;
   text-transform: uppercase;
