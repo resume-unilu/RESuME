@@ -1,5 +1,5 @@
 angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scope, $log, QueryParamsService, DocumentFactory, StoryFactory, OembedSearchFactory, CrossRefFactory, localStorageService, Upload) {
-  
+
   $log.info('EnrichModalCtrl ready with crazy scope, language:', $scope.language);
 
   // initialize tabs here
@@ -10,7 +10,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       count: 0,
       next: undefined,
       isLoadingNextItems: false,
-      
+
       suggestions: [],
 
       suggest: function(query, keep){
@@ -29,7 +29,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           // filters: JSON.stringify(query.length > 2? {contents__icontains: query}: {})
         }, function(res){
           $log.log('tab.favourite > suggest loaded n.docs:', res.results.length, QueryParamsService(res.next || ''));
-          
+
           $s.items   = $s.next? ($s.items || []).concat(res.results): res.results;
           $s.count   = res.count;
           $s.missing = res.count - $s.items.length;
@@ -95,7 +95,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           $s.count = res.totalResults;
           $s.missing = res.totalResults - $s.items.length;
           $s.isLoadingNextItems = false;
-          $s.next.page = Math.min(Math.ceil(res.totalResults/res.itemsPerPage), Math.floor((res.startIndex + res.itemsPerPage)/res.itemsPerPage) + 1), 
+          $s.next.page = Math.min(Math.ceil(res.totalResults/res.itemsPerPage), Math.floor((res.startIndex + res.itemsPerPage)/res.itemsPerPage) + 1),
           $s.next.rows = res.itemsPerPage;
           $s.next.query = query;
           console.log("next", $s.next);
@@ -163,7 +163,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       suggest: function(query, keep){
         var $s = this;
         $log.log('tab.glossary > suggest', $s);
-        
+
         $s.isLoadingNextItems = true;
         if(!keep){
           $s.next = undefined;
@@ -180,7 +180,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           })
         },function(res){
           $log.log('tab.glossary > suggest loaded n.docs:', res.results.length, QueryParamsService(res.next || ''));
-          
+
           $s.items   = $s.next? ($s.items || []).concat(res.results): res.results;
           $s.count   = res.count;
           $s.missing = res.count - $s.items.length;
@@ -198,7 +198,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       name: 'url',
       items: [],
       suggest: function(url, keep){
-      
+
       },
       onEmbedChange: function(){
         // change type if there is an embed with type link! We put rich.
@@ -206,7 +206,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
         if($scope.embed.html && $scope.embed.type == 'link')
           $scope.embed.type = 'rich'
       },
-      
+
       init: function(){
         $log.log('init', this);
         localStorageService.set('lasttabname', this.name)
@@ -222,7 +222,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
         var $s = this;
         $log.log('tab.CVCE > suggest - query:', query);
         $s.isLoadingNextItems = true;
-        
+
         if(!OembedSearchFactory.CVCE){
           $log.error('OembedSearchFactory.CVCE does not exist');
           return;
@@ -232,13 +232,13 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           return;
         }
 
-        
+
 
         if(!keep){
           $s.next = undefined;
         }
 
-        
+
         OembedSearchFactory.CVCE($s.next || {
           q: query
         }).then(function(res){
@@ -251,9 +251,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
 
           $s.isLoadingNextItems = false;
           // scope.suggestMessage = '(<b>' + res.data.count + '</b> results)';
-        }, function(){
-          debugger
-        });
+        }, function(){});
       },
       init: function(){
         $log.log('init', this);
@@ -262,7 +260,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       }
     },
     upload: {
-      name: 'upload', 
+      name: 'upload',
       items: [],
       undo: function(){
         $scope.uploadable = null;
@@ -276,13 +274,12 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           $log.warn('no file is selected');
           return
         }
-        
+
         var types = {
           'image/jpg': 'image',
-          'image/png': 'image',   
+          'image/png': 'image',
           'application/pdf': 'pdf'
         };
-        debugger
         // uploadable has value, name and size.
         Upload.upload({
           url: '/api/document/',
@@ -312,7 +309,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
         }, null, function (evt) {
           $scope.uploadablefile.progressPercentage = parseInt(10000.0 *
             evt.loaded / evt.total)/100;
-          $log.log('progress: ' + $scope.uploadablefile.progressPercentage + 
+          $log.log('progress: ' + $scope.uploadablefile.progressPercentage +
               '% ' + evt.config.data, $scope.uploadablefile.name, evt);
         });
 
@@ -326,7 +323,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
       }
     }
   };
-  
+
   $scope.uploadablefile = {}
 
   $scope.$watch('uploadable', function (v) {
@@ -364,7 +361,6 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
         $scope.embed = data;
         $scope.suggestMessage = '(<b>done</b>)';
       }, function(err){
-        debugger
         $scope.suggestMessage = '(<b>error</b>)';
       })
 
@@ -376,7 +372,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
     }, 20);
   };
 
-  
+
 
   $scope.setTab = function(tabname){
     $log.log('EnrichModalCtrl -> setTab() tab.name:', tabname);
@@ -408,7 +404,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
   }
 
 
-  
+
   $scope.setTab(localStorageService.get('lasttabname') || 'favourite');
 
 

@@ -61,7 +61,6 @@ angular.module('miller')
       if(initials.filters){
         if($scope.state == 'publications.tags')
           initials.filters['tags__slug__all'] = [$state.params.slug];
-          //    debugger;
 
         try{
           filters = angular.extend({}, initials.filters, $scope.filters);
@@ -95,7 +94,6 @@ angular.module('miller')
             results: res.results
           }
         }, function(){
-          debugger
         }).$spromise);
       } else{
         delete $scope.hallOfFame.publishings

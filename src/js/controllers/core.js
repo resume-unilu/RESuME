@@ -242,7 +242,6 @@ angular.module('miller')
       $scope.documents = [];
 
       // the ui.router state (cfr app.js)
-      // debugger
       $scope.state = $transition$.$to().name;
 
       $scope.previousState = {

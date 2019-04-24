@@ -23,18 +23,16 @@ angular.module('miller')
         return p.$promise;
         // the poor man becomes a reviewer.
       }).value()).then(function(results){
-        
+
         story.reviews = story.reviews.concat(results.map(function(a, i){
           a.assignee = $scope.reviewers[i];
           return a;
         }));
          $scope.$hide();
-      }, function(){
-        debugger
-      });
+      }, function(){});
 
 
-     
+
     };
 
     $scope.dismiss = function() {

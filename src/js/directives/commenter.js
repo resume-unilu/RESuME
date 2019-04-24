@@ -41,7 +41,7 @@ angular.module('miller')
           // the goal of all this is: when you slect an already existing range on the page, you will automatically leacve your comment as "REPLY"
           // without directly reply to the comment.
           if(!scope.highlight && scope.attachedComments.length && scope.commentSelectedHighlights){
-            var highlightsParts = scope.commentSelectedHighlights.split('$'); 
+            var highlightsParts = scope.commentSelectedHighlights.split('$');
             highlightsParts[3] = 'highlight';// as default rangy
             highlights = highlightsParts.join('$');
           }
@@ -57,7 +57,6 @@ angular.module('miller')
             version: scope.target.version,
             story: scope.target.id
           }, function(res){
-            debugger
             scope.content = ''
             // scope.quote = null
             scope.isLoading = false
@@ -105,14 +104,14 @@ angular.module('miller')
                 }),
                 limit: Math.max(uids.length, 20),
                 orderby: '-date'
-              }, function(res){ 
+              }, function(res){
                 // console.log(res)
                 scope.attachedTotalComments = res.count;
                 scope.attachedComments = res.results;
 
                 // firt comment quotes
                 var com = _(scope.attachedComments, 'contents.quote').map().first();
-                
+
                 if(com){
                   scope.quote = com.contents.quote;
                   scope.commentSelectedHighlights = com.highlights;
@@ -124,10 +123,10 @@ angular.module('miller')
               scope.attachedTotalComments = 0;
               scope.attachedComments = [];
             }
-            
+
           });
 
-          
+
         }
 
         $log.log(':: commenter ready');
@@ -146,10 +145,10 @@ angular.module('miller')
           if(text){
             var words = text.trim().split(/\s+/),
                 max_words = attrs.maxWords || 3;
-            element.html(words.length > max_words*2? _.take(words, max_words).concat(['[...]'], _.takeRight(words, max_words)).join(' '):text);  
+            element.html(words.length > max_words*2? _.take(words, max_words).concat(['[...]'], _.takeRight(words, max_words)).join(' '):text);
           }
-        })        
-      
+        })
+
       }
     }
   })

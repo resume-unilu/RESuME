@@ -135,10 +135,8 @@ angular
           // emit on 400 error (bad request, mostly form errors)
           if(rejection.status == 400){
             $rootScope.$emit(EVENTS.BAD_REQUEST, rejection);
-            debugger
           } else if(rejection.status == 403){
             $rootScope.$emit(EVENTS.PERMISSION_DENIED, rejection);
-            debugger
           }
           return $q.reject(rejection);
         }
@@ -450,7 +448,6 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(profile){
-              debugger
               return {
                 filters: {
                   authors__user__username: profile.username
@@ -487,7 +484,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
-              debugger
+
               return {
                 filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
@@ -526,7 +523,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
-              debugger
+
               return {
                 filters: d.filters || {},
                 orderby: '-date_last_modified'
@@ -553,7 +550,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
           initials: function() {
-            debugger
+
             return {}
           },
           items: function(ReviewFactory) {
@@ -623,7 +620,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
-              debugger
+
               return {
                 filters: d.slug != 'all'? {
                   tags__slug: d.slug
@@ -668,7 +665,7 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(){
-                debugger
+
                 return {
                   filters: d.filters? d.filters: {},
                   exclude: {
@@ -794,7 +791,7 @@ angular
 
           resolve: {
             initials: function() {
-              debugger
+
               return {}
             },
 
@@ -876,7 +873,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
-              debugger
+
               return {}
             },
             items: function(PulseFactory, initials) {
