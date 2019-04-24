@@ -754,7 +754,14 @@ angular.module('miller')
     }
 
     this.selectItem = function (item) {
-      this.selectedItems.push(item);
+      // Save only the attributes we need instead of the complete object
+      this.selectedItems.push({
+        id: item.id,
+        slug: item.slug,
+        data: item.data,
+        title: item.title,
+        authors: item.authors
+      });
       updateLocalStorage();
     }
 

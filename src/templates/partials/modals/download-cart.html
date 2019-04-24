@@ -5,7 +5,7 @@
         <button type="button" class="close" aria-label="Close" ng-click="$hide()">
           <span aria-hidden="true" class='icon-close'></span>
         </button>
-        <h4 class="modal-title">Download selected articles</h4>
+        <h4 class="modal-title" translate="cart.modal.title"></h4>
       </div>
 
       <div class="modal-body">
@@ -36,12 +36,12 @@
 
       <div class="modal-footer">
         <span class='btn-line-group'>
-          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); cart.clearList()" ng-disabled="!cart.selectedItems.length">Download</a>
+          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); cart.clearList()" ng-disabled="!cart.selectedItems.length" translate="button.download"></a>
         </span>
 
         <span class='btn-line-group transparent'>
-          <button type="button" class="btn-line" ng-click="cart.clearList()">Clear all</button>
-          <button type="button" class="btn-line" ng-click="$hide()" translate='button.dismiss'></button>
+          <button type="button" class="btn-line" ng-click="cart.clearList()" translate="button.clearlist"></button>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.close'></button>
         </span>
       </div>
     </div>
