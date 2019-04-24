@@ -1,8 +1,11 @@
-/* start bibtexParse 0.0.22 */
+/* start bibtexParse 0.0.24 */
 
 //Original work by Henrik Muehe (c) 2010
 //
 //CommonJS port by Mikola Lysenko 2013
+//
+//Choice of compact (default) or pretty output from toBibtex:
+//		Nick Bailey, 2017.
 //
 //Port to Browser lib by ORCID / RCPETERS
 //
@@ -24,7 +27,7 @@
 (function(exports) {
 
     function BibtexParser() {
-        
+
         this.months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
         this.notKey = [',','{','}',' ','='];
         this.pos = 0;
@@ -52,15 +55,15 @@
             if (this.input.substring(this.pos, this.pos + s.length) == s) {
                 this.pos += s.length;
             } else {
-                throw "Token mismatch, expected " + s + ", found "
-                        + this.input.substring(this.pos);
+                throw TypeError("Token mismatch: match", "expected " + s + ", found "
+                        + this.input.substring(this.pos));
             };
             this.skipWhitespace(canCommentOut);
         };
 
         this.tryMatch = function(s, canCommentOut) {
             if (canCommentOut == undefined || canCommentOut == null)
-                canComment = true;
+                canCommentOut = true;
             this.skipWhitespace(canCommentOut);
             if (this.input.substring(this.pos, this.pos + s.length) == s) {
                 return true;
@@ -112,13 +115,13 @@
                     } else if (this.input[this.pos] == '{') {
                         bracecount++;
                     } else if (this.pos >= this.input.length - 1) {
-                        throw "Unterminated value";
+                        throw TypeError("Unterminated value: value_braces");
                     };
                 };
                 if (this.input[this.pos] == '\\' && escaped == false)
-                    escaped == true;
+                    escaped = true;
                 else
-                    escaped == false;
+                    escaped = false;
                 this.pos++;
             };
         };
@@ -133,7 +136,7 @@
                 if (this.input[this.pos] == '}')
                     brcktCnt--;
                 if (this.pos >= this.input.length - 1) {
-                    throw "Unterminated value:" + this.input.substring(start);
+                    throw TypeError("Unterminated value: value_comment", + this.input.substring(start));
                 };
                 this.pos++;
             };
@@ -151,13 +154,13 @@
                         this.match('"', false);
                         return this.input.substring(start, end);
                     } else if (this.pos >= this.input.length - 1) {
-                        throw "Unterminated value:" + this.input.substring(start);
+                        throw TypeError("Unterminated value: value_quotes", this.input.substring(start));
                     };
                 }
                 if (this.input[this.pos] == '\\' && escaped == false)
-                    escaped == true;
+                    escaped = true;
                 else
-                    escaped == false;
+                    escaped = false;
                 this.pos++;
             };
         };
@@ -175,8 +178,8 @@
                 else if (this.months.indexOf(k.toLowerCase()) >= 0)
                     return k.toLowerCase();
                 else
-                    throw "Value expected:" + this.input.substring(start) + ' for key: ' + k;
-            
+                    throw "Value expected: single_value" + this.input.substring(start) + ' for key: ' + k;
+
             };
         };
 
@@ -190,19 +193,23 @@
             return values.join("");
         };
 
-        this.key = function() {
+        this.key = function(optional) {
             var start = this.pos;
             while (true) {
                 if (this.pos >= this.input.length) {
-                    throw "Runaway key";
+                    throw TypeError("Runaway key: key");
                 };
                                 // а-яА-Я is Cyrillic
                 //console.log(this.input[this.pos]);
                 if (this.notKey.indexOf(this.input[this.pos]) >= 0) {
+                    if (optional && this.input[this.pos] != ',') {
+                        this.pos = start;
+                        return null;
+                    };
                     return this.input.substring(start, this.pos);
                 } else {
                     this.pos++;
-                    
+
                 };
             };
         };
@@ -212,10 +219,11 @@
             if (this.tryMatch("=")) {
                 this.match("=");
                 var val = this.value();
+                key = key.trim()
                 return [ key, val ];
             } else {
-                throw "... = value expected, equals sign missing:"
-                        + this.input.substring(this.pos);
+                throw TypeError("Value expected, equals sign missing: key_equals_value",
+                     this.input.substring(this.pos));
             };
         };
 
@@ -237,9 +245,11 @@
 
         this.entry_body = function(d) {
             this.currentEntry = {};
-            this.currentEntry['citationKey'] = this.key();
+            this.currentEntry['citationKey'] = this.key(true);
             this.currentEntry['entryType'] = d.substring(1);
-            this.match(",");
+            if (this.currentEntry['citationKey'] != null) {
+                this.match(",");
+            }
             this.key_value_list();
             this.entries.push(this.currentEntry);
         };
@@ -267,24 +277,38 @@
             this.entry_body(d);
         };
 
+        this.alernativeCitationKey = function () {
+            this.entries.forEach(function (entry) {
+                if (!entry.citationKey && entry.entryTags) {
+                    entry.citationKey = '';
+                    if (entry.entryTags.author) {
+                        entry.citationKey += entry.entryTags.author.split(',')[0] += ', ';
+                    }
+                    entry.citationKey += entry.entryTags.year;
+                }
+            });
+        }
+
         this.bibtex = function() {
             while (this.matchAt()) {
                 var d = this.directive();
                 this.match("{");
-                if (d == "@STRING") {
+                if (d.toUpperCase() == "@STRING") {
                     this.string();
-                } else if (d == "@PREAMBLE") {
+                } else if (d.toUpperCase() == "@PREAMBLE") {
                     this.preamble();
-                } else if (d == "@COMMENT") {
+                } else if (d.toUpperCase() == "@COMMENT") {
                     this.comment();
                 } else {
                     this.entry(d);
                 }
                 this.match("}");
             };
+
+            this.alernativeCitationKey();
         };
     };
-    
+
     exports.toJSON = function(bibtex) {
         var b = new BibtexParser();
         b.setInput(bibtex);
@@ -293,28 +317,40 @@
     };
 
     /* added during hackathon don't hate on me */
-    exports.toBibtex = function(json) {
-        out = '';
+    /* Increased the amount of white-space to make entries
+     * more attractive to humans. Pass compact as false
+     * to enable */
+    exports.toBibtex = function(json, compact) {
+        if (compact === undefined) compact = true;
+        var out = '';
+        
+        var entrysep = ',';
+        var indent = '';
+        if (!compact) {
+		      entrysep = ',\n';
+		      indent = '    ';        
+        }
         for ( var i in json) {
             out += "@" + json[i].entryType;
             out += '{';
             if (json[i].citationKey)
-                out += json[i].citationKey + ', ';
+                out += json[i].citationKey + entrysep;
             if (json[i].entry)
                 out += json[i].entry ;
             if (json[i].entryTags) {
-                var tags = '';
-                for (jdx in json[i].entryTags) {
-                    if (tags.length != 0)
-                        tags += ', ';
-                    tags += jdx + '= {' + json[i].entryTags[jdx] + '}';
+                var tags = indent;
+                for (var jdx in json[i].entryTags) {
+                    if (tags.trim().length != 0)
+                        tags += entrysep + indent;
+                    tags += jdx + (compact ? '={' : ' = {') + 
+                            json[i].entryTags[jdx] + '}';
                 }
                 out += tags;
             }
-            out += '}\n\n';
+            out += compact ? '}\n' : '\n}\n\n';
         }
         return out;
-        
+
     };
 
 })(typeof exports === 'undefined' ? this['bibtexParse'] = {} : exports);

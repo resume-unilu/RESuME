@@ -13,7 +13,6 @@ angular.module('miller')
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
-
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
 
@@ -23,37 +22,6 @@ angular.module('miller')
         urls: RUNTIME.routes.publications[d]
       }
     });
-    
-
-    $scope.availabileOrderby = [
-      {
-        label:'issue',
-        value:'data__issue,-date'
-      },
-      {
-        label:'newest',
-        value:'-date,-date_last_modified'
-      },
-      {
-        label:'oldest',
-        value:'date,-date_last_modified'
-      },
-      {
-        label:'lastmod',
-        value:'-date_last_modified'
-      },
-      {
-        label:'titleaz',
-        value:'title'
-      },
-      {
-        label:'titleza',
-        value:'-title'
-      },
-    ];
-
-    // see ordering below.
-
 
     // if there is a tag, we want to get its multilingual value
     $scope.setTag = function(tag) {
@@ -69,7 +37,6 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
-      
       // transform filterrs from initials (they are for publication story, not for story.authors)
       var initials = $state.current.resolve.initials(),
           params = {
@@ -79,17 +46,17 @@ angular.module('miller')
           exclude = {},
           ordering;
 
+      $scope.availabileOrderby = initials.availabileOrderby;
       ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label')
 
       if(!ordering && initials.orderby)
         ordering = _.get(_.find($scope.availabileOrderby, {value: initials.orderby}),'label')
-      
+
       if(!ordering)
         ordering = 'newest';
 
-
       $scope.ordering =  ordering;
-      
+
 
       if(initials.filters){
         if($scope.state == 'publications.tags')
@@ -109,9 +76,9 @@ angular.module('miller')
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }
       }
-      
+
       $log.log('🔭 PublicationsCtrl sync()', $scope.state);
-      
+
       // if its one of the "monographies", we get the publishable items associated. Optioanlly we can even deliver something
       if(RUNTIME.monographies.indexOf($scope.state) !== -1) {
         HallOfFames.push(TagFactory.hallOfFame({
@@ -152,7 +119,7 @@ angular.module('miller')
         $log.log('🔭 PublicationsCtrl sync() $q.all() finished', $scope.state);
       });
       // chain of eventssyn
-      
+
     }
 
     $scope.sync();
@@ -160,7 +127,4 @@ angular.module('miller')
       $log.log('🔭 PublicationsCtrl @EVENTS.PARAMS_CHANGED');
       $scope.sync();
     });
-
-    
-
   });

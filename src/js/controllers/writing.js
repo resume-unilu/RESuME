@@ -6,14 +6,15 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $state, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
+    $scope.state = $state
     story = extendStoryItem(story, $scope.language);
-    
+
     $scope.story = story;
     $scope.isSaving = false;
-    
+
     // if multilanguage fields do not exists for data
     ['title', 'abstract'].forEach(function(field) {
       if($scope.language && !$scope.story.data[field][$scope.language]){
@@ -22,7 +23,7 @@ angular.module('miller')
     });
 
     $scope.id    = story.id;
-    
+
     // form will be linked to current languages. Cfr watch language below.
     $scope.title    = $scope.story.data.title[$scope.language];
     $scope.abstract = $scope.story.data.abstract[$scope.language];
@@ -33,9 +34,9 @@ angular.module('miller')
 
     for(var i = 0, j=$scope.tagFields.length; i<j; i++) {
       $scope.tagFields[i].tags = _.filter(story.tags, $scope.tagFields[i].lambda);
-    };
+    }
 
-    
+
     // @todo disambiguate against (data)
     $scope.metadata = {
       status: story.status,
@@ -72,14 +73,14 @@ angular.module('miller')
             voc: []
           };
 
-      
-      
+
+
       // which document / stories needs to be saved?
       for(var i=0; i<items.length; i++) {
         var t = items[i]._type == 'block-doc'? 'doc' : items[i]._type;
         if(!initialItems[t])
           continue; // just ignore other types
-        else if(initialItems[t].indexOf(items[i].slug) === -1) 
+        else if(initialItems[t].indexOf(items[i].slug) === -1)
           tobesaved[t].push(items[i].slug);
         else
           tobekept[t].push(items[i].slug);
@@ -91,7 +92,7 @@ angular.module('miller')
       $log.log('... tobesaved:', tobesaved)
       $log.log('... tobedeleted:', tobedeleted)
       $log.log('... tobekept:', tobekept)
-     
+
       // if something needs to be done, start the chain
       // if(tobesaved.voc.length || tobedeleted.voc.length || tobesaved.doc.length || tobedeleted.doc.length ){
         $q.all(_.compact(
@@ -139,7 +140,7 @@ angular.module('miller')
           // }))
         )).then(function(results){
           $log.log('... setDocuments() done. Results:', results)
-          
+
           if(results.length){
             $scope.save();
             // $scope.$parent.setDocuments(documents);
@@ -149,7 +150,7 @@ angular.module('miller')
 
           $scope.sideItems = items;
         });
-      
+
     };
 
     // handle markdown preview of its contents....
@@ -203,7 +204,7 @@ angular.module('miller')
 
     // atthach the tag $tag for the current document.
     $scope.attachTag = function(tag) {
-      
+
       $log.debug('WritingCtrl -> attachTag() tag', arguments);
       if($scope.isSaving){
         $log.warn('wait, try again in. Is still saving.')
@@ -215,12 +216,12 @@ angular.module('miller')
       }
       $scope.isSaving = true;
       $scope.lock();
-      
+
       // partial update route (data will be updated, too)
       if(!$scope.story.data._ordering.tags[tag.category])
-        $scope.story.data._ordering.tags[tag.category] = []  
+        $scope.story.data._ordering.tags[tag.category] = []
       $scope.story.data._ordering.tags[tag.category].push(tag.id);
-      
+
       return StoryFactory.patch({id: story.id}, {
         tags: _($scope.tagFields).map('tags').flatten().map('id').concat([tag.id]).uniq().value(),
         data: $scope.story.data// _.uniq(_.compact(_.map($scope.displayedTags, 'id').concat(_.map($scope.keywords, 'id'), [tag.id])))
@@ -251,10 +252,10 @@ angular.module('miller')
       if(tag.type == '__new__') {
         $scope.openAddTagModal(tag.query);
         return false
-      } 
+      }
 
       return $scope.attachTag(tag);
-      
+
     }
 
     /*
@@ -266,14 +267,14 @@ angular.module('miller')
       $scope.lock();
       // partial update route
       // partial update route (data will be updated, too)
-      //$scope.story.data._ordering.tags[tag.category] = 
+      //$scope.story.data._ordering.tags[tag.category] =
       $scope.story.data._ordering.tags[tag.category] = _($scope.tagFields)
         .map('tags')
         .flatten()
         .filter({category: tag.category})
         .map('id')
         .value();
-      
+
 
       return StoryFactory.patch({id: story.id}, {
         tags: _($scope.tagFields).map('tags').flatten().map('id').uniq().value(),
@@ -290,7 +291,7 @@ angular.module('miller')
       });
     };
 
-    
+
 
     var addTagModal = $modal({
       scope: $scope,
@@ -303,7 +304,7 @@ angular.module('miller')
           name: {}
         }
         $scope.conflicts = {};
-        
+
         $scope.update = function() {
           TagFactory.update({id: $scope.tag.id}, {
             name: $scope.name,
@@ -318,7 +319,7 @@ angular.module('miller')
 
         $scope.confirm = function() {
           $log.debug('addTagModalCtrl -> confirm() saving tag...');
-          
+
           TagFactory.save({
             name: $scope.name,
             category: 'keyword',
@@ -327,14 +328,14 @@ angular.module('miller')
             // update data with their data
             if(tag.created){
               $log.debug('addTagModalCtrl -> confirm() tag created!');
-              
+
               $scope.attachTag(tag)
               $scope.$hide();
             } else {
               $log.debug('addTagModalCtrl -> confirm() tag exists. Update before use.');
-              
+
               $scope.tag = tag;
-              
+
               for (var i in $scope.settings.languages) {
                 _key = $scope.settings.languages[i];
 
@@ -398,7 +399,7 @@ angular.module('miller')
           message: ''
         };
         $scope.is_saving = false;
-        
+
         $scope.confirm = function() {
           $scope.is_saving = true;
 
@@ -409,7 +410,7 @@ angular.module('miller')
             message: $scope.version.message.trim()
           }, function(res) {
             $log.debug(res)
-            $scope.is_saving = false; 
+            $scope.is_saving = false;
             $scope.$hide();
           }, function(err) {
             $log.error(err);
@@ -431,7 +432,7 @@ angular.module('miller')
           saveVersionModal.show();
         });
       })
-      
+
     };
 
     $scope.suggestAuthors = function(query, options) {
@@ -459,13 +460,13 @@ angular.module('miller')
     };
 
     var coversModal = $modal({
-      controller: 'CoversModalCtrl', 
+      controller: 'CoversModalCtrl',
       templateUrl: RUNTIME.static + 'templates/partials/modals/covers.html',
       show: false,
       scope: $scope
     });
-  
-    
+
+
     $scope.openCoversModal = function(){
       coversModal.$promise.then(function(){
         $log.log('WritingCtrl -> openCoversModal()');
@@ -483,7 +484,7 @@ angular.module('miller')
       }
       $scope.isSaving = true;
 
-      // update ordering 
+      // update ordering
       $scope.story.data._ordering.authors = _.map($scope.story.authors, 'id');
 
       var update = angular.extend({
@@ -499,7 +500,7 @@ angular.module('miller')
         // update version number
         $scope.story.version = res.version;
         $scope.story.logs    = res.logs;
-        
+
         $log.debug('WritingCtrl @SAVE: success');
         $scope.$emit(EVENTS.MESSAGE, 'saved');
         $scope.unlock();
@@ -519,7 +520,7 @@ angular.module('miller')
     $scope.isLoadingVersions = false;
 
     $scope.loadVersions = function(){
-      
+
       $scope.isLoadingVersions = true;
 
       StoryGitFactory.getByGitTag({
@@ -565,10 +566,10 @@ angular.module('miller')
         $scope.$apply();
       }
     })
-    
+
     $scope.$on(EVENTS.PARAMS_CHANGED, function(e,qs){
       // check the collection (is it a slug?)
-      
+
       if(qs.collection && qs.collection.match(/^[a-zA-Z\-\_\d]+$/)){
         $scope.collection = qs.collection
       }
@@ -589,7 +590,7 @@ angular.module('miller')
       ['title', 'abstract'].forEach(function(d){
         $scope[d] = $scope.story.metadata[d][v] || $scope[d];
       });
-      
+
       $log.log('WritingCtrl @language');
 
     });
@@ -607,4 +608,4 @@ angular.module('miller')
     // enable stateChengestart by default
     // $scope.toggleStopStateChangeStart(false);
   });
-  
+

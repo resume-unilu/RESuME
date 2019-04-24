@@ -71,7 +71,7 @@ angular
     console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
     $logProvider.debugEnabled(!!RUNTIME.settings.debug);
   })
-  
+
   /*
     prefix
   */
@@ -85,7 +85,7 @@ angular
     tagsInputConfigProvider
     .setDefaults('tagsInput', {
       replaceSpacesWithDashes:false,
-      template: RUNTIME.static + 'templates/partials/tag.input.html' 
+      template: RUNTIME.static + 'templates/partials/tag.input.html'
     })
     .setDefaults('autoComplete', {
       loadOnDownArrow: true
@@ -114,7 +114,7 @@ angular
         suffix: '.json'// suffix, currently- extension of the translations
     });
     $translateProvider.preferredLanguage('en_US');// is applied on first load
-    
+
   })
   .config(function (localStorageServiceProvider) {
     localStorageServiceProvider
@@ -165,57 +165,12 @@ angular
       .otherwise("/");
 
     $stateProvider
-      .state('notfound', {
-        url: '/not-found',
-        controller: function($log){
-          $log.warn('requested page not found.')
-        },
-        templateUrl: RUNTIME.static + 'templates/index.html',
-      });
-
-    $stateProvider
-      .state('index', {
-        url: '/',
-        reloadOnSearch : false,
-        controller: 'IndexCtrl',
-        templateUrl: RUNTIME.static + 'templates/index.html',
-        resolve:{
-          writings: function(StoryFactory){
-            return StoryFactory.get({
-              filters: JSON.stringify({
-                tags__slug: 'highlights',
-                status: 'public'
-              }),
-              limit: 9,
-              orderby: '-priority,-date'
-            }).$promise;
-          },
-          news: function(StoryFactory){
-            return StoryFactory.get({
-              filters: JSON.stringify({
-                tags__category: 'blog',
-                status: 'public'
-              }),
-              orderby: '-date'
-            }).$promise;
-          } 
-        }
-      })
       .state('index.signup', {
         url: '/',
         reloadOnSearch : false,
         controller: 'SignupCtrl',
         templateUrl: RUNTIME.static + 'templates/signup.html'
       })
-
-
-
-      // .state('login', {
-      //   url: '/login',
-      //   reloadOnSearch : false,
-      //   controller: 'LoginCtrl',
-      //   templateUrl: RUNTIME.static + 'templates/login.html'
-      // })
       .state('draft', {
         url: '/create',
         reloadOnSearch : false,
@@ -280,7 +235,7 @@ angular
               $scope.hash = story.version;
 
               $scope.$watch('story', function(v){
-                
+
                 if(v.version && v.version != $scope.hash) {
                   StoryGitFactory.getDiff({
                     id: $stateParams.storyId,
@@ -289,8 +244,8 @@ angular
                     $scope.diff = res.results.diff;
                   })
                 }
-                // 
-                
+                //
+
               }, true)
             },
             templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
@@ -311,7 +266,7 @@ angular
     /*
 
       Author routes.
-    
+
     */
     $stateProvider
       .state('author', {
@@ -457,7 +412,7 @@ angular
         controller: 'AuthorEditCtrl',
         templateUrl: RUNTIME.static + 'templates/author.edit.html',
         resolve: {
-          author: function(AuthorFactory, $stateParams){ 
+          author: function(AuthorFactory, $stateParams){
             return AuthorFactory.get({
               slug: $stateParams.slug
             }).$promise;
@@ -495,6 +450,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(profile){
+              debugger
               return {
                 filters: {
                   authors__user__username: profile.username
@@ -531,6 +487,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
@@ -552,7 +509,7 @@ angular
         });
     });
 
-        
+
     $stateProvider
       .state('reviews', {
         abstract: true,
@@ -569,6 +526,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: d.filters || {},
                 orderby: '-date_last_modified'
@@ -595,6 +553,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
           initials: function() {
+            debugger
             return {}
           },
           items: function(ReviewFactory) {
@@ -654,7 +613,7 @@ angular
         abstract:true,
         controller: 'BlogCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        
+
       })
      _.each(RUNTIME.routes.blog, function(d){
       $stateProvider
@@ -664,6 +623,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
+              debugger
               return {
                 filters: d.slug != 'all'? {
                   tags__slug: d.slug
@@ -685,8 +645,8 @@ angular
           }
         });
     });
-      
-    
+
+
     $stateProvider
       .state('authors', {
         url: '/authors',
@@ -695,7 +655,7 @@ angular
         controller: 'AuthorsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
       })
-      
+
 
       _.each([{
         slug: 'all',
@@ -708,6 +668,7 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(){
+                debugger
                 return {
                   filters: d.filters? d.filters: {},
                   exclude: {
@@ -734,7 +695,7 @@ angular
     */
     $stateProvider
       .state('publications', {
-        url: '/publications',
+        url: '/',
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
@@ -750,7 +711,7 @@ angular
                 filters: {
                   tags__category: 'writing'
                 },
-                limit: 10,
+                limit: 9,
                 orderby: '-date,-date_last_modified'
               };
             },
@@ -768,18 +729,13 @@ angular
           }
         });
 
-      _.each(RUNTIME.routes.publications.all.concat(
-          RUNTIME.routes.publications.writing,
-          RUNTIME.routes.publications.specials,
-          RUNTIME.routes.publications.tags,
-          RUNTIME.routes.publications.status
-        ), function(d) {
+      _.each(RUNTIME.routes.publications.all.concat(RUNTIME.routes.publications.status), function(d) {
         $stateProvider
           .state('publications.' + d.slug, {
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
-            
+
             resolve: {
               initials: function() {
                 return {
@@ -789,8 +745,16 @@ angular
                   }: {
                     tags__category: 'writing'
                   },
-                  limit: 10,
-                  orderby: d.orderby? d.orderby:'-date,-date_last_modified'
+                  limit: 9,
+                  orderby: d.orderby? d.orderby: d.slug === 'all' ? 'featured' : '-date,-date_last_modified',
+                  availabileOrderby: _.concat(d.slug === 'all' ? [{label:'featured', value:'featured'}] : [], [
+                    {label:'issue', value:'data__issue,-date'},
+                    {label:'newest', value:'-date,-date_last_modified'},
+                    {label:'oldest', value:'date,-date_last_modified'},
+                    {label:'lastmod', value:'-date_last_modified'},
+                    {label:'titleaz', value:'title'},
+                    {label:'titleza', value:'-title'}
+                  ])
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
@@ -830,6 +794,7 @@ angular
 
           resolve: {
             initials: function() {
+              debugger
               return {}
             },
 
@@ -854,7 +819,7 @@ angular
         resolve: {
           story: function(StoryFactory, $stateParams) {
             return StoryFactory.get({id: $stateParams.postId}).$promise;
-          },
+          }
         }
       })
       .state('storygit', {
@@ -866,12 +831,12 @@ angular
           story: function(StoryGitFactory, $stateParams) {
             return StoryGitFactory.getByGitTag({
               id: $stateParams.id,
-              commit: $stateParams.commit,
+              commit: $stateParams.commit
             }).$promise;
-          },
+          }
         }
       })
-      
+
         // .state('collection', {
         //   url: '/collection/:collectionId',
         //   controller: 'StoryCtrl',
@@ -895,9 +860,9 @@ angular
           }
         });
 
-    
 
-    
+
+
     $stateProvider
       .state('notifications', {
         abstract: true,
@@ -911,6 +876,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
+              debugger
               return {}
             },
             items: function(PulseFactory, initials) {
@@ -924,7 +890,7 @@ angular
             }
           }
         });
-   
+
 
       /*
         All the rest are static pages and will download the md files directly

@@ -704,7 +704,7 @@ angular.module('miller')
                 return d !== false
               })
               .value();
-              
+
           story.tags = _(story._tags).map(_.identity).flatten().compact().value()
         }
       }
