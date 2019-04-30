@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $transitions, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {
+  .controller('CoreCtrl', function ($rootScope, $transitions, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, storyCart, RUNTIME, EVENTS) {
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -242,7 +242,6 @@ angular.module('miller')
       $scope.documents = [];
 
       // the ui.router state (cfr app.js)
-      // debugger
       $scope.state = $transition$.$to().name;
 
       $scope.previousState = {
@@ -542,4 +541,36 @@ angular.module('miller')
     // understand window size;
     $scope.calculateBounds();
 
+    $rootScope.cart = storyCart;
+    var downloadCartModal = $modal({
+      scope: $rootScope,
+      controller: function($rootScope) {
+        $rootScope.downloadUrl = '';
+
+        $rootScope.setUrl = function () {
+          if (!$rootScope.cart.selectedItems.length) {
+            $rootScope.downloadUrl = ''
+          }
+          else if ($rootScope.cart.selectedItems.length === 1) {
+            $rootScope.downloadUrl = '/api/story/' + $rootScope.cart.selectedItems[0].id + '/download'
+          }
+          else {
+            var selectedIds = $rootScope.cart.selectedItems.map(function (item) {
+              return item.id
+            })
+            $rootScope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
+          }
+        }
+        $rootScope.setUrl();
+      },
+      template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
+      id: 'download-cart-modal',
+      show: false
+    })
+
+    $rootScope.openDownloadCartModal = function () {
+      downloadCartModal.$promise.then(function () {
+        downloadCartModal.show();
+      });
+    }
   });

@@ -1,10 +1,13 @@
 <div ng-if='!story._isCollection' class="story item">
   <div class="col-md-4 story-card">
-    <div class="story-card-inner">
+    <div class="story-card-inner" ng-init="showCoverCheckbox = false" ng-mouseenter="showCoverCheckbox = true" ng-mouseleave="showCoverCheckbox = false">
       <div ng-repeat='document in story.covers' class='fluid-container relative' ng-if='story.covers.length'>
         <a ui-sref="story({postId: story.slug})">
           <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
         </a>
+        <div class="cover-checkbox" ng-show="showCoverCheckbox || cart.isItemSelected(story.id)">
+          <input type="checkbox" ng-click="boxChecked(story)" ng-checked="cart.isItemSelected(story.id)"/>
+        </div>
         <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
       </div>
 
@@ -12,6 +15,9 @@
         <a ui-sref="story({postId: story.slug})">
           <div class="story-missing-cover"></div>
         </a>
+        <div class="cover-checkbox" ng-show="showCoverCheckbox || cart.isItemSelected(story.id)">
+          <input type="checkbox" ng-click="boxChecked(story)" ng-checked="cart.isItemSelected(story.id)"/>
+        </div>
       </div>
 
       <h3 class="title" style="overflow: hidden;">
@@ -39,5 +45,4 @@
     </div>
   </div>
 </div>
-
 <div ng-if='story._isCollection' ng-include='"templates/partials/collection.html"|prefixTemplate'></div>

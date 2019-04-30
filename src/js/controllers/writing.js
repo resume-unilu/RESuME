@@ -345,9 +345,7 @@ angular.module('miller')
                 $scope.data.name[_key] = $scope.data.name[_key] || $scope.tag.data.name[_key];
               }
             }
-          }, function(){
-            debugger
-          });
+          }, function(){});
         }
       },
       template: RUNTIME.static + 'templates/partials/modals/add-tag.html',

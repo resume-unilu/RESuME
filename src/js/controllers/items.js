@@ -135,4 +135,14 @@ angular.module('miller')
     //     $scope.items =normalizeItems($scope.items);
     //   }
     // })
+
+    /* Shopping cart */
+    $scope.boxChecked = function (item) {
+      if ($scope.cart.isItemSelected(item.id)) {
+        $scope.cart.deselectItem(item);
+      } else {
+        $scope.cart.selectItem(item);
+      }
+    }
+
   });

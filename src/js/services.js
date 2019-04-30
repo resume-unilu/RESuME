@@ -734,4 +734,53 @@ angular.module('miller')
 
       }
     };
+  })
+  .service('storyCart', function() {
+    this.selectedItems = 'selectedArticles' in window.localStorage
+      ? JSON.parse(window.localStorage.getItem('selectedArticles'))
+      : [];
+
+    var self = this;
+    var updateLocalStorage = function () {
+      window.localStorage.setItem('selectedArticles', JSON.stringify(self.selectedItems));
+    }
+
+    this.count = function () {
+      return this.selectedItems.length;
+    }
+
+    this.isEmpty = function () {
+      return this.count() === 0;
+    }
+
+    this.selectItem = function (item) {
+      // Save only the attributes we need instead of the complete object
+      this.selectedItems.push({
+        id: item.id,
+        slug: item.slug,
+        data: item.data,
+        title: item.title,
+        authors: item.authors
+      });
+      updateLocalStorage();
+    }
+
+    this.deselectItem = function (id) {
+      this.selectedItems.splice(
+        this.selectedItems.findIndex(function (e) {
+          return e.id === id;
+        }), 1)
+      updateLocalStorage();
+    }
+
+    this.isItemSelected = function (id) {
+      return this.selectedItems.findIndex(function (e) {
+        return e.id === id;
+      }) !== -1;
+    }
+
+    this.clearList = function () {
+      this.selectedItems = [];
+      updateLocalStorage();
+    }
   });

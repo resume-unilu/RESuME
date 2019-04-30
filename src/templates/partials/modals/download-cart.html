@@ -1,0 +1,47 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+          <span aria-hidden="true" class='icon-close'></span>
+        </button>
+        <h4 class="modal-title" translate="modal.cart.title"></h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid" style='padding-bottom: 20px'>
+          <div ng-if="!cart.selectedItems.length" class="empty-selection" translate="modal.cart.empty"></div>
+
+          <ul class="article-list" ng-if="cart.selectedItems.length">
+            <li ng-repeat="article in cart.selectedItems">
+              <div>
+                <a ui-sref="story({postId: article.slug})" class="article-title" style="overflow: hidden"  ng-click="$hide()">
+                  <span rewording value='article.data.title' default='{{article.title}}'></span>
+                </a>
+
+                <span class="pull-right force-pointer remove" ng-click="cart.deselectItem(article.id); setUrl()">
+                  &#10005;
+                </span>
+              </div>
+
+              <div class='authors' ng-if="article.authors.length" style="display: inline">
+                <span translate="written.by"></span> <span ng-click="$hide()" ng-repeat='author in article.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class='btn-line-group'>
+          <a class="btn btn-line" ng-href="{{downloadUrl}}" _target="blank" ng-click="$hide(); cart.clearList()" ng-disabled="!cart.selectedItems.length" translate="button.download"></a>
+        </span>
+
+        <span class='btn-line-group transparent'>
+          <button type="button" class="btn-line" ng-click="cart.clearList()" translate="button.clearlist"></button>
+          <button type="button" class="btn-line" ng-click="$hide()" translate='button.close'></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

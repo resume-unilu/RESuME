@@ -19,16 +19,16 @@ angular.module('miller')
         $log.log('::codediff loading...')
         angularLoad.loadScript(RUNTIME.static + 'js/lib/simplemde.min.js').then(function() {
           $log.log('::codediff lib loading done.');
-          
+
           var cm = CodeMirror.fromTextArea(el.find('textarea')[0], {
             lineNumbers: false,
             readOnly: true,
             lineWrapping: true,
             mode: 'markdown'
           });
-          
+
           cm.setValue(scope.raw)
-          
+
           var displayDiff = function(diff) {
             if(typeof diff != 'object') {
               // reset diff if any;
@@ -37,7 +37,7 @@ angular.module('miller')
               return
             }
             $log.log('::codediff -> displayDiff()');
-            
+
             var lovely = /\[\-(.+?)\-\]|\{\+(.+?)\+\}/g
 
             // get lines to highlight
@@ -74,14 +74,14 @@ angular.module('miller')
                   // if both add and del have been matched, it suhould be gray; otherwise light green or pink.
                   cm.addLineClass(line, 'wrap','mod');
                 }
-                
+
                 while ((match = lovely.exec(lines[j])) != null) {
                   var isDel  = typeof match[1] != 'undefined',
                       left   = match.index - charoffset,
                       right  = match.index - charoffset + match[0].length - 4;
 
                   // $log.log('::codediff',"match found at " + match.index, match, 'on line:', line, charoffset, isDel);
-                  
+
                   // $log.log('::codediff',"match found at " + match.index, match[0], match[0].length, 'offset:', charoffset, 'ch:', left, right)
                   // $log.log('     matchC:', contents);
                   // $log.log('     matchO:', lines[j]);
@@ -94,12 +94,12 @@ angular.module('miller')
                   }, {
                     className: typeof match[1] == 'undefined'? 'add': 'del'
                   })
-                  
+
                   // if(isDel)
                   //   charoffset = charoffset + match[0].length;
                   // else
                   charoffset += 4;
-                  
+
                   // add specific mark at line.
                 }
 
@@ -108,16 +108,16 @@ angular.module('miller')
                 //   console.log(args);
 
                 // })
-                scope.isReady = true; 
+                scope.isReady = true;
               }
-              
+
 
             }
           }
           // calculate diffs, watch;
 
           scope.$watch('diff', displayDiff);
-          
+
           $log.log('::codediff ready.');
         })
       }
@@ -139,17 +139,17 @@ angular.module('miller')
         $log.log('::mde lib loading...')
         angularLoad.loadScript(RUNTIME.static + 'js/lib/simplemde.min.js').then(function() {
           $log.log('::mde lib loading done.');
-          
+
           // active tab
           scope.activeStates = [];
 
           // toggle mde directive display to block.
-          scope.isReady = true; 
+          scope.isReady = true;
           // preview enabled or disabled
           scope.isPreviewEnabled = false;
 
           // secretize bookmarks. Automatically clean the code sent to initialvalue
-          // will set SetBookmarks 
+          // will set SetBookmarks
           $log.log('::mde @link, language:', scope.language);
 
           var simplemde,
@@ -168,7 +168,7 @@ angular.module('miller')
                 template: RUNTIME.static + 'templates/partials/modals/mde-enrich.html',
                 show: false
               });
-              
+
           function init(){
             textarea.show();
             wand.show();
@@ -214,7 +214,7 @@ angular.module('miller')
             //     }
             // });
 
-            
+
             var cursor,
                 pos,
                 stat,
@@ -224,7 +224,7 @@ angular.module('miller')
 
 
             // given a position, calculate the corresponding paragraph.
-            // 
+            //
             var currentBlockIndex = -1,
                 currentBlock,
                 footnotePattern = /\[\^\d+/;
@@ -232,7 +232,7 @@ angular.module('miller')
             function moveCurrentBlock(pos) {
               // get paragraph / item number counting lines
               var blockIndex = 0,
-                  
+
                   NONE       = 'N',
                   EMPTY_LINE = 'E',
                   BLOCK      = 'B',
@@ -241,18 +241,18 @@ angular.module('miller')
 
                   prevToken = NONE,
                   c =0;
-              
+
               // simplemde.codemirror.doc.eachLine(0, pos.line + 1, function(line){
               //   var t = line.text.trim(),
               //       s = t.slice(0,5),// first 5 charcters
               //       token = t.length == 0? EMPTY_LINE: s.charAt(0) == '#'? HEADER: s.match(footnotePattern) ? FOOTNOTE: BLOCK;
-                
+
               //   if((token === EMPTY_LINE && (prevToken === BLOCK  || prevToken === HEADER || prevToken === FOOTNOTE)) || (token === BLOCK && prevToken === HEADER))
               //     blockIndex++;
               //   console.log(c, t.substring(0, 20), token, '- before: ', prevToken, blockIndex);
               //   c++;
               //   prevToken = token;
-                
+
               // });
 
               if(blockIndex == currentBlockIndex){
@@ -293,14 +293,14 @@ angular.module('miller')
                     height: simplemde.codemirror.display.cursorDiv.firstChild.offsetHeight
                   };
                   wand.css('transform', 'translateY('+(cursor.top+cursor.height)+'px)');
-                  
+
                   if(followCursor)
                     toolbox.css('transform', 'translate('+(cursor.left)+'px,'+(cursor.top)+'px)');
 
                   // check cursor position: is it inside a BOLD or ITALIC?
                   pos = simplemde.codemirror.getCursor("start");
                   stat = simplemde.codemirror.getTokenAt(pos);
-                  
+
                   moveCurrentBlock(pos);
 
                   scope.activeStates = (stat.type || '').split(' ');
@@ -308,7 +308,7 @@ angular.module('miller')
                   scope.$apply();
                 }
               }, 20);
-              
+
 
             }
 
@@ -318,17 +318,17 @@ angular.module('miller')
             var _isSelection;
             function beforeSelectionChange(e, sel){
               var isSelection = (sel.ranges[0].head.ch - sel.ranges[0].anchor.ch) !== 0;
-              // selection is on and it has changed. 
+              // selection is on and it has changed.
               if(isSelection && isSelection != _isSelection){
                 toolbox.addClass('active');
               } else if(!isSelection && isSelection != _isSelection){
                 toolbox.removeClass('active');
               }
-              
+
               _isSelection = isSelection
             }
 
-            
+
 
             /*
               Recompile with marked, analyzing the documents and
@@ -342,7 +342,7 @@ angular.module('miller')
               var marked   = markdownItService(simplemde.value(), false, true),
                   ToCHash = md5(JSON.stringify(marked.ToC)),
                   docsHash = md5(_.map(marked.docs,'slug').join('--'));
-              
+
               if(_ToCHash != ToCHash){
                 $log.log('::mde -> recompile() items ToC:',marked.ToC.length, 'docs:', marked.docs.length, ToCHash);
                 scope.settoc({items:marked.ToC});
@@ -350,7 +350,7 @@ angular.module('miller')
               if(_docsHash != docsHash){
                 $log.log('::mde -> recompile() items docs:', _docsHash);
                 scope.setdocs({documents: marked.docs});
-                
+
               }
               scope.setmarked({marked: marked});
               // scope.$apply();
@@ -375,7 +375,7 @@ angular.module('miller')
               timer_recompile = setTimeout(function(){
                 recompile();
                 scope.$apply()
-              }, 100);  
+              }, 100);
             }
 
             // listener codemirror@changeEnd
@@ -412,11 +412,11 @@ angular.module('miller')
             simplemde.codemirror.on('change', onChange);
             // simplemde.codemirror.on('focus', onFocus);
             // simplemde.codemirror.on('blur', onBlur);
-            
+
             // if a settoc, ask for recompiling
             if(scope.settoc)
               timer_recompile = setTimeout(recompile, 20);
-          
+
           }
 
           // listen window event, instance specific
@@ -429,7 +429,7 @@ angular.module('miller')
           //     toolbox.css('transform', 'translate(0px,'+(100 - toolbarOffset)+'px)');
           //   else if(isToolbarVisible!==_isToolbarVisible)
           //     toolbox.css('transform', 'translate(0px,0px)');
-            
+
 
           //   _isToolbarVisible = isToolbarVisible;
           // });
@@ -463,7 +463,6 @@ angular.module('miller')
             timer_preview = $timeout(function(){
               $log.debug('::mde -> previewUrl() url:', url);
               scope.suggestMessage = '(loading...)';
-              debugger;
               // embedService.get(url).then(function(data){
               //   $log.debug(':: mde -> previewUrl() received:', data)
               //   scope.embed = data;
@@ -478,7 +477,7 @@ angular.module('miller')
           scope.suggestMessage = '';
           scope.suggest = function(query, service){
             $log.log('::mde -> suggest()', scope.query, query);
-            
+
             if(query.length < 3) {
               scope.suggestMessage = '(write something more)';
               scope.suggestResults = [];
@@ -518,9 +517,9 @@ angular.module('miller')
                 scope.suggestMessage = '(<b>' + res.count + '</b> results)';
               });
               return;
-            } 
+            }
 
-            
+
           };
 
           // open
@@ -534,7 +533,7 @@ angular.module('miller')
               $log.log('::mde -> showReferenceModal called');
               referenceModal.show();
             });
-            
+
             // DocumentFactory.get(function(res){
             //   $log.log('::mde -> showReferenceModal documents loaded', res.results.length);
 
@@ -544,7 +543,7 @@ angular.module('miller')
             // debugger
           };
 
-        
+
 
           scope.addDocument = function(type, contents, reference, url, embed){
             var slug;
@@ -556,7 +555,7 @@ angular.module('miller')
               return;
             }
 
-            
+
             if(type=='glossary'){
               referenceModal.hide();
               SimpleMDE.drawLink(simplemde,{
@@ -596,7 +595,6 @@ angular.module('miller')
                 // slug:  slug,
                 url: url
               }, function(res){
-                debugger
                 $log.debug('::mde -> addDocument() document saved:', res.slug, res.id, res.short_url);
                 if(res.slug){
                   referenceModal.hide();
@@ -637,7 +635,7 @@ angular.module('miller')
               return;
             }
 
-            
+
 
 
             if(!scope.selectedDocument) {
@@ -679,7 +677,7 @@ angular.module('miller')
 
             // document type
             if(scope.selectedDocument.type == 'bibtex'){
-              
+
               SimpleMDE.drawLink(simplemde,{
                 // text: '('+ scope.selectedDocument.metadata.author + ' '+ scope.selectedDocument.metadata.year +')',
                 url: 'doc/' + scope.selectedDocument.slug
@@ -719,7 +717,7 @@ angular.module('miller')
             }
             SimpleMDE[action](simplemde);
           };
-          
+
           // take into account custom font-face rendering.
           $timeout(init, 50);
           return;
