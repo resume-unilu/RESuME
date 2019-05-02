@@ -215,6 +215,16 @@ h3, .h3, h4, .h4 {
   /*color: #454545;*/
 }
 
+.story-card-inner > .title {
+  font-size: 16px;
+  font-family: Lato;
+}
+
+.story-card {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 a{
   cursor: pointer;
 }
