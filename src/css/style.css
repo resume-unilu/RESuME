@@ -215,9 +215,12 @@ h3, .h3, h4, .h4 {
   /*color: #454545;*/
 }
 
-.story-card-inner > .title {
-  font-size: 16px;
+.story-card-inner {
   font-family: Lato;
+}
+
+.story-card-inner .title {
+  font-size: 18px;
 }
 
 .story-card {
@@ -4013,7 +4016,7 @@ content: "\e07a";
 
 .pulsations{
   position: absolute;
-    top: 5px;
+    top: 20px;
     margin-left: 0;
     right: 18px;
     width: 20px;
@@ -4537,11 +4540,41 @@ content: "\e07a";
   background-color: #e7e7e7;
 }
 
+.card-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .story-card-inner {
-  padding-left: 0;
-  padding-right: 0;
+  background-color: #f6f6f6;
   height: 98%;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+  border-radius: 0 0 4px 4px;
+  margin-bottom: 12px;
   /*background-color: rgb(231, 231, 231);*/
+}
+
+.image-wrapper {
+  border-radius: 4px 4px 0 0;
+}
+
+.hasnometadata {
+  height: 126px;
+}
+.hasmetadata {
+  height: 105px;
+}
+
+.author-date {
+  position: absolute;
+  bottom: 20px;
+}
+
+.admin-modify {
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
 }
 
 .force-pointer { cursor: pointer !important; }
