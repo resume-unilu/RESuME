@@ -20,27 +20,26 @@
         </div>
       </div>
 
-      <h3 class="title" style="overflow: hidden;">
-        <a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a>
-      </h3>
+      <div class="card-content" ng-class="{hasmetadata: story.covers.length, hasnometadata: !story.covers.length}">
+        <h3 class="title" style="overflow: hidden;">
+          <a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a>
+        </h3>
 
-      <div>
-        <div>
+        <div class="author-date">
           <div class='authors' ng-if="story.authors.length" style="display: inline">
-            <span translate="written.by"></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
+            <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
           </div>
 
           <div style="display: inline">
             <span ng-if='story.data.issue'>&mdash; {{story.data.issue}}</span>
             <span class="date">{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
           </div>
+        </div>
 
-        <div class="pull-right" style="display: inline">
+        <div style="display: inline;" class="admin-modify">
           <a ng-if='user.is_staff' target='_blank' ng-href='/admin/miller/story/{{story.id}}/change/'>modify (admin)</a>
         </div>
-        </div>
       </div>
-
 
     </div>
   </div>
