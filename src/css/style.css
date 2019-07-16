@@ -1116,6 +1116,13 @@ ul.errorlist{
 /*
   story item in list
 */
+
+.oneline {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .story.item{
   margin-bottom: 20px;
 }
