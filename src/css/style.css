@@ -2010,9 +2010,10 @@ a.btn-line:hover{
 }
 
 .nav-filters h4{
-  padding: 0 0 0 12px;
+  padding: 0 0 0 2px;
   font: 10px/10px 'Merriweather', georgia, sans-serif;
   font-style: italic;
+  margin-left: 40px;
 }
 
 /*
