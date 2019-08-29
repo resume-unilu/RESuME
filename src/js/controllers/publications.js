@@ -6,12 +6,16 @@
  * Handle the publication page.
  */
 angular.module('miller')
-  .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
+  .controller('PublicationsCtrl', function ($scope, $filter, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
     $log.log('🔭 PublicationsCtrl welcome');
     // the list of links, both main writings and other secondary writings.
     $scope.rootStatename = 'publications';
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
+
+    $scope.getTranslation = function (translationId) {
+      return $filter('translate')(translationId)
+    };
 
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
