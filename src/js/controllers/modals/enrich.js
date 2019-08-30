@@ -275,6 +275,12 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           return
         }
 
+        if (!$scope.uploadablefile.copyright) {
+          $log.warn('no copyright provided');
+          alert("Copyright required");
+          return
+        }
+
         var types = {
           'image/jpg': 'image',
           'image/png': 'image',
@@ -389,6 +395,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
 
   $scope.upload = function(query){
     $log.log('EnrichModalCtrl -> upload()');
+    console.log($scope)
     $scope.tab.upload();
   }
 
