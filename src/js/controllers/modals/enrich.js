@@ -293,9 +293,10 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
             title: $scope.uploadablefile.title || $scope.uploadablefile.name,
             type: types[$scope.uploadablefile.type] || $scope.uploadablefile.type.split('/').shift(),
             mimetype: $scope.uploadablefile.type,
+            copyrights: $scope.uploadablefile.copyright,
             metadata: JSON.stringify({
               bibtex: $scope.reference,
-              copyright: $scope.uploadablefile.copyright
+              copyrights: $scope.uploadablefile.copyright
             }),
             attachment: $scope.uploadablefile.f
           }
