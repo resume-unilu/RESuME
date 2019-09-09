@@ -314,6 +314,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       })
@@ -340,6 +347,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       })
@@ -366,6 +380,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       });
@@ -399,6 +420,13 @@ angular
               },
               factory: function(StoryFactory) {
                 return StoryFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -463,6 +491,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -501,6 +536,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.pending;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -538,6 +580,13 @@ angular
             },
             factory: function(ReviewFactory) {
               return ReviewFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -561,6 +610,13 @@ angular
           },
           factory: function(ReviewFactory) { // get items
             return ReviewFactory.reports;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       });
@@ -638,6 +694,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -683,6 +746,13 @@ angular
               },
               factory: function(AuthorFactory) {
                 return AuthorFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -696,7 +766,7 @@ angular
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
-        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html'
       })
         .state('publications.tags', {
           url: '/tags/:slug',
@@ -722,6 +792,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -751,7 +828,8 @@ angular
                     {label:'lastmod', value:'-date_last_modified'},
                     {label:'titleaz', value:'title'},
                     {label:'titleza', value:'-title'}
-                  ])
+                  ]),
+                  description: 'home-description'
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
@@ -763,6 +841,13 @@ angular
               },
               factory: function(StoryFactory) {
                 return StoryFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -803,6 +888,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.search;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -884,6 +976,13 @@ angular
             },
             factory: function(PulseFactory) {
               return PulseFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
