@@ -275,6 +275,12 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           return
         }
 
+        if (!$scope.uploadablefile.copyright) {
+          $log.warn('no copyright provided');
+          alert("Copyright required");
+          return
+        }
+
         var types = {
           'image/jpg': 'image',
           'image/png': 'image',
@@ -287,9 +293,10 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
             title: $scope.uploadablefile.title || $scope.uploadablefile.name,
             type: types[$scope.uploadablefile.type] || $scope.uploadablefile.type.split('/').shift(),
             mimetype: $scope.uploadablefile.type,
+            copyrights: $scope.uploadablefile.copyright,
             metadata: JSON.stringify({
               bibtex: $scope.reference,
-              copyright: $scope.uploadablefile.copyright
+              copyrights: $scope.uploadablefile.copyright
             }),
             attachment: $scope.uploadablefile.f
           }
@@ -389,6 +396,7 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
 
   $scope.upload = function(query){
     $log.log('EnrichModalCtrl -> upload()');
+    console.log($scope)
     $scope.tab.upload();
   }
 

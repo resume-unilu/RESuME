@@ -5,7 +5,7 @@
 */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4{
   text-align: left;
-  /*font-family: 'Lato', sans-serif;*/
+  /*font-family: arial, sans-serif;*/
   /*font-weight: bold;*/
   font-weight: normal;
   color: #454545;
@@ -20,7 +20,7 @@ h1 a:hover, h1 a:focus{
 }
 
 h5{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 
 }
 h1, .h1 {
@@ -83,7 +83,7 @@ ul.list{
 }
 
 .badge{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   line-height: inherit;
   font-size: 11px;
   padding: 0 8px;
@@ -135,7 +135,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   color: #6b6b6b;
 }
 /*.author{
-  font-family: 'Lato';
+  font-family: arial;
     text-transform: uppercase;
     font-size: 0.9em;
     font-weight: bold;
@@ -215,7 +215,7 @@ font-size: 12px;
 }
 
 .tags{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 12px;
 }
 
@@ -363,7 +363,7 @@ label{
 }
 
 label .description {
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 0 0 10px 0;
   color: #858585;
 }
@@ -379,11 +379,11 @@ ul.errorlist{
   generic classes
 */
 .sans-serif, label{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .serif {
-  font-family: 'Merriweather', serif;
+  font-family: arial, serif;
 }
 
 .monospace{
@@ -649,7 +649,7 @@ ul.errorlist{
   color: #151515;
   border-radius: 30px;
   height: 30px;
-  font: 11px/25px 'Lato', sans-serif;
+  font: 11px/25px arial, sans-serif;
   font-weight: bold;
 }
 
@@ -769,7 +769,7 @@ ul.errorlist{
   width: 30px;
   height: 30px;
   text-align: center;
-  font: 11px/26px 'Lato', sans-serif;
+  font: 11px/26px arial, sans-serif;
   transition: border-color .36s ease-in-out;
   text-transform: uppercase;
   background: transparent;
@@ -936,7 +936,7 @@ ul.errorlist{
 #table-of-contents h2{
     margin: 10px 20px 0;
     margin-left: 20px;
-    font-family: 'Lato', sans-serif;
+    font-family: arial, sans-serif;
     font-size: 11px;
     text-transform: uppercase;
     font-weight: bold;
@@ -1026,7 +1026,7 @@ ul.errorlist{
 .tags .tag{
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 
@@ -1039,7 +1039,7 @@ ul.errorlist{
 .date, .status, .ref .label, .ref > span{
   color: #9c9696;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   font-size: 12px;
 }
@@ -1315,7 +1315,7 @@ ul.errorlist{
 
 a.author{
   text-transform: uppercase;
-  font-family: 'Lato';
+  font-family: arial;
 }
 /*
   contents (story)
@@ -1677,7 +1677,7 @@ a.author{
 }
 
 .btn-line{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   background-color: #e7e7e7;
   border: 2px solid transparent;
@@ -1876,7 +1876,7 @@ a.btn-line:hover{
 }
 
 .nav-tabs > li > a{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 10px;
   text-transform: uppercase;
   text-align: left;
@@ -1961,7 +1961,7 @@ a.btn-line:hover{
 .dropdown-menu{
   -webkit-box-shadow: none;
   box-shadow: none;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .dropdown-menu.bottom-right{
@@ -2000,19 +2000,20 @@ a.btn-line:hover{
 .nav-filters{
   width: 150px;
   padding-right: 20px;
-  font-family: 'Lato';
+  font-family: arial;
 }
 
 .nav-filters .ellipsis{
   font-style: italic;
-  font-family: 'Merriweather', georgia, sans-serif;
+  font-family: arial, georgia, sans-serif;
   text-transform: lowercase;
 }
 
 .nav-filters h4{
-  padding: 0 0 0 12px;
-  font: 10px/10px 'Merriweather', georgia, sans-serif;
+  padding: 0 0 0 2px;
+  font: 10px/10px arial, georgia, sans-serif;
   font-style: italic;
+  margin-left: 40px;
 }
 
 /*
@@ -2207,7 +2208,7 @@ a.btn-line:hover{
 }
 
 .tags-input .autocomplete  .item.selectable .description{
-  font: 11px/18px 'Merriweather', serif;
+  font: 11px/18px arial, serif;
   text-transform: none;
 }
 
@@ -2271,7 +2272,7 @@ a.btn-line:hover{
   z-index: 100;
 }
 .toolbox .label{
-  font: 10px/29px 'Lato', sans-serif;
+  font: 10px/29px arial, sans-serif;
   color: #999999;
   text-transform: uppercase;
   font-weight: bold;
@@ -2329,7 +2330,7 @@ a.btn-line:hover{
   bootstrap modal
 */
 h4.modal-title{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   margin-right: 50px;
   text-transform: uppercase;
   font-size: 11px;
@@ -2380,7 +2381,7 @@ h4.modal-title{
 }
 
 .modal-body .preview .permalink{
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 10px 10px 0;
   display: block;
   color: #151515;
@@ -2394,7 +2395,7 @@ h4.modal-title{
 }
 
 .modal-body .section .preview .description{
-  font: 11px/18px 'Merriweather', serif;
+  font: 11px/18px arial, serif;
   color: #454545;
 }
 
@@ -2662,7 +2663,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   font-size: 13px;
   line-height: 18px;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .metadata .authors{
@@ -2823,13 +2824,13 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 }
 
 .modal .section .description {
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 10px;
 }
 
 .doc blockquote{
   font-size: 12px;
-  font-family: 'Merriweather', serif;
+  font-family: arial, serif;
   text-transform: none;
   font-style: italic;
   margin: 10px 50px 10px 20px;
@@ -3059,7 +3060,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 }
 
 .doc.oembedded .excerpt .type{
-  font-family: 'Lato';
+  font-family: arial;
   text-transform: uppercase;
   font-size: 11px;
   font-weight: bold;
@@ -3186,7 +3187,7 @@ div.profile-others .profile-thumb{
 #search-wrapper{
   width: 130px;
   padding-top: 29px;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 #search-wrapper .input-group {
@@ -3758,7 +3759,7 @@ content: "\e07a";
 
 .table th{
   color: #151515;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   font-size: 11px;
   font-weight: bold;
@@ -3797,7 +3798,7 @@ content: "\e07a";
   reviewed
 */
 .review table .status{
-  font-family: 'Lato';
+  font-family: arial;
   text-transform: uppercase;
   font-size: 0.8em;
   padding: 0 5px;
@@ -3905,7 +3906,7 @@ content: "\e07a";
 
 
 .commenter h4{
-  font: 10px/20px 'Lato', sans-serif;
+  font: 10px/20px arial, sans-serif;
   text-transform: uppercase;
   padding: 5px 10px 0;
 
@@ -3999,7 +4000,7 @@ content: "\e07a";
 }
 
 .sliding-steps .step.comment .leave label{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #9c9696;
@@ -4026,7 +4027,7 @@ content: "\e07a";
 }
 
 .comment .username{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #9c9696;
@@ -4064,7 +4065,7 @@ content: "\e07a";
 }
 
 .popover{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 12px;
   border-color: #d0d0d0;
   border-radius: 2px;
@@ -4162,7 +4163,7 @@ content: "\e07a";
 
 .tooltip-inner {
   font-weight: normal;
-  font: 11px/18px 'Merriweather';
+  font: 11px/18px arial;
   text-align: left;
   color: #F0F0F0;
   padding: 8px 13px;
@@ -4208,7 +4209,7 @@ content: "\e07a";
 
 
 .tag-version{
-  font: 12px/25px 'Lato', sans-serif;
+  font: 12px/25px arial, sans-serif;
   text-transform: uppercase;
 
   background: #ff6b6b;
@@ -4288,7 +4289,7 @@ content: "\e07a";
 }
 
 .biography .frame label .place{
-  font: 11px/18px 'Merriweather', sans-serif;
+  font: 11px/18px arial, sans-serif;
 }
 
 
@@ -4417,7 +4418,7 @@ content: "\e07a";
 }
 
 .biography .activities .activity{
-  font: 11px/18px 'Merriweather';
+  font: 11px/18px arial;
   font-style: italic;
   position: absolute;
   left: 35px;
@@ -4520,7 +4521,7 @@ content: "\e07a";
   display: inline-block;
 }
 .biography-tooltip .type{
-  font: 11px/18px 'Lato', sans-serif;
+  font: 11px/18px arial, sans-serif;
   text-transform: uppercase;
   border-bottom: 2px solid #6b6b6b;
   padding-bottom: 5px;
@@ -4535,7 +4536,7 @@ content: "\e07a";
 .biography-tooltip .description{
 
     font-weight: normal;
-    font: 12px/19px 'Merriweather', serif;
+    font: 12px/19px arial, serif;
     font-style: italic;
     color: #d0d0d0;
 
@@ -4555,7 +4556,7 @@ content: "\e07a";
 
 
 .tl-timeline p{
-  font: 'Merriweather', serif !important;
+  font: arial, serif !important;
   color: red!important;
   background: gold;
 }
