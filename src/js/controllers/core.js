@@ -112,7 +112,8 @@ angular.module('miller')
     var setNewLocation = function () {
       // Avoid to keep the "featured" orderby
       var params = $location.search()
-      if (!('orderby' in params) || !params.orderby) {
+      // debugger
+      if (!('orderby' in params) || !params.orderby  || params.orderby === 'featured') {
         params.orderby = '-date,-date_last_modified';
         params.filters = JSON.stringify($scope.filters);
         $location.search(params);
@@ -134,17 +135,17 @@ angular.module('miller')
     }
 
     $scope.selectTag = function (tag) {
-      if (!('tags__slug' in $scope.filters)) {
-        $scope.filters.tags__slug = [];
+      if (!('tags__slug__and' in $scope.filters)) {
+        $scope.filters.tags__slug__and = [];
       }
 
-      if ($scope.filters.tags__slug.indexOf(tag) !== -1) {
-        $scope.filters.tags__slug.splice($scope.filters.tags__slug.indexOf(tag), 1);
-        if ($scope.filters.tags__slug.length === 0) {
-          delete $scope.filters.tags__slug
+      if ($scope.filters.tags__slug__and.indexOf(tag) !== -1) {
+        $scope.filters.tags__slug__and.splice($scope.filters.tags__slug__and.indexOf(tag), 1);
+        if ($scope.filters.tags__slug__and.length === 0) {
+          delete $scope.filters.tags__slug__and
         }
       } else  {
-        $scope.filters.tags__slug.push(tag);
+        $scope.filters.tags__slug__and.push(tag);
       }
 
       setNewLocation()
@@ -281,7 +282,7 @@ angular.module('miller')
     });
 
     $rootScope.getTagRoute = function (tag) {
-      return '/?orderby=-date,-date_last_modified&filters={"tags__slug":["' + tag.slug + '"]}';
+      return '/?orderby=-date,-date_last_modified&filters={"tags__slug__and":["' + tag.slug + '"]}';
     }
 
     $scope.setHash = function(hash) {
