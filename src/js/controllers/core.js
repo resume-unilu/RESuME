@@ -109,6 +109,18 @@ angular.module('miller')
 
     }
 
+    var setNewLocation = function () {
+      // Avoid to keep the "featured" orderby
+      var params = $location.search()
+      if (!('orderby' in params) || !params.orderby) {
+        params.orderby = '-date,-date_last_modified';
+        params.filters = JSON.stringify($scope.filters);
+        $location.search(params);
+      } else {
+        $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      }
+    }
+
     $scope.toggleFilter = function(key, value){
       $log.log('🍔 CoreCtrl > @setFilters ...');
       // only if it is the same as the current value
@@ -118,7 +130,7 @@ angular.module('miller')
         $scope.filters[key] = value;
       }
       // empty filters?
-      $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      setNewLocation()
     }
 
     $scope.selectTag = function (tag) {
@@ -135,15 +147,7 @@ angular.module('miller')
         $scope.filters.tags__slug.push(tag);
       }
 
-      // Avoid to keep the "featured" orderby
-      var params = $location.search()
-      if (!('orderby' in params) || !params.orderby) {
-        params.orderby = '-date,-date_last_modified';
-        params.filters = JSON.stringify($scope.filters);
-        $location.search(params);
-      } else {
-        $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
-      }
+      setNewLocation()
     }
 
     $scope.download = function(){

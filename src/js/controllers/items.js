@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, extendItem, EVENTS) {
+  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, description, QueryParamsService, extendItem, EVENTS) {
     $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'initials:', initials);
 
     // model is used to get the correct item template
@@ -16,6 +16,9 @@ angular.module('miller')
 
     // local var used only for publicationsCtrl
     var _tag;
+    if (description && $state.$current.params) {
+      $scope.topDescription = description.contents
+    }
 
     if($scope.state == 'publications.tags')
       initials.filters['tags__slug__all'] = [$state.params.slug];
@@ -87,6 +90,9 @@ angular.module('miller')
       $scope.items = ($scope.items || []).concat(normalizeItems(res.results));
       // update missing
       $scope.missing = res.count - $scope.items.length;
+
+      // TODO: Provisory fix for presentation, this need to be handled better
+      $scope.showDescription = window.location.pathname === '/' && window.location.search === ''
     }
 
     $scope.more = function(){
