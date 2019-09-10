@@ -112,7 +112,8 @@ angular.module('miller')
     var setNewLocation = function () {
       // Avoid to keep the "featured" orderby
       var params = $location.search()
-      if (!('orderby' in params) || !params.orderby) {
+      // debugger
+      if (!('orderby' in params) || !params.orderby  || params.orderby === 'featured') {
         params.orderby = '-date,-date_last_modified';
         params.filters = JSON.stringify($scope.filters);
         $location.search(params);
