@@ -20,12 +20,12 @@ angular.module('miller')
       $scope.topDescription = description.contents
     }
 
-    if($scope.state == 'publications.tags')
+    if($state.current.name == 'publications.tags')
       initials.filters['tags__slug__all'] = [$state.params.slug];
     else if (initials.filters)
       delete initials.filters['tags__slug__all']
 
-    if($scope.state == 'search.story') {
+    if($state.current.name == 'search.story') {
       $scope.setCount(items.count);
     }
     /*
@@ -38,7 +38,7 @@ angular.module('miller')
       return sentences;
     }
 
-    if($scope.state != 'publications.tags') {
+    if($state.current.name != 'publications.tags') {
       if (typeof $scope.setTag == 'function')
         $scope.setTag(null);
     }
@@ -63,7 +63,7 @@ angular.module('miller')
             language: $scope.language
           });
 
-          if(!_tag && $scope.state == 'publications.tags') {
+          if(!_tag && $state.current.name == 'publications.tags') {
             _tag = true;
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
           }
