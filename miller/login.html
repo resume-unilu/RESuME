@@ -6,9 +6,9 @@
     <div class="col-sm-6 col-sm-offset-3">
 
 
-      <h3 >Log in to {{title}}</h3>
+      <h3 >Log in to <a href="/">{{title}}</a></h3>
       <p >Enter your username and password to log in:</p>
-      
+
       {% if form.non_field_errors %}
         {{ form.non_field_errors }}
       {% endif %}
@@ -28,7 +28,7 @@
           {{form.errors.password}}
           {% endif %}
         </div>
-     
+
         <input type="hidden" value="{{ next }}" name="next" />
         {% csrf_token %}
         <div class="center">
@@ -41,7 +41,7 @@
         </div>
       </form>
 
-      <h3 class="center" style='border-top: 2px solid #f0f0f0; padding-top:10px'> ... or create a free account</h3> 
+      <h3 class="center" style='border-top: 2px solid #f0f0f0; padding-top:10px'> ... or create a free account</h3>
       <div class="center">
         <div class="btn-line-group primary">
           <a class="btn-line" href='{% url "signup_view" %}'>
@@ -49,31 +49,31 @@
           </a>
         </div>
       </div>
-     
-      <h3 class="center" style='border-top: 2px solid #f0f0f0; padding-top:10px'>... or register / log in with:</h3>
 
-      <div class="social-login-buttons center">
-        <div class="btn-line-group primary">
-          <a class="btn btn-line" href="{% url 'social:begin' 'twitter' %}">
-            <i class="icon icon-social-twitter"></i> Twitter
-          </a>
-        </div>
-        <div class="btn-line-group primary">
-        <a class="btn btn-line" href="{% url 'social:begin' 'google-oauth2' %}">
-          <i class="icon icon-social-google"></i> Google Plus
-        </a>
-        </div>
-      </div>
+<!--      <h3 class="center" style='border-top: 2px solid #f0f0f0; padding-top:10px'>... or register / log in with:</h3>-->
+
+<!--      <div class="social-login-buttons center">-->
+<!--        <div class="btn-line-group primary">-->
+<!--          <a class="btn btn-line" href="{% url 'social:begin' 'twitter' %}">-->
+<!--            <i class="icon icon-social-twitter"></i> Twitter-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="btn-line-group primary">-->
+<!--        <a class="btn btn-line" href="{% url 'social:begin' 'google-oauth2' %}">-->
+<!--          <i class="icon icon-social-google"></i> Google Plus-->
+<!--        </a>-->
+<!--        </div>-->
+<!--      </div>-->
 
 
-        
 
-        
-        
+
+
+
 
     </div>
   </div>
-  
+
 
   <!-- <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
