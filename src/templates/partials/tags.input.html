@@ -1,4 +1,5 @@
 <label translate="{{tagField.label}}"></label>
 <tags-input class='tags-input' on-tag-adding='beforeAttachTag($tag)' on-tag-removed='detachTag($tag)' key-property='id' display-property='name' ng-model="tagField.tags" add-from-autocomplete-only="true">
-    <auto-complete max-results-to-show="999" template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}' source="suggestTags($query, tagField.filters, !tagField.addFromAutocompleteOnly)" load-on-empty="true" load-on-focus="true" min-length="1"></auto-complete>
+    <auto-complete max-results-to-show="999" template='{{"templates/partials/tag.autocomplete.html"|prefixTemplate}}'
+                   source="suggestTags($query, tagField.filters, !tagField.addFromAutocompleteOnly)" load-on-focus="true" min-length="1"></auto-complete>
 </tags-input>
