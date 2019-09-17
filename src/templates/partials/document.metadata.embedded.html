@@ -1,7 +1,9 @@
 <span class='oneline'>
+  <em ng-if='document.data.title' embedit='document.data.title' language='language' firstline='true'></em>
+  <em ng-if='!document.data.title && document.title' embedit='document.title' language='language' firstline='true'></em>
+
+  <em ng-if='(document.data.title || document.title) && document.copyrights'>&mdash;</em>
   <em ng-if='document.copyrights' embedit='document.copyrights' language='language' firstline='true'></em>
-  <em ng-if='!document.copyrights && document.data.title' embedit='document.data.title' language='language' firstline='true'></em>
-  <em ng-if='!document.copyrights && !document.data.title && document.title' embedit='document.title' language='language' firstline='true'></em>
 
   <span ng-if='document.data.author_name'>
     <span translate='by'></span>
