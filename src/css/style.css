@@ -285,7 +285,7 @@ a{
     display: inline-block;
     margin: 0 2px;
     padding: 0 5px 0 10px;
-    font: 11px/25px "Lato",sans-serif;
+    font: 11px/25px Arial,sans-serif;
     color: #585858;
     text-transform: uppercase;
     border: 2px solid #B7B2B2;
@@ -2101,7 +2101,7 @@ a.btn-line:hover{
   padding: 0 0px 0 10px;
   display: inline-block;
   float: left;
-  font: 10px "Lato",sans-serif;
+  font: 10px Arial,sans-serif;
   height: 25px;
   line-height: 25px;
   color: #585858;
@@ -2154,7 +2154,7 @@ a.btn-line:hover{
 
 .tags-input .tags .input.invalid-tag,
 .tags-input .tags .tag-item .remove-button:active{color:red}
-.tags-input .tags .input{border:0;outline:0;margin:2px;padding:0 0 0 5px;float:left;height:26px;font:14px "Lato",sans-serif}
+.tags-input .tags .input{border:0;outline:0;margin:2px;padding:0 0 0 5px;float:left;height:26px;font:14px Arial,sans-serif}
 .tags-input .tags .input::-ms-clear{display:none}
 .tags-input.ng-invalid .tags{
   border-color: #ff5c5c;
@@ -2189,7 +2189,7 @@ a.btn-line:hover{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  font:11px/18px "Lato",sans-serif;
+  font:11px/18px Arial,sans-serif;
   color:#585858;
   text-transform: uppercase;
   background-color:#fff;
@@ -2202,7 +2202,7 @@ a.btn-line:hover{
 .tags-input .autocomplete .suggestion-item.selected,
 .tags-input .autocomplete .suggestion-item.selected em{color:#151515;}
 .tags-input .autocomplete .suggestion-item em{
-  font:11px/18px "Lato",sans-serif;
+  font:11px/18px Arial,sans-serif;
   font-weight: bold;
   background-color: #C7F464;
   color: black;
@@ -4185,7 +4185,7 @@ content: "\e07a";
 
 .version > div{
   padding: 10px 10px 0;
-  font: 11px "Lato",sans-serif;
+  font: 11px Arial,sans-serif;
 }
 .version .username{
   font-weight: bold;
