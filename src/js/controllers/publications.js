@@ -19,11 +19,17 @@ angular.module('miller')
 
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
-
     $scope.availableRoutes = availableRoutes.map(function(d){
+      var sortBasics = function (arr) {
+        return d === 'writing' || d === 'tags'
+          ? arr.sort(function (a, b) {
+            return (a.slug > b.slug) ? 1 : -1
+          })
+          : arr
+      }
       return {
         state: 'publications',
-        urls: RUNTIME.routes.publications[d]
+        urls: sortBasics(RUNTIME.routes.publications[d])
       }
     });
 
