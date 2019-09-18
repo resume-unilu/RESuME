@@ -25,10 +25,10 @@
         <div class="date">{{review.story.date|date:'mediumDate'}}</div>
 
         <h2 class="title">
-          <a ui-sref="review.story({id: review.id})"><span embedit='review.story.metadata.title' language='language'></span></a>
-        </h2>  
-      
-        <blockquote ng-if='review.story.metadata.abstract' embedit='review.story.metadata.abstract' language='language'></blockquote>
+          <a ui-sref="review.story({id: review.id})"><span embedit='review.story.data.title' language='language'></span></a>
+        </h2>
+
+        <blockquote ng-if='review.story.data.abstract' embedit='review.story.data.abstract' language='language'></blockquote>
       </div>
       <div>
 
@@ -41,13 +41,13 @@
         <div ng-if='review.status == "initial" || review.status == "draft"' class='btn-line-group primary'>
           <button class='btn-line' ui-sref='review({id: review.id})' translate='button.completereview'></button>
         </div>
-        
+
         <div ng-if='review.status != "initial" && review.status != "draft"' class='btn-line-group primary'>
           <button class='btn-line' ui-sref='review({id: review.id})' translate='button.viewreport'></button>
         </div>
       </div>
     </div>
 
-    
+
   </div>
 </div>

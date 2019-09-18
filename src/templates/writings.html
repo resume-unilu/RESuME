@@ -146,7 +146,7 @@ by <a href>{{metadata.owner.username}}</a>
       &nbsp;&nbsp;
       <div class='btn-line-group  transparent'>
         <button class='btn-line' ng-click='save()'><span translate='button.save'></span> <span class='icon icon-disc'></span></button>
-        <button ng-click='openSaveVersionModal()' class='btn-line'><span translate="button.saveversion"></span> <span class='icon icon-pin'></span></button>
+<!--        <button ng-click='openSaveVersionModal()' class='btn-line'><span translate="button.saveversion"></span> <span class='icon icon-pin'></span></button>-->
       </div>
 
 
@@ -154,7 +154,7 @@ by <a href>{{metadata.owner.username}}</a>
 
         <button class='btn-line' ng-class='{"active": state.current.name=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
         <button class='btn-line' ng-class='{"active": state.current.name=="writing.live"}' ui-sref='writing.live({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
-        <button class='btn-line dropdown' ng-class='{"active": state.current.name=="writing.compare" || state.current.name=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
+<!--        <button class='btn-line dropdown' ng-class='{"active": state.current.name=="writing.compare" || state.current.name=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>-->
         <ul class="dropdown-menu" role="menu">
           <!-- <li>
             {{story.version}}

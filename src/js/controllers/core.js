@@ -210,6 +210,7 @@ angular.module('miller')
       Cfr indexCtrl
     */
     $transitions.onStart({}, function($transition$) {
+      var from = $transition$.$from().name
       var to = $transition$.$to().name;
 
       $log.log('🍔 CoreCtrl @stateChangeStart new:', to, '- previous:', $scope.state);
@@ -224,7 +225,7 @@ angular.module('miller')
         return;
       }
 
-      if($scope.stopStateChangeStart === true){
+      if($scope.stopStateChangeStart === true && from.split('.')[0] !== to.split('.')[0]){
         // check the user has wirtten sometihing..
         var answer = confirm("Are you sure you want to leave this page?");
         if (!answer) {
