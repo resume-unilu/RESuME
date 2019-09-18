@@ -178,7 +178,9 @@ angular.module('miller')
     }
 
     $scope.detachAuthor = function (target) {
-      if ($scope.story.authors.length < 1 && target) {
+      if (target.profile.user && target.profile.user.id === $scope.story.owner.id) {
+        $scope.story.authors.unshift(target);
+      } else if ($scope.story.authors.length < 1 && target) {
         $scope.story.authors.push(target);
         alert('At least one author is needed')
       }
