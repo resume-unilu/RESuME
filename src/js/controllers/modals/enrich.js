@@ -412,8 +412,11 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
   }
 
 
-
-  $scope.setTab(localStorageService.get('lasttabname') || 'favourite');
+  var initialTab = localStorageService.get('lasttabname') || 'favourite';
+  if (Object.keys($scope.tabs).findIndex(function (t) { return t === initialTab; }) === -1) {
+    initialTab = 'favourite';
+  }
+  $scope.setTab(initialTab);
 
 
 });
