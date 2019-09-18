@@ -6,10 +6,10 @@
       <span aria-hidden="true" class='icon-close'></span>
       </button>
       <h4 class="modal-title">add resource</h4></div>
-      
+
       <div class="modal-body">
 
-        
+
         <!-- <input type='text' class="form-control" placeholder="search ..."> -->
         <ul class="nav nav-tabs" style='padding-left:15px; margin-bottom:0' role="tablist">
           <li role='presentation' ng-class='{"active": _tab.name == tab.name}' ng-repeat='_tab in tabs'>
@@ -17,7 +17,7 @@
           </li>
         </ul>
 
-        
+
           <div ng-show="tab.name == 'favourite'" class="tab-content">
             <div class='section padded' ng-class='{"last": !lookups.length}'>
               <label>
@@ -49,62 +49,62 @@
             </div>
           </div>
 
-          <div ng-show="tab.name == 'crossref'" class="tab-content">
-            <div class='section padded' ng-class='{"last": !lookups.length}'>
-              <label>
-                <span translate='search'></span>
-                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
-              </label>
-              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 450 }" ng-change='suggest(query)'>
-            </div>
-            <div class='section last'>
-              <ul class='list-of-documents'><li ng-repeat='item in tab.items' ng-include='"templates/partials/crossref.html"|prefixTemplate'></li>
-              </ul>
-              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>
-            </div>
-          </div>
-          <div ng-show="tab.name == 'glossary'" class="tab-content">
-            <div class='section padded' ng-class='{"last": !glossary.length}'>
-              <label>
-                <span translate='search'></span>
-                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
-              </label>
-              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 250 }" ng-change='suggest(query)'>
-            </div>
-            <div class='section last'>
-              <ul class='list-of-documents'><li ng-repeat='term in tab.items' ng-include='"templates/partials/term.html"|prefixTemplate'></li>
-              </ul>
-              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>
-            </div>
-          </div>
+<!--          <div ng-show="tab.name == 'crossref'" class="tab-content">-->
+<!--            <div class='section padded' ng-class='{"last": !lookups.length}'>-->
+<!--              <label>-->
+<!--                <span translate='search'></span>-->
+<!--                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>-->
+<!--              </label>-->
+<!--              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 450 }" ng-change='suggest(query)'>-->
+<!--            </div>-->
+<!--            <div class='section last'>-->
+<!--              <ul class='list-of-documents'><li ng-repeat='item in tab.items' ng-include='"templates/partials/crossref.html"|prefixTemplate'></li>-->
+<!--              </ul>-->
+<!--              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div ng-show="tab.name == 'glossary'" class="tab-content">-->
+<!--            <div class='section padded' ng-class='{"last": !glossary.length}'>-->
+<!--              <label>-->
+<!--                <span translate='search'></span>-->
+<!--                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>-->
+<!--              </label>-->
+<!--              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 250 }" ng-change='suggest(query)'>-->
+<!--            </div>-->
+<!--            <div class='section last'>-->
+<!--              <ul class='list-of-documents'><li ng-repeat='term in tab.items' ng-include='"templates/partials/term.html"|prefixTemplate'></li>-->
+<!--              </ul>-->
+<!--              <div ng-include='"templates/partials/more.html"|prefixTemplate'></div>-->
+<!--            </div>-->
+<!--          </div>-->
 
-          <div ng-show="tab.name == 'CVCE'" class="tab-content">
-            <div class='section padded' ng-class='{"last": !suggestResults.length}'>
-              <label>
-                <span translate='search'></span>
-                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
-              </label>
-              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 250 }" ng-change='suggest(query)'>
-            </div>
-            <div class='section last'>
-              <ul class='list-of-documents'>
-                <li ng-repeat='document in tab.items' ng-include='"templates/partials/oembed-search-results.html"|prefixTemplate'>
-                </li>
-              </ul>
-              <div class='more-wrapper'>
-                <div ng-if='tab.items.length > 0 && tab.items.length < tab.count' class="btn-line-group primary">
-                  <button class='btn-line' ng-click='more()'>
-                    <span ng-if='!tab.isLoadingNextItems'>
-                      <span translate='button.more'></span>
-                      <span translate='missing' translate-values="{count: tab.missing}"></span>
-                    </span>
-                    <span ng-if='tab.isLoadingNextItems' translate='button.loading'></span>
-                  </button>
-                </div>
-                <!-- when count equals item length, we are at the end -->
-              </div>
-            </div>
-          </div>
+<!--          <div ng-show="tab.name == 'CVCE'" class="tab-content">-->
+<!--            <div class='section padded' ng-class='{"last": !suggestResults.length}'>-->
+<!--              <label>-->
+<!--                <span translate='search'></span>-->
+<!--                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>-->
+<!--              </label>-->
+<!--              <input placeholder='...' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 250 }" ng-change='suggest(query)'>-->
+<!--            </div>-->
+<!--            <div class='section last'>-->
+<!--              <ul class='list-of-documents'>-->
+<!--                <li ng-repeat='document in tab.items' ng-include='"templates/partials/oembed-search-results.html"|prefixTemplate'>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--              <div class='more-wrapper'>-->
+<!--                <div ng-if='tab.items.length > 0 && tab.items.length < tab.count' class="btn-line-group primary">-->
+<!--                  <button class='btn-line' ng-click='more()'>-->
+<!--                    <span ng-if='!tab.isLoadingNextItems'>-->
+<!--                      <span translate='button.more'></span>-->
+<!--                      <span translate='missing' translate-values="{count: tab.missing}"></span>-->
+<!--                    </span>-->
+<!--                    <span ng-if='tab.isLoadingNextItems' translate='button.loading'></span>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; when count equals item length, we are at the end &ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
           <div ng-show="tab.name == 'url'" class="tab-content">
             <div class='section padded'>
@@ -113,8 +113,8 @@
               <div class='elastic-textarea-wrapper'>
                 <textarea class="elastic-textarea monospace" rows="3" msd-elastic ng-model='url' ng-change='previewUrl(url)' type='text' placeholder='http://'></textarea>
               </div>
-              
-              
+
+
 
               <div class='preview' ng-show='embed.url' ng-class='embed.type'>
                 <!-- <div ng-if='embed.provider_name=="CVCE"' ng-include='"templates/partials/embeds/cvce.html"|prefixTemplate'></div> -->
@@ -127,11 +127,11 @@
                   <div ng-if='embed.thumbnail_url' class='image-wrapper'>
                     <div lazy-img='{{embed.thumbnail_url}}' class='cover' style='height: 100%'></div>
                   </div>
-                  
+
                   <a class='permalink' target='_blank' ng-href='{{embed.url}}'>{{embed.title}}</a>
                   <div class='description'>{{embed.description}} <a target='_blank' ng-href='{{embed.url}}'>{{embed.url|smartUrl}}</a></div>
-                  
-                  
+
+
                 </div>
 
                 <div ng-if='embed.type == "rich" || embed.type == "video" || embed.type == "timeline"'>
@@ -157,19 +157,19 @@
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='embed.title' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
-            <div class='section padded'>
+            <div class='section padded last'>
               <label translate='description'></label>
               <div class='elastic-textarea-wrapper'>
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='embed.description' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
-            <div class='section padded last'>
-              <label translate='bibtex reference'></label>
-              <div class='elastic-textarea-wrapper'>
-                <textarea class="elastic-textarea bibtex" rows="3" msd-elastic ng-model='reference' type='text' placeholder='@{}'></textarea>
-              </div>
-              <div class='sans-serif description' translate='bibtex.howto'></div>
-            </div>
+<!--            <div class='section padded last'>-->
+<!--              <label translate='bibtex reference'></label>-->
+<!--              <div class='elastic-textarea-wrapper'>-->
+<!--                <textarea class="elastic-textarea bibtex" rows="3" msd-elastic ng-model='reference' type='text' placeholder='@{}'></textarea>-->
+<!--              </div>-->
+<!--              <div class='sans-serif description' translate='bibtex.howto'></div>-->
+<!--            </div>-->
           </div>
 
           <div ng-show="tab.name == 'upload'" class="tab-content">
@@ -177,22 +177,22 @@
               <div class='drop-box-form-wrapper'>
                 <form name="createForm" novalidate class="simple-form">
                   <div ng-show='!uploadablefile.size'>
-                    <div ngf-drop ngf-select ng-model="uploadable" class="drop-box sans-serif" 
+                    <div ngf-drop ngf-select ng-model="uploadable" class="drop-box sans-serif"
                          ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
-                         accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+                         accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                          ngf-pattern="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document'"><span translate="drop.to.upload"></span>
                     </div>
                   </div>
-                  <div class="uploadable" ng-show='uploadablefile.size'>  
+                  <div class="uploadable" ng-show='uploadablefile.size'>
                     <div ng-if='!uploadablefile.document'>
                       <span>{{uploadablefile.name}}</span>
                       <span>{{uploadablefile.type}}</span>
                       <span>{{uploadablefile.size}}</span>
                       <div class='btn-line-group'><a class='btn-line' ng-click='undo()' translate='button.undo'></a></div>
-                      
+
                     </div>
                     <div class="loading-bar" style='width:{{uploadablefile.progressPercentage|| 0}}%'></div>
-                    
+
                     <div class='doc-uploaded' ng-if='uploadablefile.document' ng-init='document=uploadablefile.document'>
                       <div class="row">
                         <div class="col-sm-5">
@@ -218,20 +218,20 @@
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.title' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
-            <div class='section padded' ng-show='!uploadablefile.document'>
+            <div class='section padded last' ng-show='!uploadablefile.document'>
               <label translate='copyright'></label>
               <div class='elastic-textarea-wrapper'>
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.copyright' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
-            <div class='section padded last' ng-show='!uploadablefile.document'>
-              <label translate='bibtex reference'></label>
-              <div class='sans-serif description' translate='bibtex.howto'></div> 
-              <div class='elastic-textarea-wrapper'>
-                <textarea class="elastic-textarea" style='max-height: 200px;' rows="3" msd-elastic ng-model='reference' type='text' placeholder='@{}'></textarea>
-              </div>
-              
-            </div>
+<!--            <div class='section padded last' ng-show='!uploadablefile.document'>-->
+<!--              <label translate='bibtex reference'></label>-->
+<!--              <div class='sans-serif description' translate='bibtex.howto'></div> -->
+<!--              <div class='elastic-textarea-wrapper'>-->
+<!--                <textarea class="elastic-textarea" style='max-height: 200px;' rows="3" msd-elastic ng-model='reference' type='text' placeholder='@{}'></textarea>-->
+<!--              </div>-->
+<!--              -->
+<!--            </div>-->
             <div class='section padded last center' ng-show='!uploadablefile.document'>
               <div class='btn-line-group' ng-class='{"primary":uploadablefile.size}'>
                 <button class='btn-line' ng-click='upload()' translate='button.upload'></button>
@@ -243,13 +243,13 @@
             <!-- @todo -->
           </div>
 
-          <div ng-show="tab.name == 'bibtex'" class="tab-content">
-            <span translate='bibtex.howto'></span>
-            <label translate='bibtex'></label>
-            <div class='elastic-textarea-wrapper'>
-              <textarea class="elastic-textarea" style="font-family: monospace;" rows="8" msd-elastic ng-model='reference' type='text' placeholder='@BOOK {}'></textarea>
-            </div>
-          </div>
+<!--          <div ng-show="tab.name == 'bibtex'" class="tab-content">-->
+<!--            <span translate='bibtex.howto'></span>-->
+<!--            <label translate='bibtex'></label>-->
+<!--            <div class='elastic-textarea-wrapper'>-->
+<!--              <textarea class="elastic-textarea" style="font-family: monospace;" rows="8" msd-elastic ng-model='reference' type='text' placeholder='@BOOK {}'></textarea>-->
+<!--            </div>-->
+<!--          </div>-->
           <div style='clear:both'></div>
 
 
