@@ -218,11 +218,19 @@
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.title' type='text' placeholder='untitled'></textarea>
               </div>
             </div>
-            <div class='section padded last' ng-show='!uploadablefile.document'>
+            <div class='section padded' ng-show='!uploadablefile.document'>
               <label translate='copyright'></label>
               <div class='elastic-textarea-wrapper'>
                 <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.copyright' type='text' placeholder='untitled'></textarea>
               </div>
+            </div>
+            <div class='section padded last' ng-show='!uploadablefile.document'>
+              <div class="checkbox" style="width: 95%;">
+                <label style="font-weight: bold"><input type="checkbox" ng-model='uploadablefile.copyrightConfirmation'><span translate="copyright.checkbox.label"></span></label>
+              </div>
+              <p>
+              <i translate="copyright.checkbox.text"></i>
+              </p>
             </div>
 <!--            <div class='section padded last' ng-show='!uploadablefile.document'>-->
 <!--              <label translate='bibtex reference'></label>-->
