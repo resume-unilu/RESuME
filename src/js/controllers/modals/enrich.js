@@ -281,6 +281,12 @@ angular.module('miller').controller('EnrichModalCtrl', function ($timeout, $scop
           return
         }
 
+        if (!$scope.uploadablefile.copyrightConfirmation) {
+          $log.warn('no copyright confirmation provided');
+          alert("Copyright checkbox required");
+          return
+        }
+
         var types = {
           'image/jpg': 'image',
           'image/png': 'image',
