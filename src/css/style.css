@@ -1476,7 +1476,9 @@ a.author{
   margin-right: 20px;
 }
 
-
+.contents img {
+  max-width: 100%;
+}
 
 
 .contents .footnote-contents{
