@@ -1,5 +1,5 @@
 angular.module('miller')
-  .controller('CoversModalCtrl', function ($scope, $log, QueryParamsService, DocumentFactory) {
+  .controller('CoversModalCtrl', function ($scope, $log, QueryParamsService, DocumentFactory, Upload) {
     /*
       Its scope has read access to:
 
@@ -36,7 +36,7 @@ angular.module('miller')
             })
           }, function(res){
             $log.debug('CoversModalCtrl - tab.favourite > suggest loaded n.docs:', res.results.length, '- total:', res.count, '-filters:', QueryParamsService(res.next || ''));
-            
+
             $s.items   = $s.next? ($s.items || []).concat(res.results): res.results;
             $s.count   = res.count;
             $s.missing = res.count - $s.items.length;
@@ -71,7 +71,7 @@ angular.module('miller')
             })
           }, function(res){
             $log.debug('CoversModalCtrl - tab.all > suggest loaded n.docs:', res.results.length, '- total:', res.count, '-filters:', QueryParamsService(res.next || ''));
-            
+
             $s.items   = $s.next? ($s.items || []).concat(res.results): res.results;
             $s.count   = res.count;
             $s.missing = res.count - $s.items.length;
@@ -84,7 +84,98 @@ angular.module('miller')
           $log.debug('CoversModalCtrl - tab.all > init');
           this.suggest($scope.query || '');
         }
+      },
+      upload: {
+        name: 'upload',
+        items: [],
+        undo: function(){
+          $scope.uploadable = null;
+          $scope.uploadablefile = {};
+        },
+        // stands for upload, suggest is a placeholder here.
+        upload: function(){
+          var $s = this;
+          if(!$scope.uploadablefile){
+            // error
+            $log.warn('no file is selected');
+            return
+          }
+
+          if (!$scope.uploadablefile.copyright) {
+            $log.warn('no copyright provided');
+            alert("Copyright required");
+            return
+          }
+
+          if (!$scope.uploadablefile.copyrightConfirmation) {
+            $log.warn('no copyright confirmation provided');
+            alert("Copyright checkbox required");
+            return
+          }
+
+          var types = {
+            'image/jpg': 'image',
+            'image/png': 'image',
+            'application/pdf': 'pdf'
+          };
+          // uploadable has value, name and size.
+          Upload.upload({
+            url: '/api/document/',
+            data: {
+              title: $scope.uploadablefile.title || $scope.uploadablefile.name,
+              type: types[$scope.uploadablefile.type] || $scope.uploadablefile.type.split('/').shift(),
+              mimetype: $scope.uploadablefile.type,
+              copyrights: $scope.uploadablefile.copyright,
+              metadata: JSON.stringify({
+                bibtex: $scope.reference,
+                copyrights: $scope.uploadablefile.copyright
+              }),
+              attachment: $scope.uploadablefile.f
+            }
+          }).then(function (res) {
+            $log.debug('UploadCtrl -> upload() status:', res.status)
+            if(res.status == 201){
+              $log.debug('UploadCtrl -> upload() status:', 'success!', res.data)
+              // add document
+              $scope.uploadablefile.progressPercentage = 0;
+              $scope.uploadablefile.document = res.data;
+              $scope.selectDocument($scope.uploadablefile.document);
+            } else {
+              $log.error(res);
+              // error handling?
+            }
+
+          }, null, function (evt) {
+            $scope.uploadablefile.progressPercentage = parseInt(10000.0 *
+              evt.loaded / evt.total)/100;
+            $log.log('progress: ' + $scope.uploadablefile.progressPercentage +
+              '% ' + evt.config.data, $scope.uploadablefile.name, evt);
+          });
+
+        },
+        init: function(){
+          $log.log('init', this);
+          // forget previous upload
+          $scope.uploadable = null;
+          $scope.uploadablefile = {};
+        }
       }
+    }
+
+    $scope.uploadablefile = {}
+    $scope.$watch('uploadable', function (v) {
+      if(v){
+        $log.debug('::mde @uploadable', v)
+        $scope.uploadablefile.f = v;
+        $scope.uploadablefile.name = v.name;
+        $scope.uploadablefile.size = v.size;
+        $scope.uploadablefile.type = v.type;
+      }
+    });
+
+    $scope.upload = function(query){
+      $log.log('CoverCtrl -> upload()');
+      $scope.tab.upload();
     }
 
     $scope.selectDocument = function(doc){
@@ -105,7 +196,7 @@ angular.module('miller')
         $log.warn('CoversModalCtrl -> addDocument() no document has been selected');
         return;
       }
-      
+
       $log.debug('CoversModalCtrl -> addDocument() id:', $scope.selectedDocument.id);
 
       $scope.setCover($scope.selectedDocument);
@@ -131,7 +222,7 @@ angular.module('miller')
       $scope.tab.suggest(query, true);
     }
 
-    
+
 
     // on init: set the default tab (with init methid called).
     $scope.setTab('favourite');

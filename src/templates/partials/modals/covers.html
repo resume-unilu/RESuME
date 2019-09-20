@@ -6,39 +6,107 @@
       <span aria-hidden="true" class='icon-close'></span>
       </button>
       <h4 class="modal-title" translate="modal.covers.title"></h4></div>
-      
+
       <div class="modal-body">
-        <div class='section padded' style='padding-bottom: 0'>
-          <label>
-            <span translate='search'></span>{{isSomethingSelected}}
-            <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
-          </label>
-          <input placeholder='....' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 200 }" ng-change='suggest(query)'>
+          <ul class="nav nav-tabs" style='margin-bottom: 0; padding-left:15px;' role="tablist">
+            <li role='presentation' ng-class='{"active": _tab.name == tab.name}' ng-repeat='_tab in tabs'>
+              <a ng-click='setTab(_tab.name)' translate='tab.{{_tab.name}}' aria-controls="home" role="tab" data-toggle="tab"></a>
+            </li>
+          </ul>
+
+          <div>
+            <div class='section padded last' ng-show="tab.name === 'favourite' || tab.name === 'all'">
+              <label>
+                <span translate='search'></span>{{isSomethingSelected}}
+                <span style='color: #b7b7b7' translate='results.amount' translate-values='{count: tab.count}'></span>
+              </label>
+              <input placeholder='....' class='form-control' type='text' ng-model='query' ng-model-options="{ debounce: 200 }" ng-change='suggest(query)'>
+            </div>
+            <ul class='list-of-documents'><li ng-repeat='document in tab.items' ng-include='"templates/partials/embeds/document.html"|prefixTemplate'></li>
+                </ul>
+            <div class='more-wrapper'>
+                  <div ng-if='tab.items.length > 0 && tab.items.length < tab.count' class="btn-line-group primary">
+                    <button class='btn-line' ng-click='more()'>
+                      <span ng-if='!tab.isLoadingNextItems'>
+                        <span translate='button.more'></span>
+                        <span translate='missing' translate-values="{count: tab.missing}"></span>
+                      </span>
+                      <span ng-if='tab.isLoadingNextItems' translate='button.loading'></span>
+                    </button>
+                  </div>
+                  <!-- when count equals item length, we are at the end -->
+                </div>
+          </div>
         </div>
 
-        <ul class="nav nav-tabs" style='margin-bottom: 20px; padding-left:15px;' role="tablist">
-          <li role='presentation' ng-class='{"active": _tab.name == tab.name}' ng-repeat='_tab in tabs'>
-            <a ng-click='setTab(_tab.name)' translate='tab.{{_tab.name}}' aria-controls="home" role="tab" data-toggle="tab"></a>
-          </li>
-        </ul>
-
-        <div>
-          <ul class='list-of-documents'><li ng-repeat='document in tab.items' ng-include='"templates/partials/embeds/document.html"|prefixTemplate'></li>
-              </ul>
-          <div class='more-wrapper'>
-                <div ng-if='tab.items.length > 0 && tab.items.length < tab.count' class="btn-line-group primary">
-                  <button class='btn-line' ng-click='more()'>
-                    <span ng-if='!tab.isLoadingNextItems'>
-                      <span translate='button.more'></span>
-                      <span translate='missing' translate-values="{count: tab.missing}"></span>
-                    </span>
-                    <span ng-if='tab.isLoadingNextItems' translate='button.loading'></span>
-                  </button>
+      <div ng-show="tab.name == 'upload'" class="tab-content" style="margin-top: 30px">
+        <div class='section padded'>
+          <div style="margin-bottom: 40px">
+            <form name="createForm" novalidate class="simple-form">
+              <div ng-show='!uploadablefile.size'>
+                <div ngf-drop ngf-select ng-model="uploadable" class="drop-box sans-serif"
+                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                     accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                     ngf-pattern="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document'"><span translate="drop.to.upload"></span>
                 </div>
-                <!-- when count equals item length, we are at the end -->
               </div>
+              <div class="uploadable" ng-show='uploadablefile.size'>
+                <div ng-if='!uploadablefile.document'>
+                  <span>{{uploadablefile.name}}</span>
+                  <span>{{uploadablefile.type}}</span>
+                  <span>{{uploadablefile.size}}</span>
+                  <div class='btn-line-group'><a class='btn-line' ng-click='undo()' translate='button.undo'></a></div>
+
+                </div>
+                <div class="loading-bar" style='width:{{uploadablefile.progressPercentage|| 0}}%'></div>
+
+                <div class='doc-uploaded' ng-if='uploadablefile.document' ng-init='document=uploadablefile.document'>
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <div class="cover" style='height: 180px;' lazy-img='{{document.snapshot}}'></div>
+                    </div>
+                    <div class="col-sm-7">
+                      <div class='title sans-serif' embedit='document.data.title'></div>
+                      <div class='copyright' embedit='document.data.copyright'></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div ngf-no-file-drop><span translate='feature.unsupported.dragdrop'></span></div>
+        </div>
+        <!-- @todo -->
+        <div class='section padded' ng-show='!uploadablefile.document'>
+
+          <label translate='title'></label>
+          <div class='elastic-textarea-wrapper'>
+            <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.title' type='text' placeholder='untitled'></textarea>
+          </div>
+        </div>
+        <div class='section padded' ng-show='!uploadablefile.document'>
+          <label translate='copyright'></label>
+          <div class='elastic-textarea-wrapper'>
+            <textarea class="elastic-textarea" rows="3" msd-elastic ng-model='uploadablefile.copyright' type='text' placeholder='untitled'></textarea>
+          </div>
+        </div>
+        <div class='section padded last' ng-show='!uploadablefile.document'>
+          <div class="checkbox" style="width: 95%;">
+            <label style="font-weight: bold"><input type="checkbox" ng-model='uploadablefile.copyrightConfirmation'><span translate="copyright.checkbox.label"></span></label>
+          </div>
+          <p>
+            <i translate="copyright.checkbox.text"></i>
+          </p>
+        </div>
+
+        <div class='section padded last center' ng-show='!uploadablefile.document'>
+          <div class='btn-line-group' ng-class='{"primary":uploadablefile.size}'>
+            <button class='btn-line' ng-click='upload()' translate='button.upload'></button>
+          </div>
         </div>
       </div>
+
       <!-- eof body -->
       <div class="modal-footer">
         <span class='btn-line-group' ng-class="{'primary':isSomethingSelected}"><button type="button" class="btn-line " ng-class="{'active':isSomethingSelected}" ng-click="addDocument(tab.name, contents, reference, url, embed)" translate='button.add'></button>
