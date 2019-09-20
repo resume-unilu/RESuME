@@ -46,7 +46,7 @@
               <div ng-show='!uploadablefile.size'>
                 <div ngf-drop ngf-select ng-model="uploadable" class="drop-box sans-serif"
                      ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
-                     accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                     accept="image/*"
                      ngf-pattern="'image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document'"><span translate="drop.to.upload"></span>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                   <span>{{uploadablefile.name}}</span>
                   <span>{{uploadablefile.type}}</span>
                   <span>{{uploadablefile.size}}</span>
-                  <div class='btn-line-group'><a class='btn-line' ng-click='undo()' translate='button.undo'></a></div>
+                  <div class='btn-line-group'><a class='btn-line' ng-click='tab.undo()' translate='button.undo'></a></div>
 
                 </div>
                 <div class="loading-bar" style='width:{{uploadablefile.progressPercentage|| 0}}%'></div>
