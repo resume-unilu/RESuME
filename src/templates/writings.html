@@ -84,7 +84,11 @@
 
     <!-- tags placeholder  -->
     <div ng-repeat='tagField in tagFields|filter:{relevance:"secondary"}' ng-include='"templates/partials/tags.input.html"|prefixTemplate'></div>
-
+    <p style="margin-top: 20px; margin-left: 2px; font-size: small">
+      <i>
+        <span translate="writing.help.message"></span> <a href ui-sref='page({name:"guide-for-authors"})' target="_blank" translate="writing.help.linkname"></a>.
+      </i>
+    </p>
   </div>
 </div>
 
