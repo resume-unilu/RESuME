@@ -10,14 +10,14 @@ angular.module('miller')
   .controller('ReviewCtrl', function ($scope, $rootScope, $log, $state, review, ReviewFactory, RUNTIME, EVENTS) {
     $log.log('⏱ ReviewCtrl ready');
 
-    
+
     $scope.fields = [
       'thematic','interest', 'originality', 'innovation', 'interdisciplinarity', 'methodology', 'clarity', 'argumentation','structure', 'references', 'pertinence'];
 
     $scope.availableStatuses = [
       'draft', 'approved', 'refusal', 'bounce'
     ];
-    
+
     // initial status
     $scope.reviewStatus = ''+review.status;
     // you can edit a review only if it is not completed and if you're the assignee...
@@ -46,9 +46,9 @@ angular.module('miller')
       }
 
       answers.contents = $scope.review.contents;
-      
+
       answers.status = 'draft';
-      
+
       ReviewFactory.patch({
         id: review.id
       }, answers, function(review){
@@ -93,7 +93,7 @@ angular.module('miller')
         id: review.id
       }, answers, function(res){
         $log.debug('⏱ ReviewCtrl -> finalize(): success', res);
-        
+
         $scope.unlock();
         $scope.isSaving = false;
         $state.go('report',{id: review.id});
@@ -115,7 +115,7 @@ angular.module('miller')
     var __first = true;
     // calculate final score based on fields.
     $scope.$watch('review', function(r, p){
-      
+
       if(r){
         var filledIn = _.filter(r, function(d, k){
           return k.indexOf('_score') != -1;
@@ -123,18 +123,17 @@ angular.module('miller')
         $scope.points = filledIn.reduce(function(a,b){
           return a + b;
         });
-        
+
         $scope.is_valid = _.compact(filledIn).length == $scope.fields.length && (r.contents || '').trim().length > 0;
         $log.log('⏱ ReviewCtrl @review - points:', $scope.points, '- can be submitted:',$scope.is_valid, '- filled in fields:',_.compact(filledIn).length);
-        
+
         if(!__first && $scope.is_editable)
           autosave();
         __first = false;
-        
+
       }
     }, true)
 
     $scope.review = review;
     $scope.$on(EVENTS.SAVE, $scope.save);
-  }); 
-  
+  });
