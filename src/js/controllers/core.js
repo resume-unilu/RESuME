@@ -134,21 +134,59 @@ angular.module('miller')
       setNewLocation()
     }
 
-    $scope.selectTag = function (tag) {
-      if (!('tags__slug__and' in $scope.filters)) {
-        $scope.filters.tags__slug__and = [];
+    $scope.selectTag = function (tag, filterType) {
+      /*
+      * tag: itme to filter with
+      * filterType: name of the filter, default is tags__slug__and
+      * This function handle lists filter (like __in, ___and, ...).
+      * */
+      if (filterType === undefined) {
+        filterType = 'tags__slug__and'
       }
 
-      if ($scope.filters.tags__slug__and.indexOf(tag) !== -1) {
-        $scope.filters.tags__slug__and.splice($scope.filters.tags__slug__and.indexOf(tag), 1);
-        if ($scope.filters.tags__slug__and.length === 0) {
-          delete $scope.filters.tags__slug__and
+      if (!(filterType in $scope.filters)) {
+        $scope.filters[filterType] = [];
+      }
+
+      if ($scope.filters[filterType].indexOf(tag) !== -1) {
+        $scope.filters[filterType].splice($scope.filters[filterType].indexOf(tag), 1);
+        if ($scope.filters[filterType].length === 0) {
+          delete $scope.filters[filterType]
         }
       } else  {
-        $scope.filters.tags__slug__and.push(tag);
+        $scope.filters[filterType].push(tag);
       }
 
       setNewLocation()
+    }
+
+    $scope.selectSingleTag = function (tag, filterType) {
+      /*
+      * tag: item to filter with
+      * filterType: name of the filter
+      * This function handle single value filters (like status, ...).
+      * This function can be overriden in scope to modify its default way to operate (exemple in AssignCtrl)
+      * */
+      if (filterType === undefined) {
+        return
+      }
+
+      if (filterType in $scope.filters && $scope.filters[filterType] === tag) {
+        delete $scope.filters[filterType]
+      } else {
+        $scope.filters[filterType] = tag
+      }
+      setNewLocation()
+    }
+
+    $scope.isTagActive = function (tag) {
+      /*
+      * Default way to define if a tag is selected or not
+      * This function can be overriden in scope to modify its default way to operate
+      * */
+      return $scope.filters.tags__slug__and && $scope.filters.tags__slug__and.findIndex(function (e) {
+        return e === tag;
+      }) !== -1;
     }
 
     $scope.download = function(){
