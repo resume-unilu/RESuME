@@ -10,6 +10,15 @@ angular.module('miller')
     $log.log('⏱ BlogCtrl ready');
     $scope.mainStatename = 'blog.all';
 
+    var selectTagfn = $scope.selectSingleTag
+    $scope.selectTag = function (tag) {
+      selectTagfn(tag, 'tags__slug')
+    }
+
+    $scope.isTagActive = function (tag) {
+      return $scope.filters.tags__slug && $scope.filters.tags__slug === tag
+    }
+
     $scope.availableRoutes = [
       {
         state: 'blog',
@@ -45,4 +54,3 @@ angular.module('miller')
       $scope.sync();
     });
   });
-  

@@ -67,7 +67,6 @@ angular.module('miller')
 
       $scope.ordering =  ordering;
 
-
       if(initials.filters){
         if($scope.state == 'publications.tags')
           initials.filters['tags__slug__all'] = [$state.params.slug];
