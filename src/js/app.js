@@ -675,14 +675,16 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            initials: function(){
+            initials: function($location){
+              var filters = d.slug !== 'all'? {tags__slug: d.slug } : {tags__category: 'blog'}
+              var paramFilters = {}
+
+              if ($location.$$search && $location.$$search.filters) {
+                paramFilters = JSON.parse($location.$$search.filters)
+              }
 
               return {
-                filters: d.slug != 'all'? {
-                  tags__slug: d.slug
-                } : {
-                  tags__category: 'blog'
-                },
+                filters: angular.extend({}, filters, paramFilters),
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -783,6 +785,7 @@ angular
               };
             },
             items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
+              console.log($stateParams.slug)
               initials.filters['tags__slug__all'] = [$stateParams.slug];
               return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
