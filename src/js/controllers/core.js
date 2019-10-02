@@ -324,6 +324,10 @@ angular.module('miller')
       return '/?orderby=-date,-date_last_modified&filters={"tags__slug__and":["' + tag.slug + '"]}';
     }
 
+    $rootScope.getBlogRoute = function (tag) {
+      return '/blog?orderby=-date,-date_last_modified&filters={"tags__slug":"' + tag.slug + '"}';
+    }
+
     $scope.setHash = function(hash) {
       $location.hash(hash);
     };
