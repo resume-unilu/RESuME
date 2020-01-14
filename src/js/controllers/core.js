@@ -189,6 +189,16 @@ angular.module('miller')
       }) !== -1;
     }
 
+    $scope.isSDGActive = function (tag) {
+      /*
+      * Default way to define if a tag is selected or not
+      * This function can be overriden in scope to modify its default way to operate
+      * */
+      return !$scope.filters.tags__slug__and || ($scope.filters.tags__slug__and && $scope.filters.tags__slug__and.findIndex(function (e) {
+        return e === tag;
+      }) !== -1);
+    }
+
     $scope.download = function(){
       $log.log('🍔 CoreCtrl > @DOWNLOAD ...');
       $scope.$broadcast(EVENTS.DOWNLOAD);

@@ -4679,3 +4679,13 @@ ul.article-list .remove {
   text-transform: uppercase;
   color: #837c7c;
 }
+
+.sdg-logo {
+  margin-left: 4px;
+  margin-bottom: 5px;
+  filter: opacity(50%);
+}
+
+.sdg-logo.active {
+  filter: opacity(100%);
+}
