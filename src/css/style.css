@@ -4682,10 +4682,15 @@ ul.article-list .remove {
 
 .sdg-logo {
   margin-left: 4px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   filter: opacity(50%);
+  transition: transform .2s;
 }
 
 .sdg-logo.active {
   filter: opacity(100%);
+}
+
+.sdg-logo:hover {
+  transform: scale(1.05);
 }
