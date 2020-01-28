@@ -4680,7 +4680,7 @@ ul.article-list .remove {
   color: #837c7c;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 980px) {
   .sdg-logo-container {
     width: 50%;
   }
@@ -4700,4 +4700,10 @@ ul.article-list .remove {
 
 .sdg-logo:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 1400px) {
+  .tag-container {
+    width: 100%;
+  }
 }
