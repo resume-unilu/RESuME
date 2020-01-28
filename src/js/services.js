@@ -765,10 +765,10 @@ angular.module('miller')
       updateLocalStorage();
     }
 
-    this.deselectItem = function (id) {
+    this.deselectItem = function (item) {
       this.selectedItems.splice(
         this.selectedItems.findIndex(function (e) {
-          return e.id === id;
+          return e.id === item.id;
         }), 1)
       updateLocalStorage();
     }
