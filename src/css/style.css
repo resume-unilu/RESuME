@@ -4680,11 +4680,18 @@ ul.article-list .remove {
   color: #837c7c;
 }
 
+@media (min-width: 800px) {
+  .sdg-logo-container {
+    width: 50%;
+  }
+}
+
 .sdg-logo {
   margin-left: 4px;
   margin-bottom: 8px;
   filter: opacity(50%);
   transition: transform .2s;
+  width: 98%;
 }
 
 .sdg-logo.active {
