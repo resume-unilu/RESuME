@@ -31,9 +31,9 @@
           </ul>
 
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
-            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug)}'>
+            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug), "sdg-logo-container": url.asPicture, "tag-container": !url.asPicture}' class="test">
               <img ng-src="/static/images/sdg/{{url.slug}}.png"
-                   ng-if="url.asPicture" width="110px"
+                   ng-if="url.asPicture"
                    ng-click="selectTag(url.slug)"
                    ng-class='{"active": isSDGActive(url.slug)}'
                    title="{{ getTranslation('state.' + route.state + '.' + url.slug + '.description') }}"
