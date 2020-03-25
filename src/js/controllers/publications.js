@@ -6,20 +6,30 @@
  * Handle the publication page.
  */
 angular.module('miller')
-  .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
+  .controller('PublicationsCtrl', function ($scope, $filter, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
     $log.log('🔭 PublicationsCtrl welcome');
     // the list of links, both main writings and other secondary writings.
     $scope.rootStatename = 'publications';
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
+    $scope.getTranslation = function (translationId) {
+      return $filter('translate')(translationId)
+    };
+
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
-
     $scope.availableRoutes = availableRoutes.map(function(d){
+      var sortBasics = function (arr) {
+        return d === 'writing' || d === 'tags'
+          ? arr.sort(function (a, b) {
+            return (a.slug > b.slug) ? 1 : -1
+          })
+          : arr
+      }
       return {
         state: 'publications',
-        urls: RUNTIME.routes.publications[d]
+        urls: sortBasics(RUNTIME.routes.publications[d])
       }
     });
 
@@ -57,11 +67,9 @@ angular.module('miller')
 
       $scope.ordering =  ordering;
 
-
       if(initials.filters){
         if($scope.state == 'publications.tags')
           initials.filters['tags__slug__all'] = [$state.params.slug];
-          //    debugger;
 
         try{
           filters = angular.extend({}, initials.filters, $scope.filters);
@@ -95,7 +103,6 @@ angular.module('miller')
             results: res.results
           }
         }, function(){
-          debugger
         }).$spromise);
       } else{
         delete $scope.hallOfFame.publishings

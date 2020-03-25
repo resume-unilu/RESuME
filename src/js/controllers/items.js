@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, QueryParamsService, extendItem, EVENTS) {
+  .controller('ItemsCtrl', function ($scope, $log, $filter, $state, initials, items, model, factory, description, QueryParamsService, extendItem, EVENTS) {
     $log.log('🌻 ItemsCtrl ready, n.:', items.count, '- items:',items, 'initials:', initials);
 
     // model is used to get the correct item template
@@ -16,13 +16,16 @@ angular.module('miller')
 
     // local var used only for publicationsCtrl
     var _tag;
+    if (description && $state.$current.params) {
+      $scope.topDescription = description.contents
+    }
 
-    if($scope.state == 'publications.tags')
+    if($state.current.name == 'publications.tags')
       initials.filters['tags__slug__all'] = [$state.params.slug];
     else if (initials.filters)
       delete initials.filters['tags__slug__all']
 
-    if($scope.state == 'search.story') {
+    if($state.current.name == 'search.story') {
       $scope.setCount(items.count);
     }
     /*
@@ -35,7 +38,7 @@ angular.module('miller')
       return sentences;
     }
 
-    if($scope.state != 'publications.tags') {
+    if($state.current.name != 'publications.tags') {
       if (typeof $scope.setTag == 'function')
         $scope.setTag(null);
     }
@@ -60,7 +63,7 @@ angular.module('miller')
             language: $scope.language
           });
 
-          if(!_tag && $scope.state == 'publications.tags') {
+          if(!_tag && $state.current.name == 'publications.tags') {
             _tag = true;
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
           }
@@ -87,6 +90,9 @@ angular.module('miller')
       $scope.items = ($scope.items || []).concat(normalizeItems(res.results));
       // update missing
       $scope.missing = res.count - $scope.items.length;
+
+      // TODO: Provisory fix for presentation, this need to be handled better
+      $scope.showDescription = window.location.pathname === '/' && window.location.search === ''
     }
 
     $scope.more = function(){
@@ -135,4 +141,14 @@ angular.module('miller')
     //     $scope.items =normalizeItems($scope.items);
     //   }
     // })
+
+    /* Shopping cart */
+    $scope.boxChecked = function (item) {
+      if ($scope.cart.isItemSelected(item.id)) {
+        $scope.cart.deselectItem(item);
+      } else {
+        $scope.cart.selectItem(item);
+      }
+    }
+
   });

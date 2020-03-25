@@ -14,10 +14,10 @@
       </div>
     </div>
 
-    <h1><span translate="headline.review.of"></span></h1>
+    <h1><span translate="headline.review.of"></span> {{review.story.title}}</h1>
     <div class='reviewed'>
       <div class="date">{{review.story.date|date:'mediumDate'}}</div>
-      
+
       <h2><a ui-sref='review.story({id:review.id})' embedit='review.story.metadata.title' language='language'></a></h2>
       <blockquote ng-if='review.story.metadata.abstract' embedit='review.story.metadata.abstract' language='language'></blockquote>
       <div ng-if='!is_editable && review.category != "editing"'>
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    
+
 
     <form class='generic-form-wrapper' name="createForm" novalidate>
       <div ng-if='review.category != "editing"' ng-repeat='field in fields' style='margin: 10px 0 20px 0px'>

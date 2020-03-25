@@ -1,4 +1,5 @@
 <div class='container listofitems'>
+
   <div class='view'>
     <table cellspacing="20">
       <tr>
@@ -30,10 +31,26 @@
           </ul>
 
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
+            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug), "sdg-logo-container": url.asPicture, "tag-container": !url.asPicture}' class="test">
+              <img ng-src="/static/images/sdg/{{url.slug}}.png"
+                   ng-if="url.asPicture"
+                   ng-click="selectTag(url.slug)"
+                   ng-class='{"active": isSDGActive(url.slug)}'
+                   title="{{ getTranslation('state.' + route.state + '.' + url.slug + '.description') }}"
+                   class="sdg-logo force-pointer" />
 
-            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active":(filters.tags__slug | inArray : url.slug)}'>
-              <a aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label" ng-click='selectTag(url.slug)' class="force-pointer"></a>
 
+              <a ng-if="!url.asPicture && !url.description" aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label" ng-click='selectTag(url.slug)' class="force-pointer"></a>
+
+              <a ng-if="!url.asPicture && url.description"
+                 aria-controls="home"
+                 role="tab"
+                 data-toggle="tab"
+                 translate="state.{{route.state}}.{{url.slug}}.label"
+                 ng-click='selectTag(url.slug)'
+                 title="{{ getTranslation('state.' + route.state + '.' + url.slug + '.description') }}"
+                 class="force-pointer">
+              </a>
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
                 <li ng-class='{"active":(filters.tags__slug__all | inArray : tag.slug)}' ng-repeat='tag in hallOfFame.publishings.results'>
                   <a class='tag with-number' ng-click='toggleFilter("tags__slug__all", [tag.slug])'>{{tag.name}}

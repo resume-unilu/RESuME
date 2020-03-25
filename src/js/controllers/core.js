@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $transitions, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {
+  .controller('CoreCtrl', function ($rootScope, $transitions, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, storyCart, RUNTIME, EVENTS) {
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -109,6 +109,19 @@ angular.module('miller')
 
     }
 
+    var setNewLocation = function () {
+      // Avoid to keep the "featured" orderby
+      var params = $location.search()
+      // debugger
+      if (!('orderby' in params) || !params.orderby  || params.orderby === 'featured') {
+        params.orderby = '-date,-date_last_modified';
+        params.filters = JSON.stringify($scope.filters);
+        $location.search(params);
+      } else {
+        $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      }
+    }
+
     $scope.toggleFilter = function(key, value){
       $log.log('🍔 CoreCtrl > @setFilters ...');
       // only if it is the same as the current value
@@ -118,32 +131,72 @@ angular.module('miller')
         $scope.filters[key] = value;
       }
       // empty filters?
-      $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      setNewLocation()
     }
 
-    $scope.selectTag = function (tag) {
-      if (!('tags__slug' in $scope.filters)) {
-        $scope.filters.tags__slug = [];
+    $scope.selectTag = function (tag, filterType) {
+      /*
+      * tag: itme to filter with
+      * filterType: name of the filter, default is tags__slug__and
+      * This function handle lists filter (like __in, ___and, ...).
+      * */
+      if (filterType === undefined) {
+        filterType = 'tags__slug__and'
       }
 
-      if ($scope.filters.tags__slug.indexOf(tag) !== -1) {
-        $scope.filters.tags__slug.splice($scope.filters.tags__slug.indexOf(tag), 1);
-        if ($scope.filters.tags__slug.length === 0) {
-          delete $scope.filters.tags__slug
+      if (!(filterType in $scope.filters)) {
+        $scope.filters[filterType] = [];
+      }
+
+      if ($scope.filters[filterType].indexOf(tag) !== -1) {
+        $scope.filters[filterType].splice($scope.filters[filterType].indexOf(tag), 1);
+        if ($scope.filters[filterType].length === 0) {
+          delete $scope.filters[filterType]
         }
       } else  {
-        $scope.filters.tags__slug.push(tag);
+        $scope.filters[filterType].push(tag);
       }
 
-      // Avoid to keep the "featured" orderby
-      var params = $location.search()
-      if (!('orderby' in params) || !params.orderby) {
-        params.orderby = '-date,-date_last_modified';
-        params.filters = JSON.stringify($scope.filters);
-        $location.search(params);
-      } else {
-        $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      setNewLocation()
+    }
+
+    $scope.selectSingleTag = function (tag, filterType) {
+      /*
+      * tag: item to filter with
+      * filterType: name of the filter
+      * This function handle single value filters (like status, ...).
+      * This function can be overriden in scope to modify its default way to operate (exemple in AssignCtrl)
+      * */
+      if (filterType === undefined) {
+        return
       }
+
+      if (filterType in $scope.filters && $scope.filters[filterType] === tag) {
+        delete $scope.filters[filterType]
+      } else {
+        $scope.filters[filterType] = tag
+      }
+      setNewLocation()
+    }
+
+    $scope.isTagActive = function (tag) {
+      /*
+      * Default way to define if a tag is selected or not
+      * This function can be overriden in scope to modify its default way to operate
+      * */
+      return $scope.filters.tags__slug__and && $scope.filters.tags__slug__and.findIndex(function (e) {
+        return e === tag;
+      }) !== -1;
+    }
+
+    $scope.isSDGActive = function (tag) {
+      /*
+      * Default way to define if a tag is selected or not
+      * This function can be overriden in scope to modify its default way to operate
+      * */
+      return !$scope.filters.tags__slug__and || ($scope.filters.tags__slug__and && $scope.filters.tags__slug__and.findIndex(function (e) {
+        return e === tag;
+      }) !== -1);
     }
 
     $scope.download = function(){
@@ -205,6 +258,7 @@ angular.module('miller')
       Cfr indexCtrl
     */
     $transitions.onStart({}, function($transition$) {
+      var from = $transition$.$from().name
       var to = $transition$.$to().name;
 
       $log.log('🍔 CoreCtrl @stateChangeStart new:', to, '- previous:', $scope.state);
@@ -219,7 +273,7 @@ angular.module('miller')
         return;
       }
 
-      if($scope.stopStateChangeStart === true){
+      if($scope.stopStateChangeStart === true && from.split('.')[0] !== to.split('.')[0]){
         // check the user has wirtten sometihing..
         var answer = confirm("Are you sure you want to leave this page?");
         if (!answer) {
@@ -242,7 +296,6 @@ angular.module('miller')
       $scope.documents = [];
 
       // the ui.router state (cfr app.js)
-      // debugger
       $scope.state = $transition$.$to().name;
 
       $scope.previousState = {
@@ -278,7 +331,11 @@ angular.module('miller')
     });
 
     $rootScope.getTagRoute = function (tag) {
-      return '/?orderby=-date,-date_last_modified&filters={"tags__slug":["' + tag.slug + '"]}';
+      return '/?orderby=-date,-date_last_modified&filters={"tags__slug__and":["' + tag.slug + '"]}';
+    }
+
+    $rootScope.getBlogRoute = function (tag) {
+      return '/blog?orderby=-date,-date_last_modified&filters={"tags__slug":"' + tag.slug + '"}';
     }
 
     $scope.setHash = function(hash) {
@@ -542,4 +599,36 @@ angular.module('miller')
     // understand window size;
     $scope.calculateBounds();
 
+    $rootScope.cart = storyCart;
+    var downloadCartModal = $modal({
+      scope: $rootScope,
+      controller: function($rootScope) {
+        $rootScope.downloadUrl = '';
+
+        $rootScope.setUrl = function () {
+          if (!$rootScope.cart.selectedItems.length) {
+            $rootScope.downloadUrl = ''
+          }
+          else if ($rootScope.cart.selectedItems.length === 1) {
+            $rootScope.downloadUrl = '/api/story/' + $rootScope.cart.selectedItems[0].id + '/download'
+          }
+          else {
+            var selectedIds = $rootScope.cart.selectedItems.map(function (item) {
+              return item.id
+            })
+            $rootScope.downloadUrl = '/api/story/' + selectedIds.join(',') + '/download/many'
+          }
+        }
+        $rootScope.setUrl();
+      },
+      template: RUNTIME.static + 'templates/partials/modals/download-cart.html',
+      id: 'download-cart-modal',
+      show: false
+    })
+
+    $rootScope.openDownloadCartModal = function () {
+      downloadCartModal.$promise.then(function () {
+        downloadCartModal.show();
+      });
+    }
   });

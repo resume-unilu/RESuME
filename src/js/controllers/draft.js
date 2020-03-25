@@ -40,7 +40,6 @@ angular.module('miller')
         $state.go('writing', {
           storyId: res.slug
         });
-        // debugger
       }, function(err){
         $log.error(err)
         $scope.isSaving = false;

@@ -44,7 +44,7 @@ angular.module('miller')
         if(!sentence.match(/\?\!\.$/)){
           sentence += ' '
         }
-        
+
         sentence += '...'
       }
       // console.log(text, sentences);
@@ -58,7 +58,7 @@ angular.module('miller')
 
       if(typeof cover != 'object')
         return ''
-      
+
       if(cover.data){
         if(_hifi){
           url = cover.data.media_url || _.get(cover, 'data.urls.Publishable') || cover.data.thumbnail_url || cover.data.preview || cover.data.url   || cover.attachment || cover.snapshot;
@@ -77,7 +77,7 @@ angular.module('miller')
     }
   })
   /*
-    Replace state name point with spaces, e.g. to get collection 
+    Replace state name point with spaces, e.g. to get collection
   */
   .filter('statetoclass', function(){
     return function(text){
@@ -117,7 +117,7 @@ angular.module('miller')
       }
       return (text || '')
         .replace(/([\s,;\?\.\!\[\]\(\)])(["«“])([^"»”]*)(["»”])([\s,;\?\.\!\[\]\(\)])/g, function(m, left, lq, quote, rq, right){
-          
+
           return [left, (st.lq[language][lq] || lq), quote, (st.rq[language][rq] || rq), right].join('')
         });
     }
@@ -132,10 +132,10 @@ angular.module('miller')
           slug   = text.toLowerCase();
 
       var map = {
-        from: 'àáäãâèéëêìíïîòóöôõùúüûñç·/_,:;', 
+        from: 'àáäãâèéëêìíïîòóöôõùúüûñç·/_,:;',
         to  : 'aaaaaeeeeiiiiooooouuuunc------'
       };
- 
+
       for (var i=0, j=map.from.length; i<j; i++) {
         slug = slug.replace(new RegExp(map.from.charAt(i), 'g'), map.to.charAt(i));
       }

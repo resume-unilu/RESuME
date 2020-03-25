@@ -5,7 +5,7 @@
 */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4{
   text-align: left;
-  /*font-family: 'Lato', sans-serif;*/
+  /*font-family: arial, sans-serif;*/
   /*font-weight: bold;*/
   font-weight: normal;
   color: #454545;
@@ -20,7 +20,7 @@ h1 a:hover, h1 a:focus{
 }
 
 h5{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 
 }
 h1, .h1 {
@@ -83,7 +83,7 @@ ul.list{
 }
 
 .badge{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   line-height: inherit;
   font-size: 11px;
   padding: 0 8px;
@@ -135,7 +135,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   color: #6b6b6b;
 }
 /*.author{
-  font-family: 'Lato';
+  font-family: arial;
     text-transform: uppercase;
     font-size: 0.9em;
     font-weight: bold;
@@ -175,6 +175,36 @@ font-size: 12px;
   margin-top: 30px;
 }
 
+.profile .contents ol, ul{
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.profile img[alt="logo_people_xs"] {
+  width: 100px;
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}
+.profile img[alt="logo_people_md"] {
+  width: 150px;
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}
+.profile img[alt="logo_people_lg"] {
+  width: 200px;
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}
+.profile img[alt="logo_people_lg2xs"] {
+  width: 100px;
+  position: absolute;
+  right: 220px;
+  margin-top: 5px;
+}
+
 
 .page .contents h1, .page .contents .h1 {
   margin-top:40px;
@@ -191,7 +221,7 @@ font-size: 12px;
 }
 
 .tags{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 12px;
 }
 
@@ -213,6 +243,19 @@ h3, .h3, h4, .h4 {
   margin-top: 20px;
   margin-bottom: 10px;
   /*color: #454545;*/
+}
+
+.story-card-inner {
+  font-family: Lato;
+}
+
+.story-card-inner .title {
+  font-size: 18px;
+}
+
+.story-card {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 a{
@@ -242,7 +285,7 @@ a{
     display: inline-block;
     margin: 0 2px;
     padding: 0 5px 0 10px;
-    font: 11px/25px "Lato",sans-serif;
+    font: 11px/25px Arial,sans-serif;
     color: #585858;
     text-transform: uppercase;
     border: 2px solid #B7B2B2;
@@ -326,7 +369,7 @@ label{
 }
 
 label .description {
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 0 0 10px 0;
   color: #858585;
 }
@@ -342,11 +385,11 @@ ul.errorlist{
   generic classes
 */
 .sans-serif, label{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .serif {
-  font-family: 'Merriweather', serif;
+  font-family: arial, serif;
 }
 
 .monospace{
@@ -612,7 +655,7 @@ ul.errorlist{
   color: #151515;
   border-radius: 30px;
   height: 30px;
-  font: 11px/25px 'Lato', sans-serif;
+  font: 11px/25px arial, sans-serif;
   font-weight: bold;
 }
 
@@ -732,7 +775,7 @@ ul.errorlist{
   width: 30px;
   height: 30px;
   text-align: center;
-  font: 11px/26px 'Lato', sans-serif;
+  font: 11px/26px arial, sans-serif;
   transition: border-color .36s ease-in-out;
   text-transform: uppercase;
   background: transparent;
@@ -899,7 +942,7 @@ ul.errorlist{
 #table-of-contents h2{
     margin: 10px 20px 0;
     margin-left: 20px;
-    font-family: 'Lato', sans-serif;
+    font-family: arial, sans-serif;
     font-size: 11px;
     text-transform: uppercase;
     font-weight: bold;
@@ -989,7 +1032,7 @@ ul.errorlist{
 .tags .tag{
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 
@@ -1002,7 +1045,7 @@ ul.errorlist{
 .date, .status, .ref .label, .ref > span{
   color: #9c9696;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   font-size: 12px;
 }
@@ -1079,6 +1122,13 @@ ul.errorlist{
 /*
   story item in list
 */
+
+.oneline {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .story.item{
   margin-bottom: 20px;
 }
@@ -1271,7 +1321,7 @@ ul.errorlist{
 
 a.author{
   text-transform: uppercase;
-  font-family: 'Lato';
+  font-family: arial;
 }
 /*
   contents (story)
@@ -1426,7 +1476,9 @@ a.author{
   margin-right: 20px;
 }
 
-
+.contents img {
+  max-width: 100%;
+}
 
 
 .contents .footnote-contents{
@@ -1633,7 +1685,7 @@ a.author{
 }
 
 .btn-line{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   background-color: #e7e7e7;
   border: 2px solid transparent;
@@ -1832,7 +1884,7 @@ a.btn-line:hover{
 }
 
 .nav-tabs > li > a{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 10px;
   text-transform: uppercase;
   text-align: left;
@@ -1917,7 +1969,7 @@ a.btn-line:hover{
 .dropdown-menu{
   -webkit-box-shadow: none;
   box-shadow: none;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .dropdown-menu.bottom-right{
@@ -1956,19 +2008,20 @@ a.btn-line:hover{
 .nav-filters{
   width: 150px;
   padding-right: 20px;
-  font-family: 'Lato';
+  font-family: arial;
 }
 
 .nav-filters .ellipsis{
   font-style: italic;
-  font-family: 'Merriweather', georgia, sans-serif;
+  font-family: arial, georgia, sans-serif;
   text-transform: lowercase;
 }
 
 .nav-filters h4{
-  padding: 0 0 0 12px;
-  font: 10px/10px 'Merriweather', georgia, sans-serif;
+  padding: 0 0 0 2px;
+  font: 10px/10px arial, georgia, sans-serif;
   font-style: italic;
+  margin-left: 40px;
 }
 
 /*
@@ -2050,7 +2103,7 @@ a.btn-line:hover{
   padding: 0 0px 0 10px;
   display: inline-block;
   float: left;
-  font: 10px "Lato",sans-serif;
+  font: 10px Arial,sans-serif;
   height: 25px;
   line-height: 25px;
   color: #585858;
@@ -2103,7 +2156,7 @@ a.btn-line:hover{
 
 .tags-input .tags .input.invalid-tag,
 .tags-input .tags .tag-item .remove-button:active{color:red}
-.tags-input .tags .input{border:0;outline:0;margin:2px;padding:0 0 0 5px;float:left;height:26px;font:14px "Lato",sans-serif}
+.tags-input .tags .input{border:0;outline:0;margin:2px;padding:0 0 0 5px;float:left;height:26px;font:14px Arial,sans-serif}
 .tags-input .tags .input::-ms-clear{display:none}
 .tags-input.ng-invalid .tags{
   border-color: #ff5c5c;
@@ -2138,7 +2191,7 @@ a.btn-line:hover{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  font:11px/18px "Lato",sans-serif;
+  font:11px/18px Arial,sans-serif;
   color:#585858;
   text-transform: uppercase;
   background-color:#fff;
@@ -2151,7 +2204,7 @@ a.btn-line:hover{
 .tags-input .autocomplete .suggestion-item.selected,
 .tags-input .autocomplete .suggestion-item.selected em{color:#151515;}
 .tags-input .autocomplete .suggestion-item em{
-  font:11px/18px "Lato",sans-serif;
+  font:11px/18px Arial,sans-serif;
   font-weight: bold;
   background-color: #C7F464;
   color: black;
@@ -2163,7 +2216,7 @@ a.btn-line:hover{
 }
 
 .tags-input .autocomplete  .item.selectable .description{
-  font: 11px/18px 'Merriweather', serif;
+  font: 11px/18px arial, serif;
   text-transform: none;
 }
 
@@ -2227,7 +2280,7 @@ a.btn-line:hover{
   z-index: 100;
 }
 .toolbox .label{
-  font: 10px/29px 'Lato', sans-serif;
+  font: 10px/29px arial, sans-serif;
   color: #999999;
   text-transform: uppercase;
   font-weight: bold;
@@ -2285,7 +2338,7 @@ a.btn-line:hover{
   bootstrap modal
 */
 h4.modal-title{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   margin-right: 50px;
   text-transform: uppercase;
   font-size: 11px;
@@ -2336,7 +2389,7 @@ h4.modal-title{
 }
 
 .modal-body .preview .permalink{
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 10px 10px 0;
   display: block;
   color: #151515;
@@ -2350,7 +2403,7 @@ h4.modal-title{
 }
 
 .modal-body .section .preview .description{
-  font: 11px/18px 'Merriweather', serif;
+  font: 11px/18px arial, serif;
   color: #454545;
 }
 
@@ -2618,7 +2671,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   font-size: 13px;
   line-height: 18px;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 .metadata .authors{
@@ -2779,13 +2832,13 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 }
 
 .modal .section .description {
-  font: 13px/18px 'Lato', sans-serif;
+  font: 13px/18px arial, sans-serif;
   padding: 10px;
 }
 
 .doc blockquote{
   font-size: 12px;
-  font-family: 'Merriweather', serif;
+  font-family: arial, serif;
   text-transform: none;
   font-style: italic;
   margin: 10px 50px 10px 20px;
@@ -3015,7 +3068,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 }
 
 .doc.oembedded .excerpt .type{
-  font-family: 'Lato';
+  font-family: arial;
   text-transform: uppercase;
   font-size: 11px;
   font-weight: bold;
@@ -3142,7 +3195,7 @@ div.profile-others .profile-thumb{
 #search-wrapper{
   width: 130px;
   padding-top: 29px;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
 }
 
 #search-wrapper .input-group {
@@ -3714,7 +3767,7 @@ content: "\e07a";
 
 .table th{
   color: #151515;
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   text-transform: uppercase;
   font-size: 11px;
   font-weight: bold;
@@ -3753,7 +3806,7 @@ content: "\e07a";
   reviewed
 */
 .review table .status{
-  font-family: 'Lato';
+  font-family: arial;
   text-transform: uppercase;
   font-size: 0.8em;
   padding: 0 5px;
@@ -3861,7 +3914,7 @@ content: "\e07a";
 
 
 .commenter h4{
-  font: 10px/20px 'Lato', sans-serif;
+  font: 10px/20px arial, sans-serif;
   text-transform: uppercase;
   padding: 5px 10px 0;
 
@@ -3955,7 +4008,7 @@ content: "\e07a";
 }
 
 .sliding-steps .step.comment .leave label{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #9c9696;
@@ -3982,7 +4035,7 @@ content: "\e07a";
 }
 
 .comment .username{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #9c9696;
@@ -4003,7 +4056,7 @@ content: "\e07a";
 
 .pulsations{
   position: absolute;
-    top: 5px;
+    top: 20px;
     margin-left: 0;
     right: 18px;
     width: 20px;
@@ -4020,7 +4073,7 @@ content: "\e07a";
 }
 
 .popover{
-  font-family: 'Lato', sans-serif;
+  font-family: arial, sans-serif;
   font-size: 12px;
   border-color: #d0d0d0;
   border-radius: 2px;
@@ -4118,7 +4171,7 @@ content: "\e07a";
 
 .tooltip-inner {
   font-weight: normal;
-  font: 11px/18px 'Merriweather';
+  font: 11px/18px arial;
   text-align: left;
   color: #F0F0F0;
   padding: 8px 13px;
@@ -4134,7 +4187,7 @@ content: "\e07a";
 
 .version > div{
   padding: 10px 10px 0;
-  font: 11px "Lato",sans-serif;
+  font: 11px Arial,sans-serif;
 }
 .version .username{
   font-weight: bold;
@@ -4164,7 +4217,7 @@ content: "\e07a";
 
 
 .tag-version{
-  font: 12px/25px 'Lato', sans-serif;
+  font: 12px/25px arial, sans-serif;
   text-transform: uppercase;
 
   background: #ff6b6b;
@@ -4244,7 +4297,7 @@ content: "\e07a";
 }
 
 .biography .frame label .place{
-  font: 11px/18px 'Merriweather', sans-serif;
+  font: 11px/18px arial, sans-serif;
 }
 
 
@@ -4373,7 +4426,7 @@ content: "\e07a";
 }
 
 .biography .activities .activity{
-  font: 11px/18px 'Merriweather';
+  font: 11px/18px arial;
   font-style: italic;
   position: absolute;
   left: 35px;
@@ -4476,7 +4529,7 @@ content: "\e07a";
   display: inline-block;
 }
 .biography-tooltip .type{
-  font: 11px/18px 'Lato', sans-serif;
+  font: 11px/18px arial, sans-serif;
   text-transform: uppercase;
   border-bottom: 2px solid #6b6b6b;
   padding-bottom: 5px;
@@ -4491,7 +4544,7 @@ content: "\e07a";
 .biography-tooltip .description{
 
     font-weight: normal;
-    font: 12px/19px 'Merriweather', serif;
+    font: 12px/19px arial, serif;
     font-style: italic;
     color: #d0d0d0;
 
@@ -4511,7 +4564,7 @@ content: "\e07a";
 
 
 .tl-timeline p{
-  font: 'Merriweather', serif !important;
+  font: arial, serif !important;
   color: red!important;
   background: gold;
 }
@@ -4527,11 +4580,130 @@ content: "\e07a";
   background-color: #e7e7e7;
 }
 
+.card-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .story-card-inner {
-  padding-left: 0;
-  padding-right: 0;
+  background-color: #f6f6f6;
   height: 98%;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+  border-radius: 0 0 4px 4px;
+  margin-bottom: 12px;
   /*background-color: rgb(231, 231, 231);*/
 }
 
+.image-wrapper {
+  border-radius: 4px 4px 0 0;
+}
+
+.hasnometadata {
+  height: 126px;
+}
+.hasmetadata {
+  height: 105px;
+}
+
+.author-date {
+  position: absolute;
+  bottom: 20px;
+}
+
+.admin-modify {
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+}
+
 .force-pointer { cursor: pointer !important; }
+
+/* Shopping cart */
+.cover-checkbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 30px;
+}
+
+.cover-checkbox input[type=checkbox]{
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  margin: 0;
+  -ms-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  cursor: pointer;
+}
+
+ul.article-list {
+  list-style-type: none;
+  margin-left: 5px;
+  padding-left: 0;
+}
+
+ul.article-list li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.article-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+ul.article-list .authors {
+margin-left: 10px;
+font-size: smaller;
+}
+
+ul.article-list .article-title {
+color: #454545;
+}
+
+ul.article-list .remove {
+  margin-right: 10px;
+  color: #837c7c;
+}
+
+.empty-selection {
+  width: 80%;
+  text-align: center;
+  margin: 20px auto 5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #837c7c;
+}
+
+@media (min-width: 980px) {
+  .sdg-logo-container {
+    width: 50%;
+  }
+}
+
+.sdg-logo {
+  margin-left: 4px;
+  margin-bottom: 8px;
+  filter: opacity(50%);
+  transition: transform .2s;
+  width: 98%;
+}
+
+.sdg-logo.active {
+  filter: opacity(100%);
+}
+
+.sdg-logo:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1400px) {
+  .tag-container {
+    width: 100%;
+  }
+}

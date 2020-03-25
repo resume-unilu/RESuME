@@ -177,6 +177,15 @@ angular.module('miller')
       });
     }
 
+    $scope.detachAuthor = function (target) {
+      if (target.profile.user && target.profile.user.id === $scope.story.owner.id) {
+        $scope.story.authors.unshift(target);
+      } else if ($scope.story.authors.length < 1 && target) {
+        $scope.story.authors.push(target);
+        alert('At least one author is needed')
+      }
+    }
+
     $scope.removeCover = function(doc) {
       $log.debug('WritingCtrl -> removeCover() doc:', doc.id);
       if($scope.isSaving){
@@ -345,9 +354,7 @@ angular.module('miller')
                 $scope.data.name[_key] = $scope.data.name[_key] || $scope.tag.data.name[_key];
               }
             }
-          }, function(){
-            debugger
-          });
+          }, function(){});
         }
       },
       template: RUNTIME.static + 'templates/partials/modals/add-tag.html',

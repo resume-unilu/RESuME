@@ -135,10 +135,8 @@ angular
           // emit on 400 error (bad request, mostly form errors)
           if(rejection.status == 400){
             $rootScope.$emit(EVENTS.BAD_REQUEST, rejection);
-            debugger
           } else if(rejection.status == 403){
             $rootScope.$emit(EVENTS.PERMISSION_DENIED, rejection);
-            debugger
           }
           return $q.reject(rejection);
         }
@@ -316,6 +314,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       })
@@ -342,6 +347,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       })
@@ -368,6 +380,13 @@ angular
           },
           factory: function(StoryFactory) {
             return StoryFactory.get;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       });
@@ -401,6 +420,13 @@ angular
               },
               factory: function(StoryFactory) {
                 return StoryFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -450,7 +476,6 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(profile){
-              debugger
               return {
                 filters: {
                   authors__user__username: profile.username
@@ -466,6 +491,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -487,7 +519,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
-              debugger
+
               return {
                 filters: {
                   status__in: d.slug == 'all'? ['pending', 'review', 'editing', 'reviewdone']: [d.slug]
@@ -504,6 +536,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.pending;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -526,7 +565,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function(){
-              debugger
+
               return {
                 filters: d.filters || {},
                 orderby: '-date_last_modified'
@@ -541,6 +580,13 @@ angular
             },
             factory: function(ReviewFactory) {
               return ReviewFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -553,7 +599,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
           initials: function() {
-            debugger
+
             return {}
           },
           items: function(ReviewFactory) {
@@ -564,6 +610,13 @@ angular
           },
           factory: function(ReviewFactory) { // get items
             return ReviewFactory.reports;
+          },
+          description: function (PageFactory, initials) {
+            if (initials.description) {
+              return PageFactory.get({name: initials.description}).$promise;
+            } else {
+              return null;
+            }
           }
         }
       });
@@ -622,14 +675,16 @@ angular
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
-            initials: function(){
-              debugger
+            initials: function($location){
+              var filters = d.slug !== 'all'? {tags__slug: d.slug } : {tags__category: 'blog'}
+              var paramFilters = {}
+
+              if ($location.$$search && $location.$$search.filters) {
+                paramFilters = JSON.parse($location.$$search.filters)
+              }
+
               return {
-                filters: d.slug != 'all'? {
-                  tags__slug: d.slug
-                } : {
-                  tags__category: 'blog'
-                },
+                filters: angular.extend({}, filters, paramFilters),
                 orderby: '-date,-date_last_modified'
               }
             },
@@ -641,6 +696,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -668,7 +730,7 @@ angular
             templateUrl: RUNTIME.static + 'templates/items.html',
             resolve: {
               initials: function(){
-                debugger
+
                 return {
                   filters: d.filters? d.filters: {},
                   exclude: {
@@ -686,6 +748,13 @@ angular
               },
               factory: function(AuthorFactory) {
                 return AuthorFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -699,7 +768,7 @@ angular
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
-        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html'
       })
         .state('publications.tags', {
           url: '/tags/:slug',
@@ -716,6 +785,7 @@ angular
               };
             },
             items: function(StoryFactory, $stateParams, djangoFiltersService, initials) {
+              console.log($stateParams.slug)
               initials.filters['tags__slug__all'] = [$stateParams.slug];
               return StoryFactory.get(djangoFiltersService(initials)).$promise;
             },
@@ -725,6 +795,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -754,7 +831,8 @@ angular
                     {label:'lastmod', value:'-date_last_modified'},
                     {label:'titleaz', value:'title'},
                     {label:'titleza', value:'-title'}
-                  ])
+                  ]),
+                  description: 'home-description'
                 };
               },
               items: function(StoryFactory, djangoFiltersService, initials) {
@@ -766,6 +844,13 @@ angular
               },
               factory: function(StoryFactory) {
                 return StoryFactory.get;
+              },
+              description: function (PageFactory, initials) {
+                if (initials.description) {
+                  return PageFactory.get({name: initials.description}).$promise;
+                } else {
+                  return null;
+                }
               }
             }
           });
@@ -794,7 +879,7 @@ angular
 
           resolve: {
             initials: function() {
-              debugger
+
               return {}
             },
 
@@ -806,6 +891,13 @@ angular
             },
             factory: function(StoryFactory) {
               return StoryFactory.search;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });
@@ -876,7 +968,7 @@ angular
           templateUrl: RUNTIME.static + 'templates/items.html',
           resolve: {
             initials: function() {
-              debugger
+
               return {}
             },
             items: function(PulseFactory, initials) {
@@ -887,6 +979,13 @@ angular
             },
             factory: function(PulseFactory) {
               return PulseFactory.get;
+            },
+            description: function (PageFactory, initials) {
+              if (initials.description) {
+                return PageFactory.get({name: initials.description}).$promise;
+              } else {
+                return null;
+              }
             }
           }
         });

@@ -10,7 +10,15 @@ angular.module('miller')
   .controller('AssignCtrl', function ($scope, $log, $modal, ReviewFactory, UserFactory, RUNTIME, EVENTS) {
     $log.log('⏱ AssignCtrl ready');
 
-    
+    var selectTagfn = $scope.selectSingleTag
+    $scope.selectTag = function (tag) {
+      selectTagfn(tag, 'status')
+    }
+
+    $scope.isTagActive = function (tag) {
+      return $scope.filters.status && $scope.filters.status === tag
+    }
+
     var addReviewModal,
         finalDecisionModal;
 
@@ -23,7 +31,7 @@ angular.module('miller')
         urls: RUNTIME.routes.assign
       }
     ]; // ['pending', 'done'];
-    
+
     $scope.availabileOrderby = [
       {
         label:'newest',
@@ -46,14 +54,14 @@ angular.module('miller')
     $scope.sync = function(){
       $scope.ordering = _.get(_.find($scope.availabileOrderby, {value: $scope.qs.orderby}),'label') || 'newest';
     };
-    
+
 
     /*
-      for reviewmodal typeahead 
+      for reviewmodal typeahead
     */
     $scope.suggestReviewer = function(query, options) {
       // if(!$scope.user.is_staff){
-      //   $log.warn('🍔 CoreCtrl -> suggestReviewer is avaialble to staff only, you should not be here.'); 
+      //   $log.warn('🍔 CoreCtrl -> suggestReviewer is avaialble to staff only, you should not be here.');
       // }
       $log.log('⏱ AssignCtrl -> suggestReviewer', query, options);
       var filters = options || {};
@@ -64,13 +72,13 @@ angular.module('miller')
 
     /*
       Add a review modal
-      Cfr also locationChangeSuccess listener 
+      Cfr also locationChangeSuccess listener
     */
     $scope.addReview = function(story) {
       $log.log('⏱ AssignCtrl -> open addReviewModal.');
-      
+
       addReviewModal = $modal({
-        scope: $scope, 
+        scope: $scope,
         controller: 'AddReviewModalCtrl',
         resolve:{
           story: function() {
@@ -86,7 +94,7 @@ angular.module('miller')
     $scope.finalDecision = function(story) {
       $log.log('⏱ AssignCtrl -> open finalDecisionModal.');
       finalDecisionModal = $modal({
-        scope: $scope, 
+        scope: $scope,
         controller: 'FinalDecisionModalCtrl',
         resolve:{
           story: function() {

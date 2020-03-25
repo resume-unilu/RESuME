@@ -2,6 +2,6 @@
   <a href="{{getTagRoute(tag)}}" rewording value='tag.data.name' default='{{tag.name}}'></a>
 </span>
 <span ng-if='tag.category == "blog"' class='tag' ng-class='tag.category'>
-  <a href ui-sref='blog.{{tag.slug}}' rewording value='tag.data.name' default='{{tag.name}}'></a>
+  <a href="{{getBlogRoute(tag)}}" rewording value='tag.data.name' default='{{tag.name}}'></a>
 </span>
 <span>{{$last? "": " &mdash; "}}</span>
