@@ -1,6 +1,7 @@
 <div ng-show='isReady' class='mde'>
+  <div class="clear" ng-click='clear()'>&#10005; Clear content</div>
   <div class='wand' >
-    <button class='btn' ng-disabled='isPreviewEnabled' ng-click='showReferenceModal()'><span class='icon-plus'></span></button>    
+    <button class='btn' ng-disabled='isPreviewEnabled' ng-click='showReferenceModal()'><span class='icon-plus'></span></button>
   </div>
 	<textarea class='mde-textarea' placeholder="write something..."></textarea>
 </div>

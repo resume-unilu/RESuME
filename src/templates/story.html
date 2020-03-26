@@ -20,18 +20,17 @@
 
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a ng-href="/api/story/{{story.id}}/download" _target="blank">PDF</a>
+                  <a ng-href="/api/story/{{story.id}}/download/" _target="blank">PDF</a>
                 </li>
-<!--                <li>-->
-<!--                  <a ng-href="/api/story/{{story.id}}/download?size=A3" _target="blank">Poster</a>-->
-<!--                </li>-->
+                <li ng-if="user.is_staff">
+                  <a ng-href="/api/story/{{story.id}}/download?size=A3" _target="blank">Poster</a>
+                </li>
                 <li ng-if='story.source && (user.is_staff || user.is_chief_reviewer || user.is_reviewer)'>
                   <a ng-href="/api/story/{{story.id}}/download/source" _target="blank"><span class='icon icon-lock'></span>&nbsp;&nbsp;<span translate='button.downloadsource.limited'></span> </a>
                 </li>
               </ul>
 
           </div>
-          <!-- <a  class='btn-line' ng-href="/api/story/{{story.id}}/download/" _target="blank">PDF <span class='icon icon-cloud-download'></span></a> -->
         </div>
 
         <div ng-if='story.isWritable && !story.isUnderReview' class='btn-line-group primary transparent'>

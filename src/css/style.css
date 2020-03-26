@@ -2241,6 +2241,18 @@ a.btn-line:hover{
   /*transition: transform .27s ease-in-out;*/
 }
 
+.mde .clear {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  color: #9c9696;
+  font-weight: bold;
+  font-family: arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 10px;
+  cursor: pointer;
+}
+
 .mde .mde-modified{
   /*background: #e0e0e0;*/
 

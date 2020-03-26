@@ -27,7 +27,26 @@ angular.module('miller')
     // form will be linked to current languages. Cfr watch language below.
     $scope.title    = $scope.story.data.title[$scope.language];
     $scope.abstract = $scope.story.data.abstract[$scope.language];
+
+    // Set base text if the content is empty
+    if (story.contents === '') {
+      story.contents = 'We propose the following headlines for your article:\n' +
+        '## Description\n' +
+        '## Goals\n' +
+        '## Target audience\n' +
+        '## Challenges\n' +
+        '## Contact\n' +
+        '## Partners\n' +
+        '## Similar actions\n' +
+        '## Legal basis\n' +
+        '## Available resources\n' +
+        '## Impact'
+    }
     $scope.contents = story.contents;
+
+    $scope.clearContent = function() {
+      $scope.contents = '';
+    }
 
     // add tags to scope, including their fields
     $scope.tagFields = RUNTIME.writings.tags;
