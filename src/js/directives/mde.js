@@ -132,7 +132,8 @@ angular.module('miller')
         setdocs: '&',
         setmarked: '&',
         language: '=',
-        diffs: '='
+        diffs: '=',
+        clearcontent: '&'
       },
       templateUrl: RUNTIME.static + 'templates/partials/directives/mde.html',
       link: function(scope, el, attributes){
@@ -182,6 +183,14 @@ angular.module('miller')
               toolbarTips: false,
               initialValue: scope.mde
             });
+
+            scope.clear = function() {
+              if (confirm('You are about to remove the content of your article. Continue?')) {
+                simplemde.value('');
+                scope.mde = '';
+                scope.clearcontent();
+              }
+            }
 
             // assign overlay
             // simplemde.codemirror.addOverlay({
