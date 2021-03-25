@@ -4,7 +4,6 @@
 
   <head>
     <title ng-bind="page +' - {{title}}'">{{title}}</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <base href="{{host}}">
     <meta name="fragment"           content="!">
     <meta name="description"        content="{{description}}">
@@ -524,24 +523,6 @@
   </head>
 {% block body %}
   <body  ng-controller='CoreCtrl' >
-    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-    <script>
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#3c404d",
-          "text": "#d6d6d6"
-        },
-        "button": {
-          "background": "transparent",
-          "text": "#8bed4f",
-          "border": "#8bed4f"
-        }
-      },
-      "position": "bottom-right",
-      "type": "opt-out"
-    });
-    </script>
     {% block page %}
 
     {% block navbar %}
