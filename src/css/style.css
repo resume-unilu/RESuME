@@ -355,11 +355,11 @@ blockquote.matches{
 
 
 a{
-  color: #4ECDC4;
+  color: #b4d063ff;
 }
 
 a:hover, a:focus {
-  color: #000;
+  color: #5d6b32;
   text-decoration: underline;
 }
 
