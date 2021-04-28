@@ -17,16 +17,16 @@ angular.module('miller')
         fullscreen: '&'
       },
       templateUrl: RUNTIME.static + 'templates/partials/directives/rich-oembed.html',
-      
+
       link: function(scope, element, attrs) {
         // scope.enabled = false;
         var timer;
-        
+
         scope.iframeEnabled = false;
         scope.quality = attrs.quality;
         scope.immediate = typeof attrs.immediate != undefined;
 
-        $log.log('🍩 rich-oembed ready, media:', scope.media, '- autoplay:', scope.autoplay, '- type:', scope.oembed.type, '- quality:', scope.quality);
+        $log.log('🍩 rich-oembed ready, media:', scope.media, '- autoplay:', scope.autoplay, '- quality:', scope.quality);
         scope.$watch('enabled', function(v){
           $log.debug('🍩 rich-oembed @enabled:', v);
           scope.toggleEnable(!!v);
