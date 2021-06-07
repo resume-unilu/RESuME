@@ -324,6 +324,10 @@
       #messenger.active{
         display: block;
       }
+      #messenger.error {
+        color: #ff6B6B;
+        border-color: #ff6B6B;
+      }
 
       .cover-wrapper{
         margin-top: 10px;
@@ -802,7 +806,7 @@
 
     </div>
     {% verbatim %}
-    <div id="messenger" ng-class='{"active":message}' translate="{{message}}"></div>
+    <div id="messenger" ng-class='{"active":message, "error": messageError}' translate="{{message}}"></div>
     {% endverbatim %}
     {% endblock %}
     {% if debug %}

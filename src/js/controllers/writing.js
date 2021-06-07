@@ -28,6 +28,9 @@ angular.module('miller')
     $scope.title    = $scope.story.data.title[$scope.language];
     $scope.abstract = $scope.story.data.abstract[$scope.language];
 
+    // Default location: Luxembourg
+    $scope.lon = '';
+    $scope.lat = '';
     // Set base text if the content is empty
     if (story.contents === '') {
       story.contents = 'We propose the following headlines for your article:\n' +
@@ -502,6 +505,12 @@ angular.module('miller')
 
     $scope.save = function(next) {
       $log.debug('WritingCtrl @SAVE');
+
+      if (!validateCoordinates($scope.lon, $scope.lat)) {
+        $scope.$emit(EVENTS.ERROR, 'Invalid coordinates')
+        return;
+      }
+
       $scope.$emit(EVENTS.MESSAGE, 'saving');
       $scope.lock();
       if($scope.isSaving){
@@ -519,7 +528,9 @@ angular.module('miller')
         contents: $scope.contents,
         data: $scope.story.data,
         date: $scope.date,
-        authors: _.map($scope.story.authors, 'id')
+        authors: _.map($scope.story.authors, 'id'),
+        lon: $scope.lon,
+        lat: $scope.lat
       }, $scope.metadata);
 
       StoryFactory.update({id: story.id}, update, function(res) {
@@ -635,3 +646,18 @@ angular.module('miller')
     // $scope.toggleStopStateChangeStart(false);
   });
 
+function validateCoordinates(lon, lat) {
+  if (lon === '' && lat === '') {
+    return true;
+  }
+
+  var pattern = /^-?[0-9]{1,3}[.][0-9]+$/
+  if (!pattern.test(lon) || !pattern.test(lat)) {
+    return false;
+  }
+
+  var nlon = parseInt(lon);
+  var nlat = parseInt(lat);
+
+  return (nlon > -180 && nlon < 180) && (nlat > -90 && nlat < 90);
+}
