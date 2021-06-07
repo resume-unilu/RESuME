@@ -562,22 +562,24 @@ angular.module('miller')
 
     var timer_event_message;
     // watch for saving or MESSAGE events
-    var makeMessage = function (isError) {
-      $scope.messageError = isError;
-      var popuptime = isError ? 4000 : 2000;
-
-      return function (e, message) {
-        $log.log('🍔 CoreCtrl @MESSAGE', message);
-          $scope.message = message;
-        if (timer_event_message)
-          $timeout.cancel(timer_event_message);
-        timer_event_message = $timeout(function () {
-          $scope.message = null;
-        }, popuptime);
-      }
+    $scope.messageError = false;
+    var makeMessage = function (e, message, popuptime) {
+      $log.log('🍔 CoreCtrl @MESSAGE', message);
+      $scope.message = message;
+      if (timer_event_message)
+        $timeout.cancel(timer_event_message);
+      timer_event_message = $timeout(function () {
+        $scope.message = null;
+      }, popuptime);
     }
-    $scope.$on(EVENTS.MESSAGE, makeMessage(false));
-    $scope.$on(EVENTS.ERROR, makeMessage(true));
+    $scope.$on(EVENTS.MESSAGE, function (e, message) {
+      $scope.messageError = false;
+      makeMessage(e, message, 4000)
+    });
+    $scope.$on(EVENTS.ERROR, function (e, message) {
+      $scope.messageError = true;
+      makeMessage(e, message, 4000)
+    });
 
 
     /*
