@@ -169,6 +169,11 @@ angular
         controller: 'SignupCtrl',
         templateUrl: RUNTIME.static + 'templates/signup.html'
       })
+      .state('map', {
+        url: '/map',
+        reloadOnSearch : false,
+        templateUrl: RUNTIME.static + 'templates/map-overview.html'
+      })
       .state('draft', {
         url: '/create',
         reloadOnSearch : false,
