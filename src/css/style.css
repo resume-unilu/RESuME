@@ -352,13 +352,15 @@ blockquote.matches{
   animation-fill-mode: both;
 }
 
+.text-link {
+  cursor: pointer;
+}
 
-
-a{
+a, .text-link{
   color: #b4d063ff;
 }
 
-a:hover, a:focus {
+a:hover, a:focus, .text-link:hover, .text-link:focus {
   color: #5d6b32;
   text-decoration: underline;
 }

@@ -28,9 +28,15 @@ angular.module('miller')
     $scope.title    = $scope.story.data.title[$scope.language];
     $scope.abstract = $scope.story.data.abstract[$scope.language];
 
-    // Default location: Luxembourg
-    $scope.lon = '';
-    $scope.lat = '';
+    $scope.storyOnMap = !!story.longitude || !!story.latitude;
+    $scope.longitude = story.longitude;
+    $scope.latitude = story.latitude;
+    $scope.removeFromMap = function() {
+      $scope.storyOnMap = false;
+      $scope.longitude = null;
+      $scope.latitude = null;
+    }
+
     // Set base text if the content is empty
     if (story.contents === '') {
       story.contents = 'We propose the following headlines for your article:\n' +
@@ -505,8 +511,7 @@ angular.module('miller')
 
     $scope.save = function(next) {
       $log.debug('WritingCtrl @SAVE');
-
-      if (!validateCoordinates($scope.lon, $scope.lat)) {
+      if (!validateCoordinates($scope.longitude, $scope.latitude)) {
         $scope.$emit(EVENTS.ERROR, 'Invalid coordinates')
         return;
       }
@@ -529,8 +534,8 @@ angular.module('miller')
         data: $scope.story.data,
         date: $scope.date,
         authors: _.map($scope.story.authors, 'id'),
-        lon: $scope.lon,
-        lat: $scope.lat
+        longitude: $scope.longitude,
+        latitude: $scope.latitude
       }, $scope.metadata);
 
       StoryFactory.update({id: story.id}, update, function(res) {
@@ -647,7 +652,7 @@ angular.module('miller')
   });
 
 function validateCoordinates(lon, lat) {
-  if (lon === '' && lat === '') {
+  if ((lon === '' && lat === '') || (lon === null && lat === null)) {
     return true;
   }
 
