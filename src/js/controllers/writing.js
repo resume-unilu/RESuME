@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $state, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $http, $log, $q, $state, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.state = $state
@@ -35,6 +35,33 @@ angular.module('miller')
       $scope.storyOnMap = false;
       $scope.longitude = null;
       $scope.latitude = null;
+    }
+
+    $scope.address = '';
+    $scope.addressSearchOpened = false;
+    $scope.openAddressSearch = function () {
+      $scope.addressSearchOpened = true;
+    }
+    $scope.searchAddress = function () {
+      if ($scope.address === '') {
+        return
+      }
+
+      $http
+        .get('https://nominatim.openstreetmap.org/search',{params: {q: this.address, limit: 1, format: 'json'}})
+        .then(function (res) {
+          if (res.data.length === 0) {
+            $scope.$emit(EVENTS.ERROR, 'Address not found');
+            return
+          }
+          var data = res.data[0]
+          $scope.latitude = data.lat;
+          $scope.longitude = data.lon;
+          $scope.address = '';
+          $scope.$emit(EVENTS.MESSAGE, 'Coordinates updated')
+        }, function (err) {
+          $scope.$emit(EVENTS.ERROR, 'Unable to search the address');
+        })
     }
 
     // Set base text if the content is empty
