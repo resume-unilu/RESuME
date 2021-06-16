@@ -352,13 +352,15 @@ blockquote.matches{
   animation-fill-mode: both;
 }
 
+.text-link {
+  cursor: pointer;
+}
 
-
-a{
+a, .text-link{
   color: #b4d063ff;
 }
 
-a:hover, a:focus {
+a:hover, a:focus, .text-link:hover, .text-link:focus {
   color: #5d6b32;
   text-decoration: underline;
 }
@@ -438,6 +440,18 @@ ul.errorlist{
   max-height: 84px;
 }
 
+.lined-textarea {
+  border: 0px solid transparent;
+  font-size: 13px;
+  line-height: 21px;
+  border-bottom: 2px solid #E6E5E5;
+  transition: border-color .25s ease-in-out;
+  border-bottom-width: 2px;
+  background: #f0f0f0;
+  padding: 0px;
+  color: #595959;
+}
+
 .elastic-textarea{
   /*#draft-title, #draft-abstract,  .elastic-textarea{*/
   border: 0px solid transparent;
@@ -454,18 +468,21 @@ ul.errorlist{
   /*text-align: justify;*/
 }
 
-.elastic-textarea.ng-invalid, .elastic-textarea.ng-invalid:focus {
+.elastic-textarea.ng-invalid, .elastic-textarea.ng-invalid:focus,
+.lined-textarea.ng-invalid, .lined-textarea.ng-invalid:focus {
     border-bottom-color: #ff6B6B;
     color: #ff6B6B;
 }
 
-.elastic-textarea.ng-invalid.ng-pristine {
+.elastic-textarea.ng-invalid.ng-pristine,
+.lined-textarea.ng-invalid.ng-pristine {
     border-bottom-color: #B7B2B2;
     color: #595959;
 }
 
 
-.elastic-textarea:focus, .elastic-textarea.ng-invalid.ng-pristine:focus{
+.elastic-textarea:focus, .elastic-textarea.ng-invalid.ng-pristine:focus,
+.lined-textarea:focus, .lined-textarea.ng-invalid.ng-pristine:focus{
   border-color: #4ECDC4 ;
   outline: none;
   color: #151515;

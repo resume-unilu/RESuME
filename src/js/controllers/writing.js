@@ -6,7 +6,7 @@
  * handle saved story writing ;)
  */
 angular.module('miller')
-  .controller('WritingCtrl', function ($rootScope, $scope, $log, $q, $state, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
+  .controller('WritingCtrl', function ($rootScope, $scope, $http, $log, $q, $state, $modal, $filter, $timeout, story, StoryGitFactory, localStorageService, extendStoryItem, StoryFactory, StoryTagsFactory, StoryDocumentsFactory, CaptionFactory, MentionFactory, DocumentFactory, AuthorFactory, TagFactory, EVENTS, RUNTIME) {
     $log.debug('WritingCtrl writing title:', story.title, '-id:', story.id, '- current language:',$scope.language);
 
     $scope.state = $state
@@ -27,6 +27,42 @@ angular.module('miller')
     // form will be linked to current languages. Cfr watch language below.
     $scope.title    = $scope.story.data.title[$scope.language];
     $scope.abstract = $scope.story.data.abstract[$scope.language];
+
+    $scope.storyOnMap = !!story.longitude || !!story.latitude;
+    $scope.longitude = story.longitude;
+    $scope.latitude = story.latitude;
+    $scope.removeFromMap = function() {
+      $scope.storyOnMap = false;
+      $scope.longitude = null;
+      $scope.latitude = null;
+    }
+
+    $scope.address = '';
+    $scope.addressSearchOpened = false;
+    $scope.openAddressSearch = function () {
+      $scope.addressSearchOpened = true;
+    }
+    $scope.searchAddress = function () {
+      if ($scope.address === '') {
+        return
+      }
+
+      $http
+        .get('https://nominatim.openstreetmap.org/search',{params: {q: this.address, limit: 1, format: 'json'}})
+        .then(function (res) {
+          if (res.data.length === 0) {
+            $scope.$emit(EVENTS.ERROR, 'Address not found');
+            return
+          }
+          var data = res.data[0]
+          $scope.latitude = data.lat;
+          $scope.longitude = data.lon;
+          $scope.address = '';
+          $scope.$emit(EVENTS.MESSAGE, 'Coordinates updated')
+        }, function (err) {
+          $scope.$emit(EVENTS.ERROR, 'Unable to search the address');
+        })
+    }
 
     // Set base text if the content is empty
     if (story.contents === '') {
@@ -502,6 +538,11 @@ angular.module('miller')
 
     $scope.save = function(next) {
       $log.debug('WritingCtrl @SAVE');
+      if (!validateCoordinates($scope.longitude, $scope.latitude)) {
+        $scope.$emit(EVENTS.ERROR, 'Invalid coordinates')
+        return;
+      }
+
       $scope.$emit(EVENTS.MESSAGE, 'saving');
       $scope.lock();
       if($scope.isSaving){
@@ -519,7 +560,9 @@ angular.module('miller')
         contents: $scope.contents,
         data: $scope.story.data,
         date: $scope.date,
-        authors: _.map($scope.story.authors, 'id')
+        authors: _.map($scope.story.authors, 'id'),
+        longitude: $scope.longitude,
+        latitude: $scope.latitude
       }, $scope.metadata);
 
       StoryFactory.update({id: story.id}, update, function(res) {
@@ -635,3 +678,18 @@ angular.module('miller')
     // $scope.toggleStopStateChangeStart(false);
   });
 
+function validateCoordinates(lon, lat) {
+  if ((lon === '' && lat === '') || (lon === null && lat === null)) {
+    return true;
+  }
+
+  var pattern = /^-?[0-9]{1,3}[.][0-9]+$/
+  if (!pattern.test(lon) || !pattern.test(lat)) {
+    return false;
+  }
+
+  var nlon = parseInt(lon);
+  var nlat = parseInt(lat);
+
+  return (nlon > -180 && nlon < 180) && (nlat > -90 && nlat < 90);
+}
