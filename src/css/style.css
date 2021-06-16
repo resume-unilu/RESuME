@@ -483,7 +483,7 @@ ul.errorlist{
 
 .elastic-textarea:focus, .elastic-textarea.ng-invalid.ng-pristine:focus,
 .lined-textarea:focus, .lined-textarea.ng-invalid.ng-pristine:focus{
-  border-color: #4ECDC4 ;
+  border-color: #b4d063ff ;
   outline: none;
   color: #151515;
 }
