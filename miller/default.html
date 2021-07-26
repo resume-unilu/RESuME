@@ -62,21 +62,6 @@
         color: #454545;
       }
 
-      #logo{
-        /*position: absolute;
-        top: 3px;
-        width: 100px;
-        left: 2px;*/
-        padding: 0;
-        margin: 0;
-      }
-
-      #logo img{
-        height:auto;
-        width: 98px;
-        margin-left: 2px;
-        margin-top: 4px;
-      }
 
       .navbar-default .navbar-toggle {
         border: 2px solid transparent;
@@ -97,10 +82,10 @@
         width: 95%;
       }
 
-      .container>.navbar-collapse{
-        position: relative;
-        margin-left: 295px;
-      }
+      /*.container>.navbar-collapse{*/
+      /*  position: relative;*/
+      /*  margin-left: 295px;*/
+      /*}*/
 
       .navbar-default{
         background: white;
@@ -687,40 +672,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     {% block navbar %}
     <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
 
-      <div class='container' >
+      <div style="margin-left: 0; margin-right: 0; padding-right: 20px; padding-left: 5px">
         <div class="navbar-header">
           <button type="button" ng-click="showMenu=!showMenu" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <div class='navbar-brand' id="logo">
-            <a ui-sref='index'>
-              <img src='{% static "images/logo-resume.svg" %}'>
-            </a>
-          </div>
         </div>
 
         <div class="collapse navbar-collapse">
-
-
           <ul class="nav navbar-nav">
-
-
             <li class='collapse-toggler'>
               <a href title='toggle menu'><div class='icon icon-menu'></div></a>
             </li>
-            <!-- <li class="active"><a href="#">home <span class="sr-only">(current)</span></a></li> -->
-            <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.project"></a></li>
-            <li ui-sref-active="active"><a href ui-sref='page({name:"people"})' translate="headline.people"></a></li>
-            <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}"><a href ui-sref='publications.all' translate="headline.publications"></a></li>
-            <!-- <li ui-sref-active="active"><a href ui-sref='authors' translate="headline.authors"></a></li> -->
-            <li ng-class="{active: state.includes('blog')}"><a ui-sref="blog.all" translate="state.blog.all.title"></a></li>
-
-
-           <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
-            -->
-            <!-- <li ng-if='user.username' ui-sref-active="active"><a ui-sref="draft"><b style='color:#151515' translate="write"></b></a></li> -->
+            <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
+            <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
+              <a href ui-sref='publications.all' translate="headline.allpublications"></a>
+            </li>
+            <li ui-sref-active="active"><a href ui-sref='' translate="headline.linkedpublications"></a></li>
+            <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
             <li id='search-wrapper'>
               <form role="form" ng-submit="search(searchquery)">
                 <div class="input-group">
@@ -732,8 +703,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
               </form>
             </li>
-
-
           </ul>
 
 
@@ -818,15 +787,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             <div class="row">
               <div class="col-xs-6">
                 <ul class="nav navbar-nav">
-
-
-
-                  <!-- <li class="active"><a href="#">home <span class="sr-only">(current)</span></a></li> -->
-                  <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.project"></a></li>
-                  <li ui-sref-active="active"><a href ui-sref='page({name:"people"})' translate="headline.people"></a></li>
-                  <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}"><a href ui-sref='publications.all' translate="headline.publications"></a></li>
-                  <!-- <li ui-sref-active="active"><a href ui-sref='authors' translate="headline.authors"></a></li> -->
-                  <li ui-sref-active="active"><a ui-sref="blog.event" translate="headline.events"></a></li>
+                  <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
+                  <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
+                    <a href ui-sref='publications.all' translate="headline.allpublications"></a>
+                  </li>
+                  <li ui-sref-active="active"><a href ui-sref='' translate="headline.linkedpublications"></a></li>
                   <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
 
                  <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
