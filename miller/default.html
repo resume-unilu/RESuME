@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
   <html ng-app='miller'>
-    
+
   <head>
     <title ng-bind="page +' - {{title}}'">{{title}}</title>
     <base href="{{host}}">
@@ -18,7 +18,7 @@
     <meta property="og:description" content='{{OG.description}}' />
     <meta property="og:image"       content='{{OG.image}}' />
     {% endverbatim %}
-    
+
     {% block favicon %}
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
@@ -61,7 +61,7 @@
         line-height: 21px;
         color: #454545;
       }
-      
+
       #logo{
         /*position: absolute;
         top: 3px;
@@ -85,7 +85,7 @@
         height: 45px;
         border-radius: 45px;
         float: none;
-        position: absolute;
+        /*position: absolute;*/
         right: 30px;
         margin: 12px 0 0;
       }
@@ -93,10 +93,13 @@
       .navbar-default .navbar-toggle .icon-bar{
         background-color: #151515;
       }
+      .container {
+        width: 95%;
+      }
 
       .container>.navbar-collapse{
         position: relative;
-            margin-left: 100px;
+        margin-left: 295px;
       }
 
       .navbar-default{
@@ -119,7 +122,7 @@
       }
 
       #navbar .menu-wrapper{
-        position: absolute;
+        /*position: absolute;*/
         bottom: 0;
         top: 68px;
         background: white;
@@ -131,7 +134,7 @@
       }
 
       #navbar .menu-wrapper .inner{
-        position: absolute;
+        /*position: absolute;*/
         bottom: 0;
         left: 20px;
         right: 20px;
@@ -231,13 +234,13 @@
         padding: 0;
       }
 
-      
+
 
       .navbar-brand img {
         height: 30px;
       }
 
-      
+
 
 
       #writing-tools {
@@ -245,7 +248,7 @@
         top: 70px;
         left: 115px;
         height: 30px;
-        
+
         transform: translateY(140px);
         -webkit-transform: translateY(140px);
         -moz-transform: translateY(140px);
@@ -255,9 +258,9 @@
       #writing-tools.below-floating{
         background: #f0f0f0;
       }
-      
 
-      
+
+
       #table-of-documents{
         position: fixed;
         right: 0;
@@ -271,7 +274,7 @@
         -ms-transform: translateX(210px);
         z-index: 2;
         width: 210px;
-        
+
       }
 
       #table-of-contents.active, #table-of-documents.active{
@@ -290,13 +293,6 @@
         -moz-transform: translateY(140px);
         -ms-transform: translateY(140px);
       }
-      
-
-      
-
-     
-
-      
 
       #unilu-logo-wrapper{
         position: relative;
@@ -365,7 +361,7 @@ background: -o-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100
 background: -ms-linear-gradient(top, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
 background: linear-gradient(to bottom, rgba(76,76,76,0) 0%, rgba(19,19,19,0.89) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0 );
-        
+
         left: 0;
         right: 0;
         padding: 11px 8px 0 8px;
@@ -444,7 +440,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       }
 
       #navbar{
-        position: absolute;
+        /*position: absolute;*/
+        margin-bottom: -30px;
         top: 70px;
         left: 0;
         right: 0;
@@ -457,11 +454,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       #navbar .container{
         padding-right: 0;
       }
-      
+
 
       @media (min-width: 768px){
         #navbar{
-          position: absolute;
+          /*position: absolute;*/
           top: 100px;
         }
 
@@ -474,7 +471,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         #navbar.show-menu .menu-wrapper, #navbar .menu-wrapper{
           display: none;
         }
-        
+
         #navbar.show-menu{
           height: 70px;
         }
@@ -518,15 +515,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .chapter .image-wrapper{
           height: 100%;
         }
-      
 
 
-        .breakingNews .overlay{
-          padding: 11px 15px 0 15px;
-        }
-        .breakingNews h3{
-          margin: 0 0 10px 0;
-        }
+
+        /*.breakingNews .overlay{*/
+        /*  padding: 11px 15px 0 15px;*/
+        /*}*/
+        /*.breakingNews h3{*/
+        /*  margin: 0 0 10px 0;*/
+        /*}*/
         .coverstory .cover {
           height: 300px;
         }
@@ -544,7 +541,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .navbar-nav .collapse-toggler {
           display: none;
         }
-        
+
         #footer ul.navbar-nav{
           margin: 10px 0;
         }
@@ -598,16 +595,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           font-size: 15px;
           line-height: 25px;
         }
-        .breakingNews, .breakingNews.branding{
-          width: 25%;
-        }
+        /*.breakingNews, .breakingNews.branding{*/
+        /*  width: 25%;*/
+        /*}*/
 
-        .breakingNews h3{
-          font-size: 12px;
-          line-height: 19px;
-          max-height: 62px;
-          margin: 0 0 10px 0;
-        }
+        /*.breakingNews h3{*/
+        /*  font-size: 12px;*/
+        /*  line-height: 19px;*/
+        /*  max-height: 62px;*/
+        /*  margin: 0 0 10px 0;*/
+        /*}*/
         .nav-filters{
           width: 200px;
         }
@@ -626,7 +623,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .navbar-default .navbar-nav > li > a{
           padding: 0 10px;
         }
-        .container {
+
+        .tight-container {
           width: 910px;
         }
       }
@@ -643,11 +641,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .coverstory.story .cover{
           height: 100%;
         }
-        .container {
+        .tight-container {
           width: 1100px;
         }
       }
-      
+
       @media (min-width: 1400px) {
         .truncate{
           max-width: 480px;
@@ -655,7 +653,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         .nav-filters{
           width: 300px;
         }
-        .container {
+        .tight-container {
             width: 1200px;
         }
       }
@@ -674,28 +672,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           <div class="row">
           <div id='showreel-inner'>
             {% verbatim %}
-            <div class="breakingNews branding">
-              <div id='unilu-logo-wrapper'>
-                <div id='unilu-logo'></div>
-              </div>
-            </div>
-            <div class="breakingNews" ng-repeat='news in breakingNews' ng-include='"templates/partials/breakingNews.html"|prefixTemplate'></div>
+<!--            <div class="breakingNews branding">-->
+<!--              <div id='unilu-logo-wrapper'>-->
+<!--                <div id='unilu-logo'></div>-->
+<!--              </div>-->
+<!--            </div>-->
             {% endverbatim %}
           </div>
           </div>
         </div>
       </div></div>
     </div>
-    
+
     {% block navbar %}
     <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
-      
-      <div class='container' > 
+
+      <div class='container' >
         <div class="navbar-header">
           <button type="button" ng-click="showMenu=!showMenu" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
           </button>
           <div class='navbar-brand' id="logo">
             <a ui-sref='index'>
@@ -706,10 +703,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
         <div class="collapse navbar-collapse">
 
-          
+
           <ul class="nav navbar-nav">
 
-            
+
             <li class='collapse-toggler'>
               <a href title='toggle menu'><div class='icon icon-menu'></div></a>
             </li>
@@ -719,10 +716,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}"><a href ui-sref='publications.all' translate="headline.publications"></a></li>
             <!-- <li ui-sref-active="active"><a href ui-sref='authors' translate="headline.authors"></a></li> -->
             <li ng-class="{active: state.includes('blog')}"><a ui-sref="blog.all" translate="state.blog.all.title"></a></li>
-            
+
 
            <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
-            --> 
+            -->
             <!-- <li ng-if='user.username' ui-sref-active="active"><a ui-sref="draft"><b style='color:#151515' translate="write"></b></a></li> -->
             <li id='search-wrapper'>
               <form role="form" ng-submit="search(searchquery)">
@@ -735,27 +732,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
               </form>
             </li>
-            
+
 
           </ul>
-          
-          
+
+
 
           <ul style='margin-left: 10px' class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-            
+
             <li class="dropdown">
             {% verbatim %}
             <div class='ng-cloak pulsations animated' ng-if='pulsationsCount > 0' ng-class='{"bounceIn": pulsationsCount > 0}' data-placement="bottom" title="heads up" data-auto-close="1"  data-template-url='{{"templates/partials/pulsations.html"|prefixTemplate}}' ng-click='loadPulsations()' bs-popover>{{pulsationsCount}}</div>
             {% endverbatim %}
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
-              
+
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
                 <span class='dropdown-label username'>{{user.username}}<span style='position:absolute; right:5px; top:0' class='icon icon-plus'></span></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
-                
+
                 <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
                 <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
 
@@ -768,18 +765,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 <li ui-sref-active="active" ng-if='user.is_chief_reviewer' style='border-bottom: 2px solid #d0d0d0'>
                   <a ui-sref='assign.all'><span translate='headline.assign.all'></span></a>
                 </li>
-                
-                
+
+
                 <li ui-sref-active="active">
                   <a ui-sref="notifications.activities" translate='button.more.notification'></a>
                 </li>
                 <!-- <li ui-sref-active="active"><a ui-sref="profile({username:user.username})" translate='headline.edit.your.information'></a></li> -->
-                <li><a href='{% url "logout_view" %}'>log out</a></li> 
+                <li><a href='{% url "logout_view" %}'>log out</a></li>
                 {% if user.is_staff %}
                 <li><a href='{% url "admin:index" %}'>admin</a></li>
                 {% endif %}
               </ul>
-              
+
             </li>
             {% else %}
             <li>
@@ -788,7 +785,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             {% endif %}
             <li class="dropdown ng-cloak">
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
-              
+
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
                 <span class='dropdown-label'>{% verbatim %}<span>{{language|substr:0:2}}</span>{% endverbatim %}<span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
               </a>
@@ -798,7 +795,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 <li ng-class="{'active': language=='fr_FR'}"><a ng-click='changeLanguage("fr_FR")' translate='language.fr_FR'></a></li>
                 <li ng-class="{'active': language=='de_DE'}"><a ng-click='changeLanguage("de_DE")' translate='language.de_DE'></a></li>
               </ul>
-              
+
             </li>
             {% verbatim %}
 
@@ -806,14 +803,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
               <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false"> more</a>
               <ul class="dropdown-menu" role="menu">
-                
+
                 <li ui-sref-active="active"><a href ui-sref='page({name:"terms-of-use"})'>terms of use</a></li>
-                
+
               </ul>
             </li> -->
             {% endverbatim %}
           </ul>
-         
+
         </div>
 
         <div class="menu-wrapper">
@@ -822,8 +819,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               <div class="col-xs-6">
                 <ul class="nav navbar-nav">
 
-            
-                  
+
+
                   <!-- <li class="active"><a href="#">home <span class="sr-only">(current)</span></a></li> -->
                   <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.project"></a></li>
                   <li ui-sref-active="active"><a href ui-sref='page({name:"people"})' translate="headline.people"></a></li>
@@ -833,7 +830,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
 
                  <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
-                  --> 
+                  -->
                   <!-- <li ng-if='user.username' ui-sref-active="active"><a ui-sref="draft"><b style='color:#151515' translate="write"></b></a></li> -->
                   <li id='search-wrapper'>
                     <form role="form" ng-submit="search(searchquery)">
@@ -846,7 +843,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
                     </form>
                   </li>
-                  
+
 
                 </ul>
 
@@ -856,18 +853,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   {% if user.is_authenticated %}
                   <li class="dropdown">
                   <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
-                    
-                    
+
+
 
                     <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
                       <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
                       <li ui-sref-active="active"><a ui-sref="profile.publications({username:user.username})">your writings</a></li>
-                      <li><a href='{% url "logout_view" %}'>log out</a></li> 
+                      <li><a href='{% url "logout_view" %}'>log out</a></li>
                       {% if user.is_staff %}
                       <li><a href='{% url "admin:index" %}'>admin</a></li>
                       {% endif %}
-                    
-                    
+
+
                   </li>
                   {% else %}
                   <li>
@@ -876,13 +873,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   {% endif %}
                   <li class='compact' ng-class="language=='en_US'?'active':''"><a ng-click='changeLanguage("en_US")'>EN</a></li>
                   <li class='compact' ng-class="language=='fr_FR'?'active':''"><a ng-click='changeLanguage("fr_FR")'>FR</a></li>
-                  
+
 
                 </ul>
 
               </div>
             </div>
-            
+
 
           </div>
         </div>
@@ -890,7 +887,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     </nav>
     {% endblock %}
     <!-- CONTENTS -->
-    
+
     <div id='wrapper' ng-class='state|statetoclass'>
       <div  ng-class='{"with-ToC": hasToC && ToC.length>0}' >
         {% block content %}
@@ -899,7 +896,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         {% endblock %}
       </div>
       <div class="push"></div>
-      
+
     </div>
 
     {% block footer %}
@@ -908,7 +905,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         <div class='row'>
           <div class='col-sm-6'>
             <div class='copyright'>
-            Copyright &copy; <a href="http://www.uni.lu" target="_blank">Université du Luxembourg</a> {{ now }}. All rights reserved.     
+            Copyright &copy; <a href="http://www.uni.lu" target="_blank">Université du Luxembourg</a> {{ now }}. All rights reserved.
             </div>
 
           </div>
@@ -945,7 +942,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         <!-- <button class='btn-transparent' ng-click='toggleTableOfContents()'><span  class='icon-book-open'></span></button> -->
         <button class='btn-transparent' ng-class='{"active": hasToC && ToC.length > 0}' ng-click='toggleTableOfContents()' bs-tooltip data-placement='right' title='table of contents'><span class='icon-book-open'></span></button>
       </div>
-      
+
     </div>
     {% verbatim %}
     <div id="messenger" ng-class='{"active":message}' translate="{{message}}"></div>
@@ -955,7 +952,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <!-- <script src='{% static "js/lib/jquery-2.2.1.min.js" %}'></script> -->
     <script src='{% static "js/lib/jquery-3.1.1.min.js" %}'></script>
     <script src='{% static "js/lib/md5.js" %}'></script>
-    
+
 
     <!-- lodash build with lodash-cli:
          lodash include=map,filter,each,compact,uniq,value,keyBy,first,chunk,fromPairs,mapValues,isEmpty -->
@@ -965,29 +962,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/lib/markdown-it-footnote.min.js" %}'></script>
     <script src='{% static "js/lib/markdown-it-container.min.js" %}'></script>
     <script src='{% static "js/lib/markdown-it-attrs.min.js" %}'></script>
-    
+
 
     <!-- <script src='{% static "js/lib/simplemde.min.js" %}'></script> -->
     <!-- <script src='{% static "js/lib/bibtexParse.js" %}'></script> -->
     <!-- <script src='{% static "js/lib/codemirror.addons.placeholder.js'></script> -->
     <script src='{% static "js/lib/reconnecting-websocket.min.js" %}'></script>
-    
 
-    <script src='{% static "js/lib/angular.min.js" %}'></script> 
-    <script src='{% static "js/lib/angular-route.min.js" %}'></script> 
-    <script src='{% static "js/lib/angular-resource.min.js" %}'></script> 
-    <script src='{% static "js/lib/angular-cookies.min.js" %}'></script> 
+
+    <script src='{% static "js/lib/angular.min.js" %}'></script>
+    <script src='{% static "js/lib/angular-route.min.js" %}'></script>
+    <script src='{% static "js/lib/angular-resource.min.js" %}'></script>
+    <script src='{% static "js/lib/angular-cookies.min.js" %}'></script>
     <!-- <script src='{% static "js/lib/angular-debounce.js" %}'></script>  -->
-    <script src='{% static "js/lib/angular-sanitize.min.js" %}'></script> 
+    <script src='{% static "js/lib/angular-sanitize.min.js" %}'></script>
     <script src='{% static "js/lib/angular-ui-router.min.js" %}'></script>
     <!-- <script src='{% static "js/lib/angular-disqus.min.js" %}'></script>  -->
-    <script src='{% static "js/lib/angular-load.min.js" %}'></script> 
+    <script src='{% static "js/lib/angular-load.min.js" %}'></script>
     <script src='{% static "js/lib/angular-strap.min.js" %}'></script>
     <script src='{% static "js/lib/angular-strap.tpl.min.js" %}'></script>
     <script src='{% static "js/lib/angular-elastic.js" %}'></script>
     <!-- <script src='{% static "js/lib/angular-embedly.min.js" %}'></script>
     <script src='{% static "js/lib/angular-embed.min.js" %}'></script> -->
-    <script src='{% static "js/lib/angular-socialshare.min.js" %}'></script> 
+    <script src='{% static "js/lib/angular-socialshare.min.js" %}'></script>
 
     <script src='{% static "js/lib/angular-local-storage.min.js" %}'></script>
     <script src='{% static "js/lib/angular-translate.min.js" %}'></script>
@@ -995,8 +992,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/lib/ng-tags-input.min.js" %}'></script>
     <script src='{% static "js/lib/angular-lazy-img.min.js" %}'></script>
     <script src='{% static "js/lib/ng-file-upload.min.js" %}'></script>
-    
-   
+
+
     <script src='{% static "js/app.js" %}'></script>
     <script src='{% static "js/controllers/assign.js" %}'></script>
     <script src='{% static "js/controllers/author.js" %}'></script>
@@ -1031,19 +1028,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/directives/biography.js" %}'></script>
     <script src='{% static "js/directives/commenter.js" %}'></script>
     <script src='{% static "js/directives/embedit.js" %}'></script>
-    <script src='{% static "js/directives/footnote.js" %}'></script>  
+    <script src='{% static "js/directives/footnote.js" %}'></script>
     <script src='{% static "js/directives/marginalia.js" %}'></script>
     <script src='{% static "js/directives/marked.js" %}'></script>
     <script src='{% static "js/directives/mde.js" %}'></script>
-    <script src='{% static "js/directives/lazy.js" %}'></script>  
+    <script src='{% static "js/directives/lazy.js" %}'></script>
     <script src='{% static "js/directives/rangy.js" %}'></script>
     <script src='{% static "js/directives/rating.js" %}'></script>
     <script src='{% static "js/directives/sticky.js" %}'></script>
 
-    <script src='{% static "js/directives/rich-oembed.js" %}'></script>  
+    <script src='{% static "js/directives/rich-oembed.js" %}'></script>
     <script src='{% static "js/directives/slides.js" %}'></script>
-    
-    <script src='{% static "js/directives/sliding-steps.js" %}'></script>  
+
+    <script src='{% static "js/directives/sliding-steps.js" %}'></script>
 
     <script src='{% static "js/services.js" %}'></script>
     <script src='{% static "js/filters.js" %}'></script>
@@ -1057,7 +1054,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     {% autoescape off %}
     <script>
       console.log('\n    oila!   \n(-(-_(-_-)_-)-)\n\n\n');
-      
+
       var user = {
         username: "{{user.username}}",
         first_name: "{{user.first_name}}",
@@ -1068,7 +1065,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
       var oembeds = {{oembeds}};
       var settings = {{settings}};
-     
+
 
       settings.session_key = "{{ request.session.session_key }}";
 
@@ -1130,11 +1127,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       };
 
       _windox.scroll(evaluateFloating)
-      
-      
+
+
       angular.module('miller')
         // .run(function($log, $q, $http, embedService, ngEmbedYoutubeHandler){
-          
+
         //   for (var i in oembeds){
         //     // ignore if there ys no pattern.
         //     if(!oembeds[i].patterns)
@@ -1142,7 +1139,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         //     // register if the settings are complete enough
         //     var endpoint = oembeds[i].endpoint;
         //     $log.log('registering embed handler:', i, '- endpoint: ',oembeds[i].endpoint);
-            
+
         //     embedService.registerHandler({
         //         name: i,
         //         patterns: oembeds[i].patterns,
@@ -1156,7 +1153,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         //             // this callback will be called asynchronously
         //             // when the response is available
         //             return response.data
-                    
+
         //           }, function errorCallback(response) {debugger
         //             // called asynchronously if an error occurs
         //             // or server returns response with an error status.
@@ -1170,7 +1167,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         //   embedService.registerHandler(ngEmbedYoutubeHandler);
 
 
-         
+
         // })
         //Apply user and other settings to resume app
         .constant("RUNTIME", {
@@ -1182,8 +1179,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
           writings: { // loaded on runtime, from django settings.
             tags: [
-              { 
-                label: 'drafts.keywords.placeholder', 
+              {
+                label: 'drafts.keywords.placeholder',
                 relevance: 'primary',
                 filters:  {
                   category:'keyword'
@@ -1205,7 +1202,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                 },
                 addFromAutocompleteOnly: true
               },
-              
+
               {
                 label: 'publishing',
                 relevance: 'secondary',
@@ -1241,7 +1238,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               }
             ],
             authors: {
-              
+
 
               // {
               //   slug: 'blog',
@@ -1445,7 +1442,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               })
               .value();
           });
-        
+
     </script>
     {% endautoescape %}
     {% endblock %}
