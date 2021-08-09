@@ -18,7 +18,7 @@ angular.module('miller')
       }
       story.keywords = _.filter(story.tags, {category: "keyword"})
       for(var i in story.data.abstract)
-        story.excerpt[i] = $filter('tokenize')(story.data.abstract[i], 32)
+        story.excerpt[i] = $filter('tokenize')(story.data.abstract[i], 38)
 
       return story
     }
@@ -27,7 +27,7 @@ angular.module('miller')
 
     $scope.coverstories = _.take(writings.results, 3);//.shift();
     $scope.otherstories = _.takeRight(writings.results, writings.results.length - 3); //writings.results;
-    
+
     // check cover of coverstory
     // if($scope.coverstory && $scope.coverstory.covers.length){
     //   var maincover = _.first($scope.coverstory.covers);
@@ -42,4 +42,3 @@ angular.module('miller')
 
 
   });
-  

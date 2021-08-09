@@ -686,6 +686,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             <li class='collapse-toggler'>
               <a href title='toggle menu'><div class='icon icon-menu'></div></a>
             </li>
+
+            <li ui-sref-active="active"><a href ui-sref="index" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
+
             <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
             <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
               <a href ui-sref='publications.all' translate="headline.allpublications"></a>
@@ -787,6 +790,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             <div class="row">
               <div class="col-xs-6">
                 <ul class="nav navbar-nav">
+                  <li ui-sref-active="active"><a href ui-sref="index" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
                   <li ui-sref-active="active"><a href ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
                   <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
                     <a href ui-sref='publications.all' translate="headline.allpublications"></a>

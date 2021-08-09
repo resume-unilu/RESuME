@@ -1,7 +1,7 @@
 <div ng-if='story._isCollection' ng-include='"templates/collection.html"|prefixTemplate'></div>
 
 <div ng-if='!story._isCollection' class="story">
-  <div class='container'>
+  <div class='container tight-container tight-container tight-container'>
     <div class="view">
       <div class="actions" >
         <div ng-if='review' class='btn-line-group transparent'>
@@ -13,7 +13,7 @@
         <div class='btn-line-group transparent'>
           <div class="dropdown">
             <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
-              
+
               <a class='btn-line' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false">
                 <span translate='button.downloadas'></span> <span class='icon icon-cloud-download'></span>
               </a>
@@ -26,7 +26,7 @@
                   <a ng-href="/api/story/{{story.id}}/download/source" _target="blank"><span class='icon icon-lock'></span>&nbsp;&nbsp;<span translate='button.downloadsource.limited'></span> </a>
                 </li>
               </ul>
-            
+
           </div>
           <!-- <a  class='btn-line' ng-href="/api/story/{{story.id}}/download/" _target="blank">PDF <span class='icon icon-cloud-download'></span></a> -->
         </div>
@@ -34,14 +34,14 @@
         <div ng-if='story.isWritable && !story.isUnderReview' class='btn-line-group primary transparent'>
           <button class='btn-line' nref ui-sref='writing({storyId:story.slug})'><span translate='edit'></span> <span class='icon icon-pencil'></span></button>
         </div>
-        
+
 
         <div ng-if='story.isWritable && !story.isUnderReview' class='btn-line-group primary transparent'>
           <button  class='btn-line' ng-if='story.status!="deleted"' ng-click='setStatus("deleted")' translate='remove'><span class='icon icon-bin'></span></button>
           <button  class='btn-line' ng-if='story.status=="deleted"' ng-click='setStatus("draft")' translate='recover'><span class='icon icon-bin'></span></button>
         </div>
-        
-        
+
+
         <div ng-if='!user.is_staff && !story.isUnderReview && story.isWritable' class='btn-line-group secondary'>
           <button class='btn-line' ng-click='publish()'><span translate='button.askforpublication'></span><span class='icon icon-pencil'></span></button>
         </div>
@@ -66,17 +66,17 @@
     </div>
   </div>
 
-  
+
 
   <div class='overlay'>
-    <div class='container'>
+    <div class='container tight-container tight-container tight-container'>
       <div class='row'>
         <div class='col-md-8'>
           <div class="tags" >
             <span class='tag sans-serif' ng-repeat='tag in story._tags.writing' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
             <span class='tag sans-serif' ng-repeat='tag in story._tags.blog' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
              <span class='date publication-date'>{{story.date|date:"yyyy'.'MM'.'dd"}}</span>
-          
+
           </div>
 
           <div class='authors' ng-if="story.authors.length">
@@ -90,21 +90,21 @@
       <div class='row'>
         <div class='col-md-12'>
           <h1 rewording value='story.data.title' default='{{story.title}}'></h1>
-          
-          
-          
+
+
+
           <!-- social share buttons: -->
           <div ng-if='story.status == "public"' ng-include='"templates/partials/story.socialshare.html"|prefixTemplate'></div>
 
           <!-- story reference and cite as buttons -->
           <!-- <div embedit='story.data.issue' ng-if='story.data.issue' markdown='true' language='language'></div>
           -->
-          
+
           <blockquote class='abstract' rewording markdown='inline' value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
           <div class="tags keywords">
             <span ng-if="story._tags.keyword" translate="keywords" class='label'></span>
-            <span class='tag sans-serif' ng-repeat='tag in story._tags.keyword' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>      
+            <span class='tag sans-serif' ng-repeat='tag in story._tags.keyword' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
           </div>
           <div class='btn-line-group transparent toC'>
             <button class='btn btn-line' ng-if='ToC.length' ng-click='toggleTableOfContents($event)'><span translate='table of contents'></span> <span class='icon icon-book-open'></span>
@@ -114,14 +114,14 @@
       </div>
     </div>
       <div ng-if='story._isBiography'>
-        <div class='container' >
+        <div class='container tight-container' >
           <div class='row no-gutter biography-wrapper' >
             <div class='col-sm-4' style='padding: 0' respect-sibling='next'>
               <div ng-if='story.covers.length' class="main cover" style='height: 100%' ng-repeat='document in story.covers'>
                 <div class='cover-oembed' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
               </div>
               <div ng-if='!story.covers.length' class="main cover" style='height: 100%'>
-                
+
                 <div class="lazy-cover" style="background-position:{{story._biography.data.offsetx}} {{story._biography.data.offsety}};" lazy-img="{{story._biography.data.url||story._biography.data.thumbnail_url}}"></div>
               </div>
 
@@ -133,12 +133,12 @@
         </div>
       </div>
       <div ng-if='!story._isBiography && story.covers.length' class="main cover" ng-repeat='document in story.covers'>
-        <div class='container'>
+        <div class='container tight-container'>
 
           <div class='cover-oembed'  style='height: 400px' rich-oembed fullscreen='fullsize(document.slug)' autoplay='true' oembed='document.data' media='document' quality='{{document.type=="image" || document.type=="photo"? "hifi":"snapshot"}}'></div>
-          
+
           <!-- </div> -->
-          
+
           <!-- <div class='col-md-4'> -->
           <div class='metadata-wrapper' ng-include='"templates/partials/document.metadata.linear.html"|prefixTemplate'></div>
           <!-- </div> -->
@@ -146,14 +146,14 @@
         </div>
       </div>
 
-    <div class='container'>
-      
-          
+    <div class='container tight-container'>
+
+
       <div class='row' style='margin-bottom: 100px'>
         <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
 
           <div style='position:relative' class="contents">
-            
+
             <!-- contents of the story -->
             <div id='contents' markdownit='story.contents' watchlanguage='true' language='language' listener='listener(event, data, callback)' settoc='setToC(ToC)' setdocs='setDocuments(items)'></div>
 
@@ -165,12 +165,12 @@
 
             <div class='ref' ng-if='story.data.doi'>
               <span class='label' ng-if='story.data.doi' translate='doi'></span>
-              <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'><p>{{story.data.doi}}</p></a> 
+              <a ng-if='story.data.doi' ng-href='https://doi.org/{{story.data.doi}}' target='_blank'><p>{{story.data.doi}}</p></a>
             </div>
             <!-- contains the commenter -->
-            <div ng-if='story.isWritable || story.isReviewable' rangy container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
-            
-            
+            <div ng-if='story.isWritable || story.isReviewable' rangy container tight-container='contents' highlights='story.highlights' commented='commented(error, comment)' target='story' actor='user' onCommentsSelected='commentsSelected(uids)'></div>
+
+
           </div>
         </div>
         <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">
@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-    
+
     <div  class='versioning' sticky >
 
       <div ng-if='story.isWritable' class="btn-line-group transparent dropdown">
@@ -194,7 +194,7 @@
             <a ui-sref='story({postId:story.slug})'>most recent version</a>
           </li>
         </ul>
-        
+
       </div>
       <!-- <div>{{neighbors}}</div> -->
       <div class="btn-line-group transparent black " ng-if='neighbors.previous_sibling'>
@@ -212,10 +212,10 @@
     </div>
 
     <div marginalia whenvisible='loadComments()'></div>
-            
+
   </div>
   <div class='responses' ng-if='story.isWritable || story.isReviewable'>
-    <div class='container' >
+    <div class='container tight-container' >
       <div class='row' style='margin-bottom: 100px'>
         <div class='col-md-12'>
           <!-- comment list babe -->

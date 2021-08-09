@@ -6,7 +6,7 @@
  * common functions go here.
  */
 angular.module('miller')
-  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {    
+  .controller('CoreCtrl', function ($rootScope, $scope, $log, $location, $window, $anchorScroll, $state, $modal, $alert, localStorageService, $filter, $translate, $timeout, StoryFactory, DocumentFactory, TagFactory, UserFactory, AuthorFactory, RUNTIME, EVENTS) {
     $log.log('🍔 CoreCtrl ready, user:', RUNTIME.user.username, RUNTIME);
 
     $scope.user = $rootScope.user = RUNTIME.user;
@@ -15,7 +15,8 @@ angular.module('miller')
     $scope.user.is_chief_reviewer = $scope.userGroups.indexOf('chief-reviewers') != -1;
 
     $scope.settings = RUNTIME.settings;
-
+    console.log('0000000000000000000000000')
+    console.log($location)
     $rootScope.page = 'index';
 
     $scope.hasToC = false;
@@ -95,7 +96,7 @@ angular.module('miller')
     };
 
     $scope.save = function(){
-      $log.log('🍔 CoreCtrl > @SAVE ...'); 
+      $log.log('🍔 CoreCtrl > @SAVE ...');
       $scope.$broadcast(EVENTS.SAVE);
     };
 
@@ -104,13 +105,13 @@ angular.module('miller')
     $scope.filters = {};
 
     $scope.changeOrderby = function(orderby){
-      $log.log('🍔 CoreCtrl > @changeOrderby ...'); 
+      $log.log('🍔 CoreCtrl > @changeOrderby ...');
       $location.search('orderby', orderby);
-      
+
     }
 
     $scope.toggleFilter = function(key, value){
-      $log.log('🍔 CoreCtrl > @setFilters ...'); 
+      $log.log('🍔 CoreCtrl > @setFilters ...');
       // only if it is the same as the current value
       if($scope.filters[key] == value){
         delete $scope.filters[key];
@@ -124,12 +125,12 @@ angular.module('miller')
 
 
     $scope.download = function(){
-      $log.log('🍔 CoreCtrl > @DOWNLOAD ...'); 
+      $log.log('🍔 CoreCtrl > @DOWNLOAD ...');
       $scope.$broadcast(EVENTS.DOWNLOAD);
     };
 
     $scope.update = function(key, value){
-      $log.log('🍔 CoreCtrl > @UPDATE ',key,':',value,' ...'); 
+      $log.log('🍔 CoreCtrl > @UPDATE ',key,':',value,' ...');
       var _d = {};
       _d[key] = value;
       $scope.$broadcast(EVENTS.UPDATE, _d);
@@ -138,12 +139,12 @@ angular.module('miller')
 
     $scope.lock = function(){
       $scope.locked = true;
-      $log.log('🍔 CoreCtrl > lock .............'); 
+      $log.log('🍔 CoreCtrl > lock .............');
     };
 
     $scope.unlock = function(msg) {
       $scope.locked = false;
-      $log.log('🍔 CoreCtrl > unlock ............. message:', msg); 
+      $log.log('🍔 CoreCtrl > unlock ............. message:', msg);
     };
 
     /*
@@ -157,7 +158,7 @@ angular.module('miller')
             filters: JSON.stringify(filters),
             limit: 7
           }
-      
+
       if(query.trim().length > 2){
         params.q = query
       }
@@ -186,10 +187,10 @@ angular.module('miller')
       $scope.breakingNews = breakingNews.slice(0,3).map(function(d){
         if(d.covers && d.covers.length){
           var cover = d.covers[0];
-          
+
           d.cover_url = $filter('coverage')(cover);
           //_.get(cover, 'data.thumbnail_url') || _.get(cover, 'data.urls.Preview') || _.get(cover, 'snapshot') || cover.url;
-          
+
         }
         d.isCollection = _.filter(d.tags, {slug: 'collection'}).length > 0;
         return d;
@@ -207,7 +208,7 @@ angular.module('miller')
           $state.go($scope.state);
         else
           $state.go('index');
-        
+
         return;
       }
 
@@ -231,7 +232,7 @@ angular.module('miller')
       // the ui.router state (cfr app.js)
       // debugger
       $scope.state = state.name;
-      
+
       $scope.previousState = {
         from: from,
         fromParams: fromParams
@@ -241,10 +242,10 @@ angular.module('miller')
         .split('.')
         .filter(function(d){
           return ['page', 'all', 'story'].indexOf(d) ==-1;
-        }).concat([ 
-        $state.params.name, 
+        }).concat([
+        $state.params.name,
         $state.params.storyId,
-        $state.params.postId 
+        $state.params.postId
       ])).join(' - ');
 
       $scope.absoluteUrl = $rootScope.absoluteUrl = $state.href($state.current.name, $state.params, {
@@ -287,32 +288,32 @@ angular.module('miller')
       (enforced on server side of course)
     */
     $scope.hasWritingPermission = function(user, story) {
-      return  !!user.username && 
-              user.username.length > 0 && 
+      return  !!user.username &&
+              user.username.length > 0 &&
               (user.is_staff || story.owner.username == user.username || _.map(story.authors, 'profile.user.username').indexOf(user.username) !== -1);
     };
 
     /*
       When requested, fullsize for documents.
-      Cfr also locationChangeSuccess listener 
+      Cfr also locationChangeSuccess listener
     */
     var fullsizeModal = $modal({
-      scope: $scope, 
+      scope: $scope,
       template: RUNTIME.static + 'templates/partials/modals/fullsize.html',
       id: 'dii',
       show: false
     });
-    
+
     $scope.$on('modal.hide', function(e,modal){
       // if(modal.$id== 'dii')
       //   $location.search('view', null);
       $scope.fullsized = null;
     });
 
-    // 
+    //
     $rootScope.fullsize = function(slug, type) {
       $log.log('🍔 CoreCtrl -> fullsize -slug:', slug, '-type:', type);
-      
+
       if(type=='voc'){
         $state.go('story', {
           postId:slug
@@ -339,8 +340,8 @@ angular.module('miller')
         }
 
         // if($scope.qs.view){
-        // 
-      
+        //
+
       }
       // $scope.fullsized = doc;
       // $location.search('view', doc.short_url);
@@ -351,7 +352,7 @@ angular.module('miller')
     */
     $scope.suggestUser = function(query, options) {
       if(!$scope.user.is_staff){
-        $log.warn('🍔 CoreCtrl -> suggestUser is avaialble to staff only, you should not be here.'); 
+        $log.warn('🍔 CoreCtrl -> suggestUser is avaialble to staff only, you should not be here.');
       }
       $log.log('🍔 CoreCtrl -> suggestUser', query, options);
       var filters = options || {};
@@ -362,13 +363,13 @@ angular.module('miller')
       });
     };
 
-    
 
-    
 
-    
 
-    
+
+
+
+
 
     /*
       Prevent from closing
@@ -404,7 +405,7 @@ angular.module('miller')
       <meta property="og:title"              content="When Great Minds Don’t Think Alike" />
       <meta property="og:description"        content="How much does culture influence creative thinking?" />
       <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
-      
+
       There is no need to add the og:url, miller uses the current route with all params.
       @param OG is a dictionary of openGraph metadata ({key: "value"})
     */
@@ -428,7 +429,7 @@ angular.module('miller')
       try{
         $scope.filters = $scope.qs.filters? JSON.parse($scope.qs.filters): {};
         $log.log("🍔 CoreCtrl load filters: ", $scope.filters);
-        
+
       } catch(ex){
         $log.warn("🍔 CoreCtrl couldn't load filters", ex);
         $scope.filters = {};
@@ -454,7 +455,7 @@ angular.module('miller')
       // } else if(!$scope.qs.view && $scope.fullsized){
       //    fullsizeModal.hide();
       // }
-      
+
       /*
         Now emit stuff
       */
@@ -469,7 +470,7 @@ angular.module('miller')
       $location.search(field, null);
     };
 
-    // also done on resize. Store the 
+    // also done on resize. Store the
     $scope.calculateBounds = function(event) {
       $rootScope.isASmallScreen = $window.innerWidth < 992;
     }
@@ -477,22 +478,22 @@ angular.module('miller')
     // watch 400 bad request form error. Cfr app.js interceptors.
     $rootScope.$on(EVENTS.BAD_REQUEST, function(e, rejection){
       $log.warn('@BAD_REQUEST.')
-      if(rejection.status == 400) 
+      if(rejection.status == 400)
         $alert({
           placement: 'top',
-          title: 'form errors', 
+          title: 'form errors',
           'animation': 'bounceIn',
           content: _(rejection.data).map(function(d,k){
             return '<div><b>'+k+'</b>: '+d+'</div>';
           }).value().join(''),
-          show: true, 
+          show: true,
           type:'error'
         });
     });
 
     $rootScope.$on(EVENTS.PERMISSION_DENIED, function(e, rejection){
       $log.warn('@PERMISSION_DENIED. Should redirect', $location.absUrl());
-      // window.location.href = '/login/?next='+$location.path();    
+      // window.location.href = '/login/?next='+$location.path();
     });
 
     var timer_event_message;
@@ -534,10 +535,9 @@ angular.module('miller')
     StoryFactory.featured({}, function(data){
       $log.log('🍔 CoreCtrl breaking news loaded', data);
       $scope.setBreakingNews(data.results);
-    }); 
+    });
 
     // understand window size;
     $scope.calculateBounds();
 
   });
-  

@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container tight-container'>
 <div class='view'>
 
 <!-- <span class='btn-line-group'><button class='btn-line active' ng-click='save()'>{{isSaving? "saving...":"save"}}</button></span> -->
@@ -8,7 +8,7 @@
   <div class='col-sm-8'>
     <label>
       <span translate="field.label.author"></span>
-    </label>  
+    </label>
     <tags-input class='tags-input' on-tag-added='attachAuthor($tag)' on-tag-removed='detachAuthor($tag)' key-property='id' display-property='fullname' placeholder='Add an author' ng-model="story.authors" template='{{"templates/partials/author.input.html"|prefixTemplate}}'>
       <auto-complete source="suggestAuthors($query)" template='{{"templates/partials/author.autocomplete.html"|prefixTemplate}}'></auto-complete>
     </tags-input>
@@ -22,12 +22,12 @@
       <span translate="field.label.abstract"></span>
     </label>
     <textarea id='draft-abstract' class='elastic-textarea' rows="1" msd-elastic ng-model='abstract' type='text' placeholder='abstract'></textarea>
-    
+
     <div ng-repeat='tagField in tagFields|filter:{relevance:"primary"}' ng-include='"templates/partials/tags.input.html"|prefixTemplate'></div>
 
   </div>
   <div class='col-sm-4'>
-    
+
     <div class='cover-preview-wrapper'>
       <label translate="field.label.cover"></label>
       <div class="cover-preview" ng-repeat="document in story.covers">
@@ -52,11 +52,11 @@
         </div>
       </div>
     </div>
-    
+
     <div ng-if='user.is_staff'>
       <!-- doi -->
       <label>
-        <span translate="field.label.doi"></span> 
+        <span translate="field.label.doi"></span>
       </label>
       <div>
       <span>{{story.data.doi}}</span>
@@ -84,28 +84,28 @@
 
     <!-- tags placeholder  -->
     <div ng-repeat='tagField in tagFields|filter:{relevance:"secondary"}' ng-include='"templates/partials/tags.input.html"|prefixTemplate'></div>
-      
+
   </div>
 </div>
 
 
 <div class='actions'>
   <!-- <div ng-if='metadata.owner.is_staff' class='btn-line-group'> -->
-  
+
   <div class='btn-line-group' ng-if='!isDraft && id'>
     <button ng-if='!collection' class='btn-line' ui-sref="story({postId: story.slug})" translate="button.viewmode"></button>
     <button ng-if='collection' class='btn-line' ui-sref="story.story({postId: collection, chapterId: story.slug})" translate="button.viewmode"></button>
   </div>
-  
+
   <div class='btn-line-group primary'>
     <button ng-if='!isDraft' ng-click='save()' class='btn-line'><span ng-if='!isSaving' translate="button.save"></span><span ng-if='isSaving' translate="button.issaving"></span></button>
     <button ng-if='isDraft' ng-click='save()' class='btn-line'><span translate="button.create"></span></button>
 
-    
-    
+
+
   </div>
   <!-- </div> -->
-  
+
 </div>
 
 
@@ -135,8 +135,8 @@ by <a href>{{metadata.owner.username}}</a>
 </div>
 
 <div class='fluid-container' style='padding: 0 50px 50px 100px; background: #efefef; overflow: hidden; position: relative'>
-  <div class='toolbox' sticky offset='70'> 
-    
+  <div class='toolbox' sticky offset='70'>
+
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("strong") != -1?"active": ""}}' ng-click='toolboxing("toggleBold")'>B</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("em") != -1?"active": ""}}' style='font-style:italic' ng-click='toolboxing("toggleItalic")'>I</button>
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("header-1") != -1?"active": ""}}' ng-click='toolboxing("toggleHeading1")'>H1</button>
@@ -149,9 +149,9 @@ by <a href>{{metadata.owner.username}}</a>
         <button ng-click='openSaveVersionModal()' class='btn-line'><span translate="button.saveversion"></span> <span class='icon icon-pin'></span></button>
       </div>
 
-      
+
       <div class='float-right btn-line-group dropdown'>
-        
+
         <button class='btn-line' ng-class='{"active": state=="writing"}' ui-sref='writing({postId:story.slug})'><span translate='button.wmodenormal'></span></button>
         <button class='btn-line' ng-class='{"active": state=="writing.live"}' ui-sref='writing.live({postId:story.slug})'><span translate='button.wmodepreview'></span></button>
         <button class='btn-line dropdown' ng-class='{"active": state=="writing.compare" || state=="writing.compare.diff"}' ng-click='loadVersions()' bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" ><span translate='button.wmodecompare'></span> <span class='icon icon-list'></span></button>
@@ -177,7 +177,7 @@ by <a href>{{metadata.owner.username}}</a>
 
       <button ng-disabled='isPreviewEnabled' class='btn {{activeStates.indexOf("link") != -1|| activeStates.indexOf("url") != -1? "active": ""}}' ng-click='showReferenceModal()'><span class='icon-plus'></span></button> -->
       <!-- {{activeStates}} -->
-    
+
   </div>
   <!-- end of toolbox -->
 
@@ -185,7 +185,7 @@ by <a href>{{metadata.owner.username}}</a>
     <!-- <a ui-sref="writing.compare({storyId: story.slug, tag:'lof'})">ooooooooo</a> -->
 
     <div ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}' id="draft-contents">
-      
+
       <div class='contents' style='margin-top: 50px; min-height: 50px; position:relative'>
           <!-- <medium-editor ng-model='contents' bind-options="mediumOptions"></medium-editor> -->
           <div class='log-version' ng-if='story.logs.length' ng-repeat='tag in story.logs'>
@@ -198,7 +198,7 @@ by <a href>{{metadata.owner.username}}</a>
             <span class='date'> {{story.date_last_modified|date:"yyyy'.'MM'.'dd"}}</span>
           </div>
           <div mde='contents' style='margin-top:1px' language='language' setdocs='setDocuments(documents)' setmarked='setMarked(marked)' settoc='setToC(items)'></div>
-          
+
       </div>
     </div>
     <div ui-view ng-class='{"col-xs-6": state !="writing", "col-xs-12":state =="writing"}'><!-- 'nothing here babe' {{state}} --></div>
