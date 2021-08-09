@@ -15,8 +15,6 @@ angular.module('miller')
     $scope.user.is_chief_reviewer = $scope.userGroups.indexOf('chief-reviewers') != -1;
 
     $scope.settings = RUNTIME.settings;
-    console.log('0000000000000000000000000')
-    console.log($location)
     $rootScope.page = 'index';
 
     $scope.hasToC = false;

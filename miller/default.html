@@ -4,6 +4,7 @@
 
   <head>
     <title ng-bind="page +' - {{title}}'">{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <base href="{{host}}">
     <meta name="fragment"           content="!">
     <meta name="description"        content="{{description}}">
@@ -649,6 +650,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
   </head>
 {% block body %}
   <body  ng-controller='CoreCtrl' >
+  <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+  <script>
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#3c404d",
+          "text": "#d6d6d6"
+        },
+        "button": {
+          "background": "#4ECDC4"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "href": "https://resume.uni.lu/terms-of-use"
+      }
+    });
+  </script>
     {% block page %}
     <!-- where highlights are -->
     <div id='showreel'>
@@ -693,7 +712,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
               <a href ui-sref='publications.all' translate="headline.allpublications"></a>
             </li>
-            <li ui-sref-active="active"><a href ui-sref='' translate="headline.linkedpublications"></a></li>
+            <li ui-sref-active="active"><a href translate="headline.linkedpublications"></a></li>
             <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
             <li id='search-wrapper'>
               <form role="form" ng-submit="search(searchquery)">
@@ -795,7 +814,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
                   <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
                     <a href ui-sref='publications.all' translate="headline.allpublications"></a>
                   </li>
-                  <li ui-sref-active="active"><a href ui-sref='' translate="headline.linkedpublications"></a></li>
+                  <li ui-sref-active="active"><a href translate="headline.linkedpublications"></a></li>
                   <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
 
                  <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
