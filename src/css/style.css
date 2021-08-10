@@ -1870,7 +1870,7 @@ a.btn-line:hover{
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
   color: #FF6B6B;
   border: 2px solid #FF6B6B;
-
+  cursor: pointer;
 }
 
 .nav-tabs > li.active > a .number, .nav-tabs > li.active > a:hover .number, .nav-tabs > li.active > a:focus .number{
