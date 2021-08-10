@@ -38,10 +38,25 @@
           </ul>
 
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
-          
-            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ui-sref-active="active">
-              <a ng-if='url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab">{{url.name}}</a>
-              <a ng-if='!url.name' href ui-sref='{{route.state}}.{{url.slug}}' aria-controls="home" role="tab" data-toggle="tab" translate="state.{{route.state}}.{{url.slug}}.label"></a>
+
+            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug)}'>
+              <a ng-if='url.name'
+                 ng-click='selectTag(url.slug)'
+                 class="force-pointer"
+                 aria-controls="home"
+                 role="tab"
+                 data-toggle="tab">
+                {{url.name}}
+              </a>
+
+              <a ng-if='!url.name'
+                 ng-click='selectTag(url.slug)'
+                 class="force-pointer"
+                 aria-controls="home"
+                 role="tab"
+                 data-toggle="tab"
+                 translate="state.{{route.state}}.{{url.slug}}.label">
+              </a>
 
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
                 <li ng-class='{"active":(filters.tags__slug__all | inArray : tag.slug)}' ng-repeat='tag in hallOfFame.publishings.results'>
@@ -56,8 +71,8 @@
 
           <h4 class='section' ng-if='hallOfFame.topAuthors.count' translate='top authors'></h4>
           <ul class='nav nav-tabs' ng-if='hallOfFame.topAuthors.count'>
-            <li ng-class='{"active":filters.authors__slug == author.slug}' ng-repeat='author in hallOfFame.topAuthors.results'>
-              <a class='author with-number' ng-click='toggleFilter("authors__slug", author.slug)'>{{author.fullname}}
+            <li ng-class='{"active":isAuthorActive(author.slug)}' ng-repeat='author in hallOfFame.topAuthors.results'>
+              <a class='author with-number' ng-click='selectTag(author.slug, "authors__slug__and")'>{{author.fullname}}
               <span class='number'>{{author.stories}}</span>
               </a>
             </li>

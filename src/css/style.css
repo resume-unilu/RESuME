@@ -4514,3 +4514,5 @@ content: "\e07a";
   color: red!important;
   background: gold;
 }
+
+.force-pointer { cursor: pointer !important; }

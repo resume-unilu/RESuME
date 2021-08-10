@@ -108,18 +108,92 @@ angular.module('miller')
 
     }
 
-    $scope.toggleFilter = function(key, value){
+    var setNewLocation = function () {
+      var params = $location.search()
+      if (!('orderby' in params) || !params.orderby || params.orderby === 'featured') {
+        params.orderby = '-date,-date_last_modified';
+        params.filters = JSON.stringify($scope.filters);
+        $location.search(params);
+      } else {
+        $location.search('filters', !angular.equals({}, $scope.filters) ? JSON.stringify($scope.filters) : null);
+      }
+    }
+
+    $scope.toggleFilter = function (key, value) {
       $log.log('🍔 CoreCtrl > @setFilters ...');
+      debugger
       // only if it is the same as the current value
-      if($scope.filters[key] == value){
+      if ($scope.filters[key] == value) {
         delete $scope.filters[key];
       } else {
         $scope.filters[key] = value;
       }
       // empty filters?
-      $location.search('filters', !angular.equals({},$scope.filters)?JSON.stringify($scope.filters):null);
+      setNewLocation()
     }
 
+    $scope.selectTag = function (tag, filterType) {
+      /*
+      * tag: itme to filter with
+      * filterType: name of the filter, default is tags__slug__and
+      * This function handle lists filter (like __in, ___and, ...).
+      * */
+      if (filterType === undefined) {
+        filterType = 'tags__slug__and'
+      }
+
+      if (!(filterType in $scope.filters)) {
+        $scope.filters[filterType] = [];
+      }
+
+      if ($scope.filters[filterType].indexOf(tag) !== -1) {
+        $scope.filters[filterType].splice($scope.filters[filterType].indexOf(tag), 1);
+        if ($scope.filters[filterType].length === 0) {
+          delete $scope.filters[filterType]
+        }
+      } else {
+        $scope.filters[filterType].push(tag);
+      }
+
+      setNewLocation()
+    }
+
+    $scope.selectSingleTag = function (tag, filterType) {
+      /*
+      * tag: item to filter with
+      * filterType: name of the filter
+      * This function handle single value filters (like status, ...).
+      * This function can be overriden in scope to modify its default way to operate (exemple in AssignCtrl)
+      * */
+      if (filterType === undefined) {
+        return
+      }
+
+      if (filterType in $scope.filters && $scope.filters[filterType] === tag) {
+        delete $scope.filters[filterType]
+      } else {
+        $scope.filters[filterType] = tag
+      }
+      setNewLocation()
+    }
+
+    $scope.isTagActive = function (tag) {
+      /*
+      * Default way to define if a tag is selected or not
+      * This function can be overriden in scope to modify its default way to operate
+      * */
+      return $scope.isActive('tags__slug__and', tag)
+    }
+
+    $scope.isAuthorActive = function (tag) {
+      return $scope.isActive('authors__slug__and', tag)
+    }
+
+    $scope.isActive = function (filterType, tag) {
+      return $scope.filters[filterType] && $scope.filters[filterType].findIndex(function (e) {
+        return e === tag;
+      }) !== -1;
+    }
 
 
     $scope.download = function(){
