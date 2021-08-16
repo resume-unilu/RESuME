@@ -159,7 +159,7 @@
       .view{
         position: relative;
         text-align: justify;
-        margin-top: 150px;
+        margin-top: 20px;
         margin-bottom: 50px;
         /*padding: 0 40px;*/
         transition: transform .27s ease-in-out;
@@ -182,22 +182,22 @@
       }
 
       .navbar-default .navbar-nav > li, #footer ul.navbar-nav > li{
-        padding: 22px 0 20px 5px;
+        padding: 22px 0 20px 15px;
       }
 
 
       .navbar-default .navbar-nav > li > a, #footer ul.navbar-nav > li > a{
         text-transform: uppercase;
-        font-size: 10px;
+        font-size: 12px;
         color: #6b6b6b;
         border: 2px solid transparent;
         line-height: 20px;
         padding: 0 6px;
         transition: color .25s ease-in-out, border-color .25s ease-in-out;
-            max-width: 110px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+        max-width: 110px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
       .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, #footer ul.navbar-nav > li.active > a, #footer ul.navbar-nav > li.active > a:hover, #footer ul.navbar-nav > li.active > a:focus{
@@ -280,40 +280,47 @@
         -ms-transform: translateY(140px);
       }
 
-      #unilu-logo-wrapper{
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        /*border-left: 2px solid white;*/
-      }
+      /*#unilu-logo-wrapper{*/
+      /*  position: relative;*/
+      /*  width: 100%;*/
+      /*  overflow: hidden;*/
+      /*  !*border-left: 2px solid white;*!*/
+      /*}*/
 
       #unilu-logo{
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width: 380px;
-        background-color: #4ECDC4;
-        background-image: url(/static/images/DEIS_uni.lu.png);
-        z-index: 1;
-        background-size: contain;
+        /*position: absolute;*/
+        /*bottom: 0px;*/
+        /*left: 0px;*/
+        /*width: 380px;*/
+        /*background-color: #4ECDC4;*/
+        background-image: url(/static/images/DEIS_uni.lu_lux_grey-01.png);
+        /*z-index: 1;*/
+        /*background-size: contain;*/
         /* border-top-left-radius: 5px; */
         /* border-top-right-radius: 5px; */
-        background-position: left bottom;
+        /*background-position: left bottom;*/
       }
 
-      #showreel{
-        position: absolute;
-        top: 0px;
-        background: #101010;
-        left:0;
+      #banner {
         width: 100%;
-        z-index: 3;
-        overflow:hidden;
+        background-image: url(/static/images/europe_banner3.png);
+        height: 80px;
+        background-position: center;
       }
 
-      #showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{
-        height: 70px;
-      }
+      /*#showreel{*/
+      /*  position: absolute;*/
+      /*  top: 0px;*/
+      /*  background: #101010;*/
+      /*  left:0;*/
+      /*  width: 100%;*/
+      /*  z-index: 3;*/
+      /*  overflow:hidden;*/
+      /*}*/
+
+      /*#showreel, #showreel-inner, #unilu-logo-wrapper, #unilu-logo{*/
+      /*  height: 70px;*/
+      /*}*/
 
 
 
@@ -427,8 +434,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
       #navbar{
         /*position: absolute;*/
-        margin-bottom: -30px;
-        top: 70px;
+        /*margin-bottom: -30px;*/
+        /*top: 70px;*/
         left: 0;
         right: 0;
         border-right-width: 0px;
@@ -445,7 +452,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
       @media (min-width: 768px){
         #navbar{
           /*position: absolute;*/
-          top: 100px;
+          /*top: 100px;*/
         }
 
         #navbar.below-floating{
@@ -466,13 +473,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           height: 100px;
         }
 
-        .view{
-          margin-top: 200px;
-        }
+        /*.view{*/
+        /*  margin-top: 200px;*/
+        /*}*/
 
-        .index .view{
-          margin-top: 165px;
-        }
+        /*.index .view{*/
+        /*  margin-top: 165px;*/
+        /*}*/
 
         .navbar{
           /*transform: translateY(140px);
@@ -671,21 +678,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     {% block page %}
     <!-- where highlights are -->
     <div id='showreel'>
-      <div class='container'>
-        <div class="row" ><div class='col-sm-12'>
-          <div class="row">
-          <div id='showreel-inner'>
-            {% verbatim %}
-<!--            <div class="breakingNews branding">-->
-<!--              <div id='unilu-logo-wrapper'>-->
-<!--                <div id='unilu-logo'></div>-->
-<!--              </div>-->
-<!--            </div>-->
-            {% endverbatim %}
-          </div>
-          </div>
-        </div>
-      </div></div>
+<!--      <div class='container'>-->
+        <div id="banner"></div>
+<!--      </div>-->
     </div>
 
     {% block navbar %}
@@ -788,6 +783,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               </ul>
 
             </li>
+            <li>
+              <span style="margin-top: -10px">
+                <a href="https://wwwen.uni.lu/" target="_blank">
+                  <img src="{% static 'images/DEIS_uni.lu_lux_grey-01.png' %}" style="width: 60px">
+                </a>
+              </span>
+            </li>
+
+
             {% verbatim %}
 
             <!-- <li class="dropdown">
@@ -879,7 +883,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <div id='wrapper' ng-class='state|statetoclass'>
       <div  ng-class='{"with-ToC": hasToC && ToC.length>0}' >
         {% block content %}
-        <div ng-class='state' ui-view='' autoscroll>
+        <div ng-class='state' ui-view=''>
         </div>
         {% endblock %}
       </div>
@@ -970,6 +974,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/lib/angular-strap.min.js" %}'></script>
     <script src='{% static "js/lib/angular-strap.tpl.min.js" %}'></script>
     <script src='{% static "js/lib/angular-elastic.js" %}'></script>
+    <script src='{% static "js/lib/angular-elastic.js" %}'></script>
+    <script src='{% static "js/lib/ng-tag-cloud.js" %}'></script>
     <!-- <script src='{% static "js/lib/angular-embedly.min.js" %}'></script>
     <script src='{% static "js/lib/angular-embed.min.js" %}'></script> -->
     <script src='{% static "js/lib/angular-socialshare.min.js" %}'></script>

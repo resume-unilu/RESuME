@@ -4520,3 +4520,25 @@ content: "\e07a";
 }
 
 .force-pointer { cursor: pointer !important; }
+
+
+div.ng-tag-cloud span { font-size: 120%; }
+/*div.ng-tag-cloud span.w10 { font-size: 550%; }*/
+/*div.ng-tag-cloud span.w9 { font-size: 500%; }*/
+/*div.ng-tag-cloud span.w8 { font-size: 450%; }*/
+/*div.ng-tag-cloud span.w7 { font-size: 400%; }*/
+/*div.ng-tag-cloud span.w6 { font-size: 350%; }*/
+/*div.ng-tag-cloud span.w5 { font-size: 300%; }*/
+/*div.ng-tag-cloud span.w4 { font-size: 250%; }*/
+/*div.ng-tag-cloud span.w3 { font-size: 200%; }*/
+/*div.ng-tag-cloud span.w2 { font-size: 150%; }*/
+/*div.ng-tag-cloud span.w1 { font-size: 100%; }*/
+
+/* layout */
+
+div.ng-tag-cloud {
+  overflow: hidden;
+  position: relative;
+}
+
+div.ng-tag-cloud span { padding: 0; }

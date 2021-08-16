@@ -22,6 +22,7 @@ angular
     // 'ngDisqus',
     // 'angular-embed',
     // 'angular-embed.handlers',
+    'ngTagCloud',
     'angularLoad',
     'angularLazyImg',
     'ngFileUpload',
@@ -71,7 +72,7 @@ angular
     console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
     $logProvider.debugEnabled(!!RUNTIME.settings.debug);
   })
-  
+
   /*
     prefix
   */
@@ -85,7 +86,7 @@ angular
     tagsInputConfigProvider
     .setDefaults('tagsInput', {
       replaceSpacesWithDashes:false,
-      template: RUNTIME.static + 'templates/partials/tag.input.html' 
+      template: RUNTIME.static + 'templates/partials/tag.input.html'
     })
     .setDefaults('autoComplete', {
       loadOnDownArrow: true
@@ -114,7 +115,7 @@ angular
         suffix: '.json'// suffix, currently- extension of the translations
     });
     $translateProvider.preferredLanguage('en_US');// is applied on first load
-    
+
   })
   .config(function (localStorageServiceProvider) {
     localStorageServiceProvider
@@ -198,7 +199,7 @@ angular
               }),
               orderby: '-date'
             }).$promise;
-          } 
+          }
         }
       })
       .state('index.signup', {
@@ -280,7 +281,7 @@ angular
               $scope.hash = story.version;
 
               $scope.$watch('story', function(v){
-                
+
                 if(v.version && v.version != $scope.hash) {
                   StoryGitFactory.getDiff({
                     id: $stateParams.storyId,
@@ -289,8 +290,8 @@ angular
                     $scope.diff = res.results.diff;
                   })
                 }
-                // 
-                
+                //
+
               }, true)
             },
             templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
@@ -311,7 +312,7 @@ angular
     /*
 
       Author routes.
-    
+
     */
     $stateProvider
       .state('author', {
@@ -457,7 +458,7 @@ angular
         controller: 'AuthorEditCtrl',
         templateUrl: RUNTIME.static + 'templates/author.edit.html',
         resolve: {
-          author: function(AuthorFactory, $stateParams){ 
+          author: function(AuthorFactory, $stateParams){
             return AuthorFactory.get({
               slug: $stateParams.slug
             }).$promise;
@@ -552,7 +553,7 @@ angular
         });
     });
 
-        
+
     $stateProvider
       .state('reviews', {
         abstract: true,
@@ -654,7 +655,7 @@ angular
         abstract:true,
         controller: 'BlogCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        
+
       })
      _.each(RUNTIME.routes.blog, function(d){
       $stateProvider
@@ -685,8 +686,8 @@ angular
           }
         });
     });
-      
-    
+
+
     $stateProvider
       .state('authors', {
         url: '/authors',
@@ -695,7 +696,7 @@ angular
         controller: 'AuthorsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
       })
-      
+
 
       _.each([{
         slug: 'all',
@@ -779,7 +780,7 @@ angular
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
-            
+
             resolve: {
               initials: function() {
                 return {
@@ -871,7 +872,7 @@ angular
           },
         }
       })
-      
+
         // .state('collection', {
         //   url: '/collection/:collectionId',
         //   controller: 'StoryCtrl',
@@ -895,9 +896,9 @@ angular
           }
         });
 
-    
 
-    
+
+
     $stateProvider
       .state('notifications', {
         abstract: true,
@@ -924,7 +925,7 @@ angular
             }
           }
         });
-   
+
 
       /*
         All the rest are static pages and will download the md files directly

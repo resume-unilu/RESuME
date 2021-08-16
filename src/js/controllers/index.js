@@ -39,6 +39,14 @@ angular.module('miller')
 
     $scope.news = news.results.map(excerpt);
     $scope.popularTags = RUNTIME.routes.publications.tags
+
+    var allTags = RUNTIME.routes.publications.tags.concat(RUNTIME.routes.publications.writing);
+    $scope.cloudData = [];
+    allTags.forEach(function (tag) {
+      var displayName = tag.name || tag.slug;
+      $scope.cloudData.push({text: displayName, weight: 1, link: "https://google.com"})
+    })
+
     $scope.visitTag = function (tag) {
       var newLocation = '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag +'"]}'
       // JSON.stringify(newLocation)
