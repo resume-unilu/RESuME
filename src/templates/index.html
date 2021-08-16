@@ -55,13 +55,20 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="col-md-12">
-          <h5 class='lined'><span>Popular tags</span></h5>
-          <div>TAGS1</div>
-          <div>TAGS2</div>
-          <div>TAGS3</div>
-          <div>TAGS4</div>
-          <div>TAGS5</div>
+        <div class="col-md-12" style="height: 360px">
+          <h5 class='lined'><span>Popular topics</span></h5>
+          <ul class='nav nav-tabs nav-tabs-light'>
+            <li ng-repeat='tag in popularTags' role="presentation">
+              <!--                 href='/publications?orderby=-date,-date_last_modified&filters=%7B"tags__slug__and":%5B"collection"%5D%7D'-->
+              <a ui-sref="publications.all({'orderby': '-date,-date_last_modified'})"
+                 class="force-pointer"
+                 aria-controls="home"
+                 role="tab"
+                 data-toggle="tab"
+                 translate="state.publications.{{tag.slug}}.label">
+              </a>
+            </li>
+          </ul>
         </div>
         <div class="col-md-12">
           <h5 class='lined'><span translate='latest news'></span></h5>

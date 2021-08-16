@@ -5,7 +5,7 @@
  * # IndexCtrl
  */
 angular.module('miller')
-  .controller('IndexCtrl', function ($scope, $log, $filter, writings, news) {
+  .controller('IndexCtrl', function ($scope, $log, $filter, $location, writings, news, RUNTIME) {
     $log.debug('IndexCtrl welcome', writings, news);
     $scope.setOG({
       type: 'platform'
@@ -38,7 +38,13 @@ angular.module('miller')
 
 
     $scope.news = news.results.map(excerpt);
+    $scope.popularTags = RUNTIME.routes.publications.tags
+    $scope.visitTag = function (tag) {
+      var newLocation = '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag +'"]}'
+      // JSON.stringify(newLocation)
+      console.log($location.path(newLocation))
+    }
+
+
     $log.debug('IndexCtrl welcome',$scope.news);
-
-
   });

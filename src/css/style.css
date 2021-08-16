@@ -1801,6 +1801,10 @@ a.btn-line:hover{
   margin-bottom: 20px;
 }
 
+.nav-tabs.nav-tabs-light {
+  border-bottom: none;
+}
+
 .navbar-nav > li > .dropdown-menu,
 .nav-tabs .dropdown-menu, .dropdown-menu{
   margin-top: 0;
