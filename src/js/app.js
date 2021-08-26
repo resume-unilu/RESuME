@@ -22,7 +22,6 @@ angular
     // 'ngDisqus',
     // 'angular-embed',
     // 'angular-embed.handlers',
-    'ngTagCloud',
     'angularLoad',
     'angularLazyImg',
     'ngFileUpload',
