@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "angular-tag-cloud": "^0.3.4",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "wordcloud": "^1.2.2"
   }
 }

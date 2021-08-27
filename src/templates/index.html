@@ -57,20 +57,7 @@
       <div class="col-md-3">
         <div class="col-md-12" style="height: 200px; margin-bottom: 168px;">
           <h5 class='lined'><span>Popular topics</span></h5>
-          <ng-tag-cloud cloud-width="400" cloud-height="200" cloud-data="cloudData"></ng-tag-cloud> <!-- default height and width is 300px -->
-
-          <!--          <ul class='nav nav-tabs nav-tabs-light'>-->
-<!--            <li ng-repeat='tag in popularTags' role="presentation">-->
-<!--              &lt;!&ndash;                 href='/publications?orderby=-date,-date_last_modified&filters=%7B"tags__slug__and":%5B"collection"%5D%7D'&ndash;&gt;-->
-<!--              <a ui-sref="publications.all({'orderby': '-date,-date_last_modified'})"-->
-<!--                 class="force-pointer"-->
-<!--                 aria-controls="home"-->
-<!--                 role="tab"-->
-<!--                 data-toggle="tab"-->
-<!--                 translate="state.publications.{{tag.slug}}.label">-->
-<!--              </a>-->
-<!--            </li>-->
-<!--          </ul>-->
+          <canvas id="tagcloud" style="width: 100%"></canvas>
         </div>
         <div class="col-md-12">
           <h5 class='lined'><span translate='latest news'></span></h5>

@@ -40,18 +40,50 @@ angular.module('miller')
     $scope.news = news.results.map(excerpt);
     $scope.popularTags = RUNTIME.routes.publications.tags
 
-    var allTags = RUNTIME.routes.publications.tags.concat(RUNTIME.routes.publications.writing);
-    $scope.cloudData = [];
-    allTags.forEach(function (tag) {
-      var displayName = tag.name || tag.slug;
-      $scope.cloudData.push({text: displayName, weight: 1, link: "https://google.com"})
+    var allTags = []
+    RUNTIME.routes.publications.tags.concat(RUNTIME.routes.publications.writing).forEach(function (tag) {
+      allTags.push([
+        tag.name || tag.slug,
+        7,
+        '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
+      ])
     })
 
-    $scope.visitTag = function (tag) {
-      var newLocation = '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag +'"]}'
-      // JSON.stringify(newLocation)
-      console.log($location.path(newLocation))
-    }
+    // allTags.forEach(function (tag) {
+    //   var displayName = tag.name || tag.slug;
+    //   $scope.cloudData.push({text: displayName, weight: 1, link: "https://google.com"})
+    // })
+
+    // $scope.visitTag = function (tag) {
+    //   var newLocation = '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag +'"]}'
+    //   // JSON.stringify(newLocation)
+    //   console.log($location.path(newLocation))
+    // }
+
+    // tagcloud
+    var canvas = document.getElementById('tagcloud')
+    console.log(canvas.width)
+    console.log(allTags)
+    WordCloud(canvas, {
+      list: allTags,
+      classes: 'force-pointer',
+      click: function(item) {
+        console.log(item)
+        console.log($location.path(item[2]))
+      },
+
+      // gridSize: Math.round(16 * 470 / 1024),
+      // weightFactor: function (size) {
+      //   return Math.pow(size, 2.3) * 470 / 1024;
+      // },
+
+      gridSize: Math.round(12 * canvas.width / 1024),
+      weightFactor: function (size) {
+        return Math.pow(size, 2.3) * canvas.width / 1024;
+      },
+      rotateRatio: 0,
+
+    });
 
 
     $log.debug('IndexCtrl welcome',$scope.news);
