@@ -44,8 +44,8 @@ angular.module('miller')
     RUNTIME.routes.publications.tags.concat(RUNTIME.routes.publications.writing).forEach(function (tag) {
       allTags.push([
         tag.name || tag.slug,
-        7,
-        '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
+        tag.slug === 'revue-ecu-euro' || tag.slug === 'paper' ? 7:6,
+        '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
       ])
     })
 
@@ -68,15 +68,16 @@ angular.module('miller')
       list: allTags,
       classes: 'force-pointer',
       click: function(item) {
-        console.log(item)
-        console.log($location.path(item[2]))
+        window.location.href = item[2]
       },
 
       // gridSize: Math.round(16 * 470 / 1024),
       // weightFactor: function (size) {
       //   return Math.pow(size, 2.3) * 470 / 1024;
       // },
-
+      color: function (word, weight) {
+        return (weight > 6) ? '#4ECDC4' : '#225a54';
+      },
       gridSize: Math.round(12 * canvas.width / 1024),
       weightFactor: function (size) {
         return Math.pow(size, 2.3) * canvas.width / 1024;
