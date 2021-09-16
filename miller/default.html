@@ -301,13 +301,6 @@
         /*background-position: left bottom;*/
       }
 
-      #banner {
-        width: 100%;
-        background-image: url(/static/images/europe_banner3.png);
-        height: 80px;
-        background-position: center;
-      }
-
       /*#showreel{*/
       /*  position: absolute;*/
       /*  top: 0px;*/
@@ -676,12 +669,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     });
   </script>
     {% block page %}
-    <!-- where highlights are -->
-    <div id='showreel'>
-<!--      <div class='container'>-->
-        <div id="banner"></div>
-<!--      </div>-->
-    </div>
 
     {% block navbar %}
     <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
