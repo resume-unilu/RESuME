@@ -689,12 +689,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
             </li>
 
             <li ui-sref-active="active"><a ui-sref="index" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
-
-            <li ui-sref-active="active"><a ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
+            <li ui-sref-active="active"><a ui-sref='page({name:"journal"})' translate="headline.journal"></a></li>
+            <li ui-sref-active="active"><a translate="headline.allpublications"></a></li>
             <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
-              <a ui-sref='publications.all' translate="headline.allpublications"></a>
+              <a ui-sref='publications.all' translate="headline.linkedpublications"></a>
             </li>
-            <li ui-sref-active="active"><a translate="headline.linkedpublications"></a></li>
             <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
             <li id='search-wrapper'>
               <form role="form" ng-submit="search(searchquery)">
@@ -801,11 +800,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               <div class="col-xs-6">
                 <ul class="nav navbar-nav">
                   <li ui-sref-active="active"><a ui-sref="index" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
-                  <li ui-sref-active="active"><a ui-sref='page({name:"project"})' translate="headline.presentation"></a></li>
+                  <li ui-sref-active="active"><a ui-sref='page({name:"journal"})' translate="headline.journal"></a></li>
+                  <li ui-sref-active="active"><a translate="headline.allpublications"></a></li>
                   <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
-                    <a ui-sref='publications.all' translate="headline.allpublications"></a>
+                    <a ui-sref='publications.all' translate="headline.linkedpublications"></a>
                   </li>
-                  <li ui-sref-active="active"><a href translate="headline.linkedpublications"></a></li>
                   <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
 
                  <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>

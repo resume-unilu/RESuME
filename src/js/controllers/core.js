@@ -139,6 +139,7 @@ angular.module('miller')
       /*
       * tag: itme to filter with
       * filterType: name of the filter, default is tags__slug__and
+      * location: location where the filters need to be apply (eg: '/publications')
       * This function handle lists filter (like __in, ___and, ...).
       * */
 
