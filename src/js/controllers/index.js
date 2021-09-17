@@ -5,7 +5,7 @@
  * # IndexCtrl
  */
 angular.module('miller')
-  .controller('IndexCtrl', function ($scope, $log, $filter, $location, writings, news, RUNTIME) {
+  .controller('IndexCtrl', function ($scope, $log, $filter, $location, writings, news, keywords, RUNTIME) {
     $log.debug('IndexCtrl welcome', writings, news);
     $scope.setOG({
       type: 'platform'
@@ -38,32 +38,31 @@ angular.module('miller')
 
 
     $scope.news = news.results.map(excerpt);
-    $scope.popularTags = RUNTIME.routes.publications.tags
-
-    var allTags = []
-    RUNTIME.routes.publications.tags.concat(RUNTIME.routes.publications.writing).forEach(function (tag) {
-      allTags.push([
-        tag.name || tag.slug,
-        tag.slug === 'revue-ecu-euro' || tag.slug === 'paper' ? 7:6,
-        '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
-      ])
-    })
-
-    // allTags.forEach(function (tag) {
-    //   var displayName = tag.name || tag.slug;
-    //   $scope.cloudData.push({text: displayName, weight: 1, link: "https://google.com"})
-    // })
-
-    // $scope.visitTag = function (tag) {
-    //   var newLocation = '/publication?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag +'"]}'
-    //   // JSON.stringify(newLocation)
-    //   console.log($location.path(newLocation))
-    // }
-
     // tagcloud
-    var canvas = document.getElementById('tagcloud')
-    console.log(canvas.width)
-    console.log(allTags)
+
+    function prepareKeywordList(rawKeywords) {
+      if (rawKeywords.length === 0) {
+        return
+      }
+      var res = [];
+      var sizeSteps = rawKeywords.length / 5;
+
+      rawKeywords.forEach(function (tag, i) {
+        var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
+        var size = 7 - currentStep
+        res.push([
+          tag.name || tag.slug,
+          size,
+          '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
+        ])
+      })
+      return res;
+    }
+
+
+    var canvas = document.getElementById('tagcloud');
+    var allTags = prepareKeywordList(keywords);
+    console.log(keywords)
     WordCloud(canvas, {
       list: allTags,
       classes: 'force-pointer',
@@ -76,7 +75,9 @@ angular.module('miller')
       //   return Math.pow(size, 2.3) * 470 / 1024;
       // },
       color: function (word, weight) {
-        return (weight > 6) ? '#4ECDC4' : '#225a54';
+        if (weight >= 7) return '#4ECDC4';
+        if (weight >= 5) return '#225a54';
+        return '#1d4d48';
       },
       gridSize: Math.round(12 * canvas.width / 1024),
       weightFactor: function (size) {

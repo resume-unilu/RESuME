@@ -198,6 +198,11 @@ angular
               }),
               orderby: '-date'
             }).$promise;
+          },
+          keywords: function(TagFactory){
+            return TagFactory.get({used_keywords: true, limit: 20}).$promise.then(function(response) {
+              return response.results
+            });
           }
         }
       })
