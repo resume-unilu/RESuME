@@ -62,18 +62,13 @@ angular.module('miller')
 
     var canvas = document.getElementById('tagcloud');
     var allTags = prepareKeywordList(keywords);
-    console.log(keywords)
+
     WordCloud(canvas, {
       list: allTags,
       classes: 'force-pointer',
       click: function(item) {
         window.location.href = item[2]
       },
-
-      // gridSize: Math.round(16 * 470 / 1024),
-      // weightFactor: function (size) {
-      //   return Math.pow(size, 2.3) * 470 / 1024;
-      // },
       color: function (word, weight) {
         if (weight >= 7) return '#4ECDC4';
         if (weight >= 5) return '#225a54';

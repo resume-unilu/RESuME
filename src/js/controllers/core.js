@@ -108,8 +108,11 @@ angular.module('miller')
 
     }
 
-    var setNewLocation = function () {
+    var setNewLocation = function (location) {
       var params = $location.search()
+      if (location !== null && location !== undefined && $location.path() !== location) {
+        $location.path(location)
+      }
       if (!('orderby' in params) || !params.orderby || params.orderby === 'featured') {
         params.orderby = '-date,-date_last_modified';
         params.filters = JSON.stringify($scope.filters);
@@ -132,13 +135,15 @@ angular.module('miller')
       setNewLocation()
     }
 
-    $scope.selectTag = function (tag, filterType) {
+    $scope.selectTag = function (tag, filterType, location) {
       /*
       * tag: itme to filter with
       * filterType: name of the filter, default is tags__slug__and
       * This function handle lists filter (like __in, ___and, ...).
       * */
-      if (filterType === undefined) {
+
+
+      if (filterType === undefined || filterType === null) {
         filterType = 'tags__slug__and'
       }
 
@@ -155,7 +160,7 @@ angular.module('miller')
         $scope.filters[filterType].push(tag);
       }
 
-      setNewLocation()
+      setNewLocation(location)
     }
 
     $scope.selectSingleTag = function (tag, filterType) {
