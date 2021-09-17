@@ -5,7 +5,7 @@
  * # IndexCtrl
  */
 angular.module('miller')
-  .controller('IndexCtrl', function ($scope, $log, $filter, $location, writings, news, keywords, RUNTIME) {
+  .controller('IndexCtrl', function ($rootScope, $scope, $log, $filter, $location, writings, news, keywords, RUNTIME) {
     $log.debug('IndexCtrl welcome', writings, news);
     $scope.setOG({
       type: 'platform'
@@ -46,12 +46,17 @@ angular.module('miller')
       }
       var res = [];
       var sizeSteps = rawKeywords.length / 5;
-
       rawKeywords.forEach(function (tag, i) {
         var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
         var size = 7 - currentStep
+        var name;
+        try {
+          name = tag.data.name[$rootScope.language];
+        } catch {
+          name = tag.name || tag.slug;
+        }
         res.push([
-          tag.name || tag.slug,
+          name,
           size,
           '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
         ])
