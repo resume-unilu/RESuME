@@ -283,6 +283,7 @@ blockquote.reduced, blockquote.reduced p{
   font-size: 13px;
   line-height: 21px;
   margin-bottom: 10px;
+  min-height: 63px;
 }
 
 blockquote.reduced.no-margin, blockquote.reduced.no-margin p{
@@ -1104,6 +1105,10 @@ ul.errorlist{
 
 .issue{
   display: inline-block;
+}
+.issue-separator {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .story.item .tags{
   display: inline-block;

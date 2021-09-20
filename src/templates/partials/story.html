@@ -17,10 +17,10 @@
     <div ng-if='story.data.issue' class="issue">&mdash; {{story.data.issue}}</div>
     <div class="date">{{story.date|date:"yyyy'.'MM'.'dd"}}</div>
 
-    
 
 
-    <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>  
+
+    <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '['+story.status+']': ''}}</a></h3>
     <div class='authors' ng-if="story.authors.length">
       <span translate="written.by"></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
     </div>
@@ -29,24 +29,24 @@
         <span class='icon-arrow-right-circle'></span>
       </a>
     </blockquote>
-    
+
     <blockquote ng-if='!story.excerpt && !story.matches' class="reduced" rewording value='story.data.abstract' default='{{story.abstract}}'></blockquote>
 
     <blockquote class="reduced matches" ng-if="story.matches.highlights">
-      <div embedit='story.matches.highlights'></div>  
+      <div embedit='story.matches.highlights'></div>
     </blockquote>
 
     <div ng-if="story._tags.keyword.length" class="tags keywords" ng-if="story.tags.length && !story.matches">
       <span translate="keywords" class='label'></span> <span class='tag' ng-repeat='tag in story._tags.keyword' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
     </div>
     <p>
-      
+
       <!-- <span class='creator' ng-if="!story.authors.length">
         created by <span ng-init='author=story.owner;$last=true' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
       </span> -->
-      
+
       <a ng-if='user.is_staff' target='_blank' ng-href='/admin/miller/story/{{story.id}}/change/'>modify (admin)</a>
-    
+
     </p>
     </div>
   </div>
