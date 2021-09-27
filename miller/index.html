@@ -1,2 +1,693 @@
 {% extends 'miller/default.html'%}
 {% load staticfiles %}
+
+  {% block footer %}
+  <div id="footer" ng-class='state'>
+    <div class='container'>
+      <div class="row">
+        <div class='col-sm-12'>
+          <ul class="nav navbar-nav">
+            <li ui-sref-active="active"><a href="/" translate='footer.home'></a>
+            </li>
+            <li ui-sref-active="active"><a href ui-sref='page({name:"terms-of-use"})' translate='footer.termsofservice'></a>
+            </li>
+            <li ui-sref-active="active"><a href ui-sref='page({name:"guide-for-authors"})' translate='footer.guideforauthors'></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block navbar %}
+    <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
+
+      <div class='container'>
+        <div class="navbar-header">
+          <button type="button" ng-click="showMenu=!showMenu" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class='navbar-brand' id="logo">
+            <a ui-sref="publications.all" ui-sref-opts="{reload: true}">
+              <img src='{% static "/images/aktioun-nohaltegkeet-hor-lu.png" %}'>
+            </a>
+          </div>
+        </div>
+
+        <div class="collapse navbar-collapse" style="margin-top: 5px">
+
+
+          <ul class="nav navbar-nav">
+
+
+            <li class='collapse-toggler'>
+              <a href title='toggle menu'><div class='icon icon-menu'></div></a>
+            </li>
+            <!-- <li class="active"><a href="#">home <span class="sr-only">(current)</span></a></li> -->
+            <li ui-sref-active="active"><a href ui-sref="publications.all" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
+            <li ui-sref-active="active"><a href ui-sref='map' translate="headline.map"></a></li>
+            <li ui-sref-active="active"><a href ui-sref='page({name:"about"})' translate="headline.about"></a></li>
+            <li ui-sref-active="active"><a href ui-sref='page({name:"people"})' translate="headline.people"></a></li>
+            <!-- <li ui-sref-active="active"><a href ui-sref='authors' translate="headline.authors"></a></li> -->
+            <li ng-class="{active: state.includes('blog')}"><a ui-sref="blog.all" translate="state.blog.all.title"></a></li>
+
+           <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
+            -->
+            <!-- <li ng-if='user.username' ui-sref-active="active"><a ui-sref="draft"><b style='color:#151515' translate="write"></b></a></li> -->
+            <li id='search-wrapper'>
+              <form role="form" ng-submit="search(searchquery)">
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="searchquery" translate-attr="{ placeholder: 'headline.search'}">
+                  <span class="input-group-btn">
+                    <button ng-click="search(searchquery)" class="btn btn-secondary" type="button"><div class='icon icon-magnifier'></div></button>
+                  </span>
+                </div>
+
+              </form>
+            </li>
+
+
+          </ul>
+
+          <ul style='margin-left: 10px' class="nav navbar-nav navbar-right">
+            <li ng-if="!cart.isEmpty()" ng-cloak>
+              <a ng-click="openDownloadCartModal()" class="force-pointer">(<span ng-bind="cart.count()"> </span>) <span translate="modal.cart.open"></span></a>
+            </li>
+            {% if user.is_authenticated %}
+
+            <li class="dropdown">
+            {% verbatim %}
+            <div class='ng-cloak pulsations animated' ng-if='pulsationsCount > 0' ng-class='{"bounceIn": pulsationsCount > 0}' data-placement="bottom" title="heads up" data-auto-close="1"  data-template-url='{{"templates/partials/pulsations.html"|prefixTemplate}}' ng-click='loadPulsations()' bs-popover>{{pulsationsCount}}</div>
+            {% endverbatim %}
+            <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
+
+              <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
+                <span class='dropdown-label username'>{{user.username}}<span style='position:absolute; right:5px; top:0' class='icon icon-plus'></span></span>
+              </a>
+
+              <ul class="dropdown-menu" role="menu">
+
+                <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
+                 <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
+
+                <li ui-sref-active="active" ng-repeat='author in user.profile.authors' style='border-top: 2px solid #d0d0d0;'>
+                  <a ui-sref='author.publications.all({slug:author.slug})' translate='headline.your.writings'></a>
+                </li>
+                <li ui-sref-active="active" ng-if='user.is_reviewer' style='border-bottom: 2px solid #d0d0d0'>
+                  <a ui-sref='reviews.pending'><span translate='headline.your.reviews'></span></a>
+                </li>
+                <li ui-sref-active="active" ng-if='user.is_chief_reviewer' style='border-bottom: 2px solid #d0d0d0'>
+                  <a ui-sref='assign.all'><span translate='headline.assign.all'></span></a>
+                </li>
+
+
+                <li ui-sref-active="active">
+                  <a ui-sref="notifications.activities" translate='button.more.notification'></a>
+                </li>
+                <!-- <li ui-sref-active="active"><a ui-sref="profile({username:user.username})" translate='headline.edit.your.information'></a></li> -->
+                <li><a href='{% url "logout_view" %}'>log out</a></li>
+                {% if user.is_staff %}
+                <li><a href='{% url "admin:index" %}'>admin</a></li>
+                {% endif %}
+              </ul>
+
+            </li>
+            {% else %}
+            <li>
+              <a ng-href='{% url "login_view" %}?next={% verbatim %}{{path}}{% endverbatim %}' translate="headline.login.or.signup">log in / sign up</a>
+            </li>
+            {% endif %}
+            <li class="dropdown ng-cloak">
+            <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
+
+              <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
+                <span class='dropdown-label'>{% verbatim %}<span>{{language|substr:0:2}}</span>{% endverbatim %}<span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
+              </a>
+
+              <ul class="dropdown-menu" role="menu">
+                <li ng-class="{'active': language=='en_US'}"><a ng-click='changeLanguage("en_US")' translate='language.en_US'></a></li>
+<!--                <li ng-class="{'active': language=='fr_FR'}"><a ng-click='changeLanguage("fr_FR")' translate='language.fr_FR'></a></li>-->
+                <li ng-class="{'active': language=='de_DE'}"><a ng-click='changeLanguage("de_DE")' translate='language.de_DE'></a></li>
+              </ul>
+
+            </li>
+            {% verbatim %}
+
+            <!-- <li class="dropdown">
+
+              <a bs-dropdown placement='bottom-right' aria-haspopup="true" aria-expanded="false"> more</a>
+              <ul class="dropdown-menu" role="menu">
+
+                <li ui-sref-active="active"><a href ui-sref='page({name:"terms-of-use"})'>terms of use</a></li>
+
+              </ul>
+            </li> -->
+            {% endverbatim %}
+          </ul>
+
+        </div>
+
+        <div class="menu-wrapper">
+          <div class="inner">
+            <div class="row">
+              <div class="col-xs-6">
+                <ul class="nav navbar-nav">
+
+
+
+                  <!-- <li class="active"><a href="#">home <span class="sr-only">(current)</span></a></li> -->
+                  <li ui-sref-active="active"><a href ui-sref='page({name:"people"})' translate="headline.people"></a></li>
+                  <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}"><a href ui-sref='publications.all' translate="headline.publications"></a></li>
+                  <!-- <li ui-sref-active="active"><a href ui-sref='authors' translate="headline.authors"></a></li> -->
+                  <li ui-sref-active="active"><a ui-sref="blog.event" translate="headline.events"></a></li>
+                  <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>
+
+                 <!--  <li ng-class="{active: state.includes('event')}"><a ui-sref="events.everything" translate="headline.events"></a></li>
+                  -->
+                  <!-- <li ng-if='user.username' ui-sref-active="active"><a ui-sref="draft"><b style='color:#151515' translate="write"></b></a></li> -->
+                  <li id='search-wrapper'>
+                    <form role="form" ng-submit="search(searchquery)">
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="searchquery" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button ng-click="search(searchquery)" class="btn btn-secondary" type="button"><div class='icon icon-magnifier'></div></button>
+                        </span>
+                      </div>
+
+                    </form>
+                  </li>
+
+
+                </ul>
+
+              </div>
+              <div class="col-xs-6">
+                <ul class="nav navbar-nav navbar-right">
+                  {% if user.is_authenticated %}
+                  <li class="dropdown">
+                  <!-- <li class="dropdown" ng-class="{active: state.includes('me') || state.includes('draft')}"> -->
+
+
+
+                    <li ui-sref-active="active"><a ui-sref="draft" translate='write'></a></li>
+                      <li ui-sref-active="active"><a ui-sref="upload" translate='upload'></a></li>
+                      <li ui-sref-active="active"><a ui-sref="profile.publications({username:user.username})">your writings</a></li>
+                      <li><a href='{% url "logout_view" %}'>log out</a></li>
+                      {% if user.is_staff %}
+                      <li><a href='{% url "admin:index" %}'>admin</a></li>
+                      {% endif %}
+
+
+                  </li>
+                  {% else %}
+                  <li>
+                    <a ng-href='{% url "login_view" %}?next={% verbatim %}{{path}}{% endverbatim %}' translate="headline.login.or.signup">log in / sign up</a>
+                  </li>
+                  {% endif %}
+                  <li class='compact' ng-class="language=='en_US'?'active':''"><a ng-click='changeLanguage("en_US")'>EN</a></li>
+                  <li class='compact' ng-class="language=='fr_FR'?'active':''"><a ng-click='changeLanguage("fr_FR")'>FR</a></li>
+
+
+                </ul>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  {% endblock %}
+
+  {% block initscripts %}
+    {% autoescape off %}
+
+    <script>
+      console.log('\n    oila!   \n(-(-_(-_-)_-)-)\n\n\n');
+
+      var user = {
+        username: "{{user.username}}",
+        first_name: "{{user.first_name}}",
+        last_name: "{{user.last_name}}",
+        is_staff: "{{user.is_staff}}" === "True",
+        profile: {{profile}}
+      };
+
+      var oembeds = {{oembeds}};
+      var settings = {{settings}};
+
+
+      settings.session_key = "{{ request.session.session_key }}";
+      var navh = _is_mobile? 70: 100;
+      var _windox  = angular.element(window),
+          _offsetables = {
+            navbar: $('#navbar'),
+            'table-of-contents-toggler': angular.element('#table-of-contents-toggler'),
+            'table-of-contents': angular.element('#table-of-contents'),
+            // 'inner-table-of-documents': $('#inner-table-of-documents'),
+            // 'writing-tools': $('#writing-tools')
+          },
+
+          _is_mobile = _windox.width() < 768,
+          _navbar_offset = navh,
+          st,
+          windowHeight,
+          windowWidth,
+          floatinglimit = navh,
+          isBelowFloating = false;
+
+      _windox.on('resize', function(){
+        windowHeight = _windox.height();
+        windowWidth = _windox.width();
+        _is_mobile =  windowWidth < 768;
+        floatinglimit = navh;
+
+        evaluateFloating();
+      })
+
+      function evaluateFloating(e){
+          st = _windox.scrollTop();
+          navbar_offset = Math.max(floatinglimit - st, 0);
+
+        // if(navbar_offset != _navbar_offset)
+        //   for(var i in _offsetables)
+        //     if(i != 'navbar')
+        //       _offsetables[i].css({
+        //         transform: 'translateY('+navbar_offset+'px)',
+        //         '-webkit-transform': 'translateY('+navbar_offset+'px)',
+        //         '-moz-transform': 'translateY('+navbar_offset+'px)',
+        //         '-ms-transform': 'translateY('+navbar_offset+'px)',
+        //       });
+
+        if(st > floatinglimit) {
+          if(!isBelowFloating){
+            for(var i in _offsetables)
+              _offsetables[i].addClass('below-floating');
+          }
+          isBelowFloating = true;
+        } else {
+          if(isBelowFloating){
+            for(var i in _offsetables)
+              _offsetables[i].removeClass('below-floating');
+          }
+          isBelowFloating = false;
+        }
+
+
+        _navbar_offset = navbar_offset;
+      };
+
+      _windox.scroll(evaluateFloating)
+
+
+      angular.module('miller')
+        // .run(function($log, $q, $http, embedService, ngEmbedYoutubeHandler){
+
+        //   for (var i in oembeds){
+        //     // ignore if there ys no pattern.
+        //     if(!oembeds[i].patterns)
+        //       continue;
+        //     // register if the settings are complete enough
+        //     var endpoint = oembeds[i].endpoint;
+        //     $log.log('registering embed handler:', i, '- endpoint: ',oembeds[i].endpoint);
+
+        //     embedService.registerHandler({
+        //         name: i,
+        //         patterns: oembeds[i].patterns,
+        //         embed: function(url, max_width) {
+        //           var deferred = $q.defer();
+        //           $log.debug('embedService handler', endpoint)
+        //           return $http({
+        //             method: 'GET',
+        //             url: endpoint + '?url=' + url
+        //           }).then(function successCallback(response) {
+        //             // this callback will be called asynchronously
+        //             // when the response is available
+        //             return response.data
+
+        //           }, function errorCallback(response) {debugger
+        //             // called asynchronously if an error occurs
+        //             // or server returns response with an error status.
+        //             return response.data
+        //           });
+        //         }
+        //     });
+        //   }
+
+        //   // embedly key : cfr app.js, KEY it is shipped with RUNTIME const.
+        //   embedService.registerHandler(ngEmbedYoutubeHandler);
+
+
+
+        // })
+        //Apply user and other settings to resume app
+        .constant("RUNTIME", {
+          static: '{% static ""%}',
+
+          user: user,
+          oembeds: oembeds,
+          settings: settings,
+
+          writings: { // loaded on runtime, from django settings.
+            tags: [
+              {
+                label: 'articletype',
+                relevance: 'primary',
+                filters:  {
+                  category:'writing'
+                },
+                lambda: {
+                  category:'writing'
+                },
+                addFromAutocompleteOnly: true
+              },
+              {
+                label: 'organisation',
+                relevance: 'primary',
+                filters:  {
+                  category:'organisation'
+                },
+                lambda: {
+                  category:'organisation'
+                },
+                addFromAutocompleteOnly: true
+              },
+              {
+                label: 'drafts.keywords.placeholder',
+                relevance: 'primary',
+                filters:  {
+                  category:'keyword'
+                },
+                lambda: {
+                  category:'keyword'
+                },
+                addFromAutocompleteOnly: false
+              },
+              {
+                label: 'SDG',
+                relevance: 'primary',
+                filters:  {
+                  category: 'SDG'
+                },
+                lambda: {
+                  category: 'SDG'
+                },
+                addFromAutocompleteOnly: true
+              },
+              {% if user.is_staff %}
+              {
+                label: 'staff.drafts.tags.placeholder',
+                relevance: 'secondary',
+                filters:  {
+                  category__in:[ 'blog', 'highlights']
+                },
+                lambda: function(d) {
+                  return ['blog', 'highlights'].indexOf(d.category) != -1
+                },
+                addFromAutocompleteOnly: true
+              },
+              {% endif %}
+            ]
+          },
+
+          routes: {
+            assign: [
+              {
+                slug: 'all',
+                url: ''
+              },
+              {
+                slug: 'pending',
+                url: '/pending'
+              },
+              {
+                slug: 'review',
+                url: '/under-review'
+              },
+              {
+                slug: 'reviewdone',
+                url: '/done'
+              }
+            ],
+            authors: {
+
+
+              // {
+              //   slug: 'blog',
+              //   url: '/blog',
+              //   filters: {
+              //     stories__tags__category: 'blog'
+              //   }
+              // },
+              // {
+              //   slug: 'papers',
+              //   url: '/papers',
+              //   filters: {
+              //     stories__tags__slug__in: ['paper', 'collection']
+              //   }
+              // },
+              writing: [
+                {
+                  slug: 'collection',
+                  url: '/collection',
+                  filters: {
+                    stories__tags__slug: 'collection'
+                  }
+                },
+                {
+                  slug: 'cahiers',
+                  url: '/cahiers',
+                  filters: {
+                    stories__tags__slug: 'cahiers'
+                  }
+                },
+                {
+                  name: 'Revue de l’Euro',
+                  slug: 'revue-ecu-euro',
+                  url: '/revue-ecu-euro',
+                  filters: {
+                    stories__tags__slug: 'revue-ecu-euro'
+                  }
+                },
+              ],
+              tags:[
+                {
+                  slug: 'paper',
+                  url: '/papers',
+                  filters: {
+                    stories__tags__slug: 'paper'
+                  }
+                },
+                {
+                  slug: 'glossary',
+                  url: '/glossary',
+                  filters: {
+                    stories__tags__slug: 'glossary'
+                  }
+                },
+                {
+                  slug: 'law',
+                  url: '/laws',
+                  filters: {
+                    stories__tags__slug: 'law'
+                  }
+                },
+                {
+                  slug: 'biography',
+                  url: '/biographies',
+                  filters: {
+                    stories__tags__slug: 'biography'
+                  }
+                },
+              ]
+            },
+            blog: [
+              {
+                slug: 'all',
+                url: ''
+              },
+              {
+                slug: 'event',
+                url: '/events'
+              },
+              {
+                slug: 'news',
+                url: '/news'
+              },
+            ],
+            publications: {
+              all: [{
+                slug: 'all',
+                url: '',
+                filters: {
+                  tags__category: 'writing'
+                }
+              }],
+              // to be improved
+              availableRoutes: ['writing','tags', 'specials'],
+              specials: [
+                'no-poverty',
+                'zero-hunger',
+                'good-health-well-being',
+                'quality-education',
+                'gender-equality',
+                'clean-water-sanitation',
+                'affordable-clean-energy',
+                'decent-work-economic-growth',
+                'industry-innovation-infrastructure',
+                'reduced-inequality',
+                'sustainable-cities-communities',
+                'responsible-consumption-production',
+                'climate-actions',
+                'life-below-water',
+                'life-on-land',
+                'piece-justice-strong-institutions',
+                'partnerships-for-the-goals'
+              ].map(function(d) {
+                return {
+                  slug: d,
+                  url: '/sdg/'+d,
+                  filters: {
+                    tags__slug: d
+                  },
+                  description: true,
+                  asPicture: true
+                }
+              }),
+              status: [
+                {
+                  slug: 'draft',
+                  url: 'draft',
+                  filters: {
+                    status: 'draft'
+                  }
+                },
+                {
+                  slug: 'reviewdone',
+                  url: 'to-be-published',
+                  filters: {
+                    status: 'reviewdone'
+                  }
+                }
+              ],
+              writing: [// articles type
+                {
+                  slug: 'paper',
+                  url: '/paper',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'reports',
+                  url: '/reports',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'courses',
+                  url: '/courses',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'challenges',
+                  url: '/challenges',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'funding',
+                  url: '/funding',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'expertise',
+                  url: '/expertise',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'projects',
+                  url: '/projects',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'products-services',
+                  url: '/products-services',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'jobs',
+                  url: '/jobs',
+                  orderby: 'data__issue,-date'
+                },
+                {
+                  slug: 'glossary',
+                  url: '/glossary',
+                  orderby: 'data__issue,-date'
+                },
+
+
+              ],
+
+              tags:['government', 'civil-society', 'municipality', 'research-organisation', 'school', 'enterprise', 'agriculture'].map(function(d) {
+                return {
+                  slug: d,
+                  url: '/'+d,
+                  filters: {
+                    tags__slug: d
+                  }
+                }
+              }),
+
+            },
+
+            reviews: [
+              {
+                slug: 'all',
+                url: '',
+                filters: {}
+              },
+              {
+                slug: 'pending',
+                url: '/pending',
+                filters: {
+                  status__in: ['draft', 'initial']
+                }
+              },
+              {
+                slug: 'complete',
+                url: '/complete',
+                filters: {
+                  status__in: ['refusal', 'bounce', 'complete', 'approved']
+                }
+              },
+            ]
+          },
+          monographies: ['publications.cahiers', 'publications.revue-ecu-euro']
+        });
+
+        /*
+          Register search function for each oembed service having a search endpoint
+        */
+        angular.module('miller')
+          .factory('OembedSearchFactory', function($http) {
+            return _(oembeds)
+              .filter('search')
+              .keyBy('name')
+              .mapValues(function(o, k) {
+                /*
+                  params = {
+                    q: <your query>
+                  }
+                */
+                return function(params) {
+                  return $http.get(o.search, {
+                    params: params
+                  })
+                }
+              })
+              .value();
+          });
+
+    </script>
+    {% endautoescape %}
+    {% endblock %}

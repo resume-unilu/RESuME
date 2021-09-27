@@ -38,6 +38,7 @@ angular
     'PARAMS_CHANGED':'params_changed',
     'DOWNLOAD': 'download',
     'MESSAGE': 'message',
+    'ERROR': 'error',
     'BAD_REQUEST':'bad_request',
     'PERMISSION_DENIED':'permission_denied',
     'RESIZED': 'resized',
@@ -168,6 +169,11 @@ angular
         reloadOnSearch : false,
         controller: 'SignupCtrl',
         templateUrl: RUNTIME.static + 'templates/signup.html'
+      })
+      .state('map', {
+        url: '/map',
+        reloadOnSearch : false,
+        templateUrl: RUNTIME.static + 'templates/map-overview.html'
       })
       .state('draft', {
         url: '/create',
