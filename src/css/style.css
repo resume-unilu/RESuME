@@ -1036,11 +1036,20 @@ ul.errorlist{
   margin-top: -100px;
 }
 
-.actions{
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  z-index: 1;
+@media (max-width: 600px) {
+  .actions-view {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .actions {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+  }
 }
 
 .tags{
@@ -2024,7 +2033,7 @@ a.btn-line:hover{
 
 @media (max-width: 600px) {
   .nav-filters {
-    width: 80px;
+    width: 100px;
     padding-right: 20px;
     font-family: arial;
 
