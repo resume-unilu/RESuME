@@ -2005,10 +2005,44 @@ a.btn-line:hover{
 
 }
 
-.nav-filters{
-  width: 150px;
-  padding-right: 20px;
-  font-family: arial;
+@media (max-width: 600px) {
+  .nav-filters {
+    width: 80px;
+    padding-right: 20px;
+    font-family: arial;
+
+  }
+  .profile .contents ol, ul {
+    margin-left: 0;
+  }
+
+  .filter-dropdown {
+    width: 80px;
+  }
+  .nav-filters h4 {
+    margin-left: 0;
+    padding: 0 0 0 2px;
+    font: 10px/10px arial, georgia, sans-serif;
+    font-style: italic;
+  }
+  .nav-tabs > li > a.with-number, .list-filter > a {
+    margin-left: -10px;
+  }
+
+}
+
+@media (min-width: 600px) {
+  .nav-filters {
+    width: 150px;
+    padding-right: 20px;
+    font-family: arial;
+  }
+  .nav-filters h4{
+    padding: 0 0 0 2px;
+    font: 10px/10px arial, georgia, sans-serif;
+    font-style: italic;
+    margin-left: 40px;
+  }
 }
 
 .nav-filters .ellipsis{
@@ -2017,12 +2051,6 @@ a.btn-line:hover{
   text-transform: lowercase;
 }
 
-.nav-filters h4{
-  padding: 0 0 0 2px;
-  font: 10px/10px arial, georgia, sans-serif;
-  font-style: italic;
-  margin-left: 40px;
-}
 
 /*
   a wrapper of .nav-tabs

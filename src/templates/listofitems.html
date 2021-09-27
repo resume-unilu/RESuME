@@ -21,7 +21,7 @@
 
           <ul class='nav nav-tabs' ng-if='availabileOrderby'>
             <li class="dropdown">
-              <a bs-dropdown placement='bottom-left' aria-haspopup="true" aria-expanded="false" style='position:relative; padding-right: 30px'>
+              <a bs-dropdown placement='bottom-left' aria-haspopup="true" aria-expanded="false" class="filter-dropdown" style='position:relative; padding-right: 30px'>
                 <span class='username'><span class='ellipsis' translate='order.by.{{ordering}}'></span><span style='position:absolute; right:5px; top:0' class='icon icon-arrow-down-circle'></span></span>
               </a>
               <ul class="dropdown-menu" role="menu">
@@ -31,7 +31,7 @@
           </ul>
 
           <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
-            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug), "sdg-logo-container": url.asPicture, "tag-container": !url.asPicture}' class="test">
+            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug), "sdg-logo-container": url.asPicture, "tag-container": !url.asPicture}' class="list-filter">
               <img ng-src="/static/images/sdg/{{url.slug}}.png"
                    ng-if="url.asPicture"
                    ng-click="selectTag(url.slug)"
