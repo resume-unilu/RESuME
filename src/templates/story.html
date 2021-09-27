@@ -2,7 +2,7 @@
 
 <div ng-if='!story._isCollection' class="story">
   <div class='container tight-container'>
-    <div class="view">
+    <div class="view actions-view">
       <div class="actions" >
         <div ng-if='review' class='btn-line-group transparent'>
           <button class='btn-line' ui-sref="reviews.pending" translate="button.backtoreviews"></button>
@@ -152,7 +152,7 @@
 
 
       <div class='row' style='margin-bottom: 100px'>
-        <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-8": sidedocuments}'>
+        <div  ng-class='{"col-md-12": !sidedocuments, "col-md-8 col-lg-7 col-xs-12": sidedocuments}'>
 
           <div style='position:relative' class="contents">
 
@@ -175,7 +175,7 @@
 
           </div>
         </div>
-        <div ui-view class='col-md-4 col-lg-5 col-xs-4' ng-if='sidedocuments' respect-previous-sibling update="documents">
+        <div ui-view class='col-md-4 col-lg-5 col-xs-12' ng-if='sidedocuments' respect-previous-sibling update="documents">
           <div  sliding-steps data-language='language' data-focus='focusedIdx' style='height:100%' items='documents'></div>
         </div>
       </div>
