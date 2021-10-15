@@ -52,6 +52,12 @@ angular.module('miller')
         var name;
         try {
           name = tag.data.name[$rootScope.language];
+          if (name === undefined || name === null) {
+            name = tag.data.name['en_US'];
+          }
+          if (name === undefined || name === null) {
+            name = tag.name || tag.slug;
+          }
         } catch {
           name = tag.name || tag.slug;
         }
