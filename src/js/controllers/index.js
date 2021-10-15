@@ -40,59 +40,68 @@ angular.module('miller')
     $scope.news = news.results.map(excerpt);
     // tagcloud
 
-    function prepareKeywordList(rawKeywords) {
-      if (rawKeywords.length === 0) {
-        return
+    $scope.$watch('language', function (newValue, oldValue) {
+      if (newValue === oldValue) {
+        return;
       }
-      var res = [];
-      var sizeSteps = rawKeywords.length / 5;
-      rawKeywords.forEach(function (tag, i) {
-        var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
-        var size = 7 - currentStep
-        var name;
-        try {
-          name = tag.data.name[$rootScope.language];
-          if (name === undefined || name === null) {
-            name = tag.data.name['en_US'];
-          }
-          if (name === undefined || name === null) {
-            name = tag.name || tag.slug;
-          }
-        } catch {
-          name = tag.name || tag.slug;
-        }
-        res.push([
-          name,
-          size,
-          '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
-        ])
-      })
-      return res;
-    }
-
-
-    var canvas = document.getElementById('tagcloud');
-    var allTags = prepareKeywordList(keywords);
-
-    WordCloud(canvas, {
-      list: allTags,
-      classes: 'force-pointer',
-      click: function(item) {
-        window.location.href = item[2]
-      },
-      color: function (word, weight) {
-        if (weight >= 7) return '#4ECDC4';
-        if (weight >= 5) return '#225a54';
-        return '#1d4d48';
-      },
-      gridSize: Math.round(12 * canvas.width / 1024),
-      weightFactor: function (size) {
-        return Math.pow(size, 2.3) * canvas.width / 1024;
-      },
-      rotateRatio: 0,
+      drawWordCloud(keywords, newValue);
 
     });
-
+    drawWordCloud(keywords, $rootScope.language);
 
     $log.debug('IndexCtrl welcome',$scope.news);
   });
+
+function prepareKeywordList(rawKeywords, language) {
+  if (rawKeywords.length === 0) {
+    return
+  }
+  var res = [];
+  var sizeSteps = rawKeywords.length / 5;
+  rawKeywords.forEach(function (tag, i) {
+    var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
+    var size = 7 - currentStep
+    var name;
+    try {
+      name = tag.data.name[language];
+      if (name === undefined || name === null) {
+        name = tag.data.name['en_US'];
+      }
+      if (name === undefined || name === null) {
+        name = tag.name || tag.slug;
+      }
+    } catch {
+      name = tag.name || tag.slug;
+    }
+    res.push([
+      name,
+      size,
+      '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
+    ])
+  })
+  return res;
+}
+
+function drawWordCloud(keywords, language) {
+  var canvas = document.getElementById('tagcloud');
+  var allTags = prepareKeywordList(keywords, language);
+
+  WordCloud(canvas, {
+    list: allTags,
+    classes: 'force-pointer',
+    click: function(item) {
+      window.location.href = item[2]
+    },
+    color: function (word, weight) {
+      if (weight >= 7) return '#4ECDC4';
+      if (weight >= 5) return '#225a54';
+      return '#1d4d48';
+    },
+    gridSize: Math.round(12 * canvas.width / 1024),
+    weightFactor: function (size) {
+      return Math.pow(size, 2.3) * canvas.width / 1024;
+    },
+    rotateRatio: 0,
+
+  });
+}
