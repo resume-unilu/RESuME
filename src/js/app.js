@@ -362,7 +362,7 @@ angular
       })
 
       .state('author.publications', {
-        url: '/publications',
+        url: '/related-publications',
         abstract:true,
         reloadOnSearch : false,
         controller: function($scope){
@@ -521,7 +521,7 @@ angular
         }
       })
         .state('profile.publications', {
-          url: '/publications',
+          url: '/related-publications',
           reloadOnSearch : false,
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
@@ -766,7 +766,7 @@ angular
     */
     $stateProvider
       .state('publications', {
-        url: '/publications',
+        url: '/related-publications',
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
