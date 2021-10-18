@@ -19,16 +19,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top: 28px">
           <div class="row">
           <!-- REMAINING STORIES -->
-            <div ng-repeat='story in otherstories' class="col-md-6" ng-class-odd="'clear-left'">
-              <div class="coverstory other">
-                <div class="divider"></div>
-                <div class="tags" ng-if="story.tags.length">
-                  <span class='tag' ng-repeat='tag in story.tags|filter:{status:"public",category:"writing"}' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
-                  <span ng-if='story.data.issue' class="issue-separator">|</span>
-                  <span ng-if='story.data.issue' class="issue" embedit='story.data.issue'></span>
+            <div ng-repeat='story in otherstories' class="col-md-6 story-card" ng-class-odd="'clear-left'">
+              <div class="coverstory other story-card-inner">
+                <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
+                  <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
+                  <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
                 </div>
                 <h4>
                   <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
@@ -36,14 +34,6 @@
                 </h4>
                 <div class='authors' ng-if="story.authors.length">
                   by <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
-                </div>
-                <blockquote class="reduced no-margin">
-                  <span embedit='story.excerpt' language='language'></span>
-                  <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})"><span class='icon-arrow-right-circle'></span></a>
-                  <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})"><span class='icon-arrow-right-circle'></span></a></blockquote>
-                <div ui-sref="story({postId: story.slug})" style='cursor:pointer' ng-if='story.covers.length' ng-repeat='document in story.covers | limitTo:1' class='fluid-container relative'>
-                  <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
-                  <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
                 </div>
               </div>
             </div>
