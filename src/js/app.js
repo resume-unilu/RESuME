@@ -227,6 +227,33 @@ angular
         controller: 'DraftCtrl',
         templateUrl: RUNTIME.static + 'templates/draft.html'
       })
+      .state('archives', {
+        url: '/archives-resume',
+        reloadOnSearch : false,
+        controller: 'ArchiveCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        resolve: {
+          initials: function () {
+            return {
+              filters: {
+                tags__name: 'archives'
+              },
+              limit: 100
+            };
+          },
+          items: function (StoryFactory, $stateParams, djangoFiltersService, initials) {
+            // initials.filters['tags__slug__all'] = [$stateParams.slug];
+            return StoryFactory.get(djangoFiltersService(initials)).$promise;
+          },
+
+          model: function() {
+            return 'story';
+          },
+          factory: function(StoryFactory) {
+            return StoryFactory.get;
+          }
+        }
+      })
       .state('upload', {
         url: '/upload',
         reloadOnSearch : false,
@@ -744,6 +771,13 @@ angular
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        resolve: {
+          keywords: function (TagFactory) {
+            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+              return response.results
+            });
+          }
+        }
       })
         .state('publications.tags', {
           url: '/tags/:slug',
@@ -952,3 +986,17 @@ angular
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })
 
+function getTranslatedTag(tag, language) {
+  try {
+    var name = tag.data.name[language];
+    if (name === undefined || name === null) {
+      name = tag.data.name['en_US'];
+    }
+    if (name === undefined || name === null) {
+      name = tag.name || tag.slug;
+    }
+    return name
+  } catch {
+    return tag.name || tag.slug;
+  }
+}

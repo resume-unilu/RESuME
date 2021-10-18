@@ -575,7 +575,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         }
         .story.lite h3 a{
           font-size: 30px;
-          line-height: 45px;
+          line-height: 35px;
         }
         .story.lite blockquote{
           font-size: 15px;
@@ -894,12 +894,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
           </div>
           <div class='col-sm-12'>
             <ul class="nav navbar-nav">
-              <li ui-sref-active="active"><a ui-sref='index' translate='footer.home'></a>
-              </li>
-              <li ui-sref-active="active"><a ui-sref='page({name:"terms-of-use"})' translate='footer.termsofservice'></a>
-              </li>
-              <li ui-sref-active="active"><a ui-sref='page({name:"guide-for-authors"})' translate='footer.guideforauthors'></a>
-              </li>
+              <li ui-sref-active="active"><a ui-sref='index' translate='footer.home'></a></li>
+              <li ui-sref-active="active"><a ui-sref='page({name:"terms-of-use"})' translate='footer.termsofservice'></a></li>
+              <li ui-sref-active="active"><a ui-sref='page({name:"guide-for-authors"})' translate='footer.guideforauthors'></a></li>
+              <li ui-sref-active="active"><a ui-sref='archives' translate='footer.archiveresume'></a></li>
               <li><a href='{% url "latest_rss"%}' target='_blank'><span translate="footer.latest_rss"></span>&nbsp;<span class="icon icon-feed"></span></a></li>
             </ul>
           </div>
@@ -998,6 +996,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     <script src='{% static "js/controllers/upload.js" %}'></script>
     <script src='{% static "js/controllers/uploaded.js" %}'></script>
     <script src='{% static "js/controllers/writing.js" %}'></script>
+    <script src='{% static "js/controllers/archive.js" %}'></script>
 
     <script src='{% static "js/controllers/modals/enrich.js" %}'></script>
     <script src='{% static "js/controllers/modals/covers.js" %}'></script>

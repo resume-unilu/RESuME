@@ -1053,7 +1053,7 @@ ul.errorlist{
 }
 
 .story.lite h3{
-  margin-top: 10px;
+  margin-top: 0px;
   padding-left: 0px;
   padding-right: 15px;
 }
@@ -4549,7 +4549,7 @@ div.ng-tag-cloud span { padding: 0; }
 
 .story-card {
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .story-card:nth-child(even) {

@@ -61,18 +61,8 @@ function prepareKeywordList(rawKeywords, language) {
   rawKeywords.forEach(function (tag, i) {
     var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
     var size = 7 - currentStep
-    var name;
-    try {
-      name = tag.data.name[language];
-      if (name === undefined || name === null) {
-        name = tag.data.name['en_US'];
-      }
-      if (name === undefined || name === null) {
-        name = tag.name || tag.slug;
-      }
-    } catch {
-      name = tag.name || tag.slug;
-    }
+    var name = getTranslatedTag(tag, language);
+
     res.push([
       name,
       size,

@@ -6,14 +6,15 @@
  * Handle the publication page.
  */
 angular.module('miller')
-  .controller('PublicationsCtrl', function ($scope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS) {
+  .controller('PublicationsCtrl', function ($scope, $rootScope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS, keywords) {
     $log.log('🔭 PublicationsCtrl welcome');
     // the list of links, both main writings and other secondary writings.
     $scope.rootStatename = 'publications';
     $scope.mainStatename = 'publications.all';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
-
+    $scope.keywords = keywords;
+    console.log(keywords)
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
 
@@ -23,7 +24,7 @@ angular.module('miller')
         urls: RUNTIME.routes.publications[d]
       }
     });
-    
+
 
     $scope.availabileOrderby = [
       {
@@ -69,7 +70,7 @@ angular.module('miller')
     $scope.hallOfFame = {};
 
     $scope.sync = function(){
-      
+
       // transform filterrs from initials (they are for publication story, not for story.authors)
       var initials = $state.current.resolve.initials(),
           params = {
@@ -83,13 +84,13 @@ angular.module('miller')
 
       if(!ordering && initials.orderby)
         ordering = _.get(_.find($scope.availabileOrderby, {value: initials.orderby}),'label')
-      
+
       if(!ordering)
         ordering = 'newest';
 
 
       $scope.ordering =  ordering;
-      
+
 
       if(initials.filters){
         if($scope.state == 'publications.tags')
@@ -109,9 +110,9 @@ angular.module('miller')
           $log.warn('🔭 PublicationsCtrl sync() cannot parse filters correctly');
         }
       }
-      
+
       $log.log('🔭 PublicationsCtrl sync()', $scope.state);
-      
+
       // if its one of the "monographies", we get the publishable items associated. Optioanlly we can even deliver something
       if(RUNTIME.monographies.indexOf($scope.state) !== -1) {
         HallOfFames.push(TagFactory.hallOfFame({
@@ -152,7 +153,7 @@ angular.module('miller')
         $log.log('🔭 PublicationsCtrl sync() $q.all() finished', $scope.state);
       });
       // chain of eventssyn
-      
+
     }
 
     $scope.sync();
@@ -161,6 +162,8 @@ angular.module('miller')
       $scope.sync();
     });
 
-    
+    $scope.getTranslatedTag = function (tag) {
+      return getTranslatedTag(tag, $rootScope.language)
+    }
 
   });

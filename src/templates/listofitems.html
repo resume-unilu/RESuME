@@ -77,6 +77,14 @@
               </a>
             </li>
           </ul>
+
+
+          <h4 class='section' ng-if='keywords'>Keywords</h4>
+          <ul class='nav nav-tabs' ng-if='keywords'>
+            <li ng-repeat='keyword in keywords' ng-class='{"active": isTagActive(keyword.slug)}'>
+              <a class='tag' ng-click="selectTag(keyword.slug, null, '/publications')">{{getTranslatedTag(keyword)}}</a>
+            </li>
+          </ul>
         </td>
         <td><div ui-view></div></td>
       </tr>
