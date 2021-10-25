@@ -349,10 +349,14 @@ function prepareTagsContext(splitted) {
     }();
 
     Object.values(story._tags).forEach(function (tags) {
-      tags.forEach(function (tag) {
-        tag.context = context;
-      })
+      if (tags != null) {
+        var ts = Array.isArray(tags) ? tags : Object.values(tags)
+        ts.forEach(function (tag) {
+          tag.context = context;
+        })
+      }
     })
+    debugger
   }
 
   function prepareTagsContextFlat(story) {
