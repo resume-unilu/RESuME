@@ -1031,16 +1031,13 @@ angular
   })
 
 function getTranslatedTag(tag, language) {
-  try {
-    var name = tag.data.name[language];
-    if (name === undefined || name === null) {
-      name = tag.data.name['en_US'];
-    }
-    if (name === undefined || name === null) {
-      name = tag.name || tag.slug;
-    }
-    return name
-  } catch {
-    return tag.name || tag.slug;
+  var name = null;
+  if (tag.data.name[language] == null) {
+    name = tag.data.name[language];
   }
+  if (name == null) {
+    name = tag.data.name['en_US'];
+  }
+
+  return name || tag.name || tag.slug;
 }
