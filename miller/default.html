@@ -690,8 +690,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
             <li ui-sref-active="active"><a ui-sref="index" ui-sref-opts="{reload: true}" translate="headline.home"></a></li>
             <li ui-sref-active="active"><a ui-sref='page({name:"journal"})' translate="headline.journal"></a></li>
-            <li ui-sref-active="active"><a translate="headline.allpublications"></a></li>
-            <li ng-class="{active: (state.includes('publications') || state.includes('story') || state.includes('collection')) && !state.includes('me')}">
+            <li ng-class="{active: state === 'euro-publications.all'}">
+              <a ui-sref='euro-publications.all' translate="headline.allpublications"></a>
+            </li>
+            <li ng-class="{active: state === 'publications.all'}">
               <a ui-sref='publications.all' translate="headline.linkedpublications"></a>
             </li>
             <li ui-sref-active="active"><a ui-sref="blog.news" translate="headline.news"></a></li>

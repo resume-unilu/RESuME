@@ -25,9 +25,11 @@ angular.module('miller')
 
     writings.results = writings.results.map(excerpt);
 
+    var tagsContextFn = prepareTagsContext(false)
+    writings.results.forEach(tagsContextFn)
+
     $scope.coverstories = _.take(writings.results, 3);//.shift();
     $scope.otherstories = _.takeRight(writings.results, writings.results.length - 3); //writings.results;
-
     // check cover of coverstory
     // if($scope.coverstory && $scope.coverstory.covers.length){
     //   var maincover = _.first($scope.coverstory.covers);

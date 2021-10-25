@@ -135,6 +135,13 @@ angular.module('miller')
       setNewLocation()
     }
 
+    $rootScope.getTagRoute = function (tag) {
+      if (tag.context === undefined) {
+        tag.context = 'related-publications';
+      }
+      return '/' + tag.context + '?orderby=-date,-date_last_modified&filters={"tags__slug__and":["' + tag.slug + '"]}';
+    }
+
     $scope.selectTag = function (tag, filterType, location) {
       /*
       * tag: itme to filter with
@@ -142,7 +149,6 @@ angular.module('miller')
       * location: location where the filters need to be apply (eg: '/publications')
       * This function handle lists filter (like __in, ___and, ...).
       * */
-
 
       if (filterType === undefined || filterType === null) {
         filterType = 'tags__slug__and'

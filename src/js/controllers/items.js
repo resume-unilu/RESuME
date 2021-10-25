@@ -36,7 +36,7 @@ angular.module('miller')
     }
 
     if($scope.state != 'publications.tags') {
-      if (typeof $scope.setTag == 'function') 
+      if (typeof $scope.setTag == 'function')
         $scope.setTag(null);
     }
 
@@ -47,7 +47,7 @@ angular.module('miller')
                   html: false
                 })
                 .disable([
-                  'image', 
+                  'image',
                   'heading'
                 ]);
 
@@ -55,11 +55,11 @@ angular.module('miller')
         .map(function(d){
           if(!d.data || !d.data.abstract)
             return d
-          
+
           d = extendItem(d, $scope.model, {
             language: $scope.language
           });
-          
+
           if(!_tag && $scope.state == 'publications.tags') {
             _tag = true;
             $scope.setTag(_.find(d.tags, {slug: $state.params.slug}));
@@ -75,8 +75,8 @@ angular.module('miller')
         })
     };
 
-    
-    
+
+
     // update scope vars related to count, missing, and render the items
     $scope.sync = function(res){
       $scope.isLoadingNextItems = false;
@@ -87,6 +87,7 @@ angular.module('miller')
       $scope.count = res.count;
       // push items
       $scope.items = ($scope.items || []).concat(normalizeItems(res.results));
+      $scope.items.forEach(prepareTagsContext(false))
       // update missing
       $scope.missing = res.count - $scope.items.length;
     }
@@ -97,12 +98,12 @@ angular.module('miller')
         return;
       }
       $scope.isLoadingNextItems = true;
-      
+
       factory($scope.nextParams, $scope.sync);
     }
 
     $scope.sync(items);
-    
+
     // watch for ordering
     $scope.$on(EVENTS.PARAMS_CHANGED, function(e, newParams){
       if($scope.isLoadingNextItems){
@@ -117,7 +118,7 @@ angular.module('miller')
 
       // reset params to initial params, then add filters recursively
       var params = angular.copy(initials);
-      
+
       for(var key in newParams){
         if(key == 'filters'){
           try {
@@ -138,4 +139,3 @@ angular.module('miller')
     //   }
     // })
   });
-  

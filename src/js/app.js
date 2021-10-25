@@ -765,6 +765,47 @@ angular
       Kind of story:writings publications
     */
     $stateProvider
+      .state('euro-publications', {
+        url: '/publications',
+        abstract: true,
+        reloadOnSearch : false,
+        controller: 'EuroPublicationsCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        resolve: {
+          keywords: function (TagFactory) {
+            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+              return response.results
+            });
+          }
+        }
+      })
+      .state('euro-publications.all', {
+        url: '',
+        controller: 'ItemsCtrl',
+        templateUrl: RUNTIME.static + 'templates/items.html',
+        resolve: {
+          initials: function() {
+            return {
+              filters: {
+                tags__category: 'writing',
+                tags__slug: 'revue-ecu-euro'
+              },
+              limit: 10,
+              orderby: '-date,-date_last_modified'
+            };
+          },
+          items: function(StoryFactory, djangoFiltersService, initials) {
+            return StoryFactory.get(djangoFiltersService(initials)).$promise;
+          },
+
+          model: function() {
+            return 'story';
+          },
+          factory: function(StoryFactory) {
+            return StoryFactory.get;
+          }
+        }
+      })
       .state('publications', {
         url: '/related-publications',
         abstract: true,
@@ -779,7 +820,7 @@ angular
           }
         }
       })
-        .state('publications.tags', {
+      .state('publications.tags', {
           url: '/tags/:slug',
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
@@ -787,7 +828,7 @@ angular
             initials: function() {
               return {
                 filters: {
-                  tags__category: 'writing'
+                  tags__category: 'writing',
                 },
                 limit: 10,
                 orderby: '-date,-date_last_modified'
@@ -828,6 +869,10 @@ angular
                   }: {
                     tags__category: 'writing'
                   },
+
+                  exclude: {
+                    tags__slug: 'revue-ecu-euro'
+                  },
                   limit: 10,
                   orderby: d.orderby? d.orderby:'-date,-date_last_modified'
                 };
@@ -845,7 +890,6 @@ angular
             }
           });
       });
-
     $stateProvider
       .state('search', {
         url: '/search',

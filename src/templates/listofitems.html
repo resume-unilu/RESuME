@@ -37,9 +37,8 @@
             </li>
           </ul>
 
-          <ul class='nav nav-tabs ' ng-repeat='route in availableRoutes'>
-
-            <li ng-if="url.slug!='all'" ng-repeat='url in route.urls' role="presentation" ng-class='{"active": isTagActive(url.slug)}'>
+          <ul class='nav nav-tabs categoryFilters' ng-if="availableRoutes.length">
+            <li ng-if="url.slug!='all'" ng-repeat='url in availableRoutes' role="presentation" ng-class='{"active": isTagActive(url.slug)}'>
               <a ng-if='url.name'
                  ng-click='selectTag(url.slug)'
                  class="force-pointer"
@@ -55,7 +54,7 @@
                  aria-controls="home"
                  role="tab"
                  data-toggle="tab"
-                 translate="state.{{route.state}}.{{url.slug}}.label">
+                 translate="state.{{url.state}}.{{url.slug}}.label">
               </a>
 
               <ul class='nav nav-tabs' ng-if='hallOfFame.publishings && state == "publications."+url.slug && hallOfFame.publishings.count' style='border: 0px; border-left: 2px solid; padding-left: 10px'>
@@ -82,7 +81,7 @@
           <h4 class='section' ng-if='keywords'>Keywords</h4>
           <ul class='nav nav-tabs' ng-if='keywords'>
             <li ng-repeat='keyword in keywords' ng-class='{"active": isTagActive(keyword.slug)}'>
-              <a class='tag' ng-click="selectTag(keyword.slug, null, '/related-publications')">{{getTranslatedTag(keyword)}}</a>
+              <a class='tag' ng-click="selectTag(keyword.slug, null, tagsStateurl)">{{getTranslatedTag(keyword)}}</a>
             </li>
           </ul>
         </td>
