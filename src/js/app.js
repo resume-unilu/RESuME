@@ -227,22 +227,55 @@ angular
         controller: 'DraftCtrl',
         templateUrl: RUNTIME.static + 'templates/draft.html'
       })
+      // .state('archives', {
+      //   url: '/archives-resume',
+      //   reloadOnSearch : false,
+      //   controller: 'ArchiveCtrl',
+      //   templateUrl: RUNTIME.static + 'templates/listofitems.html',
+      //   resolve: {
+      //     initials: function () {
+      //       return {
+      //         filters: {
+      //           tags__name: 'archives'
+      //         },
+      //         limit: 100
+      //       };
+      //     },
+      //     items: function (StoryFactory, $stateParams, djangoFiltersService, initials) {
+      //       // initials.filters['tags__slug__all'] = [$stateParams.slug];
+      //       return StoryFactory.get(djangoFiltersService(initials)).$promise;
+      //     },
+      //
+      //     model: function() {
+      //       return 'story';
+      //     },
+      //     factory: function(StoryFactory) {
+      //       return StoryFactory.get;
+      //     }
+      //   }
+      // })
       .state('archives', {
         url: '/archives-resume',
+        abstract: true,
         reloadOnSearch : false,
         controller: 'ArchiveCtrl',
-        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html'
+      })
+      .state('archives.all', {
+        url: '',
+        controller: 'ItemsCtrl',
+        templateUrl: RUNTIME.static + 'templates/items.html',
         resolve: {
           initials: function () {
             return {
               filters: {
-                tags__name: 'archives'
+                tags__slug: 'archives'
               },
-              limit: 100
+              limit: 100,
+              orderby: '-date,-date_last_modified'
             };
           },
-          items: function (StoryFactory, $stateParams, djangoFiltersService, initials) {
-            // initials.filters['tags__slug__all'] = [$stateParams.slug];
+          items: function(StoryFactory, djangoFiltersService, initials) {
             return StoryFactory.get(djangoFiltersService(initials)).$promise;
           },
 
