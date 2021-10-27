@@ -11,7 +11,6 @@ angular.module('miller')
     story = extendStoryItem(story, $scope.language);
     prepareTagsContext(true)(story)
     $scope.story = story;
-
     // is the story editable by the current user?
     $scope.story.isWritable = $scope.hasWritingPermission($scope.user, $scope.story);
     $scope.story.isReviewable = _.get($scope, 'review.assignee.username') == $scope.user.username;
@@ -356,7 +355,6 @@ function prepareTagsContext(splitted) {
         })
       }
     })
-    debugger
   }
 
   function prepareTagsContextFlat(story) {

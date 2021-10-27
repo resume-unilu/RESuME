@@ -272,7 +272,7 @@ a{
   background-color: #C7F464;
 }
 blockquote, blockquote p{
-  font-size: 18px;
+  font-size: 16px;
   line-height: 30px;
   border-left: 2px solid #ddd;
   border-left: 0px;
@@ -2934,6 +2934,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 .story blockquote.abstract {
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .story .tags.keywords .label,

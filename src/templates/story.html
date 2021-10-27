@@ -91,7 +91,13 @@
         <div class='col-md-12'>
           <h1 rewording value='story.data.title' default='{{story.title}}'></h1>
 
-
+          <div class="pull-right">
+<!--            <span ng-if="story.hitcount.read" class="label label-default">{{story.hitcount.read}}</span><span> Reads</span><span ng-if="story.hitcount.read && story.hitcount.download">  </span> <span ng-if="story.hitcount.download" class="label label-default">{{story.hitcount.download}}</span><span> Downloads</span>-->
+            <div style="font-size: 11px">
+              <span ng-if="story.hitcount.read" style="margin-right: 2px">Reads</span><span class="label label-default">{{story.hitcount.read}}</span>
+              <span ng-if="story.hitcount.download" style="margin-left: 15px; margin-right: 2px">Downloads</span><span class="label label-default">{{story.hitcount.download}}</span>
+            </div>
+          </div>
 
           <!-- social share buttons: -->
           <div ng-if='story.status == "public"' ng-include='"templates/partials/story.socialshare.html"|prefixTemplate'></div>
