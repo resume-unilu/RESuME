@@ -71,7 +71,7 @@ angular
     console.log('ENABLE DEBUG:', !!RUNTIME.settings.debug);
     $logProvider.debugEnabled(!!RUNTIME.settings.debug);
   })
-  
+
   /*
     prefix
   */
@@ -85,7 +85,7 @@ angular
     tagsInputConfigProvider
     .setDefaults('tagsInput', {
       replaceSpacesWithDashes:false,
-      template: RUNTIME.static + 'templates/partials/tag.input.html' 
+      template: RUNTIME.static + 'templates/partials/tag.input.html'
     })
     .setDefaults('autoComplete', {
       loadOnDownArrow: true
@@ -114,7 +114,7 @@ angular
         suffix: '.json'// suffix, currently- extension of the translations
     });
     $translateProvider.preferredLanguage('en_US');// is applied on first load
-    
+
   })
   .config(function (localStorageServiceProvider) {
     localStorageServiceProvider
@@ -198,7 +198,12 @@ angular
               }),
               orderby: '-date'
             }).$promise;
-          } 
+          },
+          keywords: function(TagFactory){
+            return TagFactory.get({used_keywords: true, limit: 20}).$promise.then(function(response) {
+              return response.results
+            });
+          }
         }
       })
       .state('index.signup', {
@@ -221,6 +226,66 @@ angular
         reloadOnSearch : false,
         controller: 'DraftCtrl',
         templateUrl: RUNTIME.static + 'templates/draft.html'
+      })
+      // .state('archives', {
+      //   url: '/archives-resume',
+      //   reloadOnSearch : false,
+      //   controller: 'ArchiveCtrl',
+      //   templateUrl: RUNTIME.static + 'templates/listofitems.html',
+      //   resolve: {
+      //     initials: function () {
+      //       return {
+      //         filters: {
+      //           tags__name: 'archives'
+      //         },
+      //         limit: 100
+      //       };
+      //     },
+      //     items: function (StoryFactory, $stateParams, djangoFiltersService, initials) {
+      //       // initials.filters['tags__slug__all'] = [$stateParams.slug];
+      //       return StoryFactory.get(djangoFiltersService(initials)).$promise;
+      //     },
+      //
+      //     model: function() {
+      //       return 'story';
+      //     },
+      //     factory: function(StoryFactory) {
+      //       return StoryFactory.get;
+      //     }
+      //   }
+      // })
+      .state('archives', {
+        url: '/archives-resume',
+        abstract: true,
+        reloadOnSearch : false,
+        controller: 'ArchiveCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html'
+      })
+      .state('archives.all', {
+        url: '',
+        controller: 'ItemsCtrl',
+        templateUrl: RUNTIME.static + 'templates/items.html',
+        resolve: {
+          initials: function () {
+            return {
+              filters: {
+                tags__slug: 'archives'
+              },
+              limit: 100,
+              orderby: '-date,-date_last_modified'
+            };
+          },
+          items: function(StoryFactory, djangoFiltersService, initials) {
+            return StoryFactory.get(djangoFiltersService(initials)).$promise;
+          },
+
+          model: function() {
+            return 'story';
+          },
+          factory: function(StoryFactory) {
+            return StoryFactory.get;
+          }
+        }
       })
       .state('upload', {
         url: '/upload',
@@ -280,7 +345,7 @@ angular
               $scope.hash = story.version;
 
               $scope.$watch('story', function(v){
-                
+
                 if(v.version && v.version != $scope.hash) {
                   StoryGitFactory.getDiff({
                     id: $stateParams.storyId,
@@ -289,8 +354,8 @@ angular
                     $scope.diff = res.results.diff;
                   })
                 }
-                // 
-                
+                //
+
               }, true)
             },
             templateUrl: RUNTIME.static + 'templates/writings.compare.diff.html',
@@ -311,7 +376,7 @@ angular
     /*
 
       Author routes.
-    
+
     */
     $stateProvider
       .state('author', {
@@ -330,7 +395,7 @@ angular
       })
 
       .state('author.publications', {
-        url: '/publications',
+        url: '/related-publications',
         abstract:true,
         reloadOnSearch : false,
         controller: function($scope){
@@ -457,7 +522,7 @@ angular
         controller: 'AuthorEditCtrl',
         templateUrl: RUNTIME.static + 'templates/author.edit.html',
         resolve: {
-          author: function(AuthorFactory, $stateParams){ 
+          author: function(AuthorFactory, $stateParams){
             return AuthorFactory.get({
               slug: $stateParams.slug
             }).$promise;
@@ -489,7 +554,7 @@ angular
         }
       })
         .state('profile.publications', {
-          url: '/publications',
+          url: '/related-publications',
           reloadOnSearch : false,
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
@@ -552,7 +617,7 @@ angular
         });
     });
 
-        
+
     $stateProvider
       .state('reviews', {
         abstract: true,
@@ -654,7 +719,7 @@ angular
         abstract:true,
         controller: 'BlogCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
-        
+
       })
      _.each(RUNTIME.routes.blog, function(d){
       $stateProvider
@@ -685,8 +750,8 @@ angular
           }
         });
     });
-      
-    
+
+
     $stateProvider
       .state('authors', {
         url: '/authors',
@@ -695,7 +760,7 @@ angular
         controller: 'AuthorsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
       })
-      
+
 
       _.each([{
         slug: 'all',
@@ -733,14 +798,62 @@ angular
       Kind of story:writings publications
     */
     $stateProvider
-      .state('publications', {
+      .state('euro-publications', {
         url: '/publications',
+        abstract: true,
+        reloadOnSearch : false,
+        controller: 'EuroPublicationsCtrl',
+        templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        resolve: {
+          keywords: function (TagFactory) {
+            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+              return response.results
+            });
+          }
+        }
+      })
+      .state('euro-publications.all', {
+        url: '',
+        controller: 'ItemsCtrl',
+        templateUrl: RUNTIME.static + 'templates/items.html',
+        resolve: {
+          initials: function() {
+            return {
+              filters: {
+                tags__category: 'writing',
+                tags__slug: 'revue-ecu-euro'
+              },
+              limit: 10,
+              orderby: '-date,-date_last_modified'
+            };
+          },
+          items: function(StoryFactory, djangoFiltersService, initials) {
+            return StoryFactory.get(djangoFiltersService(initials)).$promise;
+          },
+
+          model: function() {
+            return 'story';
+          },
+          factory: function(StoryFactory) {
+            return StoryFactory.get;
+          }
+        }
+      })
+      .state('publications', {
+        url: '/related-publications',
         abstract: true,
         reloadOnSearch : false,
         controller: 'PublicationsCtrl',
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
+        resolve: {
+          keywords: function (TagFactory) {
+            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+              return response.results
+            });
+          }
+        }
       })
-        .state('publications.tags', {
+      .state('publications.tags', {
           url: '/tags/:slug',
           controller: 'ItemsCtrl',
           templateUrl: RUNTIME.static + 'templates/items.html',
@@ -748,7 +861,7 @@ angular
             initials: function() {
               return {
                 filters: {
-                  tags__category: 'writing'
+                  tags__category: 'writing',
                 },
                 limit: 10,
                 orderby: '-date,-date_last_modified'
@@ -779,7 +892,7 @@ angular
             url: d.url,
             controller: 'ItemsCtrl',
             templateUrl: RUNTIME.static + 'templates/items.html',
-            
+
             resolve: {
               initials: function() {
                 return {
@@ -788,6 +901,10 @@ angular
                     tags__slug: d.slug
                   }: {
                     tags__category: 'writing'
+                  },
+
+                  exclude: {
+                    tags__slug: 'revue-ecu-euro'
                   },
                   limit: 10,
                   orderby: d.orderby? d.orderby:'-date,-date_last_modified'
@@ -806,7 +923,6 @@ angular
             }
           });
       });
-
     $stateProvider
       .state('search', {
         url: '/search',
@@ -871,7 +987,7 @@ angular
           },
         }
       })
-      
+
         // .state('collection', {
         //   url: '/collection/:collectionId',
         //   controller: 'StoryCtrl',
@@ -895,9 +1011,9 @@ angular
           }
         });
 
-    
 
-    
+
+
     $stateProvider
       .state('notifications', {
         abstract: true,
@@ -924,7 +1040,7 @@ angular
             }
           }
         });
-   
+
 
       /*
         All the rest are static pages and will download the md files directly
@@ -947,3 +1063,14 @@ angular
       $window.ga('create', RUNTIME.settings.analytics || 'UA-XXXXXXXX-X', 'auto');
   })
 
+function getTranslatedTag(tag, language) {
+  var name = null;
+  if (tag.data.name[language] == null) {
+    name = tag.data.name[language];
+  }
+  if (name == null) {
+    name = tag.data.name['en_US'];
+  }
+
+  return name || tag.name || tag.slug;
+}

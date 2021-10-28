@@ -165,11 +165,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .contents .table{
 font-size: 12px;
-} 
+}
 
 .contents .table th{
   font-size: 13px;
-} 
+}
 
 .contents ol, ul{
   margin-top: 30px;
@@ -272,7 +272,7 @@ a{
   background-color: #C7F464;
 }
 blockquote, blockquote p{
-  font-size: 18px;
+  font-size: 16px;
   line-height: 30px;
   border-left: 2px solid #ddd;
   border-left: 0px;
@@ -283,6 +283,7 @@ blockquote.reduced, blockquote.reduced p{
   font-size: 13px;
   line-height: 21px;
   margin-bottom: 10px;
+  min-height: 63px;
 }
 
 blockquote.reduced.no-margin, blockquote.reduced.no-margin p{
@@ -509,7 +510,7 @@ ul.errorlist{
 .image-wrapper {
   text-align: center;
   height: 100%;
-  
+
 }
 
 .image-wrapper img{
@@ -580,7 +581,7 @@ ul.errorlist{
 
 
 .collection .chapter{
-  background-color: white; 
+  background-color: white;
   min-height: 200px;
   position: relative;
   padding: 10px 10px 0px 10px;
@@ -746,11 +747,11 @@ ul.errorlist{
   background: transparent;
 }
 
-.pagination > li.active > a, 
-.pagination > li.active > span, 
-.pagination > li.active > a:hover, 
-.pagination > li.active > span:hover, 
-.pagination > li.active > a:focus, 
+.pagination > li.active > a,
+.pagination > li.active > span,
+.pagination > li.active > a:hover,
+.pagination > li.active > span:hover,
+.pagination > li.active > a:focus,
 .pagination > li.active > span:focus{
   border-color: #ff6b6b;
   color: #151515;
@@ -759,7 +760,7 @@ ul.errorlist{
 
 
 
-.pagination > li:last-child > a, .pagination > li:last-child > span, 
+.pagination > li:last-child > a, .pagination > li:last-child > span,
 .pagination > li:first-child > a, .pagination > li:first-child > span{
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
@@ -1052,7 +1053,7 @@ ul.errorlist{
 }
 
 .story.lite h3{
-  margin-top: 10px;
+  margin-top: 0px;
   padding-left: 0px;
   padding-right: 15px;
 }
@@ -1105,6 +1106,10 @@ ul.errorlist{
 .issue{
   display: inline-block;
 }
+.issue-separator {
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .story.item .tags{
   display: inline-block;
 }
@@ -1135,7 +1140,7 @@ ul.errorlist{
   left: 0;
   bottom: -15px;
   text-align: center;
-  background-color: #e7e7e7; 
+  background-color: #e7e7e7;
   right: 0;
 }
 
@@ -1223,7 +1228,7 @@ ul.errorlist{
 
 .coverstory.news .fluid-container{
   float: left;
-  width: 40%;    
+  width: 40%;
 }
 
 .coverstory.news .date {
@@ -1267,7 +1272,7 @@ ul.errorlist{
 
 a.author{
   text-transform: uppercase;
-  font-family: 'Lato';  
+  font-family: 'Lato';
 }
 /*
   contents (story)
@@ -1317,7 +1322,7 @@ a.author{
 
 .contents a.special-link > .icon{
   float: right;
-  
+
   padding: 0 5px;
 }
 
@@ -1331,7 +1336,7 @@ a.author{
   position: absolute;
   right: -50%;
   width: 50%;
-  
+
   height: 25px;
   display: block;
   z-index: 2;
@@ -1341,7 +1346,7 @@ a.author{
   font-weight: normal;
   font-style: normal;
   display:none;
-  
+
 }
 
 .contents a.special-link.with-pointer{
@@ -1357,7 +1362,7 @@ a.author{
     height: 25px;
     border-radius: 25px;
     color: #4ECDC4;
-    
+
 }
 .contents .placeholder{
   margin-top: 15px;
@@ -1440,7 +1445,7 @@ a.author{
   top: 9px;
   left: -40px;
   width: 30px;
-  
+
   text-align: right;
   margin: 0;
   padding: 0;
@@ -1537,13 +1542,13 @@ a.author{
 }
 
 #draft-title{
-  font-size: 30px;  
+  font-size: 30px;
   line-height: 45px;
    min-height: 90px;
 }
 
 #draft-abstract{
-  font-size: 18px;  
+  font-size: 18px;
   line-height: 30px;
    min-height: 60px;
 }
@@ -1566,7 +1571,7 @@ a.author{
 
 .CodeMirror-code .mod pre.CodeMirror-line > span > span.del{
   background: #ffffff;
-  color: #837c7c; 
+  color: #837c7c;
   text-decoration: line-through;
 }
 
@@ -1605,6 +1610,9 @@ a.author{
   margin-top: 50px;
 }
 
+#footer .copyright {
+  padding-top: 50px;
+}
 .cover-preview .copyright{
   max-height: 40px;
   overflow: hidden;
@@ -1644,7 +1652,7 @@ a.author{
 
 }
 
-.btn-line.mini{    
+.btn-line.mini{
   font-weight: normal;
     font-size: 9px;
     line-height: 15px;
@@ -1747,7 +1755,7 @@ a.btn-line:hover{
 
 .btn-line-group.dual > button{
   width: 48%;
-  
+
 }
 
 .btn-line-group.dual > button > span{
@@ -1777,7 +1785,7 @@ a.btn-line:hover{
   color: #9c9696;
   background-color: transparent;
   border: 0px solid transparent;
-  
+
 }
 
 .btn-line.btn-share .icon{
@@ -1796,6 +1804,10 @@ a.btn-line:hover{
 .nav-tabs {
   border-bottom: 2px solid #ddd;
   margin-bottom: 20px;
+}
+
+.nav-tabs.nav-tabs-light {
+  border-bottom: none;
 }
 
 .navbar-nav > li > .dropdown-menu,
@@ -1867,7 +1879,7 @@ a.btn-line:hover{
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
   color: #FF6B6B;
   border: 2px solid #FF6B6B;
-    
+  cursor: pointer;
 }
 
 .nav-tabs > li.active > a .number, .nav-tabs > li.active > a:hover .number, .nav-tabs > li.active > a:focus .number{
@@ -1890,7 +1902,7 @@ a.btn-line:hover{
 .navbar-nav > li > .dropdown-menu, .nav-tabs .dropdown-menu{
   min-width: 50px;
   padding: 5px 0;
-  
+
 }
 
 .toolbox .dropdown-menu{
@@ -1946,7 +1958,7 @@ a.btn-line:hover{
 
 .view table td{
   vertical-align: top;
-  
+
 }
 
 .nav-filters{
@@ -2025,7 +2037,7 @@ a.btn-line:hover{
 }
 
 .tags-input .tags input{
-   background-color: transparent; 
+   background-color: transparent;
 }
 
 .tags-input .tags.focused{
@@ -2103,7 +2115,7 @@ a.btn-line:hover{
 .tags-input .tags .input::-ms-clear{display:none}
 .tags-input.ng-invalid .tags{
   border-color: #ff5c5c;
-  
+
 }
 .tags-input[disabled] .host:focus{outline:0}
 .tags-input[disabled] .tags{background-color:#eee;cursor:default}
@@ -2151,7 +2163,7 @@ a.btn-line:hover{
   font-weight: bold;
   background-color: #C7F464;
   color: black;
-  
+
 }
 
 .tags-input .autocomplete .suggestion-item.selected .item.selectable{
@@ -2180,7 +2192,7 @@ a.btn-line:hover{
   text-align: left;
   /*border-bottom: 1px solid #353535;*/
    /*transition: transform .27s ease-in-out; */
-  
+
   /*transition: transform .27s ease-in-out;*/
 }
 
@@ -2219,7 +2231,7 @@ a.btn-line:hover{
   /*background: #E6E5E5;
   transition:  background-color .27s ease-in-out;
   -webkit-transition: background-color .27s ease-in-out;*/
- 
+
   z-index: 100;
 }
 .toolbox .label{
@@ -2236,7 +2248,7 @@ a.btn-line:hover{
   right: 0px;
   background: #efefef;
   border-bottom-color:  #E6E5E5;
-  
+
 }
 
 
@@ -2388,7 +2400,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 #table-of-documents ul li{
   list-style-type: none;
-  
+
 }*/
 /*
   Modal: SaveDoi;
@@ -2572,7 +2584,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 .modal.fullsize .oversize .wrapper .footer .inner .text{
   padding:5px 15px 10px 15px;
-  
+
 }
 
 .modal.confirm .modal-body{
@@ -2652,7 +2664,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   /*color: #2d9f98;*/
   /*background-color: #afe9e5;*/
   color: #151515;
-  
+
   text-decoration: none;
 }
 
@@ -2809,7 +2821,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 }
 
 .collection .cover, .collection .lazy-cover{
-  background-color: #b6b6b6 
+  background-color: #b6b6b6
 }
 
 
@@ -2899,7 +2911,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 .story .share{
   font-size: 10px;
   line-height: inherit;
-  
+
   font-family: Lato;
   text-transform: uppercase;
   font-weight: bold;
@@ -2922,6 +2934,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 .story blockquote.abstract {
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .story .tags.keywords .label,
@@ -2930,7 +2943,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   font-size: 10px;
   line-height: 18px;
   padding: 0 6px 0 0;
-  font-family: Lato, sans-serif; 
+  font-family: Lato, sans-serif;
   text-transform: uppercase;
 }
 
@@ -2969,7 +2982,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
 
 .doc.oembedded .wrapper{
   position: relative;
-} 
+}
 
 .doc.oembedded .tile{
   position: absolute;
@@ -3027,7 +3040,7 @@ height: 200px;width: 100%;overflow: auto;opacity: 1;border-bottom: 1px solid #db
   opacity: 1;
   background-color: #fff;
   transition: background-color 0.3s ease-in-out;
-  
+
 }
 
 .doc.oembedded.crossref:hover .tile{
@@ -3407,7 +3420,7 @@ div.profile-others .profile-thumb{
 
 .sliding-steps-direction .btn-line-group{
   transition: transform .36s ease-in-out;
-  
+
 }
 
 
@@ -3433,9 +3446,9 @@ div.profile-others .profile-thumb{
 }
 
 /*#sliding-steps-line{
-  position: absolute; 
-  width: 100%; 
-  height: 25px; 
+  position: absolute;
+  width: 100%;
+  height: 25px;
   background-color: gold;
 }*/
 
@@ -3472,7 +3485,7 @@ div.profile-others .profile-thumb{
 }
 
 .sliding-steps .step .external-link{
-    
+
     padding: 9px 0;
 }
 
@@ -3576,7 +3589,7 @@ div.profile-others .profile-thumb{
 .sliding-steps .step .image-wrapper{
   height: 100%;
   padding-top: 0;
-  
+
 }
 
 .thumbnail{
@@ -3786,13 +3799,13 @@ content: "\e07a";
 }
 .reviewed{
   background: #f0f0f0;
-  padding: 5px 15px; 
+  padding: 5px 15px;
   margin-bottom: 3px;
 }
 
 .reviewed h2{
   margin-top: 0px;
-}    
+}
 .reviewed .date{
   margin-top: 5px;
 }
@@ -3883,7 +3896,7 @@ content: "\e07a";
 
 .rangy .commenter .leave .section.quote{
   margin-bottom: 10px;
-  
+
 }
 
 .rangy .commenter .leave .section.quote span{
@@ -4037,7 +4050,7 @@ content: "\e07a";
   margin: 0;
 }
 .popover .stream-items .stream-item{
-  
+
   padding: 0px 10px 10px;
 }
 
@@ -4150,7 +4163,7 @@ content: "\e07a";
 .version .tag-version{
   padding: 0 5px;
   display: inline-block;
-  
+
   color: #585858;
   text-transform: uppercase;
   border: 2px solid #B7B2B2;
@@ -4162,7 +4175,7 @@ content: "\e07a";
 .tag-version{
   font: 12px/25px 'Lato', sans-serif;
   text-transform: uppercase;
-  
+
   background: #ff6b6b;
     color: white;
     padding: 0 5px;
@@ -4193,7 +4206,7 @@ content: "\e07a";
 
 
 .versioned .message{
-  
+
   font-size: 11px;
   font-style: italic;
   padding: 0px 5px;
@@ -4236,7 +4249,7 @@ content: "\e07a";
 
 .biography .frame label.birth{
   left: 0px;
-  
+
 }
 
 .biography .frame label .place{
@@ -4374,7 +4387,7 @@ content: "\e07a";
   position: absolute;
   left: 35px;
   right: 35px;
-  
+
 }
 
 .biography .activity .bar-wrapper{
@@ -4420,7 +4433,7 @@ content: "\e07a";
 }
 
 .biography .activity.active .line{
-  
+
   background-color: transparent;
 }
 .biography .activity.active .description > span {
@@ -4485,7 +4498,7 @@ content: "\e07a";
 }
 
 .biography-tooltip .description{
- 
+
     font-weight: normal;
     font: 12px/19px 'Merriweather', serif;
     font-style: italic;
@@ -4511,3 +4524,51 @@ content: "\e07a";
   color: red!important;
   background: gold;
 }
+
+.force-pointer { cursor: pointer !important; }
+
+div.ng-tag-cloud span { font-size: 120%; }
+/*div.ng-tag-cloud span.w10 { font-size: 550%; }*/
+/*div.ng-tag-cloud span.w9 { font-size: 500%; }*/
+/*div.ng-tag-cloud span.w8 { font-size: 450%; }*/
+/*div.ng-tag-cloud span.w7 { font-size: 400%; }*/
+/*div.ng-tag-cloud span.w6 { font-size: 350%; }*/
+/*div.ng-tag-cloud span.w5 { font-size: 300%; }*/
+/*div.ng-tag-cloud span.w4 { font-size: 250%; }*/
+/*div.ng-tag-cloud span.w3 { font-size: 200%; }*/
+/*div.ng-tag-cloud span.w2 { font-size: 150%; }*/
+/*div.ng-tag-cloud span.w1 { font-size: 100%; }*/
+
+/* layout */
+
+div.ng-tag-cloud {
+  overflow: hidden;
+  position: relative;
+}
+
+div.ng-tag-cloud span { padding: 0; }
+
+.story-card {
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.story-card:nth-child(even) {
+  padding-left: 15px;
+}
+.story-card:nth-child(odd) {
+  padding-right: 15px;
+}
+
+.story-card-inner {
+  margin-bottom: 40px;
+  background-color: #f6f6f6;
+  height: 98%;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
+  border-radius: 4px;
+}
+
+/*.categoryFilters > li {*/
+/*  float: none;*/
+/*}*/
