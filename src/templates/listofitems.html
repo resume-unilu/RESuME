@@ -23,7 +23,7 @@
       </li>
     </ul>
     <!-- Nav tabs -->
-    <table cellspacing="20">
+    <table cellspacing="20" ng-if="noFiltering !== true">
       <tr>
         <td class='nav-filters'>
           <ul class='nav nav-tabs' ng-if='availabileOrderby'>
@@ -88,5 +88,6 @@
         <td><div ui-view></div></td>
       </tr>
     </table>
+    <div ui-view ng-if="noFiltering === true"></div>
   </div>
 </div>

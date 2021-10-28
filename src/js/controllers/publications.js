@@ -177,32 +177,8 @@ angular.module('miller')
 
     $scope.keywords = keywords;
     $scope.availableRoutes = [];
-    $scope.availabileOrderby = [
-      {
-        label:'issue',
-        value:'data__issue,-date'
-      },
-      {
-        label:'newest',
-        value:'-date,-date_last_modified'
-      },
-      {
-        label:'oldest',
-        value:'date,-date_last_modified'
-      },
-      {
-        label:'lastmod',
-        value:'-date_last_modified'
-      },
-      {
-        label:'titleaz',
-        value:'title'
-      },
-      {
-        label:'titleza',
-        value:'-title'
-      },
-    ];
+    $scope.availabileOrderby = [];
+    $scope.noFiltering = true;
 
     // see ordering below.
 
