@@ -28,10 +28,12 @@
                   <div class='image-wrapper cover' lazy-img='{{document|coverage}}'></div>
                   <div class='embedded-metadata' ng-include='"templates/partials/document.metadata.embedded.html"|prefixTemplate'></div>
                 </div>
-                <h4>
-                  <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
-                  <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
-                </h4>
+                <div class="preview-title-container">
+                  <h3 class="preview-title" style="overflow: hidden;">
+                    <a ng-if='!story.is_collection' href ui-sref="story({postId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
+                    <a ng-if='story.is_collection' href ui-sref="collection({collectionId: story.slug})" rewording value='story.data.title' default='{{story.title}}'></a>
+                  </h3>
+                </div>
                 <div class='authors' ng-if="story.authors.length">
                   by <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
                 </div>
