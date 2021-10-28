@@ -66,6 +66,7 @@ gulp.task('libs', function() {
     './src/js/lib/angular-translate-loader-static-files.min.js',
     './src/js/lib/ng-tags-input.min.js',
     './src/js/lib/ng-file-upload.min.js',
+    './src/js/lib/wordcloud2.js',
 
     './src/js/lib/angular-lazy-img.min.js'
   ])
