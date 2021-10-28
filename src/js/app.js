@@ -823,8 +823,11 @@ angular
                 tags__category: 'writing',
                 tags__slug: 'revue-ecu-euro'
               },
+              exclude: {
+                data__issue__isnull: true
+              },
               limit: 10,
-              orderby: '-date,-date_last_modified'
+              orderby: '-data__issue'
             };
           },
           items: function(StoryFactory, djangoFiltersService, initials) {
