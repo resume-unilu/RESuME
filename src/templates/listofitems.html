@@ -79,11 +79,16 @@
 
 
           <h4 class='section' ng-if='keywords'>Keywords</h4>
-          <ul class='nav nav-tabs' ng-if='keywords'>
-            <li ng-repeat='keyword in keywords' ng-class='{"active": isTagActive(keyword.slug)}'>
+          <ul class='nav nav-tabs' ng-if='keywords' style="border-bottom: none">
+            <li ng-repeat='keyword in displayedKeywords' ng-class='{"active": isTagActive(keyword.slug)}'>
               <a class='tag' ng-click="selectTag(keyword.slug, null, tagsStateurl)">{{getTranslatedTag(keyword)}}</a>
             </li>
           </ul>
+          <button ng-click="displayMoreKeywords()"
+                  ng-if='keywords && keywords.length !== displayedKeywords.length'
+                  class="btn btn-line pull-right" style="margin-right: 30px; font-size: 9px">
+            Load more
+          </button>
         </td>
         <td><div ui-view></div></td>
       </tr>
