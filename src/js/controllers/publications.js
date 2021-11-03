@@ -14,6 +14,8 @@ angular.module('miller')
     $scope.tagsStateurl = '/related-publications';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
     $scope.keywords = keywords;
+    $scope.maxKeywords = 100;
+    $scope.displayedKeywords = [];
 
     var availableRoutes = RUNTIME.routes.publications.availableRoutes || ['writing', 'tags'];
 
@@ -58,6 +60,15 @@ angular.module('miller')
 
     // see ordering below.
 
+    $scope.displayMoreKeywords = function () {
+      if ($scope.displayedKeywords.length === $scope.keywords.length) {
+        return
+      }
+
+      Array.prototype.push.apply($scope.displayedKeywords,
+        $scope.keywords.slice($scope.displayedKeywords.length, $scope.displayedKeywords.length + 10))
+    }
+    $scope.displayMoreKeywords()
 
     // if there is a tag, we want to get its multilingual value
     $scope.setTag = function(tag) {
