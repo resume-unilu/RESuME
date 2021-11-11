@@ -126,6 +126,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 }
 
+.lined .empty {
+  background: none;
+  padding: 0 10px;
+  margin-left: 20px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #6b6b6b;
+}
+
 .lined span{
   background: white;
   padding: 0 10px;
