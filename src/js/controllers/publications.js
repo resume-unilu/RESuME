@@ -187,12 +187,47 @@ angular.module('miller')
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
     $scope.keywords = keywords;
+    $scope.maxKeywords = 100;
+    $scope.displayedKeywords = [];
     $scope.availableRoutes = [];
-    $scope.availabileOrderby = [];
-    $scope.noFiltering = true;
+    $scope.availabileOrderby = [
+      {
+        label:'issue',
+        value:'data__issue,-date'
+      },
+      {
+        label:'newest',
+        value:'-date,-date_last_modified'
+      },
+      {
+        label:'oldest',
+        value:'date,-date_last_modified'
+      },
+      {
+        label:'lastmod',
+        value:'-date_last_modified'
+      },
+      {
+        label:'titleaz',
+        value:'title'
+      },
+      {
+        label:'titleza',
+        value:'-title'
+      },
+    ];
 
     // see ordering below.
 
+    $scope.displayMoreKeywords = function () {
+      if ($scope.displayedKeywords.length === $scope.keywords.length) {
+        return
+      }
+
+      Array.prototype.push.apply($scope.displayedKeywords,
+        $scope.keywords.slice($scope.displayedKeywords.length, $scope.displayedKeywords.length + 10))
+    }
+    $scope.displayMoreKeywords()
 
     // if there is a tag, we want to get its multilingual value
     $scope.setTag = function(tag) {
