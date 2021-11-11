@@ -8,6 +8,7 @@
 angular.module('miller')
   .controller('BlogCtrl', function ($scope, $log, RUNTIME, EVENTS) {
     $log.log('⏱ BlogCtrl ready');
+    $scope.rootStatename = 'blog';
     $scope.mainStatename = 'blog.all';
 
     $scope.availableRoutes = [
@@ -45,4 +46,3 @@ angular.module('miller')
       $scope.sync();
     });
   });
-  

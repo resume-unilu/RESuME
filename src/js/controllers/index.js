@@ -35,7 +35,6 @@ angular.module('miller')
     //   var maincover = _.first($scope.coverstory.covers);
 
     //   $scope.coverstory.cover = _.get(maincover, 'metadata.thumbnail_url') || maincover.snapshot;
-
     // }
 
 
