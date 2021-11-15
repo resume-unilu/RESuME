@@ -139,6 +139,14 @@ angular.module('miller')
       if (tag.context === undefined) {
         tag.context = 'related-publications';
       }
+
+      // Special handling for the special tags
+      if (tag.slug === 'revue-ecu-euro') {
+        return '/publications'
+      } else if (tag.slug === 'archives') {
+        return '/archives-resume'
+      }
+
       return '/' + tag.context + '?orderby=-date,-date_last_modified&filters={"tags__slug__and":["' + tag.slug + '"]}';
     }
 
