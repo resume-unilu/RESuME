@@ -1077,3 +1077,14 @@ function getTranslatedTag(tag, language) {
 
   return name || tag.name || tag.slug;
 }
+
+function findIndex(arr, eqfn) {
+  var idx = -1;
+  for (var i = 0; i < arr.length; ++i) {
+    if (eqfn(arr[i]) === true) {
+      idx = i;
+      break;
+    }
+  }
+  return idx;
+}

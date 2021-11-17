@@ -210,7 +210,7 @@ angular.module('miller')
     }
 
     $scope.isActive = function (filterType, tag) {
-      return $scope.filters[filterType] && $scope.filters[filterType].findIndex(function (e) {
+      return $scope.filters[filterType] && findIndex($scope.filters[filterType], function (e) {
         return e === tag;
       }) !== -1;
     }

@@ -358,7 +358,7 @@ function prepareTagsContext(splitted) {
   }
 
   function prepareTagsContextFlat(story) {
-    var context = story.tags.findIndex(function (tag) {
+    var context = findIndex(story.tags, function (tag) {
       return tag.slug === 'revue-ecu-euro'
     }) === -1 ? 'related-publications' : 'publications';
 
