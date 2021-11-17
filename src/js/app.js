@@ -200,7 +200,7 @@ angular
             }).$promise;
           },
           keywords: function(TagFactory){
-            return TagFactory.get({used_keywords: true, limit: 20}).$promise.then(function(response) {
+            return TagFactory.get({used_keywords_splitted: true, limit: 20}).$promise.then(function(response) {
               return response.results
             });
           }
@@ -806,7 +806,7 @@ angular
         templateUrl: RUNTIME.static + 'templates/listofitems.html',
         resolve: {
           keywords: function (TagFactory) {
-            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+            return TagFactory.get({used_keywords: true, limit: 100, statistics_sort: 'euro_usage_statistics'}).$promise.then(function (response) {
               return response.results
             });
           }
@@ -1076,4 +1076,15 @@ function getTranslatedTag(tag, language) {
   }
 
   return name || tag.name || tag.slug;
+}
+
+function findIndex(arr, eqfn) {
+  var idx = -1;
+  for (var i = 0; i < arr.length; ++i) {
+    if (eqfn(arr[i]) === true) {
+      idx = i;
+      break;
+    }
+  }
+  return idx;
 }

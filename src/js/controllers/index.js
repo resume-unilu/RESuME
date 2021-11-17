@@ -53,6 +53,10 @@ angular.module('miller')
     $log.debug('IndexCtrl welcome',$scope.news);
   });
 
+function defineTargetPage(tag) {
+  return tag.euro_usage_statistics >= tag.usage_statistics ? 'publications' : 'related-publications';
+}
+
 function prepareKeywordList(rawKeywords, language) {
   if (rawKeywords.length === 0) {
     return
@@ -60,6 +64,7 @@ function prepareKeywordList(rawKeywords, language) {
   var res = [];
   var sizeSteps = rawKeywords.length / 5;
   rawKeywords.forEach(function (tag, i) {
+    var tagetPage = defineTargetPage(tag);
     var currentStep = i === 0 ? 0 : parseInt((i * sizeSteps) / rawKeywords.length)
     var size = 7 - currentStep
     var name = getTranslatedTag(tag, language);
@@ -67,7 +72,7 @@ function prepareKeywordList(rawKeywords, language) {
     res.push([
       name,
       size,
-      '/publications?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
+      '/'+ tagetPage +'?orderby=-date,-date_last_modified&filters={"tags__slug__and":["'+ tag.slug +'"]}'
     ])
   })
   return res;

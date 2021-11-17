@@ -338,7 +338,7 @@ function prepareTagsContext(splitted) {
         return 'related-publications';
       }
 
-      for (var i; i < story._tags.writing.length; i++) {
+      for (var i = 0; i < story._tags.writing.length; i++) {
         if (story._tags.writing[i].slug === 'revue-ecu-euro') {
           return 'publications';
         }
@@ -358,7 +358,7 @@ function prepareTagsContext(splitted) {
   }
 
   function prepareTagsContextFlat(story) {
-    var context = story.tags.findIndex(function (tag) {
+    var context = findIndex(story.tags, function (tag) {
       return tag.slug === 'revue-ecu-euro'
     }) === -1 ? 'related-publications' : 'publications';
 
