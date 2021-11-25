@@ -204,7 +204,12 @@ font-size: 12px;
   font-size: 12px;
 }
 
-
+.oneline {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 
 .container{
   transition: transform .26s ease-in-out;
