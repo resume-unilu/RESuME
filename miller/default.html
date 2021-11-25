@@ -184,7 +184,33 @@
       .navbar-default .navbar-nav > li, #footer ul.navbar-nav > li{
         padding: 22px 0 20px 15px;
       }
+      .navbar-content-container {
+        margin-left: 0;
+        margin-right: 0;
+        padding-right: 20px;
+        padding-left: 5px;
+      }
 
+      @media (max-width: 991px) {
+        .navbar-logo {
+          display: none !important;
+        }
+      }
+      @media (max-width: 1170px) {
+        .navbar-content-container {
+          padding-right: 0;
+        }
+        .right-content {
+          position: absolute !important;
+          right: 25px !important;
+        }
+        .navbar-default .navbar-nav > li, #footer ul.navbar-nav > li {
+          padding: 22px 0 20px 3px;
+        }
+        .navbar-default .navbar-brand{
+          padding: 15px 0;
+        }
+      }
 
       .navbar-default .navbar-nav > li > a, #footer ul.navbar-nav > li > a{
         text-transform: uppercase;
@@ -416,11 +442,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         font-size: 15px;
         line-height: 20px;
       }
-
-      .coverstory.other, .coverstory.news{
-        margin: 0 20px;
+      @media (min-width: 991px) {
+        .coverstory.other, .coverstory.news {
+          margin: 0 20px;
+        }
       }
-
       #navbar{
         /*position: absolute;*/
         /*margin-bottom: -30px;*/
@@ -437,6 +463,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
         padding-right: 0;
       }
 
+      @media (max-width: 768px){
+        .coverstory .cover {
+          height: 200px;
+        }
+      }
 
       @media (min-width: 768px){
         #navbar{
@@ -669,7 +700,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     {% block navbar %}
     <nav id="navbar" class='navbar navbar-default' ng-init='showMenu=false' ng-class='{"show-menu":showMenu}' ng-controller='PulseCtrl'>
 
-      <div style="margin-left: 0; margin-right: 0; padding-right: 20px; padding-left: 5px">
+      <div class="navbar-content-container">
         <div class="navbar-header">
           <button type="button" ng-click="showMenu=!showMenu" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
@@ -713,7 +744,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 
 
-          <ul style='margin-left: 10px' class="nav navbar-nav navbar-right">
+          <ul style='margin-left: 10px' class="nav navbar-nav navbar-right right-content">
             {% if user.is_authenticated %}
 
             <li class="dropdown">
@@ -772,7 +803,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
               </ul>
 
             </li>
-            <li>
+            <li class="navbar-logo">
               <span style="margin-top: -10px">
                 <a href="https://wwwen.uni.lu/" target="_blank">
                   <img src="{% static 'images/DEIS_uni.lu_lux_grey-01.png' %}" style="width: 60px">
