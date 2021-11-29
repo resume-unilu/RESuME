@@ -119,7 +119,7 @@ gulp.task('styles', function() {
       './src/css/style.css'
     ])
     .pipe($.concat('styles.min.css'))
-    .pipe($.cssnano())
+    .pipe($.cssnano({autoprefixer: false}))
     .pipe(gulp.dest('./src/css'))
     .pipe($.size({title: 'css'}))
 
