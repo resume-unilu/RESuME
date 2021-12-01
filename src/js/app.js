@@ -907,7 +907,7 @@ angular
                   },
 
                   exclude: {
-                    tags__slug: 'revue-ecu-euro'
+                    tags__slug__in: ['revue-ecu-euro', 'archives']
                   },
                   limit: 10,
                   orderby: d.orderby? d.orderby:'-date,-date_last_modified'
