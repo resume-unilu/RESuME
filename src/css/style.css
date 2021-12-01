@@ -1228,21 +1228,23 @@ ul.errorlist{
   font-size: 11px; line-height: 18px;
 }
 
-.coverstory.news .contents{
-  width: 60%;
-  float: left;
-  padding-right: 15px;
-}
-
 .coverstory.news blockquote{
   font-size: 11px;
   line-height: 18px;
   padding: 2px 0;
 }
 
-.coverstory.news .fluid-container{
-  float: left;
-  width: 40%;
+@media (min-width: 1280px) {
+  .coverstory.news .fluid-container {
+    float: right;
+    width: 40%;
+  }
+
+  .coverstory.news .contents{
+    width: 60%;
+    float: left;
+    padding-right: 15px;
+  }
 }
 
 .coverstory.news .date {
