@@ -259,6 +259,13 @@ angular
         abstract: true,
         reloadOnSearch : false,
         controller: 'ArchiveCtrl',
+        resolve: {
+          keywords: function (TagFactory) {
+            return TagFactory.get({used_keywords: true, limit: 100}).$promise.then(function (response) {
+              return response.results
+            });
+          }
+        },
         templateUrl: RUNTIME.static + 'templates/listofitems.html'
       })
       .state('archives.all', {
@@ -907,7 +914,7 @@ angular
                   },
 
                   exclude: {
-                    tags__slug: 'revue-ecu-euro'
+                    tags__slug__in: ['revue-ecu-euro', 'archives']
                   },
                   limit: 10,
                   orderby: d.orderby? d.orderby:'-date,-date_last_modified'
@@ -1067,6 +1074,10 @@ angular
   })
 
 function getTranslatedTag(tag, language) {
+  if (tag.data == null || tag.data.name == null) {
+    return tag.name;
+  }
+
   var name = null;
   if (tag.data.name[language] == null) {
     name = tag.data.name[language];

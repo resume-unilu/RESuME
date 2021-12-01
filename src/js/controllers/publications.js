@@ -33,10 +33,6 @@ angular.module('miller')
 
     $scope.availabileOrderby = [
       {
-        label:'issue',
-        value:'data__issue,-date'
-      },
-      {
         label:'newest',
         value:'-date,-date_last_modified'
       },
