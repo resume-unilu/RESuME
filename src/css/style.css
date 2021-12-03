@@ -1964,7 +1964,7 @@ a.btn-line:hover{
   text-overflow: ellipsis;
   display:block;
   /*width: 79px;*/
-  /*width: 110px;*/
+  width: 110px;
   white-space: nowrap;
 }
 
