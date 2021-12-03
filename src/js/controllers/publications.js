@@ -192,6 +192,10 @@ angular.module('miller')
         value:'data__issue,-date'
       },
       {
+        label:'issuedesc',
+        value:'-data__issue,-date'
+      },
+      {
         label:'newest',
         value:'-date,-date_last_modified'
       },

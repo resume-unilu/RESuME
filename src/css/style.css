@@ -1916,7 +1916,7 @@ a.btn-line:hover{
 
 
 .navbar-nav > li > .dropdown-menu, .nav-tabs .dropdown-menu{
-  min-width: 50px;
+  /*width: 148px;*/
   padding: 5px 0;
 
 }
@@ -1963,7 +1963,8 @@ a.btn-line:hover{
   overflow: hidden;
   text-overflow: ellipsis;
   display:block;
-  width: 79px;
+  /*width: 79px;*/
+  width: 110px;
   white-space: nowrap;
 }
 
