@@ -176,13 +176,15 @@ angular.module('miller')
       return getTranslatedTag(tag, $rootScope.language)
     }
   })
-  .controller('EuroPublicationsCtrl', function ($scope, $rootScope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS, keywords) {
+  .controller('EuroPublicationsCtrl', function ($scope, $rootScope, $log, $state, $timeout, $q, AuthorFactory, TagFactory, RUNTIME, EVENTS, keywords, issues) {
     $scope.rootStatename = 'euro-publications';
     $scope.mainStatename = 'euro-publications.all';
     $scope.tagsStateurl = '/publications';
     $scope.mainRoutes    = $scope.user.is_staff? RUNTIME.routes.publications.status: [];
 
     $scope.keywords = keywords;
+    $scope.issues = issues;
+    $scope.selectedIssue = null;
     $scope.maxKeywords = 100;
     $scope.displayedKeywords = [];
     $scope.availableRoutes = [];
@@ -216,8 +218,6 @@ angular.module('miller')
         value:'-title'
       },
     ];
-
-    // see ordering below.
 
     $scope.displayMoreKeywords = function () {
       if ($scope.displayedKeywords.length === $scope.keywords.length) {

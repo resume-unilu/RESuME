@@ -37,6 +37,14 @@
             </li>
           </ul>
 
+          <h4 class='section' ng-if='issues' translate="headline.filter.issues"></h4>
+          <ul class='nav nav-tabs' ng-if='issues' >
+            <li ng-repeat='issue in issues' ng-class='{"active": isTagActive(issue.slug)}'>
+              <a class='tag' ng-click="selectIssueTag(issue.slug)">{{getTranslatedTag(issue)}}</a>
+            </li>
+          </ul>
+
+
           <ul class='nav nav-tabs categoryFilters' ng-if="availableRoutes.length">
             <li ng-if="url.slug!='all'" ng-repeat='url in availableRoutes' role="presentation" ng-class='{"active": isTagActive(url.slug)}'>
               <a ng-if='url.name'

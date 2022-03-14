@@ -197,6 +197,21 @@ angular.module('miller')
       setNewLocation()
     }
 
+    $scope.selectIssueTag = function (tag) {
+      var filterType = 'tags__slug__and';
+      var tagIdx = filterType in $scope.filters ? $scope.filters[filterType].findIndex(function(t) { return tag === t; }) : -1
+      if (filterType in $scope.filters && tagIdx !== -1) {
+        $scope.filters[filterType].splice(tagIdx, 1);
+        var collectionIdx = $scope.filters[filterType].findIndex( function(t) { return 'collection' === t; });
+        if (collectionIdx !== -1) {
+          $scope.filters[filterType].splice(collectionIdx, 1);
+        }
+      } else {
+        $scope.filters[filterType] = [tag, 'collection']
+      }
+      setNewLocation()
+    }
+
     $scope.isTagActive = function (tag) {
       /*
       * Default way to define if a tag is selected or not

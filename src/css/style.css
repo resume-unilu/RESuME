@@ -4624,3 +4624,15 @@ div.ng-tag-cloud span { padding: 0; }
     width: 50%;
   }
 }
+
+.issue-filter {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.issue-filter::-webkit-scrollbar {
+  display: none;
+}
+.issue-filter {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
