@@ -1,6 +1,5 @@
 <!-- <div ng-if='!$first' class="divider"></div> -->
 <div class="story collection lite">
-  
   <div class="row">
     <div class="col-md-4" ng-if='story.covers.length'>
       <div  ng-repeat='document in story.covers' class='fluid-container relative'>
@@ -11,14 +10,14 @@
 
     <div ng-class='story.covers.length?"col-md-8": "col-md-12"'>
       <div class="divider"></div>
-  
+
       <div class="tags" ng-if="story.tags.length">
         <span class='tag' ng-repeat='tag in story.tags|filter:"public"' ng-include='"templates/partials/tag.html"|prefixTemplate'></span>
       </div>
       <!-- <div class="date">{{story.date_created|date:'mediumDate'}}</div> -->
-      
-      <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '(DRAFT)': ''}}</a></h3>  
-      
+
+      <h3 class="title"><a ui-sref="story({postId: story.slug})"><span rewording value='story.data.title' default='{{story.title}}'></span> {{story.status != 'public'? '(DRAFT)': ''}}</a></h3>
+
       <div class='authors' ng-if="story.authors.length">
         <span translate='by'></span> <span ng-repeat='author in story.authors' ng-include='"templates/partials/author.html"|prefixTemplate'></span>
       </div>
@@ -30,7 +29,7 @@
           <em ng-if="story.difference">{{story.difference}}</em>
         </p>
       </blockquote>
-      
+
       <blockquote ng-if='!story.excerpt' rewording value='story.data.abstract' markdown='inline' default='{{story.abstract}}'></blockquote>
     </div>
   </div>

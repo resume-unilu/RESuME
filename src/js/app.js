@@ -816,6 +816,11 @@ angular
             return TagFactory.get({used_keywords: true, limit: 100, statistics_sort: 'euro_usage_statistics'}).$promise.then(function (response) {
               return response.results
             });
+          },
+          issues: function (TagFactory) {
+            return TagFactory.get({limit: 1000, filters: {category: 'publishing', 'slug__regex': '^euro-\\d{4}-.*', status: 'public'}, orderby: '-slug'}).$promise.then(function (response) {
+              return response.results
+            });
           }
         }
       })
@@ -828,13 +833,13 @@ angular
             return {
               filters: {
                 tags__category: 'writing',
-                tags__slug: 'revue-ecu-euro'
+                tags__slug: 'collection'
               },
               exclude: {
-                data__issue__isnull: true
+                // data__issue__isnull: true
               },
               limit: 10,
-              orderby: '-data__issue'
+              orderby: '-date'
             };
           },
           items: function(StoryFactory, djangoFiltersService, initials) {
