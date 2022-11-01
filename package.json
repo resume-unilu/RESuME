@@ -9,7 +9,7 @@
   "author": "daniele.guido@cvce.eu",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "angular-tag-cloud": "^0.3.4",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "wordcloud": "^1.2.2"
   }
 }
